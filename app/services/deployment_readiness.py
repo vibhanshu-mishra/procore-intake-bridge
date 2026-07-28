@@ -5,6 +5,12 @@ from urllib.parse import urlsplit, urlunsplit
 from pydantic import BaseModel
 
 from app.config import Settings
+from app.security.secret_provider_factory import (
+    build_secret_provider,
+    summarize_secret_provider_config,
+)
+from app.security.secret_refs import SecretRefError, mask_secret_ref, validate_secret_ref
+from app.security.secrets import SecretProviderError
 
 
 class DeploymentFinding(BaseModel):
@@ -137,16 +143,100 @@ def check_attachment_storage_safety(settings: Settings) -> list[DeploymentFindin
 
 
 def check_secret_provider_safety(settings: Settings) -> list[DeploymentFinding]:
+    findings: list[DeploymentFinding] = []
     if settings.secret_provider == "env":
-        return [
+        findings.append(
             _finding(
                 "secret_provider",
-                "warning",
-                "Environment secrets are suitable only with external runtime injection for "
-                "small or self-hosted deployments.",
+                "blocking",
+                "The environment provider requires externally injected runtime secrets and "
+                "is not accepted as the final production secret-manager adapter.",
+                "production",
             )
-        ]
-    return [_finding("secret_provider", "info", "A non-environment secret provider is configured.")]
+        )
+    elif settings.secret_provider == "disabled":
+        findings.append(
+            _finding(
+                "secret_provider",
+                "blocking",
+                "The disabled secret provider fails closed and cannot support production.",
+                "production",
+            )
+        )
+    elif settings.secret_provider == "external_placeholder":
+        findings.append(
+            _finding(
+                "secret_provider",
+                "blocking",
+                "The external placeholder performs no secret-manager integration.",
+                "production",
+            )
+        )
+    elif settings.secret_provider == "test":
+        findings.append(
+            _finding(
+                "secret_provider",
+                "blocking",
+                "The in-memory test provider is forbidden in production.",
+                "production",
+            )
+        )
+    required_refs = []
+    if settings.admin_require_token and settings.admin_token_secret_name:
+        required_refs.append(settings.admin_token_secret_name)
+    if settings.require_webhook_signature and settings.webhook_secret_name:
+        required_refs.append(settings.webhook_secret_name)
+    for ref in required_refs:
+        try:
+            validate_secret_ref(ref, settings)
+        except SecretRefError:
+            findings.append(
+                _finding(
+                    "secret_reference",
+                    "blocking",
+                    "A required secret reference is invalid or missing its prefix.",
+                    "production",
+                )
+            )
+    if not settings.secret_health_check_enabled:
+        findings.append(
+            _finding(
+                "secret_provider_health",
+                "warning",
+                "Secret-provider health checks are disabled.",
+            )
+        )
+    else:
+        try:
+            provider = build_secret_provider(settings)
+            health = provider.health_check(required_refs)
+            if health.missing_refs_count:
+                findings.append(
+                    _finding(
+                        "secret_provider_health",
+                        "blocking",
+                        "One or more required secret references are missing.",
+                        "production",
+                    )
+                )
+            else:
+                findings.append(
+                    _finding(
+                        "secret_provider_health",
+                        "info",
+                        "Provider health check completed without exposing values.",
+                    )
+                )
+        except SecretProviderError:
+            findings.append(
+                _finding(
+                    "secret_provider_health",
+                    "blocking",
+                    "The selected secret provider is unavailable or misconfigured.",
+                    "production",
+                )
+            )
+    return findings
 
 
 def check_output_paths(settings: Settings) -> list[DeploymentFinding]:
@@ -219,6 +309,10 @@ def mask_database_url(database_url: str) -> str:
 
 
 def build_sanitized_config_summary(settings: Settings) -> dict:
+    masked_refs = []
+    for ref in (settings.admin_token_secret_name, settings.webhook_secret_name):
+        if ref:
+            masked_refs.append(mask_secret_ref(ref, settings))
     return {
         "environment": settings.environment,
         "database_url": mask_database_url(settings.database_url),
@@ -238,5 +332,6 @@ def build_sanitized_config_summary(settings: Settings) -> dict:
         "webhook_signature_required": settings.require_webhook_signature,
         "webhook_secret_reference_configured": bool(settings.webhook_secret_name.strip()),
         "attachment_fixture_downloads_only": settings.attachment_fixture_downloads_only,
-        "secret_provider": settings.secret_provider,
+        "secret_provider": summarize_secret_provider_config(settings),
+        "masked_required_secret_refs": masked_refs,
     }

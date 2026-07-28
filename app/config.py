@@ -75,11 +75,48 @@ class Settings(BaseSettings):
             "PROCORE_INTAKE_PROCORE_ENVIRONMENT", "APP_PROCORE_ENVIRONMENT"
         ),
     )
-    secret_provider: Literal["env"] = Field(
+    secret_provider: Literal["env", "test", "disabled", "external_placeholder"] = Field(
         default="env",
         validation_alias=AliasChoices(
             "PROCORE_INTAKE_SECRET_PROVIDER", "APP_SECRET_PROVIDER"
         ),
+    )
+    secret_ref_prefix: str = Field(
+        default="PROCORE_INTAKE_SECRET_",
+        min_length=1,
+        validation_alias="PROCORE_INTAKE_SECRET_REF_PREFIX",
+    )
+    secret_require_prefix: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SECRET_REQUIRE_PREFIX",
+    )
+    secret_mask_mode: Literal["last4"] = Field(
+        default="last4",
+        validation_alias="PROCORE_INTAKE_SECRET_MASK_MODE",
+    )
+    secret_health_check_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SECRET_HEALTH_CHECK_ENABLED",
+    )
+    secret_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SECRET_FAIL_CLOSED",
+    )
+    external_secret_provider_name: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_EXTERNAL_SECRET_PROVIDER_NAME",
+    )
+    external_secret_provider_region: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_EXTERNAL_SECRET_PROVIDER_REGION",
+    )
+    external_secret_provider_project: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_EXTERNAL_SECRET_PROVIDER_PROJECT",
+    )
+    external_secret_provider_vault_url: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_EXTERNAL_SECRET_PROVIDER_VAULT_URL",
     )
     default_polling_interval_minutes: int = Field(
         default=30,

@@ -48,6 +48,11 @@ Phase A2 preserves these constraints:
 - B1 performs bounded read probes only: no Procore writes, raw payload persistence, raw signed URL
   reporting, attachment downloads, polling, event processing, or background execution.
 - B1 automated tests use injected mocks and require no live credentials or network calls.
+- Secret values resolve behind the B2 provider interface; database models retain references only.
+- Provider errors, health, inventory, readiness, APIs, CLIs, admin, and smoke output never return
+  secret values or raw environment dumps.
+- The test provider is in-memory/local-only. Disabled and external-placeholder providers fail
+  closed; B2 includes no cloud SDK or external secret-manager network call.
 
 Before production, add tenant authorization, an audited secret-manager integration, encryption and
 key rotation, database migrations, data retention controls, request logging with redaction,

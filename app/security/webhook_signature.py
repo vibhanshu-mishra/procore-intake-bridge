@@ -4,7 +4,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 
 from app.config import Settings
-from app.security.secret_provider import SecretNotFoundError, SecretProvider
+from app.security.secret_provider import SecretProvider, SecretProviderError
 
 
 class WebhookSignatureError(ValueError):
@@ -41,7 +41,7 @@ def verify_webhook_signature(
         raise WebhookSignatureError("Required webhook signature header is missing.")
     try:
         secret = secret_provider.get_secret(settings.webhook_secret_name)
-    except SecretNotFoundError as exc:
+    except SecretProviderError as exc:
         raise WebhookSignatureError(
             "Required webhook signature secret could not be resolved."
         ) from exc

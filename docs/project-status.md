@@ -8,6 +8,11 @@ use injected mocks; no default test calls Procore. A real run requires the expli
 live-mode flag, sandbox API target, exact confirmation phrase, an existing sandbox connection,
 and matching allowlisted company/project identifiers.
 
+B2 is implemented as a provider registry with local environment and in-memory test providers plus
+disabled/external fail-closed placeholders. Secret references and values are separated across
+DMSA, webhook, admin-token, readiness, and smoke paths. Real cloud or Vault adapters are not
+implemented and remain future work.
+
 - Default runtime: local SQLite with fixture/mock intake.
 - Live Procore mode: disabled by default and manually gated.
 - Procore writes: none.

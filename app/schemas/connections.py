@@ -1,7 +1,10 @@
 from datetime import datetime
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_serializer
+
+from app.config import get_settings
+from app.security.secret_refs import mask_secret_ref
 
 
 class ConnectionCreate(BaseModel):
@@ -36,3 +39,7 @@ class ConnectionRead(BaseModel):
     status: Literal["pending", "active", "degraded", "revoked"]
     created_at: datetime
     updated_at: datetime
+
+    @field_serializer("client_id_ref", "secret_name")
+    def serialize_secret_ref(self, value: str | None) -> str | None:
+        return mask_secret_ref(value, get_settings()) if value else None

@@ -23,6 +23,16 @@ post-incident, and access-revocation procedures remain production placeholders.
 
 Restart after configuration changes and inspect the sanitized readiness report.
 
+## Secret provider audit and rotation
+
+Run `python scripts/check_secret_provider.py` for sanitized posture and add `--strict` when
+missing or unavailable refs should fail. Output contains masked names and status only; never dump
+the environment to troubleshoot.
+
+After rotating a value at its owner, update runtime injection, restart affected processes, and
+repeat the audit. Revoke or rotate suspected exposure immediately. The B2 external provider is
+only a fail-closed placeholder and performs no cloud or Vault request.
+
 ## Manual sandbox DMSA smoke
 
 Run `python scripts/print_sandbox_smoke_plan.py` first; it never calls Procore. Follow

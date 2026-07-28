@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any
 
 from app.config import Settings
-from app.security.secret_provider import SecretNotFoundError, SecretProvider
+from app.security.secret_provider import SecretProvider, SecretProviderError
 
 ADMIN_TOKEN_HEADER = "x-procore-intake-admin-token"
 
@@ -30,7 +30,7 @@ def require_admin_access(
         )
     try:
         expected = secret_provider.get_secret(settings.admin_token_secret_name)
-    except SecretNotFoundError as exc:
+    except SecretProviderError as exc:
         raise AdminAccessError(
             "Admin token protection is required but unavailable.",
             503,

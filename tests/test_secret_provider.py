@@ -50,7 +50,8 @@ def test_env_secret_provider_missing_error_is_safe(monkeypatch):
     monkeypatch.delenv("PROCORE_INTAKE_SECRET_MISSING_REFERENCE", raising=False)
     with pytest.raises(SecretNotFoundError) as error:
         EnvSecretProvider().get_secret("missing_reference")
-    assert "PROCORE_INTAKE_SECRET_MISSING_REFERENCE" in str(error.value)
+    assert "PROCORE_INTAKE_SECRET_MISSING_REFERENCE" not in str(error.value)
+    assert "****" in str(error.value)
 
 
 def test_provider_factory_returns_env_provider():

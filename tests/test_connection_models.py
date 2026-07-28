@@ -20,8 +20,10 @@ def test_connection_creation_uses_secret_reference(client):
     )
     assert response.status_code == 201
     payload = response.json()
-    assert payload["secret_name"] == "secret/placeholder"
-    assert payload["client_id_ref"] == "demo_client_id"
+    assert payload["secret_name"] != "secret/placeholder"
+    assert payload["client_id_ref"] != "demo_client_id"
+    assert "****" in payload["secret_name"]
+    assert "****" in payload["client_id_ref"]
     assert "client_secret" not in payload
     serialized = response.text
     assert raw_client_id not in serialized

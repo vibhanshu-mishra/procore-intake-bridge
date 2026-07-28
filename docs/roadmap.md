@@ -5,9 +5,12 @@ attachment manifests, onboarding, local admin, and deployment-hardening structur
 
 Completed: B1 adds a manually gated, mocked-by-default sandbox DMSA smoke harness.
 
+Completed: B2 adds the secret-provider contract, masked inventory, local/test implementations,
+and fail-closed external placeholders.
+
 Possible future phases below are **not implemented or committed**:
 
-- B2: production secret-manager adapter.
+- Future provider work: implement and review a real production secret-manager adapter.
 - B3: database migration hardening and reviewed initial schema revision.
 - B4: authenticated and authorized admin access.
 - B5: production attachment storage backend.

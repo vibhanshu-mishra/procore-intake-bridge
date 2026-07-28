@@ -18,7 +18,7 @@ from app.schemas.admin import (
     AdminSafetyStatus,
 )
 from app.security.admin_access import AdminAccessError, require_admin_access
-from app.security.secret_provider import EnvSecretProvider
+from app.security.secret_provider_factory import build_secret_provider
 from app.services.admin_dashboard import (
     build_admin_overview,
     build_attachment_summary,
@@ -40,7 +40,7 @@ templates = Jinja2Templates(
 def admin_guard(request: Request) -> Settings:
     settings = get_settings()
     try:
-        require_admin_access(request, settings, EnvSecretProvider())
+        require_admin_access(request, settings, build_secret_provider(settings))
     except AdminAccessError as exc:
         raise HTTPException(
             status_code=exc.status_code, detail=str(exc)

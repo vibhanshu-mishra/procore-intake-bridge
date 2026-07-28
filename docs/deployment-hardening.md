@@ -21,6 +21,11 @@ python scripts/print_config_summary.py
 The config summary masks database credentials. Unsafe production fails startup when configured
 to fail closed; reporting blockers without raising does not approve a deployment.
 
+Secret-provider readiness reports only adapter posture and masked required-reference status. The
+local `env` provider is a strict production blocker until an approved external injection pattern
+exists. `disabled`, `test`, and `external_placeholder` are also production blockers; the
+placeholder makes no network call and is not a real secret-manager integration.
+
 Alembic obtains its URL from runtime settings. Review revisions before `alembic upgrade head`;
 never generate or run migrations against production without backups, review, and a rollback plan.
 

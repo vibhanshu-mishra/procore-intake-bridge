@@ -11,7 +11,7 @@ from app.schemas.webhooks import (
     WebhookEventRead,
     WebhookReceiveResult,
 )
-from app.security.secret_provider import EnvSecretProvider
+from app.security.secret_provider_factory import build_secret_provider
 from app.security.webhook_signature import (
     WebhookSignatureError,
     verify_webhook_signature,
@@ -99,17 +99,10 @@ async def _receive(
         raise HTTPException(status_code=422, detail="Webhook body must be a JSON object.")
 
     try:
-        if (
-            settings.require_webhook_signature
-            and settings.webhook_secret_provider != "env"
-        ):
-            raise WebhookSignatureError(
-                "Configured webhook secret provider is unsupported."
-            )
         signature_result = verify_webhook_signature(
             raw_body,
             request.headers,
-            EnvSecretProvider(),
+            build_secret_provider(settings),
             settings,
         )
     except WebhookSignatureError as exc:

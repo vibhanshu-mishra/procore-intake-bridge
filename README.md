@@ -107,6 +107,7 @@ See [the architecture document](docs/architecture.md).
 | A8 | Complete | Deployment hardening structure |
 | A9 | Complete | Repository polish and public launch readiness |
 | B1 | Complete | Manually gated sandbox DMSA smoke harness |
+| B2 | Complete | Production-shaped secret-provider adapter layer |
 
 The current source version is `0.1.0`; no package publication or release tag is implied.
 
@@ -134,6 +135,21 @@ It reads at most a small configured sample, downloads no attachments, persists n
 and stores no raw URLs. Production is blocked by default. See
 [the B1 safety guide](docs/sandbox-smoke-tests.md). Passing it is not a production guarantee.
 
+## Secret-provider layer
+
+B2 routes DMSA, webhook, local admin-token, and sandbox-smoke resolution through one provider
+contract. The environment provider remains the local default; the test provider is in-memory
+only, while disabled and external-placeholder providers fail closed. No cloud SDK or real
+external secret-manager integration is included.
+
+```bash
+python scripts/check_secret_provider.py
+```
+
+Database fields store references only, and operational output masks them without returning
+values. Production still needs an independently reviewed real secret-manager adapter or external
+injection pattern. See [secret management](docs/secret-management.md).
+
 ## Documentation
 
 - [Documentation home](docs/index.md)
@@ -148,6 +164,7 @@ and stores no raw URLs. Production is blocked by default. See
 - [Operations runbook](docs/operations-runbook.md)
 - [Safety model](docs/safety-model.md)
 - [Sandbox smoke tests](docs/sandbox-smoke-tests.md)
+- [Secret management](docs/secret-management.md)
 - [Roadmap](docs/roadmap.md)
 - [Public launch checklist](docs/public-launch-checklist.md)
 
