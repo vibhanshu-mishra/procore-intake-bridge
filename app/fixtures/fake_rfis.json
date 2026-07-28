@@ -1,0 +1,15 @@
+[
+  {
+    "id": "rfi-101",
+    "project_id": "project-1001",
+    "number": "RFI-001",
+    "title": "Confirm slab edge detail",
+    "status": "open",
+    "due_date": "2026-08-05",
+    "received_at": "2026-07-20T14:00:00Z",
+    "updated_at": "2026-07-21T15:30:00Z",
+    "attachments": [
+      {"id": "att-rfi-1", "filename": "slab-edge.pdf", "content_type": "application/pdf"}
+    ]
+  }
+]

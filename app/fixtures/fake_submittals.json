@@ -1,0 +1,16 @@
+[
+  {
+    "id": "sub-202",
+    "project_id": "project-1001",
+    "number": "SUB-014",
+    "title": "Structural steel shop drawings",
+    "status": "pending_review",
+    "due_date": "2026-08-12",
+    "received_at": "2026-07-22T09:00:00Z",
+    "updated_at": "2026-07-23T11:15:00Z",
+    "attachments": [
+      {"id": "att-sub-1", "filename": "steel-shops.pdf", "content_type": "application/pdf"},
+      {"id": "att-sub-2", "filename": "transmittal.txt", "content_type": "text/plain"}
+    ]
+  }
+]
