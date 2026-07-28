@@ -58,6 +58,10 @@ files.
 - `POST /attachments/plan`
 - `POST /attachments/{id}/fixture-download`
 - `GET /intake-records/{id}/attachments`
+- `GET /onboarding/default-permissions`
+- `POST /onboarding/preview` and `POST /onboarding/generate`
+- `POST /connections/{id}/onboarding-packet`
+- `POST /onboarding-packets/{id}/export-local`
 
 Connection payloads accept `client_id_ref` and `secret_name` references. There is no client-secret
 field. Environment-backed resolution is available only to the live-gated health path. Dry runs
@@ -88,6 +92,14 @@ safe relative keys, sanitizes filenames, and stores only whether a source URL ex
 SHA-256 hash—never the URL. No real attachment download is available. The explicitly named
 fixture-download route writes a small deterministic local file for testing only, with overwrite
 disabled by default. See [`docs/attachment-storage.md`](docs/attachment-storage.md).
+
+Phase A6 adds an offline GC/Owner onboarding packet generator. It renders professional Markdown
+and JSON covering DMSA/private-app purpose, requested projects, minimum permissions, data access,
+safety boundaries, installation review, health checks, troubleshooting, control/revocation, and
+the independent-tool disclaimer. Preview does not persist; generate stores a review copy locally;
+export writes only Markdown/JSON beneath a gitignored directory. No email, PDF, DOCX, hosted link,
+installation, or Procore call is performed. See
+[`docs/onboarding-packets.md`](docs/onboarding-packets.md).
 
 ## Safety model and current limitations
 

@@ -130,6 +130,22 @@ class Settings(BaseSettings):
         default=True,
         validation_alias="PROCORE_INTAKE_ATTACHMENT_FIXTURE_DOWNLOADS_ONLY",
     )
+    packet_output_root: Path = Field(
+        default=Path("./packet-output"),
+        validation_alias="PROCORE_INTAKE_PACKET_OUTPUT_ROOT",
+    )
+    default_requester_company_name: str = Field(
+        default="Your Company",
+        min_length=1,
+        max_length=200,
+        validation_alias="PROCORE_INTAKE_DEFAULT_REQUESTER_COMPANY_NAME",
+    )
+    default_app_name: str = Field(
+        default="Procore Intake Bridge",
+        min_length=1,
+        max_length=200,
+        validation_alias="PROCORE_INTAKE_DEFAULT_APP_NAME",
+    )
 
 
 @lru_cache

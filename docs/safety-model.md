@@ -17,6 +17,10 @@ Phase A2 preserves these constraints:
 - Raw signed attachment URLs are never stored; only presence flags and hashes are retained.
 - There is no attachment upload, delete, or public file-serving route.
 - A5 has no S3, Azure Blob, Google Cloud Storage, presigned URLs, or cloud storage.
+- Onboarding packets contain no secrets and are local Markdown/JSON artifacts only.
+- Packets do not grant access; the GC/Owner controls installation, permissions, and revocation.
+- A6 generates no PDF, DOCX, email, hosted link, or external delivery.
+- No Procore endorsement, certification, partnership, affiliation, or official support is claimed.
 - Live Procore access is opt-in and disabled by default.
 - Live-mode adapter calls fail closed with `LiveProcoreDisabledError`.
 - Mock health checks are deterministic and do not resolve credentials.

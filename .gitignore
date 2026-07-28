@@ -14,6 +14,8 @@ webhook-logs/
 storage/
 attachments/
 downloaded-attachments/
+packet-output/
+onboarding-output/
 *.pdf
 *.docx
 *.xlsx

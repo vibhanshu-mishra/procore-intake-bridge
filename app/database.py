@@ -30,6 +30,7 @@ def create_db_and_tables() -> None:
         DMSAConnection,
         IntakeAttachment,
         IntakeRecord,
+        OnboardingPacket,
         SyncProfile,
         SyncRun,
         WebhookEvent,

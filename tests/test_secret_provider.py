@@ -27,6 +27,9 @@ def test_live_mode_defaults_off():
     assert settings.attachment_max_filename_length == 160
     assert settings.attachment_allow_overwrite is False
     assert settings.attachment_fixture_downloads_only is True
+    assert str(settings.packet_output_root) == "packet-output"
+    assert settings.default_requester_company_name == "Your Company"
+    assert settings.default_app_name == "Procore Intake Bridge"
 
 
 def test_env_secret_provider_maps_and_resolves(monkeypatch):

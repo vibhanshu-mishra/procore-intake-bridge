@@ -1,0 +1,48 @@
+{
+  "packet_name": "Example GC/Owner Private App Installation Packet",
+  "packet_type": "gc_owner_private_app_install",
+  "identity": {
+    "recipient_company_name": "Example GC Company",
+    "requester_company_name": "Example Engineering Firm",
+    "app_name": "Procore Intake Bridge",
+    "app_version_key_ref": "APP_VERSION_KEY_PLACEHOLDER"
+  },
+  "requested_projects": [
+    "111111",
+    "222222"
+  ],
+  "requested_tools": [
+    "rfis",
+    "submittals"
+  ],
+  "permissions": [
+    {
+      "category": "required",
+      "tool": "RFIs",
+      "access": "Read Only"
+    },
+    {
+      "category": "required",
+      "tool": "Submittals",
+      "access": "Read Only"
+    },
+    {
+      "category": "not_requested",
+      "tool": "Financial tools",
+      "access": "Not requested by default"
+    },
+    {
+      "category": "not_requested",
+      "tool": "Create/update/delete/approve/submit/upload",
+      "access": "Not requested"
+    }
+  ],
+  "safety_summary": [
+    "Read-only",
+    "No Procore writes",
+    "No raw signed URL storage",
+    "GC/Owner controls and may revoke access"
+  ],
+  "support_contact": "SUPPORT_CONTACT_PLACEHOLDER",
+  "disclaimer": "Procore Intake Bridge is an independent tool and is not affiliated with, endorsed by, or officially supported by Procore."
+}

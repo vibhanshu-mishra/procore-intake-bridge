@@ -8,6 +8,7 @@ from app.routers import (
     connections,
     event_queue,
     health,
+    onboarding,
     polling,
     sync,
     sync_profiles,
@@ -35,3 +36,4 @@ app.include_router(polling.router)
 app.include_router(webhooks.router)
 app.include_router(event_queue.router)
 app.include_router(attachments.router)
+app.include_router(onboarding.router)

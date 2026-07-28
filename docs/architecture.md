@@ -22,6 +22,8 @@ flowchart LR
     C --> N[("AttachmentObject manifests")]
     N --> O["Local AttachmentStorage"]
     O -. "fixture bytes only" .-> P[("Ignored local storage root")]
+    Q["OnboardingPacket service"] --> R[("OnboardingPacket table")]
+    R --> S[("Ignored local Markdown/JSON output")]
 ```
 
 PyProcore owns OAuth and token refresh, HTTP requests, pagination, retries, typed response parsing,
@@ -48,3 +50,7 @@ mechanism.
 Attachment metadata flows from intake sync into `AttachmentObject` manifests. The local storage
 service derives safe relative keys and can write deterministic fixture bytes only when explicitly
 requested. No real download occurs by default, and no raw signed URL is stored.
+
+The A6 OnboardingPacket service reads only caller input and local connection/profile metadata. It
+renders Markdown/JSON for review and optional local export; it does not call Procore, install an
+app, send email, or grant access.
