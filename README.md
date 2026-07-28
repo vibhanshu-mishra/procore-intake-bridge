@@ -1,28 +1,48 @@
 # Procore Intake Bridge
 
-Procore Intake Bridge is a private, read-only backend intake service for subcontractors,
-consultants, and engineering firms. It pulls RFIs, Submittals, and attachments visible through
-those items from GC/Owner-owned Procore projects into the customer's own tracking system.
+> A read-only DMSA intake service for syncing Procore RFIs, Submittals, visible attachments,
+> webhooks, and onboarding workflows into a local tracking system.
 
-## Why DMSA
+<p align="center">
+  <img alt="Python 3.12+" src="https://img.shields.io/badge/Python-3.12%2B-3776AB?style=for-the-badge&logo=python&logoColor=white">
+  <img alt="FastAPI" src="https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi&logoColor=white">
+  <img alt="Tests" src="https://img.shields.io/badge/Tests-Pytest-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white">
+  <img alt="Read only" src="https://img.shields.io/badge/Procore-Read_Only-2E7D32?style=for-the-badge">
+  <img alt="Fixture safe" src="https://img.shields.io/badge/Default-Fixture_Safe-5C6BC0?style=for-the-badge">
+  <img alt="Local first" src="https://img.shields.io/badge/Runtime-Local_First-455A64?style=for-the-badge">
+  <img alt="MIT License" src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge">
+</p>
 
-A Developer Managed Service Account (DMSA) lets a GC or Owner install a private app, associate a
-dedicated service identity, and limit that identity to approved projects and read-only tools. This
-avoids depending on an employee's account and makes access intentional and auditable.
+Procore Intake Bridge is a separate backend product layer that uses
+[PyProcore](https://pypi.org/project/pyprocore/) as its SDK boundary. It helps subcontractors,
+consultants, and engineering teams model controlled, GC/Owner-approved read-only access through a
+Developer Managed Service Account (DMSA). The GC or Owner retains control over private-app
+installation, projects, tools, permissions, and revocation.
 
-## Architecture
+## What it does
 
-[PyProcore](https://pypi.org/project/pyprocore/) is the SDK layer responsible for Procore
-authentication, requests, pagination, typed parsing, retries, and download plumbing. This app is
-the product layer: connection profiles, project allowlists, sync state, normalized intake records,
-attachment manifests, logs, health checks, onboarding, and future polling/webhook coordination.
+- Models DMSA connection profiles using secret references.
+- Coordinates project-level sync profiles, watermarks, locks, and run-once polling.
+- Stores normalized webhook events for a local database-backed event queue.
+- Syncs synthetic RFI/Submittal fixtures into local intake records.
+- Plans safe attachment manifests without retaining raw signed URLs.
+- Generates local GC/Owner onboarding packet previews and Markdown/JSON exports.
+- Provides a minimal read-only local admin dashboard.
+- Reports sanitized deployment readiness and startup-safety findings.
 
-Fixture sync still deliberately uses local JSON. Phase A2 adds a production-shaped DMSA credential
-profile and an injected PyProcore client boundary. **Live mode is disabled by default** and must be
-explicitly enabled before the adapter can resolve credentials or construct a live client.
-Therefore, no live Procore calls occur during normal local development or tests.
+## What it does not do
 
-## Local setup
+> **Safety boundary:** this project has no Procore write-back behavior.
+
+- It does not create, edit, approve, submit, close, delete, or upload anything in Procore.
+- It does not bypass GC/Owner installation, project, or tool permissions.
+- It does not store plaintext credentials or raw signed attachment URLs.
+- It makes no live Procore calls by default; live mode is disabled explicitly.
+- It does not send email or generate PDF/DOCX files.
+- It does not provide production authentication or a production deployment guarantee.
+- It is not affiliated with, endorsed by, certified by, or supported by Procore Technologies.
+
+## Quick start
 
 Python 3.12 or newer is required.
 
@@ -30,104 +50,103 @@ Python 3.12 or newer is required.
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e ".[dev]"
-uvicorn app.main:app --reload
 pytest
+uvicorn app.main:app --reload
 ```
 
-SQLite is the default local database. Copy `.env.example` to `.env` only to customize safe local
-settings. Never place credentials, tokens, real company/project IDs, or client data in committed
-files.
+Then open:
 
-## Routes
+- [Health](http://127.0.0.1:8000/health)
+- [Readiness](http://127.0.0.1:8000/ready)
+- [Local admin dashboard](http://127.0.0.1:8000/admin)
+- [OpenAPI documentation](http://127.0.0.1:8000/docs)
 
-- `GET /health`, `GET /ready`, and `GET /safety`
-- `GET /connections`, `POST /connections`, and `GET /connections/{id}`
-- `POST /connections/{id}/health-check`
-- `POST /connections/{id}/sync/dry-run`
-- `POST /connections/{id}/sync/run`
-- `GET`, `POST`, and `PATCH /sync-profiles`
-- `POST /sync-profiles/{id}/dry-run`
-- `POST /sync-profiles/{id}/run-once`
-- `GET /sync-profiles/{id}/state`
-- `POST /polling/run-once` (safe default: `dry_run=true`)
-- `POST /webhooks/procore` and `POST /webhooks/procore/dry-run`
-- `GET /webhook-events` and `GET /webhook-events/{id}`
-- `POST /webhook-events/{id}/replay`
-- `POST /event-queue/run-once` (safe default: `dry_run=true`)
-- `GET /attachments` and `GET /attachments/{id}`
-- `POST /attachments/plan`
-- `POST /attachments/{id}/fixture-download`
-- `GET /intake-records/{id}/attachments`
-- `GET /onboarding/default-permissions`
-- `POST /onboarding/preview` and `POST /onboarding/generate`
-- `POST /connections/{id}/onboarding-packet`
-- `POST /onboarding-packets/{id}/export-local`
-- `GET /admin` and the read-only pages beneath `/admin/*`
-- `GET /admin/api/overview`, `/admin/api/safety`, and read-only list APIs beneath `/admin/api/*`
+SQLite and fixture/mock execution are the local defaults. Copy `.env.example` to an untracked
+`.env` only when configuration changes are needed; never commit secrets or private data.
 
-Connection payloads accept `client_id_ref` and `secret_name` references. There is no client-secret
-field. Environment-backed resolution is available only to the live-gated health path. Dry runs
-never persist intake data. Runs persist only normalized local fixture data and attachment metadata
-to SQLite; Phase A2 does not add live sync.
+## Safe local demo
 
-Health checks default to `mode=mock`. `mode=live` returns a safe disabled result unless
-`PROCORE_INTAKE_LIVE_MODE_ENABLED=true`. See
-[`docs/dmsa-credential-profiles.md`](docs/dmsa-credential-profiles.md) for the intentional opt-in
-and environment-variable mapping.
+The complete fixture-only walkthrough is in [examples/demo-flow.md](examples/demo-flow.md). It
+uses synthetic IDs to:
 
-Phase A3 adds project-level polling profiles, watermarks, retry state, and overlap protection. It
-is intentionally a run-once worker rather than a daemon or scheduler. The polling endpoint and
-[`scripts/run_poll_once.py`](scripts/run_poll_once.py) default to dry-run; pass
-`?dry_run=false` or `--execute` only to persist fixture intake and local sync state. See
-[`docs/polling-worker.md`](docs/polling-worker.md).
+1. Check health and deployment readiness.
+2. Create a fake local connection and sync profile.
+3. preview sync and polling using dry-run behavior.
+4. Inspect the local admin overview.
+5. Preview a placeholder-only onboarding packet.
 
-Phase A4 adds a store-first webhook receiver and local database event queue. The receiver verifies
-or safely skips a configurable HMAC signature, redacts sensitive payload keys, normalizes and
-deduplicates the event, and stores it without calling Procore or running sync. The event worker
-later maps queued RFI/Submittal events to mock `SyncProfile`s. Try
-`POST /webhooks/procore/dry-run` to inspect normalization without persistence and
-`POST /event-queue/run-once?dry_run=true` to preview queued processing. See
-[`docs/webhooks.md`](docs/webhooks.md).
+No credentials or live Procore access are required.
 
-Phase A5 adds local attachment manifests and a filesystem storage abstraction. Intake sync plans
-safe relative keys, sanitizes filenames, and stores only whether a source URL existed plus its
-SHA-256 hash—never the URL. No real attachment download is available. The explicitly named
-fixture-download route writes a small deterministic local file for testing only, with overwrite
-disabled by default. See [`docs/attachment-storage.md`](docs/attachment-storage.md).
+## Architecture
 
-Phase A6 adds an offline GC/Owner onboarding packet generator. It renders professional Markdown
-and JSON covering DMSA/private-app purpose, requested projects, minimum permissions, data access,
-safety boundaries, installation review, health checks, troubleshooting, control/revocation, and
-the independent-tool disclaimer. Preview does not persist; generate stores a review copy locally;
-export writes only Markdown/JSON beneath a gitignored directory. No email, PDF, DOCX, hosted link,
-installation, or Procore call is performed. See
-[`docs/onboarding-packets.md`](docs/onboarding-packets.md).
+```mermaid
+flowchart LR
+    A["GC / Owner permissions"] -. "future approved read-only access" .-> B["DMSA connection profile"]
+    F["Synthetic local fixtures"] --> B
+    B --> C["Guarded PyProcore adapter"]
+    C --> D["SyncProfile / webhook queue"]
+    D --> E["Intake records / attachment manifests"]
+    D --> G["Onboarding / admin dashboard"]
+```
 
-Phase A7 adds a minimal local admin dashboard over the existing database. Every admin route is
-GET-only and uses dedicated masked/redacted projections; it does not expose credential references,
-raw webhook or intake payloads, signed URLs, generated onboarding content, or absolute storage
-paths. It makes no Procore calls. The default token-free configuration is only for local
-development and is not production authentication. See
-[`docs/admin-dashboard.md`](docs/admin-dashboard.md).
+Most implemented data flows are local and fixture/mock by default. The guarded adapter can only
+construct a live read client after explicit opt-in; it never supplies Procore mutation routes.
+See [the architecture document](docs/architecture.md).
 
-Phase A8 adds deployment hardening structure: deployment profiles, startup safety checks,
-sanitized readiness routes, Alembic scaffolding, local Docker assets, and an operations runbook.
-Run `python scripts/check_deployment_readiness.py`; for local Docker development, run
-`docker compose up --build`. These assets are local-dev only. The app is not production-ready
-until all blockers and independent controls in
-[`docs/deployment-hardening.md`](docs/deployment-hardening.md) are resolved.
+## Project status
 
-## Safety model and current limitations
+| Phase | Status | Scope |
+|---|---|---|
+| A1 | Complete | FastAPI, models, SQLite, fixture intake |
+| A2 | Complete | Guarded DMSA credential and SDK boundary |
+| A3 | Complete | Sync profiles and run-once polling |
+| A4 | Complete | Store-first webhooks and event queue |
+| A5 | Complete | Attachment manifests and fixture storage |
+| A6 | Complete | Local onboarding packets |
+| A7 | Complete | Read-only local admin dashboard |
+| A8 | Complete | Deployment hardening structure |
+| A9 | Complete | Repository polish and public launch readiness |
 
-This service is **read-only with respect to Procore**. It has no routes or services for creating,
-updating, deleting, approving, submitting, closing, or uploading Procore data. There are no
-write-back routes, external AI/model calls, MCP execution, GitHub API calls, or automatic git/PR
-behavior. Live read checks are opt-in; tests use local fixtures and mocks only and never use the
-network.
+The current source version is `0.1.0`; no package publication or release tag is implied.
 
-The service is not production-ready, and a readiness report is not a security guarantee. The
-environment secret provider and admin dashboard are for
-controlled local development; hosted scheduling and webhook delivery infrastructure are not
-implemented; managed secret storage, tenant authentication/authorization, migrations, audit
-logging, and production databases remain future work. See
-[`docs/safety-model.md`](docs/safety-model.md).
+## Documentation
+
+- [Documentation home](docs/index.md)
+- [Architecture](docs/architecture.md)
+- [DMSA credential profiles](docs/dmsa-credential-profiles.md)
+- [Polling worker](docs/polling-worker.md)
+- [Webhooks](docs/webhooks.md)
+- [Attachment storage](docs/attachment-storage.md)
+- [Onboarding packets](docs/onboarding-packets.md)
+- [Admin dashboard](docs/admin-dashboard.md)
+- [Deployment hardening](docs/deployment-hardening.md)
+- [Operations runbook](docs/operations-runbook.md)
+- [Safety model](docs/safety-model.md)
+- [Roadmap](docs/roadmap.md)
+- [Public launch checklist](docs/public-launch-checklist.md)
+
+## Quality and safety audits
+
+```bash
+make quality
+python scripts/audit_public_safety.py
+python scripts/audit_routes_read_only.py
+```
+
+These checks are safeguards, not proof of production security. Before any real deployment,
+resolve all readiness blockers and add independently reviewed authentication, secret management,
+database operations, TLS/network controls, audit logging, retention, backup/restore, incident
+response, and currently verified webhook/live-read behavior.
+
+## Contributing, security, and support
+
+See [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md),
+[SUPPORT.md](SUPPORT.md), and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md). Never include real
+credentials, customer identifiers, URLs, logs, or project data in an issue or pull request.
+
+## License and disclaimer
+
+Licensed under the [MIT License](LICENSE).
+
+This is an independent open-source project. It is not affiliated with, endorsed by, certified by,
+or supported by Procore Technologies, Inc. “Procore” is used only to describe interoperability.
