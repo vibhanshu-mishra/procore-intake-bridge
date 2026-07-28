@@ -11,6 +11,13 @@ logs/
 sync-output/
 event-output/
 webhook-logs/
+storage/
+attachments/
+downloaded-attachments/
+*.pdf
+*.docx
+*.xlsx
+*.zip
 tokens/
 dist/
 build/

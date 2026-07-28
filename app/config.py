@@ -108,6 +108,28 @@ class Settings(BaseSettings):
         min_length=1,
         validation_alias="PROCORE_INTAKE_EVENT_WORKER_ID",
     )
+    attachment_storage_backend: Literal["local"] = Field(
+        default="local",
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_STORAGE_BACKEND",
+    )
+    attachment_storage_root: Path = Field(
+        default=Path("./storage/attachments"),
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_STORAGE_ROOT",
+    )
+    attachment_max_filename_length: int = Field(
+        default=160,
+        ge=32,
+        le=255,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_MAX_FILENAME_LENGTH",
+    )
+    attachment_allow_overwrite: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_ALLOW_OVERWRITE",
+    )
+    attachment_fixture_downloads_only: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_FIXTURE_DOWNLOADS_ONLY",
+    )
 
 
 @lru_cache

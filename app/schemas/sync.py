@@ -1,4 +1,6 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+
+from app.schemas.attachments import AttachmentPlanResult
 
 
 class AttachmentManifestEntry(BaseModel):
@@ -31,3 +33,4 @@ class SyncSummary(BaseModel):
     attachment_count: int
     records: list[NormalizedRecord]
     attachment_manifest: list[AttachmentManifestEntry]
+    attachment_plans: list[AttachmentPlanResult] = Field(default_factory=list)

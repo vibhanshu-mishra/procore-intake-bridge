@@ -26,6 +26,7 @@ def get_session() -> Generator[Session, None, None]:
 
 def create_db_and_tables() -> None:
     from app.models import (  # noqa: F401
+        AttachmentObject,
         DMSAConnection,
         IntakeAttachment,
         IntakeRecord,

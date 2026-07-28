@@ -19,6 +19,9 @@ flowchart LR
     K["Webhook Receiver"] --> L[("WebhookEvent table")]
     L --> M["Run-once Event Queue Worker"]
     M --> J
+    C --> N[("AttachmentObject manifests")]
+    N --> O["Local AttachmentStorage"]
+    O -. "fixture bytes only" .-> P[("Ignored local storage root")]
 ```
 
 PyProcore owns OAuth and token refresh, HTTP requests, pagination, retries, typed response parsing,
@@ -41,3 +44,7 @@ The A4 webhook receiver stores events only: it never calls Procore or invokes sy
 path. The database-backed Event Queue Worker later locks queued events, maps them to `SyncProfile`,
 and triggers the existing fixture/mock intake path. Polling remains the fallback reconciliation
 mechanism.
+
+Attachment metadata flows from intake sync into `AttachmentObject` manifests. The local storage
+service derives safe relative keys and can write deterministic fixture bytes only when explicitly
+requested. No real download occurs by default, and no raw signed URL is stored.

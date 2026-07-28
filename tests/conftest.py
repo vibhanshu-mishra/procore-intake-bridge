@@ -13,6 +13,7 @@ from sqlalchemy.pool import StaticPool
 from app.database import Base, get_session
 from app.main import app
 from app.models import (  # noqa: F401
+    AttachmentObject,
     DMSAConnection,
     IntakeAttachment,
     IntakeRecord,

@@ -4,6 +4,7 @@ from fastapi import FastAPI
 
 from app.database import create_db_and_tables
 from app.routers import (
+    attachments,
     connections,
     event_queue,
     health,
@@ -33,3 +34,4 @@ app.include_router(sync_profiles.router)
 app.include_router(polling.router)
 app.include_router(webhooks.router)
 app.include_router(event_queue.router)
+app.include_router(attachments.router)

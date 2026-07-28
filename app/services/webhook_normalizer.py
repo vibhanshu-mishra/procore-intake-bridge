@@ -10,6 +10,7 @@ SENSITIVE_KEY_MARKERS = (
     "token",
     "password",
     "credential",
+    "url",
 )
 
 

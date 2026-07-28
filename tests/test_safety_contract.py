@@ -23,11 +23,15 @@ def test_docs_state_read_only_and_dmsa_safety():
     onboarding = Path("docs/dmsa-onboarding.md").read_text().lower()
     profiles = Path("docs/dmsa-credential-profiles.md").read_text().lower()
     webhooks = Path("docs/webhooks.md").read_text().lower()
+    attachments = Path("docs/attachment-storage.md").read_text().lower()
     assert "read-only" in readme
     assert "no live" in readme
     assert "no procore writes" in safety
     assert "does not call procore" in webhooks
     assert "never writes to procore" in webhooks
+    assert "signed source urls are never stored" in attachments
+    assert "no s3" in attachments
+    assert "no real procore downloads" in attachments
     assert "dmsa" in onboarding
     assert "disabled by default" in profiles
     assert "plaintext" in profiles

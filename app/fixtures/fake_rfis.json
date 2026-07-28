@@ -9,7 +9,13 @@
     "received_at": "2026-07-20T14:00:00Z",
     "updated_at": "2026-07-21T15:30:00Z",
     "attachments": [
-      {"id": "att-rfi-1", "filename": "slab-edge.pdf", "content_type": "application/pdf"}
+      {
+        "id": "att-rfi-1",
+        "filename": "slab-edge.pdf",
+        "content_type": "application/pdf",
+        "size_bytes": 2048,
+        "source_url": "https://example.invalid/fake-rfi-attachment.pdf"
+      }
     ]
   }
 ]

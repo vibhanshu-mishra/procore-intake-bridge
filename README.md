@@ -54,6 +54,10 @@ files.
 - `GET /webhook-events` and `GET /webhook-events/{id}`
 - `POST /webhook-events/{id}/replay`
 - `POST /event-queue/run-once` (safe default: `dry_run=true`)
+- `GET /attachments` and `GET /attachments/{id}`
+- `POST /attachments/plan`
+- `POST /attachments/{id}/fixture-download`
+- `GET /intake-records/{id}/attachments`
 
 Connection payloads accept `client_id_ref` and `secret_name` references. There is no client-secret
 field. Environment-backed resolution is available only to the live-gated health path. Dry runs
@@ -78,6 +82,12 @@ later maps queued RFI/Submittal events to mock `SyncProfile`s. Try
 `POST /webhooks/procore/dry-run` to inspect normalization without persistence and
 `POST /event-queue/run-once?dry_run=true` to preview queued processing. See
 [`docs/webhooks.md`](docs/webhooks.md).
+
+Phase A5 adds local attachment manifests and a filesystem storage abstraction. Intake sync plans
+safe relative keys, sanitizes filenames, and stores only whether a source URL existed plus its
+SHA-256 hash—never the URL. No real attachment download is available. The explicitly named
+fixture-download route writes a small deterministic local file for testing only, with overwrite
+disabled by default. See [`docs/attachment-storage.md`](docs/attachment-storage.md).
 
 ## Safety model and current limitations
 

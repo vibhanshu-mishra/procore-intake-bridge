@@ -6,8 +6,13 @@ from sqlalchemy.orm import Session
 from app.models.connections import DMSAConnection
 from app.models.intake_records import IntakeAttachment, IntakeRecord
 from app.models.sync_runs import SyncRun
+from app.schemas.attachments import AttachmentPlanRequest
 from app.schemas.sync import NormalizedRecord, SyncSummary
 from app.services.attachment_manifest import build_attachment_manifest
+from app.services.attachment_storage import (
+    attachment_plan_result,
+    create_attachment_manifest_record,
+)
 from app.services.procore_client import list_rfis_for_project, list_submittals_for_project
 
 
@@ -78,6 +83,7 @@ def sync_connection(
     updated_after: datetime | None = None,
     mode: str = "fixture",
     commit: bool = True,
+    sync_profile_id: int | None = None,
 ) -> SyncSummary:
     if mode not in {"fixture", "mock"}:
         raise ValueError("Live intake sync is not implemented in Phase A3.")
@@ -88,7 +94,20 @@ def sync_connection(
         sync_submittals=sync_submittals,
         updated_after=updated_after,
     )
+    planned_requests = [
+        _attachment_request(
+            connection,
+            normalized,
+            attachment,
+            sync_profile_id=sync_profile_id,
+        )
+        for raw, normalized in collected
+        for attachment in raw.get("attachments", [])
+    ]
     if dry_run:
+        attachment_plans = [
+            attachment_plan_result(None, request) for request in planned_requests
+        ]
         return SyncSummary(
             dry_run=True,
             mode="fixture",
@@ -97,8 +116,10 @@ def sync_connection(
             attachment_count=len(manifest),
             records=[record for _, record in collected],
             attachment_manifest=manifest,
+            attachment_plans=attachment_plans,
         )
 
+    attachment_plans = []
     run = SyncRun(connection_id=connection.id, mode="fixture", status="running")
     session.add(run)
     session.flush()
@@ -122,7 +143,7 @@ def sync_connection(
         record.due_date = date.fromisoformat(normalized.due_date) if normalized.due_date else None
         record.received_at = _datetime(normalized.received_at)
         record.source_updated_at = _datetime(normalized.updated_at)
-        record.raw_payload_json = raw
+        record.raw_payload_json = _sanitize_source_payload(raw)
         record.attachment_count = normalized.attachment_count
         record.sync_run_id = run.id
         if existing:
@@ -138,6 +159,20 @@ def sync_connection(
                     content_type=attachment.get("content_type"),
                     source_url_redacted=None,
                 )
+            )
+            request = _attachment_request(
+                connection,
+                normalized,
+                attachment,
+                intake_record_id=record.id,
+                sync_run_id=run.id,
+                sync_profile_id=sync_profile_id,
+            )
+            attachment_object = create_attachment_manifest_record(
+                session, request, commit=False
+            )
+            attachment_plans.append(
+                attachment_plan_result(attachment_object, request)
             )
     run.status = "completed"
     run.record_count = len(collected)
@@ -155,8 +190,51 @@ def sync_connection(
         attachment_count=len(manifest),
         records=[record for _, record in collected],
         attachment_manifest=manifest,
+        attachment_plans=attachment_plans,
     )
 
 
 def _datetime(value: str | None) -> datetime | None:
     return datetime.fromisoformat(value.replace("Z", "+00:00")) if value else None
+
+
+def _attachment_request(
+    connection: DMSAConnection,
+    normalized: NormalizedRecord,
+    attachment: dict,
+    *,
+    intake_record_id: int | None = None,
+    sync_run_id: int | None = None,
+    sync_profile_id: int | None = None,
+) -> AttachmentPlanRequest:
+    return AttachmentPlanRequest(
+        intake_record_id=intake_record_id,
+        sync_run_id=sync_run_id,
+        connection_id=connection.id,
+        sync_profile_id=sync_profile_id,
+        source_type=normalized.source_type,
+        procore_project_id=normalized.procore_project_id,
+        procore_item_id=normalized.procore_item_id,
+        procore_attachment_id=str(attachment.get("id"))
+        if attachment.get("id") is not None
+        else None,
+        original_filename=attachment.get("filename") or "attachment.bin",
+        content_type=attachment.get("content_type"),
+        size_bytes=attachment.get("size_bytes"),
+        source_url=attachment.get("source_url"),
+    )
+
+
+def _sanitize_source_payload(value):
+    if isinstance(value, dict):
+        return {
+            key: (
+                "[REDACTED]"
+                if "url" in str(key).casefold()
+                else _sanitize_source_payload(item)
+            )
+            for key, item in value.items()
+        }
+    if isinstance(value, list):
+        return [_sanitize_source_payload(item) for item in value]
+    return value

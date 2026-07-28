@@ -154,6 +154,7 @@ def run_sync_profile_once(
             updated_after=planned_watermark,
             mode="mock",
             commit=False,
+            sync_profile_id=sync_profile.id,
         )
         return SyncProfileRunResult(
             sync_profile_id=sync_profile.id,
@@ -186,6 +187,7 @@ def run_sync_profile_once(
             updated_after=planned_watermark,
             mode="mock",
             commit=False,
+            sync_profile_id=sync_profile.id,
         )
         record_sync_success(sync_profile, run_started_at, run_started_at)
         session.commit()

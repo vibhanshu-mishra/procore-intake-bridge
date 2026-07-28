@@ -13,6 +13,10 @@ Phase A2 preserves these constraints:
 - The event worker uses the existing fixture/mock read-only sync path.
 - Webhook signature secrets are referenced through the secret provider, never stored.
 - Webhook tests use fake payloads and fake local HMAC secrets only.
+- Attachment tests perform no real downloads and use deterministic fake bytes only.
+- Raw signed attachment URLs are never stored; only presence flags and hashes are retained.
+- There is no attachment upload, delete, or public file-serving route.
+- A5 has no S3, Azure Blob, Google Cloud Storage, presigned URLs, or cloud storage.
 - Live Procore access is opt-in and disabled by default.
 - Live-mode adapter calls fail closed with `LiveProcoreDisabledError`.
 - Mock health checks are deterministic and do not resolve credentials.

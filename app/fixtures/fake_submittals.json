@@ -9,8 +9,19 @@
     "received_at": "2026-07-22T09:00:00Z",
     "updated_at": "2026-07-23T11:15:00Z",
     "attachments": [
-      {"id": "att-sub-1", "filename": "steel-shops.pdf", "content_type": "application/pdf"},
-      {"id": "att-sub-2", "filename": "transmittal.txt", "content_type": "text/plain"}
+      {
+        "id": "att-sub-1",
+        "filename": "steel-shops.pdf",
+        "content_type": "application/pdf",
+        "size_bytes": 4096,
+        "source_url": "https://example.invalid/fake-submittal-attachment.pdf"
+      },
+      {
+        "id": "att-sub-2",
+        "filename": "transmittal.txt",
+        "content_type": "text/plain",
+        "size_bytes": 128
+      }
     ]
   }
 ]

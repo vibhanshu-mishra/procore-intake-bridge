@@ -115,10 +115,20 @@ def test_event_listing_detail_and_replay(client):
 def test_sensitive_payload_fields_are_redacted(client, db_session):
     payload = load("rfi_created.json")
     payload["authorization"] = "Bearer raw-secret-value"
-    payload["metadata"] = {"access_token": "raw-token-value"}
+    payload["metadata"] = {
+        "access_token": "raw-token-value",
+        "attachment_url": "https://example.invalid/raw-signed-url",
+    }
     response = client.post("/webhooks/procore", json=payload)
     assert response.status_code == 200
     event = db_session.scalar(select(WebhookEvent))
     serialized = json.dumps(event.payload_json)
     assert "raw-secret-value" not in serialized
     assert "raw-token-value" not in serialized
+    assert "raw-signed-url" not in serialized
+
+
+def test_receiver_does_not_create_attachment_files(tmp_path, client):
+    response = client.post("/webhooks/procore", json=load("rfi_created.json"))
+    assert response.status_code == 200
+    assert list(tmp_path.rglob("*")) == []

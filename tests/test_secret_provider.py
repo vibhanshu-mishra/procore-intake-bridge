@@ -22,6 +22,11 @@ def test_live_mode_defaults_off():
     assert settings.event_lock_timeout_minutes == 30
     assert settings.event_max_attempts == 5
     assert settings.event_worker_id == "local-dev-event-worker"
+    assert settings.attachment_storage_backend == "local"
+    assert str(settings.attachment_storage_root) == "storage/attachments"
+    assert settings.attachment_max_filename_length == 160
+    assert settings.attachment_allow_overwrite is False
+    assert settings.attachment_fixture_downloads_only is True
 
 
 def test_env_secret_provider_maps_and_resolves(monkeypatch):

@@ -5,6 +5,7 @@ from pathlib import Path
 from sqlalchemy import func, select
 
 from app.config import Settings
+from app.models.attachment_objects import AttachmentObject
 from app.models.intake_records import IntakeRecord
 from app.security.webhook_signature import WebhookSignatureResult
 from app.services import event_queue
@@ -66,6 +67,10 @@ def test_matching_rfi_event_processes_fixture_sync(
     assert result.sync_profile_id == sync_profile.id
     assert event.processing_status == "processed"
     assert db_session.scalar(select(func.count()).select_from(IntakeRecord)) == 2
+    assert (
+        db_session.scalar(select(func.count()).select_from(AttachmentObject))
+        == 3
+    )
 
 
 def test_matching_submittal_event_processes_fixture_sync(
