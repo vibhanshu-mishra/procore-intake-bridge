@@ -23,7 +23,11 @@ from app.schemas.admin import (
     AdminRecentWebhookEvent,
     AdminSafetyStatus,
 )
-from app.security.admin_access import mask_identifier, redact_admin_value
+from app.security.admin_access import (
+    get_admin_auth_config_summary,
+    mask_identifier,
+    redact_admin_value,
+)
 
 
 def build_connection_summary(
@@ -179,12 +183,19 @@ def build_onboarding_packet_summary(
 
 def build_safety_status(settings: Settings | None = None) -> AdminSafetyStatus:
     resolved = settings or get_settings()
+    auth = get_admin_auth_config_summary(resolved)
     return AdminSafetyStatus(
         live_mode_enabled=resolved.procore_live_mode_enabled,
         webhook_signature_required=resolved.require_webhook_signature,
         fixture_only_downloads=resolved.attachment_fixture_downloads_only,
         admin_dashboard_enabled=resolved.admin_dashboard_enabled,
-        admin_token_required=resolved.admin_require_token,
+        admin_token_required=auth.token_required,
+        admin_auth_mode=auth.mode,
+        admin_token_header_name=auth.token_header_name,
+        admin_primary_ref_configured=auth.primary_token_ref_configured,
+        admin_rotation_ref_configured=auth.rotation_token_ref_configured,
+        admin_provider_health_status=auth.provider_health_status,
+        deployment_routes_protected=auth.deployment_routes_protected,
         production_auth_warning=(
             "Local dashboard only. Add real application/platform authentication "
             "and network restrictions before any production exposure."

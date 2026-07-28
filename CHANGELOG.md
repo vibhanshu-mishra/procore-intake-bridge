@@ -8,5 +8,6 @@
 - B1: manually gated sandbox-only DMSA smoke harness.
 - B2: production-shaped secret-provider contract and fail-closed adapters.
 - B3: deterministic initial schema migration, status, and temporary-SQLite safety checks.
+- B4: secret-backed admin/deployment operator guard, rotation, and security headers.
 
 No release tag or package publication is claimed.

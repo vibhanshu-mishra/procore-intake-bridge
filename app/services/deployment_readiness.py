@@ -5,6 +5,12 @@ from urllib.parse import urlsplit, urlunsplit
 from pydantic import BaseModel
 
 from app.config import Settings
+from app.security.admin_access import (
+    effective_admin_auth_mode,
+    get_admin_auth_config_summary,
+    primary_admin_ref,
+    rotation_admin_ref,
+)
 from app.security.secret_provider_factory import (
     build_secret_provider,
     summarize_secret_provider_config,
@@ -89,18 +95,109 @@ def check_live_mode_safety(settings: Settings) -> list[DeploymentFinding]:
 
 
 def check_admin_dashboard_safety(settings: Settings) -> list[DeploymentFinding]:
-    if settings.admin_dashboard_enabled and (
-        not settings.admin_require_token or not settings.admin_token_secret_name.strip()
-    ):
+    mode = effective_admin_auth_mode(settings)
+    if mode == "disabled":
         return [
             _finding(
                 "admin_dashboard",
-                "blocking",
-                "The production admin dashboard requires a configured token reference.",
-                "production",
+                "info",
+                "Admin routes are disabled.",
             )
         ]
-    return [_finding("admin_dashboard", "info", "Admin dashboard access is constrained.")]
+    findings: list[DeploymentFinding] = []
+    if mode == "local_optional":
+        findings.append(
+            _finding(
+                "admin_dashboard",
+                "blocking",
+                "Local-optional admin access is not accepted in staging or production.",
+                "staging",
+                "production",
+            )
+        )
+    elif mode == "token_required":
+        primary_ref = primary_admin_ref(settings)
+        if not primary_ref:
+            findings.append(
+                _finding(
+                    "admin_auth",
+                    "blocking",
+                    "Token-required admin access needs a primary secret reference.",
+                    "staging",
+                    "production",
+                )
+            )
+        refs = [ref for ref in (primary_ref, rotation_admin_ref(settings)) if ref]
+        for ref in refs:
+            try:
+                validate_secret_ref(ref, settings)
+            except SecretRefError:
+                severity = (
+                    "blocking" if settings.admin_auth_fail_closed else "warning"
+                )
+                blocks = (
+                    ("staging", "production") if severity == "blocking" else ()
+                )
+                findings.append(
+                    _finding(
+                        "admin_auth",
+                        severity,
+                        "An admin token reference is invalid.",
+                        *blocks,
+                    )
+                )
+        if primary_ref and settings.secret_health_check_enabled:
+            try:
+                health = build_secret_provider(settings).health_check(refs)
+                if health.missing_refs_count:
+                    findings.append(
+                        _finding(
+                            "admin_auth",
+                            "blocking",
+                            "One or more admin token references are unavailable.",
+                            "staging",
+                            "production",
+                        )
+                    )
+            except SecretProviderError:
+                findings.append(
+                    _finding(
+                        "admin_auth",
+                        "blocking",
+                        "The admin token provider is unavailable or misconfigured.",
+                        "staging",
+                        "production",
+                    )
+                )
+    else:
+        findings.append(
+            _finding(
+                "admin_auth",
+                "blocking",
+                "Unknown admin authentication mode fails closed.",
+                "staging",
+                "production",
+            )
+        )
+    if not settings.admin_auth_protect_deployment_routes:
+        findings.append(
+            _finding(
+                "admin_auth",
+                "blocking",
+                "Sensitive deployment routes are not protected.",
+                "staging",
+                "production",
+            )
+        )
+    if not findings:
+        findings.append(
+            _finding(
+                "admin_auth",
+                "info",
+                "Admin and deployment operator routes use token-required access.",
+            )
+        )
+    return findings
 
 
 def check_webhook_signature_safety(settings: Settings) -> list[DeploymentFinding]:
@@ -395,6 +492,7 @@ def build_sanitized_config_summary(settings: Settings) -> dict:
         "admin_dashboard_enabled": settings.admin_dashboard_enabled,
         "admin_token_required": settings.admin_require_token,
         "admin_token_reference_configured": bool(settings.admin_token_secret_name.strip()),
+        "admin_auth": get_admin_auth_config_summary(settings).model_dump(),
         "webhooks_enabled": settings.webhooks_enabled,
         "webhook_signature_required": settings.require_webhook_signature,
         "webhook_secret_reference_configured": bool(settings.webhook_secret_name.strip()),

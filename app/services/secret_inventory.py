@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 
 from app.config import Settings
 from app.models.connections import DMSAConnection
+from app.security.admin_access import primary_admin_ref, rotation_admin_ref
 from app.security.secret_provider_factory import build_secret_provider
 from app.security.secret_refs import mask_secret_ref
 from app.security.secrets import SecretProviderError
@@ -82,21 +83,32 @@ def collect_webhook_secret_refs(settings: Settings) -> list[SecretInventoryItem]
 
 
 def collect_admin_secret_refs(settings: Settings) -> list[SecretInventoryItem]:
-    if not (
-        settings.admin_dashboard_enabled
-        and settings.admin_require_token
-        and settings.admin_token_secret_name
-    ):
+    primary = primary_admin_ref(settings)
+    rotation = rotation_admin_ref(settings)
+    if not settings.admin_dashboard_enabled or not (primary or rotation):
         return []
-    return [
-        _item(
-            settings,
-            settings.admin_token_secret_name,
-            "Admin access token",
-            "settings",
-            "token-protected local admin",
+    items: list[SecretInventoryItem] = []
+    if primary:
+        items.append(
+            _item(
+                settings,
+                primary,
+                "admin_auth_primary_token",
+                "settings",
+                "token-required admin and protected deployment routes",
+            )
         )
-    ]
+    if rotation:
+        items.append(
+            _item(
+                settings,
+                rotation,
+                "admin_auth_rotation_token",
+                "settings",
+                "temporary admin token rotation overlap",
+            )
+        )
+    return items
 
 
 def collect_sandbox_smoke_secret_refs(
@@ -155,8 +167,10 @@ def _resolve_raw_ref(
 ) -> str | None:
     if item.purpose == "Webhook signature":
         return settings.webhook_secret_name
-    if item.purpose == "Admin access token":
-        return settings.admin_token_secret_name
+    if item.purpose == "admin_auth_primary_token":
+        return primary_admin_ref(settings)
+    if item.purpose == "admin_auth_rotation_token":
+        return rotation_admin_ref(settings)
     if db_session is None or not item.source.startswith("connection:"):
         return None
     connection = db_session.get(DMSAConnection, int(item.source.split(":", 1)[1]))

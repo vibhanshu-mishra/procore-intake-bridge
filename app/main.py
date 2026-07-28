@@ -17,6 +17,7 @@ from app.routers import (
     sync_profiles,
     webhooks,
 )
+from app.security.admin_access import ADMIN_SECURITY_HEADERS
 from app.services.startup_checks import run_startup_checks
 
 
@@ -33,6 +34,22 @@ app = FastAPI(
     version="0.1.0",
     lifespan=lifespan,
 )
+
+
+@app.middleware("http")
+async def admin_security_headers(request, call_next):
+    response = await call_next(request)
+    settings = get_settings()
+    protected_path = request.url.path.startswith("/admin") or (
+        request.url.path.startswith("/deployment")
+        and settings.admin_auth_protect_deployment_routes
+    )
+    if protected_path:
+        for name, value in ADMIN_SECURITY_HEADERS.items():
+            response.headers[name] = value
+    return response
+
+
 app.include_router(health.router)
 app.include_router(deployment.router)
 app.include_router(connections.router)

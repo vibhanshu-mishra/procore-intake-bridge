@@ -34,3 +34,7 @@ performs no attachment downloads, and persists no raw Procore payloads.
 
 The GC/Owner must approve private DMSA installation and controls project/tool permissions.
 Procore Intake Bridge is independent and is not affiliated with or endorsed by Procore.
+
+B4 provides a secret-backed header guard for every admin and sensitive deployment route. Local
+optional access remains convenient locally; nonlocal readiness requires token mode. This is not
+user, tenant, role, session, OAuth, or identity-provider authentication.

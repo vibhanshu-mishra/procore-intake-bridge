@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Request
+from fastapi import APIRouter, Depends, HTTPException, Query, Request, Response
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 
@@ -17,7 +17,13 @@ from app.schemas.admin import (
     AdminRecentWebhookEvent,
     AdminSafetyStatus,
 )
-from app.security.admin_access import AdminAccessError, require_admin_access
+from app.security.admin_access import (
+    ADMIN_SECURITY_HEADERS,
+    AdminAccessError,
+    add_admin_security_headers,
+    require_admin_access,
+    sanitize_admin_auth_error,
+)
 from app.security.secret_provider_factory import build_secret_provider
 from app.services.admin_dashboard import (
     build_admin_overview,
@@ -37,14 +43,17 @@ templates = Jinja2Templates(
 )
 
 
-def admin_guard(request: Request) -> Settings:
+def admin_guard(request: Request, response: Response) -> Settings:
     settings = get_settings()
     try:
         require_admin_access(request, settings, build_secret_provider(settings))
     except AdminAccessError as exc:
         raise HTTPException(
-            status_code=exc.status_code, detail=str(exc)
+            status_code=exc.status_code,
+            detail=sanitize_admin_auth_error(exc),
+            headers=ADMIN_SECURITY_HEADERS,
         ) from exc
+    add_admin_security_headers(response)
     return settings
 
 

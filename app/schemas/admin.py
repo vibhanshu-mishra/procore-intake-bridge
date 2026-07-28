@@ -91,6 +91,12 @@ class AdminSafetyStatus(BaseModel):
     fixture_only_downloads: bool
     admin_dashboard_enabled: bool
     admin_token_required: bool
+    admin_auth_mode: str
+    admin_token_header_name: str
+    admin_primary_ref_configured: bool
+    admin_rotation_ref_configured: bool
+    admin_provider_health_status: str
+    deployment_routes_protected: bool
     read_only: bool = True
     procore_writes: bool = False
     production_auth_warning: str

@@ -54,3 +54,13 @@ Emergency stop: set `PROCORE_INTAKE_SANDBOX_SMOKE_ENABLED=false` and
 `PROCORE_INTAKE_LIVE_MODE_ENABLED=false`, restart the process, and remove the ignored
 `smoke-output/` directory according to retention policy. If any credential was exposed, revoke or
 rotate it immediately; do not paste it into logs or issues.
+
+## Admin authentication and rotation
+
+Run `python scripts/check_admin_auth.py`; use `--strict` for nonlocal review. Local can retain
+`local_optional`, but staging/production needs `token_required`, a healthy primary ref, and
+protected deployment routes.
+
+During rotation, configure the previous token as the rotation ref, deploy a new primary, update
+operators, then remove the overlap. Never log either value. Disable immediately with
+`PROCORE_INTAKE_ADMIN_AUTH_MODE=disabled` or the dashboard-enabled switch if exposure is suspected.

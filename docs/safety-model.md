@@ -57,6 +57,10 @@ Phase A2 preserves these constraints:
 - Migration safety and drift scripts use disposable temporary SQLite databases only.
 - Automatic and destructive migrations default off; production execution requires manual review,
   a verified backup, and an independent recovery plan.
+- B4 protects all admin and sensitive deployment routes with one secret-provider-backed guard.
+- Local-optional access is local-only; token/provider failures in token-required mode fail closed.
+- Primary and rotation values are constant-time compared and never returned or logged.
+- This header token is not full user, tenant, role, session, OAuth, or identity-provider auth.
 
 Before production, add tenant authorization, an audited secret-manager integration, encryption and
 key rotation, database migrations, data retention controls, request logging with redaction,

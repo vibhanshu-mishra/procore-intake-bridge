@@ -11,11 +11,13 @@ and fail-closed external placeholders.
 Completed: B3 adds deterministic initial migrations, read-only revision status, and isolated
 SQLite safety/drift checks.
 
+Completed: B4 adds secret-backed admin/deployment operator header authentication and rotation.
+
 Possible future phases below are **not implemented or committed**:
 
 - Future provider work: implement and review a real production secret-manager adapter.
 - Future database work: production engine, online migration, backup, and recovery hardening.
-- B4: authenticated and authorized admin access.
+- Future auth work: identity provider, users, tenants, roles, sessions, and audited access.
 - B5: production attachment storage backend.
 - B6: webhook verification validated against current Procore documentation.
 - B7: reviewed customer-specific deployment pattern.

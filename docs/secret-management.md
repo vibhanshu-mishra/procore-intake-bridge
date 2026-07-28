@@ -49,3 +49,7 @@ provider contract. Health proves only reference presence, not scopes or producti
 If a credential leaks, revoke or rotate it immediately at its owner, update runtime injection,
 restart affected processes, and verify sanitized health. Removing it from an issue or log is not
 sufficient. Never paste leaked material into troubleshooting output.
+
+B4 uses primary and optional rotation refs for the admin header token. Inventory and health show
+only masked names/status. Both values are resolved transiently during rotation and accepted
+without revealing which matched.

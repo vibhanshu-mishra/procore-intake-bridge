@@ -240,6 +240,36 @@ class Settings(BaseSettings):
         default=True,
         validation_alias="PROCORE_INTAKE_ADMIN_DASHBOARD_ENABLED",
     )
+    admin_auth_mode: Literal["local_optional", "token_required", "disabled"] = Field(
+        default="local_optional",
+        validation_alias="PROCORE_INTAKE_ADMIN_AUTH_MODE",
+    )
+    admin_token_header: str = Field(
+        default="X-Procore-Intake-Admin-Token",
+        min_length=1,
+        validation_alias="PROCORE_INTAKE_ADMIN_TOKEN_HEADER",
+    )
+    admin_token_secret_ref: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_ADMIN_TOKEN_SECRET_REF",
+    )
+    admin_token_rotation_secret_ref: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_ADMIN_TOKEN_ROTATION_SECRET_REF",
+    )
+    admin_auth_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_ADMIN_AUTH_FAIL_CLOSED",
+    )
+    admin_auth_protect_deployment_routes: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_ADMIN_AUTH_PROTECT_DEPLOYMENT_ROUTES",
+    )
+    admin_auth_cache_seconds: int = Field(
+        default=0,
+        ge=0,
+        validation_alias="PROCORE_INTAKE_ADMIN_AUTH_CACHE_SECONDS",
+    )
     admin_require_token: bool = Field(
         default=False,
         validation_alias="PROCORE_INTAKE_ADMIN_REQUIRE_TOKEN",

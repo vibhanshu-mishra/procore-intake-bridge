@@ -1,9 +1,19 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from sqlalchemy.orm import Session
 
-from app.config import get_settings
+from app.config import Settings, get_settings
 from app.database import get_session
-from app.security.secret_provider_factory import summarize_secret_provider_config
+from app.security.admin_access import (
+    ADMIN_SECURITY_HEADERS,
+    AdminAccessError,
+    add_admin_security_headers,
+    require_admin_access,
+    sanitize_admin_auth_error,
+)
+from app.security.secret_provider_factory import (
+    build_secret_provider,
+    summarize_secret_provider_config,
+)
 from app.services.deployment_readiness import (
     build_deployment_readiness_report,
     build_sanitized_config_summary,
@@ -11,7 +21,31 @@ from app.services.deployment_readiness import (
 from app.services.migration_status import build_migration_status_report
 from app.services.secret_inventory import collect_required_secret_refs
 
-router = APIRouter(prefix="/deployment", tags=["deployment"])
+
+def deployment_operator_guard(
+    request: Request, response: Response
+) -> Settings:
+    settings = get_settings()
+    if settings.admin_auth_protect_deployment_routes:
+        try:
+            require_admin_access(
+                request, settings, build_secret_provider(settings)
+            )
+        except AdminAccessError as exc:
+            raise HTTPException(
+                status_code=exc.status_code,
+                detail=sanitize_admin_auth_error(exc),
+                headers=ADMIN_SECURITY_HEADERS,
+            ) from exc
+        add_admin_security_headers(response)
+    return settings
+
+
+router = APIRouter(
+    prefix="/deployment",
+    tags=["deployment"],
+    dependencies=[Depends(deployment_operator_guard)],
+)
 
 
 @router.get("/readiness")

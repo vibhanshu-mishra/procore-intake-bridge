@@ -109,6 +109,7 @@ See [the architecture document](docs/architecture.md).
 | B1 | Complete | Manually gated sandbox DMSA smoke harness |
 | B2 | Complete | Production-shaped secret-provider adapter layer |
 | B3 | Complete | Deterministic schema migration hardening |
+| B4 | Complete | Secret-backed admin and deployment operator access |
 
 The current source version is `0.1.0`; no package publication or release tag is implied.
 
@@ -165,6 +166,21 @@ python scripts/verify_schema_drift.py
 Production still requires a verified backup, operator/DBA review, engine-specific testing, and an
 approved recovery plan. See [database migrations](docs/database-migrations.md).
 
+## Authenticated admin access
+
+B4 applies one secret-provider-backed header-token guard to all admin HTML/JSON routes and
+sensitive deployment operator routes. Local development defaults to `local_optional`;
+staging/production readiness requires `token_required`.
+
+```bash
+python scripts/check_admin_auth.py
+```
+
+Primary and optional rotation refs support controlled token rotation without exposing values or
+which token matched. This is interim operator protection, not users, sessions, roles, tenants,
+OAuth, or full SaaS authentication. See
+[admin authentication](docs/admin-authentication.md).
+
 ## Documentation
 
 - [Documentation home](docs/index.md)
@@ -175,6 +191,7 @@ approved recovery plan. See [database migrations](docs/database-migrations.md).
 - [Attachment storage](docs/attachment-storage.md)
 - [Onboarding packets](docs/onboarding-packets.md)
 - [Admin dashboard](docs/admin-dashboard.md)
+- [Admin authentication](docs/admin-authentication.md)
 - [Deployment hardening](docs/deployment-hardening.md)
 - [Operations runbook](docs/operations-runbook.md)
 - [Safety model](docs/safety-model.md)

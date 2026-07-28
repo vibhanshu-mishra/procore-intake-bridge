@@ -48,3 +48,8 @@ production-grade access control; by itself it is not production-grade authentica
   `/admin/api/webhook-events`, `/admin/api/onboarding-packets`, and `/admin/api/safety`
 
 List APIs accept `limit` or `page_size`. Results are capped at 100; the configured default is 25.
+
+Phase B4 applies the B2 secret-backed header guard to every admin HTML and JSON route.
+`local_optional` is local-only; staging/production must use `token_required` or disable the
+dashboard. Primary/rotation refs and response headers are documented in
+[`admin-authentication.md`](admin-authentication.md). This is not user or tenant authentication.

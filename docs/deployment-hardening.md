@@ -43,3 +43,7 @@ inject secrets externally; require signed webhooks; protect or disable admin; ke
 disabled until read-only scopes and allowlists are verified; and move outputs outside the repo.
 Unsafe examples include SQLite in production, wildcard hosts/CORS, token-free admin, unsigned
 webhooks, repository-local outputs, or unreviewed live mode.
+
+Admin-auth readiness blocks staging/production when dashboard access is local-optional, the
+primary ref/provider is unavailable, or deployment routes are unprotected. B4 header-token auth
+is interim operator control, not production identity or tenant authentication.
