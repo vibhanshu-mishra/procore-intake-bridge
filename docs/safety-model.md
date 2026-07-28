@@ -20,6 +20,12 @@ Phase A2 preserves these constraints:
 - Onboarding packets contain no secrets and are local Markdown/JSON artifacts only.
 - Packets do not grant access; the GC/Owner controls installation, permissions, and revocation.
 - A6 generates no PDF, DOCX, email, hosted link, or external delivery.
+- Admin HTML and JSON routes are GET-only and read only the local database.
+- Admin projections omit secret references, raw payloads, signed URLs, generated packet content,
+  and absolute filesystem paths.
+- The admin dashboard does not call Procore and includes no external scripts, CDNs, or analytics.
+- The optional local token guard is not a substitute for production authentication, authorization,
+  audited access, TLS, and network restrictions.
 - No Procore endorsement, certification, partnership, affiliation, or official support is claimed.
 - Live Procore access is opt-in and disabled by default.
 - Live-mode adapter calls fail closed with `LiveProcoreDisabledError`.

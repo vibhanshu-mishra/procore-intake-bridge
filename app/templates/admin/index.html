@@ -1,0 +1,29 @@
+{% extends "admin/base.html" %}
+{% block content %}
+<h2>System overview</h2>
+<p>Readiness: <strong>{{ overview.system_readiness }}</strong></p>
+<div class="cards">
+  {% for card in overview.count_cards %}
+  <section class="card">
+    <span>{{ card.label }}</span>
+    <strong>{{ card.count }}</strong>
+    {% if card.empty_message %}<p>{{ card.empty_message }}</p>{% endif %}
+    {% if card.breakdown %}
+    <ul>
+      {% for label, count in card.breakdown.items() %}
+      <li>{{ label }}: {{ count }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </section>
+  {% endfor %}
+</div>
+<h2>Safety snapshot</h2>
+<ul>
+  <li>Live mode enabled: {{ overview.safety.live_mode_enabled }}</li>
+  <li>Webhook signatures required: {{ overview.safety.webhook_signature_required }}</li>
+  <li>Fixture-only downloads: {{ overview.safety.fixture_only_downloads }}</li>
+  <li>Admin token required: {{ overview.safety.admin_token_required }}</li>
+  <li>Procore writes: {{ overview.safety.procore_writes }}</li>
+</ul>
+{% endblock %}

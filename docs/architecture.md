@@ -24,6 +24,7 @@ flowchart LR
     O -. "fixture bytes only" .-> P[("Ignored local storage root")]
     Q["OnboardingPacket service"] --> R[("OnboardingPacket table")]
     R --> S[("Ignored local Markdown/JSON output")]
+    T["Local read-only admin dashboard"] --> G
 ```
 
 PyProcore owns OAuth and token refresh, HTTP requests, pagination, retries, typed response parsing,
@@ -54,3 +55,8 @@ requested. No real download occurs by default, and no raw signed URL is stored.
 The A6 OnboardingPacket service reads only caller input and local connection/profile metadata. It
 renders Markdown/JSON for review and optional local export; it does not call Procore, install an
 app, send email, or grant access.
+
+The A7 admin dashboard reads the existing local tables through dedicated summary projections.
+Both its HTML and JSON surfaces are GET-only. The projections mask identifiers and omit secrets,
+payloads, URLs, generated packet content, and filesystem paths. The dashboard does not invoke the
+PyProcore adapter or any write service.

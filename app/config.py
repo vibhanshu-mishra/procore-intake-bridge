@@ -146,6 +146,24 @@ class Settings(BaseSettings):
         max_length=200,
         validation_alias="PROCORE_INTAKE_DEFAULT_APP_NAME",
     )
+    admin_dashboard_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_ADMIN_DASHBOARD_ENABLED",
+    )
+    admin_require_token: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_ADMIN_REQUIRE_TOKEN",
+    )
+    admin_token_secret_name: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_ADMIN_TOKEN_SECRET_NAME",
+    )
+    admin_page_size: int = Field(
+        default=25,
+        ge=1,
+        le=100,
+        validation_alias="PROCORE_INTAKE_ADMIN_PAGE_SIZE",
+    )
 
 
 @lru_cache

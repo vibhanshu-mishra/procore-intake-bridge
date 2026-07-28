@@ -1,0 +1,16 @@
+{% extends "admin/base.html" %}
+{% block content %}
+<h2>Safety status</h2>
+<table>
+  <tbody>
+    <tr><th>Read only</th><td>{{ safety.read_only }}</td></tr>
+    <tr><th>Procore writes</th><td>{{ safety.procore_writes }}</td></tr>
+    <tr><th>Live mode enabled</th><td>{{ safety.live_mode_enabled }}</td></tr>
+    <tr><th>Webhook signature required</th><td>{{ safety.webhook_signature_required }}</td></tr>
+    <tr><th>Fixture-only downloads</th><td>{{ safety.fixture_only_downloads }}</td></tr>
+    <tr><th>Dashboard enabled</th><td>{{ safety.admin_dashboard_enabled }}</td></tr>
+    <tr><th>Admin token required</th><td>{{ safety.admin_token_required }}</td></tr>
+  </tbody>
+</table>
+<p>{{ safety.production_auth_warning }}</p>
+{% endblock %}

@@ -30,6 +30,10 @@ def test_live_mode_defaults_off():
     assert str(settings.packet_output_root) == "packet-output"
     assert settings.default_requester_company_name == "Your Company"
     assert settings.default_app_name == "Procore Intake Bridge"
+    assert settings.admin_dashboard_enabled is True
+    assert settings.admin_require_token is False
+    assert settings.admin_token_secret_name == ""
+    assert settings.admin_page_size == 25
 
 
 def test_env_secret_provider_maps_and_resolves(monkeypatch):

@@ -25,6 +25,7 @@ def test_docs_state_read_only_and_dmsa_safety():
     webhooks = Path("docs/webhooks.md").read_text().lower()
     attachments = Path("docs/attachment-storage.md").read_text().lower()
     onboarding_packets = Path("docs/onboarding-packets.md").read_text().lower()
+    admin = Path("docs/admin-dashboard.md").read_text().lower()
     assert "read-only" in readme
     assert "no live" in readme
     assert "no procore writes" in safety
@@ -36,6 +37,9 @@ def test_docs_state_read_only_and_dmsa_safety():
     assert "contain no credentials" in onboarding_packets
     assert "no pdf, docx, email" in onboarding_packets
     assert "does not grant access by itself" in onboarding_packets
+    assert "every admin route is get-only" in admin
+    assert "never call procore" in admin
+    assert "not production-grade" in admin
     assert "dmsa" in onboarding
     assert "disabled by default" in profiles
     assert "plaintext" in profiles

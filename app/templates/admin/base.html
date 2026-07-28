@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }} · Procore Intake Bridge</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; }
+    body { margin: 0; color: #17202a; background: #f5f7f8; }
+    header { padding: 1rem 1.5rem; color: white; background: #17324d; }
+    header h1 { margin: 0 0 .35rem; font-size: 1.25rem; }
+    header p { margin: 0; color: #dbe8f4; font-size: .9rem; }
+    nav { padding: .65rem 1.5rem; background: #fff; border-bottom: 1px solid #d8dee4; }
+    nav a { margin-right: 1rem; color: #174f78; text-decoration: none; }
+    main { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+    .notice { padding: .8rem 1rem; border-left: 4px solid #ad6b00; background: #fff4d8; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1rem; }
+    .card { padding: 1rem; border: 1px solid #d8dee4; border-radius: 6px; background: white; }
+    .card strong { display: block; margin-top: .3rem; font-size: 1.8rem; }
+    table { width: 100%; border-collapse: collapse; background: white; font-size: .9rem; }
+    th, td { padding: .65rem; border: 1px solid #d8dee4; text-align: left; vertical-align: top; }
+    th { background: #eaf0f4; }
+    code { overflow-wrap: anywhere; }
+    footer { padding: 1rem 1.5rem 2rem; color: #59636e; font-size: .85rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Procore Intake Bridge · Local Admin</h1>
+    <p>Read-only local database visibility. No live Procore calls.</p>
+  </header>
+  <nav aria-label="Admin navigation">
+    <a href="/admin">Overview</a>
+    <a href="/admin/connections">Connections</a>
+    <a href="/admin/sync-profiles">Sync profiles</a>
+    <a href="/admin/sync-runs">Sync runs</a>
+    <a href="/admin/intake-records">Intake</a>
+    <a href="/admin/attachments">Attachments</a>
+    <a href="/admin/webhook-events">Webhooks</a>
+    <a href="/admin/onboarding-packets">Onboarding</a>
+    <a href="/admin/safety">Safety</a>
+  </nav>
+  <main>
+    <p class="notice">
+      Local-development dashboard. It is not production-secure unless an admin token
+      and proper application/platform authentication plus network restrictions are configured.
+    </p>
+    {% block content %}{% endblock %}
+  </main>
+  <footer>No writes, approvals, submissions, deletes, uploads, or external analytics.</footer>
+</body>
+</html>

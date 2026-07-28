@@ -62,6 +62,8 @@ files.
 - `POST /onboarding/preview` and `POST /onboarding/generate`
 - `POST /connections/{id}/onboarding-packet`
 - `POST /onboarding-packets/{id}/export-local`
+- `GET /admin` and the read-only pages beneath `/admin/*`
+- `GET /admin/api/overview`, `/admin/api/safety`, and read-only list APIs beneath `/admin/api/*`
 
 Connection payloads accept `client_id_ref` and `secret_name` references. There is no client-secret
 field. Environment-backed resolution is available only to the live-gated health path. Dry runs
@@ -101,6 +103,13 @@ export writes only Markdown/JSON beneath a gitignored directory. No email, PDF, 
 installation, or Procore call is performed. See
 [`docs/onboarding-packets.md`](docs/onboarding-packets.md).
 
+Phase A7 adds a minimal local admin dashboard over the existing database. Every admin route is
+GET-only and uses dedicated masked/redacted projections; it does not expose credential references,
+raw webhook or intake payloads, signed URLs, generated onboarding content, or absolute storage
+paths. It makes no Procore calls. The default token-free configuration is only for local
+development and is not production authentication. See
+[`docs/admin-dashboard.md`](docs/admin-dashboard.md).
+
 ## Safety model and current limitations
 
 This service is **read-only with respect to Procore**. It has no routes or services for creating,
@@ -109,7 +118,8 @@ write-back routes, external AI/model calls, MCP execution, GitHub API calls, or 
 behavior. Live read checks are opt-in; tests use local fixtures and mocks only and never use the
 network.
 
-Phase A3 is not production-ready: the environment secret provider is for controlled local
-development; hosted scheduling and webhook delivery infrastructure are not implemented; managed secret storage,
-tenant authentication/authorization, migrations, audit logging, and production databases remain
-future work. See [`docs/safety-model.md`](docs/safety-model.md).
+The service is not production-ready: the environment secret provider and admin dashboard are for
+controlled local development; hosted scheduling and webhook delivery infrastructure are not
+implemented; managed secret storage, tenant authentication/authorization, migrations, audit
+logging, and production databases remain future work. See
+[`docs/safety-model.md`](docs/safety-model.md).

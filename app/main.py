@@ -4,6 +4,7 @@ from fastapi import FastAPI
 
 from app.database import create_db_and_tables
 from app.routers import (
+    admin,
     attachments,
     connections,
     event_queue,
@@ -37,3 +38,4 @@ app.include_router(webhooks.router)
 app.include_router(event_queue.router)
 app.include_router(attachments.router)
 app.include_router(onboarding.router)
+app.include_router(admin.router)
