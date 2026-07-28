@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from typing import Literal
+
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -41,6 +43,8 @@ def get_connection(connection_id: int, session: Session = Depends(get_session)) 
 
 @router.post("/{connection_id}/health-check", response_model=ConnectionHealthResult)
 def health_check(
-    connection_id: int, session: Session = Depends(get_session)
+    connection_id: int,
+    mode: Literal["mock", "live"] = Query(default="mock"),
+    session: Session = Depends(get_session),
 ) -> ConnectionHealthResult:
-    return check_connection_health(get_connection_or_404(connection_id, session))
+    return check_connection_health(get_connection_or_404(connection_id, session), mode=mode)

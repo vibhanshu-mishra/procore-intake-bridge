@@ -17,8 +17,10 @@ authentication, requests, pagination, typed parsing, retries, and download plumb
 the product layer: connection profiles, project allowlists, sync state, normalized intake records,
 attachment manifests, logs, health checks, onboarding, and future polling/webhook coordination.
 
-Phase A1 deliberately uses JSON fixtures. PyProcore is installed as a dependency and has a guarded
-adapter seam, but **no live PyProcore client can be created and no live Procore API is called**.
+Fixture sync still deliberately uses local JSON. Phase A2 adds a production-shaped DMSA credential
+profile and an injected PyProcore client boundary. **Live mode is disabled by default** and must be
+explicitly enabled before the adapter can resolve credentials or construct a live client.
+Therefore, no live Procore calls occur during normal local development or tests.
 
 ## Local setup
 
@@ -44,18 +46,25 @@ files.
 - `POST /connections/{id}/sync/dry-run`
 - `POST /connections/{id}/sync/run`
 
-Connection payloads accept only a `secret_name` reference. There is no client-secret field and
-Phase A1 does not resolve secret references. Dry runs never persist intake data. Runs persist only
-normalized local fixture data and attachment metadata to SQLite.
+Connection payloads accept `client_id_ref` and `secret_name` references. There is no client-secret
+field. Environment-backed resolution is available only to the live-gated health path. Dry runs
+never persist intake data. Runs persist only normalized local fixture data and attachment metadata
+to SQLite; Phase A2 does not add live sync.
+
+Health checks default to `mode=mock`. `mode=live` returns a safe disabled result unless
+`PROCORE_INTAKE_LIVE_MODE_ENABLED=true`. See
+[`docs/dmsa-credential-profiles.md`](docs/dmsa-credential-profiles.md) for the intentional opt-in
+and environment-variable mapping.
 
 ## Safety model and current limitations
 
 This service is **read-only with respect to Procore**. It has no routes or services for creating,
 updating, deleting, approving, submitting, closing, or uploading Procore data. There are no
-write-back routes, live API calls, external AI/model calls, MCP execution, GitHub API calls, or
-automatic git/PR behavior. Tests use local fixtures only.
+write-back routes, external AI/model calls, MCP execution, GitHub API calls, or automatic git/PR
+behavior. Live read checks are opt-in; tests use local fixtures and mocks only and never use the
+network.
 
-Phase A1 is not production-ready: health results are deterministic mocks; webhook delivery and
-polling are not implemented; secret-manager integration, tenant authentication/authorization,
-encryption/key management, migrations, audit logging, production databases, and live DMSA
-integration remain future work. See [`docs/safety-model.md`](docs/safety-model.md).
+Phase A2 is not production-ready: the environment secret provider is for controlled local
+development; webhook delivery and polling are not implemented; managed secret storage, tenant
+authentication/authorization, migrations, audit logging, and production databases remain future
+work. See [`docs/safety-model.md`](docs/safety-model.md).

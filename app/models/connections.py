@@ -44,6 +44,7 @@ class DMSAConnection(Base):
     status: Mapped[ConnectionStatus] = mapped_column(
         Enum(ConnectionStatus), default=ConnectionStatus.PENDING
     )
+    client_id_ref: Mapped[str | None] = mapped_column(String(255))
     secret_name: Mapped[str] = mapped_column(String(255))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
     updated_at: Mapped[datetime] = mapped_column(

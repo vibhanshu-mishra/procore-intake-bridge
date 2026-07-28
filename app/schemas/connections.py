@@ -10,17 +10,29 @@ class ConnectionCreate(BaseModel):
     environment: Literal["sandbox", "production"] = "sandbox"
     permitted_project_ids: list[str] = Field(min_length=1)
     enabled_tools: list[Literal["rfis", "submittals"]] = ["rfis", "submittals"]
+    client_id_ref: str | None = Field(
+        default=None,
+        min_length=1,
+        description="Optional environment-secret reference for the DMSA client ID.",
+    )
     secret_name: str = Field(
         min_length=1,
         description="Reference to a secret manager entry; never a plaintext client secret.",
     )
 
 
-class ConnectionRead(ConnectionCreate):
+class ConnectionRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+    name: str
+    procore_company_id: str
+    environment: Literal["sandbox", "production"]
     auth_mode: Literal["dmsa_client_credentials"]
+    permitted_project_ids: list[str]
+    enabled_tools: list[Literal["rfis", "submittals"]]
+    client_id_ref: str | None
+    secret_name: str
     status: Literal["pending", "active", "degraded", "revoked"]
     created_at: datetime
     updated_at: datetime

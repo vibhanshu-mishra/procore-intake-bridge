@@ -20,9 +20,10 @@ and attachment download plumbing. The Bridge owns customer connection profiles, 
 state, permitted-project enforcement, health reporting, polling/webhook strategy, normalization,
 sync state, intake records, attachment manifests, and operational logs.
 
-In Phase A1, the solid execution path is fixtures to Bridge to SQLite. The future Procore path is
-conceptual and guarded. `build_pyprocore_client_for_connection` raises `LiveProcoreDisabled`, and
-list operations reject any mode other than `fixture`.
+In Phase A2, fixtures to Bridge to SQLite remains the only sync path. The Procore path is limited
+to an opt-in, read-only health diagnostic. `build_pyprocore_client_for_connection` raises
+`LiveProcoreDisabledError` unless the explicit live flag is true. Credential resolution and the
+PyProcore constructor remain centralized in the adapter.
 
 The data model separates DMSA connections, sync-run history, normalized intake records, and
 attachment metadata. A source/project/item uniqueness constraint supports idempotent re-syncs.

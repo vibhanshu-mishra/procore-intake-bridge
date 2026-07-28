@@ -7,6 +7,11 @@ class ServiceHealth(BaseModel):
 
 
 class ConnectionHealthResult(BaseModel):
+    mode: str
+    live_mode_enabled: bool
+    secret_reference_present: bool
+    secret_resolved: bool
+    pyprocore_client_buildable: bool
     token_check: str
     company_access: str
     project_access: dict[str, str]

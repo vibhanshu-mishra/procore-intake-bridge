@@ -8,6 +8,7 @@ __pycache__/
 *.sqlite*
 downloads/
 logs/
+sync-output/
 tokens/
 dist/
 build/

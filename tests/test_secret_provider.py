@@ -1,0 +1,36 @@
+import pytest
+
+from app.config import Settings
+from app.security.secret_provider import (
+    EnvSecretProvider,
+    SecretNotFoundError,
+    get_secret_provider,
+    secret_name_to_env_var,
+)
+
+
+def test_live_mode_defaults_off():
+    settings = Settings(_env_file=None)
+    assert settings.procore_live_mode_enabled is False
+    assert settings.secret_provider == "env"
+
+
+def test_env_secret_provider_maps_and_resolves(monkeypatch):
+    monkeypatch.setenv("PROCORE_INTAKE_SECRET_DEMO_GC_DMSA_SECRET", "synthetic-value")
+    provider = EnvSecretProvider()
+    assert provider.get_secret("demo_gc_dmsa_secret") == "synthetic-value"
+    assert (
+        secret_name_to_env_var("demo/gc dmsa-secret")
+        == "PROCORE_INTAKE_SECRET_DEMO_GC_DMSA_SECRET"
+    )
+
+
+def test_env_secret_provider_missing_error_is_safe(monkeypatch):
+    monkeypatch.delenv("PROCORE_INTAKE_SECRET_MISSING_REFERENCE", raising=False)
+    with pytest.raises(SecretNotFoundError) as error:
+        EnvSecretProvider().get_secret("missing_reference")
+    assert "PROCORE_INTAKE_SECRET_MISSING_REFERENCE" in str(error.value)
+
+
+def test_provider_factory_returns_env_provider():
+    assert isinstance(get_secret_provider(Settings(_env_file=None)), EnvSecretProvider)
