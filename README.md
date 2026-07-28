@@ -108,6 +108,7 @@ See [the architecture document](docs/architecture.md).
 | A9 | Complete | Repository polish and public launch readiness |
 | B1 | Complete | Manually gated sandbox DMSA smoke harness |
 | B2 | Complete | Production-shaped secret-provider adapter layer |
+| B3 | Complete | Deterministic schema migration hardening |
 
 The current source version is `0.1.0`; no package publication or release tag is implied.
 
@@ -150,6 +151,20 @@ Database fields store references only, and operational output masks them without
 values. Production still needs an independently reviewed real secret-manager adapter or external
 injection pattern. See [secret management](docs/secret-management.md).
 
+## Database migration hardening
+
+B3 adds a deterministic initial Alembic revision, read-only status, and isolated temporary-SQLite
+upgrade/downgrade and schema-drift checks. Startup never runs migrations automatically.
+
+```bash
+python scripts/check_migration_status.py
+python scripts/run_migration_safety_check.py
+python scripts/verify_schema_drift.py
+```
+
+Production still requires a verified backup, operator/DBA review, engine-specific testing, and an
+approved recovery plan. See [database migrations](docs/database-migrations.md).
+
 ## Documentation
 
 - [Documentation home](docs/index.md)
@@ -165,6 +180,7 @@ injection pattern. See [secret management](docs/secret-management.md).
 - [Safety model](docs/safety-model.md)
 - [Sandbox smoke tests](docs/sandbox-smoke-tests.md)
 - [Secret management](docs/secret-management.md)
+- [Database migrations](docs/database-migrations.md)
 - [Roadmap](docs/roadmap.md)
 - [Public launch checklist](docs/public-launch-checklist.md)
 

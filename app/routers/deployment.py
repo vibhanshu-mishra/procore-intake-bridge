@@ -8,6 +8,7 @@ from app.services.deployment_readiness import (
     build_deployment_readiness_report,
     build_sanitized_config_summary,
 )
+from app.services.migration_status import build_migration_status_report
 from app.services.secret_inventory import collect_required_secret_refs
 
 router = APIRouter(prefix="/deployment", tags=["deployment"])
@@ -51,3 +52,8 @@ def deployment_secrets(session: Session = Depends(get_session)) -> dict:
         "missing_refs_count": sum(item.status == "missing" for item in inventory),
         "values_exposed": False,
     }
+
+
+@router.get("/migrations")
+def deployment_migrations() -> dict:
+    return build_migration_status_report(get_settings()).model_dump(mode="json")

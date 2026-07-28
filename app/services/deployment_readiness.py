@@ -259,6 +259,72 @@ def check_output_paths(settings: Settings) -> list[DeploymentFinding]:
     return findings or [_finding("output_paths", "info", "Output paths are external.")]
 
 
+def check_migration_safety(settings: Settings) -> list[DeploymentFinding]:
+    from app.services.migration_status import build_migration_status_report
+
+    findings: list[DeploymentFinding] = []
+    if settings.auto_run_migrations:
+        findings.append(
+            _finding(
+                "migrations",
+                "blocking",
+                "Automatic startup migrations are not allowed by the B3 safety model.",
+                "production",
+            )
+        )
+    if settings.migration_allow_destructive:
+        findings.append(
+            _finding(
+                "migrations",
+                "blocking",
+                "Destructive migrations require separate operator review and are disabled.",
+                "production",
+            )
+        )
+    status = build_migration_status_report(settings)
+    if any(item.severity == "error" for item in status.findings):
+        severity = (
+            "blocking"
+            if settings.environment == "production"
+            and settings.fail_readiness_on_pending_migrations
+            else "warning"
+        )
+        blocks = ("production",) if severity == "blocking" else ()
+        findings.append(
+            _finding(
+                "migrations",
+                severity,
+                "Migration status could not be inspected safely.",
+                *blocks,
+            )
+        )
+    elif status.pending_migration_detected:
+        severity = (
+            "blocking"
+            if settings.environment == "production"
+            and settings.fail_readiness_on_pending_migrations
+            else "warning"
+        )
+        blocks = ("production",) if severity == "blocking" else ()
+        findings.append(
+            _finding(
+                "migrations",
+                severity,
+                "Pending database migrations were detected; no migration was run.",
+                *blocks,
+            )
+        )
+    else:
+        findings.append(
+            _finding(
+                "migrations",
+                "info",
+                "Migration status is at head or checks are explicitly disabled.",
+            )
+        )
+    return findings
+
+
 def build_deployment_readiness_report(settings: Settings) -> DeploymentReadinessReport:
     findings: list[DeploymentFinding] = []
     for check in (
@@ -270,6 +336,7 @@ def build_deployment_readiness_report(settings: Settings) -> DeploymentReadiness
         check_attachment_storage_safety,
         check_secret_provider_safety,
         check_output_paths,
+        check_migration_safety,
     ):
         findings.extend(check(settings))
     production_blockers = sum(

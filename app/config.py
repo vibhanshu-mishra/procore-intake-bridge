@@ -45,6 +45,26 @@ class Settings(BaseSettings):
         default=True,
         validation_alias="PROCORE_INTAKE_FAIL_STARTUP_ON_UNSAFE_PRODUCTION",
     )
+    migration_check_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_MIGRATION_CHECK_ENABLED",
+    )
+    auto_run_migrations: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_AUTO_RUN_MIGRATIONS",
+    )
+    fail_readiness_on_pending_migrations: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_FAIL_READINESS_ON_PENDING_MIGRATIONS",
+    )
+    migration_script_location: Path = Field(
+        default=Path("migrations"),
+        validation_alias="PROCORE_INTAKE_MIGRATION_SCRIPT_LOCATION",
+    )
+    migration_allow_destructive: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_MIGRATION_ALLOW_DESTRUCTIVE",
+    )
     procore_mode: Literal["fixture", "live"] = "fixture"
     fixture_dir: Path = Path("app/fixtures")
     procore_live_mode_enabled: bool = Field(

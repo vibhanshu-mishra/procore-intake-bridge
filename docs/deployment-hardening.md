@@ -26,6 +26,11 @@ local `env` provider is a strict production blocker until an approved external i
 exists. `disabled`, `test`, and `external_placeholder` are also production blockers; the
 placeholder makes no network call and is not a real secret-manager integration.
 
+Migration readiness compares configured revision with repository head without running migrations.
+Pending state can block strict production readiness; local defaults report a warning. Automatic
+and destructive migrations remain disabled. Production execution requires a verified backup,
+DBA/operator review, and recovery plan; B3 provides no production migration guarantee.
+
 Alembic obtains its URL from runtime settings. Review revisions before `alembic upgrade head`;
 never generate or run migrations against production without backups, review, and a rollback plan.
 

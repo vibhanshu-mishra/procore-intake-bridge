@@ -33,6 +33,16 @@ After rotating a value at its owner, update runtime injection, restart affected 
 repeat the audit. Revoke or rotate suspected exposure immediately. The B2 external provider is
 only a fail-closed placeholder and performs no cloud or Vault request.
 
+## Migration checks and backup
+
+Run `python scripts/check_migration_status.py`, then exercise revisions only against temporary
+SQLite with `python scripts/run_migration_safety_check.py`. Run
+`python scripts/verify_schema_drift.py` before proposing schema changes.
+
+Never run production migrations from startup. Before manual execution, verify a restorable backup,
+engine compatibility, maintenance impact, revision ordering, and recovery procedure. Downgrade may
+destroy data and is not a replacement for restoring a backup.
+
 ## Manual sandbox DMSA smoke
 
 Run `python scripts/print_sandbox_smoke_plan.py` first; it never calls Procore. Follow

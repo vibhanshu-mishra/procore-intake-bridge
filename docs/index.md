@@ -11,6 +11,7 @@ live Procore access is disabled by default, and the project performs no Procore 
 - [Project status](project-status.md)
 - [Manually gated sandbox smoke tests](sandbox-smoke-tests.md)
 - [Secret management](secret-management.md)
+- [Database migrations](database-migrations.md)
 
 ## Design and workflows
 

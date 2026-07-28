@@ -61,6 +61,9 @@ BEARER = re.compile(r"(?i)authorization\s*:\s*bearer\s+([^\s'\"}]+)")
 SIGNED_PROCORE_URL = re.compile(
     r"(?i)https?://[^\s\"']*procore[^\s\"']*[?&](signature|token|expires)="
 )
+DATABASE_CREDENTIAL_URL = re.compile(
+    r"(?i)(?:postgresql|postgres|mysql|mariadb)://[^:\s/]+:([^@\s/]+)@"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -81,6 +84,9 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
             issues.append(SafetyIssue(path, "Authorization bearer value"))
     if SIGNED_PROCORE_URL.search(text):
         issues.append(SafetyIssue(path, "signed Procore URL"))
+    for match in DATABASE_CREDENTIAL_URL.finditer(text):
+        if not _safe_value(match.group(1)):
+            issues.append(SafetyIssue(path, "database URL contains credentials"))
     return issues
 
 
@@ -88,6 +94,9 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
     for path in paths:
         if path.name in SKIP_NAMES or not path.is_file():
+            continue
+        if path.suffix.casefold() in {".db", ".sqlite", ".sqlite3"}:
+            issues.append(SafetyIssue(path, "tracked local database file"))
             continue
         if path.name.endswith((".smoke.json", ".smoke.log")):
             issues.append(SafetyIssue(path, "tracked sandbox smoke output"))

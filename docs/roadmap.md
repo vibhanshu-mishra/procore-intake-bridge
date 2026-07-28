@@ -8,10 +8,13 @@ Completed: B1 adds a manually gated, mocked-by-default sandbox DMSA smoke harnes
 Completed: B2 adds the secret-provider contract, masked inventory, local/test implementations,
 and fail-closed external placeholders.
 
+Completed: B3 adds deterministic initial migrations, read-only revision status, and isolated
+SQLite safety/drift checks.
+
 Possible future phases below are **not implemented or committed**:
 
 - Future provider work: implement and review a real production secret-manager adapter.
-- B3: database migration hardening and reviewed initial schema revision.
+- Future database work: production engine, online migration, backup, and recovery hardening.
 - B4: authenticated and authorized admin access.
 - B5: production attachment storage backend.
 - B6: webhook verification validated against current Procore documentation.

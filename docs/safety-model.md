@@ -53,6 +53,10 @@ Phase A2 preserves these constraints:
   secret values or raw environment dumps.
 - The test provider is in-memory/local-only. Disabled and external-placeholder providers fail
   closed; B2 includes no cloud SDK or external secret-manager network call.
+- B3 readiness is read-only and never upgrades or downgrades the configured database.
+- Migration safety and drift scripts use disposable temporary SQLite databases only.
+- Automatic and destructive migrations default off; production execution requires manual review,
+  a verified backup, and an independent recovery plan.
 
 Before production, add tenant authorization, an audited secret-manager integration, encryption and
 key rotation, database migrations, data retention controls, request logging with redaction,

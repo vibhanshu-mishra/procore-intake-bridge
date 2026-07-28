@@ -13,6 +13,10 @@ disabled/external fail-closed placeholders. Secret references and values are sep
 DMSA, webhook, admin-token, readiness, and smoke paths. Real cloud or Vault adapters are not
 implemented and remain future work.
 
+B3 is implemented with a stable initial Alembic revision, sanitized status/readiness reporting,
+and temporary-SQLite migration/drift validation. Migrations remain manual. Production still
+requires DBA/operator review, verified backups, engine-specific testing, and recovery planning.
+
 - Default runtime: local SQLite with fixture/mock intake.
 - Live Procore mode: disabled by default and manually gated.
 - Procore writes: none.
