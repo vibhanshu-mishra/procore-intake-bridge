@@ -1,0 +1,15 @@
+services:
+  app:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      PROCORE_INTAKE_ENVIRONMENT: local
+      PROCORE_INTAKE_DATABASE_URL: sqlite:////data/procore_intake_bridge.db
+      PROCORE_INTAKE_LIVE_MODE_ENABLED: "false"
+      PROCORE_INTAKE_ALLOWED_HOSTS: localhost,127.0.0.1
+    volumes:
+      - local-data:/data
+
+volumes:
+  local-data:

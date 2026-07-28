@@ -8,6 +8,7 @@ __pycache__/
 *.sqlite*
 downloads/
 logs/
+*.log
 sync-output/
 event-output/
 webhook-logs/
@@ -23,5 +24,7 @@ onboarding-output/
 tokens/
 dist/
 build/
+.coverage
+htmlcov/
 *.egg-info/
 .DS_Store

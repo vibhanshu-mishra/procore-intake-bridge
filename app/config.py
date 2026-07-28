@@ -11,7 +11,40 @@ class Settings(BaseSettings):
         env_file=".env", env_prefix="APP_", extra="ignore", populate_by_name=True
     )
 
-    database_url: str = "sqlite:///./procore_intake_bridge.db"
+    environment: Literal["local", "staging", "production"] = Field(
+        default="local",
+        validation_alias=AliasChoices(
+            "PROCORE_INTAKE_ENVIRONMENT", "APP_DEPLOYMENT_ENVIRONMENT"
+        ),
+    )
+    require_safe_production_settings: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_REQUIRE_SAFE_PRODUCTION_SETTINGS",
+    )
+    database_url: str = Field(
+        default="sqlite:///./procore_intake_bridge.db",
+        validation_alias=AliasChoices("PROCORE_INTAKE_DATABASE_URL", "APP_DATABASE_URL"),
+    )
+    public_base_url: str | None = Field(
+        default=None, validation_alias="PROCORE_INTAKE_PUBLIC_BASE_URL"
+    )
+    allowed_hosts: str = Field(
+        default="localhost,127.0.0.1",
+        validation_alias="PROCORE_INTAKE_ALLOWED_HOSTS",
+    )
+    cors_origins: str = Field(
+        default="", validation_alias="PROCORE_INTAKE_CORS_ORIGINS"
+    )
+    log_level: Literal["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"] = Field(
+        default="INFO", validation_alias="PROCORE_INTAKE_LOG_LEVEL"
+    )
+    enable_startup_checks: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_ENABLE_STARTUP_CHECKS"
+    )
+    fail_startup_on_unsafe_production: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_FAIL_STARTUP_ON_UNSAFE_PRODUCTION",
+    )
     procore_mode: Literal["fixture", "live"] = "fixture"
     fixture_dir: Path = Path("app/fixtures")
     procore_live_mode_enabled: bool = Field(
@@ -39,7 +72,7 @@ class Settings(BaseSettings):
     procore_environment: Literal["sandbox", "production"] = Field(
         default="production",
         validation_alias=AliasChoices(
-            "PROCORE_INTAKE_ENVIRONMENT", "APP_PROCORE_ENVIRONMENT"
+            "PROCORE_INTAKE_PROCORE_ENVIRONMENT", "APP_PROCORE_ENVIRONMENT"
         ),
     )
     secret_provider: Literal["env"] = Field(

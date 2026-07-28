@@ -38,6 +38,11 @@ Phase A2 preserves these constraints:
 - There are no external AI/model calls and no MCP execution.
 - There are no GitHub API calls, commits, pushes, or automatic pull requests.
 - `.env`, databases, tokens, downloads, and logs are gitignored.
+- Production readiness is strict and does not imply production approval.
+- Production must not expose the dashboard without authentication controls.
+- Production webhooks must require signature verification.
+- Production should not use SQLite.
+- Startup checks can fail closed for unsafe production settings.
 
 Before production, add tenant authorization, an audited secret-manager integration, encryption and
 key rotation, database migrations, data retention controls, request logging with redaction,

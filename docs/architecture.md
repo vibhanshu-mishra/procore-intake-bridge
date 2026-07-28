@@ -25,6 +25,10 @@ flowchart LR
     Q["OnboardingPacket service"] --> R[("OnboardingPacket table")]
     R --> S[("Ignored local Markdown/JSON output")]
     T["Local read-only admin dashboard"] --> G
+    U["Startup safety checks"] --> V["Deployment readiness layer"]
+    V --> C
+    W["Alembic migration foundation"] --> G
+    X["Docker local runtime"] --> C
 ```
 
 PyProcore owns OAuth and token refresh, HTTP requests, pagination, retries, typed response parsing,
@@ -60,3 +64,7 @@ The A7 admin dashboard reads the existing local tables through dedicated summary
 Both its HTML and JSON surfaces are GET-only. The projections mask identifiers and omit secrets,
 payloads, URLs, generated packet content, and filesystem paths. The dashboard does not invoke the
 PyProcore adapter or any write service.
+
+The A8 readiness layer inspects sanitized runtime posture at startup and through read-only
+operational routes. Production can fail closed on blockers. Alembic supplies a reviewed migration
+foundation, while the Docker assets describe a local runtime only.

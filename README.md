@@ -110,6 +110,13 @@ paths. It makes no Procore calls. The default token-free configuration is only f
 development and is not production authentication. See
 [`docs/admin-dashboard.md`](docs/admin-dashboard.md).
 
+Phase A8 adds deployment hardening structure: deployment profiles, startup safety checks,
+sanitized readiness routes, Alembic scaffolding, local Docker assets, and an operations runbook.
+Run `python scripts/check_deployment_readiness.py`; for local Docker development, run
+`docker compose up --build`. These assets are local-dev only. The app is not production-ready
+until all blockers and independent controls in
+[`docs/deployment-hardening.md`](docs/deployment-hardening.md) are resolved.
+
 ## Safety model and current limitations
 
 This service is **read-only with respect to Procore**. It has no routes or services for creating,
@@ -118,7 +125,8 @@ write-back routes, external AI/model calls, MCP execution, GitHub API calls, or 
 behavior. Live read checks are opt-in; tests use local fixtures and mocks only and never use the
 network.
 
-The service is not production-ready: the environment secret provider and admin dashboard are for
+The service is not production-ready, and a readiness report is not a security guarantee. The
+environment secret provider and admin dashboard are for
 controlled local development; hosted scheduling and webhook delivery infrastructure are not
 implemented; managed secret storage, tenant authentication/authorization, migrations, audit
 logging, and production databases remain future work. See

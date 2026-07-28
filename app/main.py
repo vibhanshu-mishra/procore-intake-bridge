@@ -2,11 +2,13 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
+from app.config import get_settings
 from app.database import create_db_and_tables
 from app.routers import (
     admin,
     attachments,
     connections,
+    deployment,
     event_queue,
     health,
     onboarding,
@@ -15,10 +17,12 @@ from app.routers import (
     sync_profiles,
     webhooks,
 )
+from app.services.startup_checks import run_startup_checks
 
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
+    run_startup_checks(get_settings())
     create_db_and_tables()
     yield
 
@@ -30,6 +34,7 @@ app = FastAPI(
     lifespan=lifespan,
 )
 app.include_router(health.router)
+app.include_router(deployment.router)
 app.include_router(connections.router)
 app.include_router(sync.router)
 app.include_router(sync_profiles.router)
