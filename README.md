@@ -106,8 +106,33 @@ See [the architecture document](docs/architecture.md).
 | A7 | Complete | Read-only local admin dashboard |
 | A8 | Complete | Deployment hardening structure |
 | A9 | Complete | Repository polish and public launch readiness |
+| B1 | Complete | Manually gated sandbox DMSA smoke harness |
 
 The current source version is `0.1.0`; no package publication or release tag is implied.
+
+## Manual sandbox smoke harness
+
+B1 adds a CLI-only, disabled-by-default read probe for an approved sandbox DMSA connection. Print
+the safe plan without calling Procore:
+
+```bash
+python scripts/print_sandbox_smoke_plan.py
+```
+
+A real run requires all documented environment gates plus explicit sandbox identifiers and the
+exact confirmation phrase:
+
+```bash
+python scripts/run_sandbox_dmsa_smoke.py \
+  --connection-id 1 \
+  --company-id COMPANY_ID_PLACEHOLDER \
+  --project-id PROJECT_ID_PLACEHOLDER \
+  --confirm "I_UNDERSTAND_THIS_IS_READ_ONLY_SANDBOX_ONLY"
+```
+
+It reads at most a small configured sample, downloads no attachments, persists no raw payloads,
+and stores no raw URLs. Production is blocked by default. See
+[the B1 safety guide](docs/sandbox-smoke-tests.md). Passing it is not a production guarantee.
 
 ## Documentation
 
@@ -122,6 +147,7 @@ The current source version is `0.1.0`; no package publication or release tag is 
 - [Deployment hardening](docs/deployment-hardening.md)
 - [Operations runbook](docs/operations-runbook.md)
 - [Safety model](docs/safety-model.md)
+- [Sandbox smoke tests](docs/sandbox-smoke-tests.md)
 - [Roadmap](docs/roadmap.md)
 - [Public launch checklist](docs/public-launch-checklist.md)
 

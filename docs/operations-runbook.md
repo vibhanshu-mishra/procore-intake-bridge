@@ -22,3 +22,15 @@ post-incident, and access-revocation procedures remain production placeholders.
 - Disable admin: `PROCORE_INTAKE_ADMIN_DASHBOARD_ENABLED=false`.
 
 Restart after configuration changes and inspect the sanitized readiness report.
+
+## Manual sandbox DMSA smoke
+
+Run `python scripts/print_sandbox_smoke_plan.py` first; it never calls Procore. Follow
+[`sandbox-smoke-tests.md`](sandbox-smoke-tests.md) to configure all manual gates, then invoke the
+run script with an approved connection, company, project, and exact confirmation phrase. Never
+use production identifiers or run it as a scheduler.
+
+Emergency stop: set `PROCORE_INTAKE_SANDBOX_SMOKE_ENABLED=false` and
+`PROCORE_INTAKE_LIVE_MODE_ENABLED=false`, restart the process, and remove the ignored
+`smoke-output/` directory according to retention policy. If any credential was exposed, revoke or
+rotate it immediately; do not paste it into logs or issues.

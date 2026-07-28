@@ -3,6 +3,11 @@
 Current phase: A9 repository polish is complete. A1–A8 behavior and the A9 public-safety
 contracts are validated by the current test suite.
 
+B1 is implemented as a disabled-by-default, CLI-only sandbox DMSA smoke harness. Automated tests
+use injected mocks; no default test calls Procore. A real run requires the explicit smoke flag,
+live-mode flag, sandbox API target, exact confirmation phrase, an existing sandbox connection,
+and matching allowlisted company/project identifiers.
+
 - Default runtime: local SQLite with fixture/mock intake.
 - Live Procore mode: disabled by default and manually gated.
 - Procore writes: none.
@@ -14,6 +19,9 @@ Known limitations include no production tenant authentication/authorization, man
 production database operations, cloud attachment backend, hosted scheduler, audited logging,
 verified production webhook integration, or supported deployment pattern. The default readiness
 report intentionally identifies production blockers. This project is not production-ready.
+
+Passing B1 validates only a small, bounded read probe. It provides no production guarantee,
+performs no attachment downloads, and persists no raw Procore payloads.
 
 The GC/Owner must approve private DMSA installation and controls project/tool permissions.
 Procore Intake Bridge is independent and is not affiliated with or endorsed by Procore.

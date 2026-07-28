@@ -197,6 +197,52 @@ class Settings(BaseSettings):
         le=100,
         validation_alias="PROCORE_INTAKE_ADMIN_PAGE_SIZE",
     )
+    sandbox_smoke_enabled: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SANDBOX_SMOKE_ENABLED",
+    )
+    sandbox_smoke_require_confirmation: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SANDBOX_SMOKE_REQUIRE_CONFIRMATION",
+    )
+    sandbox_smoke_confirmation_phrase: str = Field(
+        default="I_UNDERSTAND_THIS_IS_READ_ONLY_SANDBOX_ONLY",
+        validation_alias="PROCORE_INTAKE_SANDBOX_SMOKE_CONFIRMATION_PHRASE",
+    )
+    sandbox_smoke_allow_production: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SANDBOX_SMOKE_ALLOW_PRODUCTION",
+    )
+    sandbox_smoke_max_records: int = Field(
+        default=3,
+        ge=1,
+        validation_alias="PROCORE_INTAKE_SANDBOX_SMOKE_MAX_RECORDS",
+    )
+    sandbox_smoke_output_root: Path = Field(
+        default=Path("./smoke-output"),
+        validation_alias="PROCORE_INTAKE_SANDBOX_SMOKE_OUTPUT_ROOT",
+    )
+    sandbox_smoke_write_report: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SANDBOX_SMOKE_WRITE_REPORT",
+    )
+    sandbox_smoke_attachment_downloads: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SANDBOX_SMOKE_ATTACHMENT_DOWNLOADS",
+    )
+    sandbox_smoke_connection_id: int | None = Field(
+        default=None,
+        ge=1,
+        validation_alias="PROCORE_INTAKE_SANDBOX_SMOKE_CONNECTION_ID",
+    )
+    sandbox_smoke_project_id: str | None = Field(
+        default=None,
+        validation_alias="PROCORE_INTAKE_SANDBOX_SMOKE_PROJECT_ID",
+    )
+    sandbox_smoke_company_id: str | None = Field(
+        default=None,
+        validation_alias="PROCORE_INTAKE_SANDBOX_SMOKE_COMPANY_ID",
+    )
 
 
 @lru_cache

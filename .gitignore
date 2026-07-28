@@ -9,6 +9,10 @@ __pycache__/
 downloads/
 logs/
 *.log
+smoke-output/
+sandbox-output/
+*.smoke.json
+*.smoke.log
 sync-output/
 event-output/
 webhook-logs/

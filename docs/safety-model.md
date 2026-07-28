@@ -43,6 +43,11 @@ Phase A2 preserves these constraints:
 - Production webhooks must require signature verification.
 - Production should not use SQLite.
 - Startup checks can fail closed for unsafe production settings.
+- The B1 live smoke harness is CLI-only, manual, disabled by default, and restricted to sandbox
+  connections with explicit company/project allowlists and confirmation.
+- B1 performs bounded read probes only: no Procore writes, raw payload persistence, raw signed URL
+  reporting, attachment downloads, polling, event processing, or background execution.
+- B1 automated tests use injected mocks and require no live credentials or network calls.
 
 Before production, add tenant authorization, an audited secret-manager integration, encryption and
 key rotation, database migrations, data retention controls, request logging with redaction,

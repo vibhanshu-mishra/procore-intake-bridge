@@ -38,6 +38,8 @@ PRIVATE_PATH_PARTS = {
     "onboarding-output",
     "packet-output",
     "storage",
+    "smoke-output",
+    "sandbox-output",
     "sync-output",
     "tokens",
 }
@@ -86,6 +88,9 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
     for path in paths:
         if path.name in SKIP_NAMES or not path.is_file():
+            continue
+        if path.name.endswith((".smoke.json", ".smoke.log")):
+            issues.append(SafetyIssue(path, "tracked sandbox smoke output"))
             continue
         if any(part in PRIVATE_PATH_PARTS for part in path.parts):
             issues.append(SafetyIssue(path, "tracked private output path"))

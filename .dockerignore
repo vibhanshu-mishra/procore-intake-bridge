@@ -17,6 +17,10 @@ sync-output
 event-output
 webhook-logs
 tokens
+smoke-output
+sandbox-output
+*.smoke.json
+*.smoke.log
 dist
 build
 *.egg-info

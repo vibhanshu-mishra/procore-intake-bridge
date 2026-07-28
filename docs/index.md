@@ -9,6 +9,7 @@ live Procore access is disabled by default, and the project performs no Procore 
 - [Safe demo flow](../examples/demo-flow.md)
 - [Examples index](../examples/README.md)
 - [Project status](project-status.md)
+- [Manually gated sandbox smoke tests](sandbox-smoke-tests.md)
 
 ## Design and workflows
 

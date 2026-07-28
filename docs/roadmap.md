@@ -3,11 +3,10 @@
 Completed: A1–A8 established the fixture intake service, guarded SDK boundary, polling, webhooks,
 attachment manifests, onboarding, local admin, and deployment-hardening structure.
 
-Now: A9 improves repository documentation, examples, community files, and public safety audits.
+Completed: B1 adds a manually gated, mocked-by-default sandbox DMSA smoke harness.
 
 Possible future phases below are **not implemented or committed**:
 
-- B1: manually gated real sandbox DMSA smoke-test harness.
 - B2: production secret-manager adapter.
 - B3: database migration hardening and reviewed initial schema revision.
 - B4: authenticated and authorized admin access.
