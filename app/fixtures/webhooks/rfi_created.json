@@ -1,0 +1,8 @@
+{
+  "event_id": "evt-rfi-created-001",
+  "event_type": "rfi.created",
+  "company_id": "company-test",
+  "project_id": "project-1001",
+  "resource": {"type": "rfi", "id": "rfi-101"},
+  "action": "created"
+}

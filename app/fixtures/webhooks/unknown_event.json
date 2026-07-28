@@ -1,0 +1,6 @@
+{
+  "event_id": "evt-unknown-001",
+  "event_type": "unrecognized.notice",
+  "project_id": "project-1001",
+  "metadata": {"example": true}
+}

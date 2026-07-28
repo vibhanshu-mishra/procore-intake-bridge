@@ -17,6 +17,11 @@ def test_live_mode_defaults_off():
     assert settings.sync_lock_timeout_minutes == 30
     assert settings.worker_id == "local-dev-worker"
     assert settings.max_sync_lookback_days == 30
+    assert settings.webhooks_enabled is True
+    assert settings.require_webhook_signature is False
+    assert settings.event_lock_timeout_minutes == 30
+    assert settings.event_max_attempts == 5
+    assert settings.event_worker_id == "local-dev-event-worker"
 
 
 def test_env_secret_provider_maps_and_resolves(monkeypatch):

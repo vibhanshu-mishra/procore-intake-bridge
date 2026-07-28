@@ -1,0 +1,8 @@
+{
+  "event_id": "evt-submittal-created-001",
+  "event_type": "submittal.created",
+  "company": {"id": "company-test"},
+  "project": {"id": "project-1001"},
+  "resource": {"type": "submittal", "id": "sub-202"},
+  "action": "created"
+}

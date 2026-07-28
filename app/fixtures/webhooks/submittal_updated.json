@@ -1,0 +1,9 @@
+{
+  "event": {"id": "evt-submittal-updated-001", "name": "submittal_updated"},
+  "payload": {
+    "companyId": "company-test",
+    "projectId": "project-1001",
+    "submittalId": "sub-202",
+    "action": "updated"
+  }
+}

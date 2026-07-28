@@ -9,6 +9,10 @@ Phase A2 preserves these constraints:
 - Polling reads Procore-shaped fixture data and never writes to Procore.
 - Polling dry-runs write no intake records and advance no watermarks.
 - Polling tests use fixtures and mocks only.
+- Webhooks never write to Procore, and the receiver does not call Procore.
+- The event worker uses the existing fixture/mock read-only sync path.
+- Webhook signature secrets are referenced through the secret provider, never stored.
+- Webhook tests use fake payloads and fake local HMAC secrets only.
 - Live Procore access is opt-in and disabled by default.
 - Live-mode adapter calls fail closed with `LiveProcoreDisabledError`.
 - Mock health checks are deterministic and do not resolve credentials.

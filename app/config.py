@@ -68,6 +68,46 @@ class Settings(BaseSettings):
         gt=0,
         validation_alias="PROCORE_INTAKE_MAX_SYNC_LOOKBACK_DAYS",
     )
+    webhooks_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_WEBHOOKS_ENABLED"
+    )
+    require_webhook_signature: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_REQUIRE_WEBHOOK_SIGNATURE",
+    )
+    webhook_signature_header: str = Field(
+        default="x-procore-signature",
+        min_length=1,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_SIGNATURE_HEADER",
+    )
+    webhook_event_id_header: str = Field(
+        default="x-procore-event-id",
+        min_length=1,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_EVENT_ID_HEADER",
+    )
+    webhook_secret_provider: str = Field(
+        default="env",
+        validation_alias="PROCORE_INTAKE_WEBHOOK_SECRET_PROVIDER",
+    )
+    webhook_secret_name: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_WEBHOOK_SECRET_NAME",
+    )
+    event_lock_timeout_minutes: int = Field(
+        default=30,
+        gt=0,
+        validation_alias="PROCORE_INTAKE_EVENT_LOCK_TIMEOUT_MINUTES",
+    )
+    event_max_attempts: int = Field(
+        default=5,
+        gt=0,
+        validation_alias="PROCORE_INTAKE_EVENT_MAX_ATTEMPTS",
+    )
+    event_worker_id: str = Field(
+        default="local-dev-event-worker",
+        min_length=1,
+        validation_alias="PROCORE_INTAKE_EVENT_WORKER_ID",
+    )
 
 
 @lru_cache

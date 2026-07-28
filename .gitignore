@@ -9,6 +9,8 @@ __pycache__/
 downloads/
 logs/
 sync-output/
+event-output/
+webhook-logs/
 tokens/
 dist/
 build/

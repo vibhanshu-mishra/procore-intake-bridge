@@ -50,6 +50,10 @@ files.
 - `POST /sync-profiles/{id}/run-once`
 - `GET /sync-profiles/{id}/state`
 - `POST /polling/run-once` (safe default: `dry_run=true`)
+- `POST /webhooks/procore` and `POST /webhooks/procore/dry-run`
+- `GET /webhook-events` and `GET /webhook-events/{id}`
+- `POST /webhook-events/{id}/replay`
+- `POST /event-queue/run-once` (safe default: `dry_run=true`)
 
 Connection payloads accept `client_id_ref` and `secret_name` references. There is no client-secret
 field. Environment-backed resolution is available only to the live-gated health path. Dry runs
@@ -67,6 +71,14 @@ is intentionally a run-once worker rather than a daemon or scheduler. The pollin
 `?dry_run=false` or `--execute` only to persist fixture intake and local sync state. See
 [`docs/polling-worker.md`](docs/polling-worker.md).
 
+Phase A4 adds a store-first webhook receiver and local database event queue. The receiver verifies
+or safely skips a configurable HMAC signature, redacts sensitive payload keys, normalizes and
+deduplicates the event, and stores it without calling Procore or running sync. The event worker
+later maps queued RFI/Submittal events to mock `SyncProfile`s. Try
+`POST /webhooks/procore/dry-run` to inspect normalization without persistence and
+`POST /event-queue/run-once?dry_run=true` to preview queued processing. See
+[`docs/webhooks.md`](docs/webhooks.md).
+
 ## Safety model and current limitations
 
 This service is **read-only with respect to Procore**. It has no routes or services for creating,
@@ -76,6 +88,6 @@ behavior. Live read checks are opt-in; tests use local fixtures and mocks only a
 network.
 
 Phase A3 is not production-ready: the environment secret provider is for controlled local
-development; hosted scheduling and webhook delivery are not implemented; managed secret storage,
+development; hosted scheduling and webhook delivery infrastructure are not implemented; managed secret storage,
 tenant authentication/authorization, migrations, audit logging, and production databases remain
 future work. See [`docs/safety-model.md`](docs/safety-model.md).

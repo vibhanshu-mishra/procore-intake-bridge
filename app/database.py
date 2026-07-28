@@ -31,6 +31,7 @@ def create_db_and_tables() -> None:
         IntakeRecord,
         SyncProfile,
         SyncRun,
+        WebhookEvent,
     )
 
     Base.metadata.create_all(engine)

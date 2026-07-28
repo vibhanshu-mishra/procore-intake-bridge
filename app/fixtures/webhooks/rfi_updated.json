@@ -1,0 +1,9 @@
+{
+  "id": "evt-rfi-updated-001",
+  "type": "RFI Updated",
+  "data": {
+    "company_id": "company-test",
+    "project_id": "project-1001",
+    "rfi_id": "rfi-101"
+  }
+}
