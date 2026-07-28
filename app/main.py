@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from app.database import create_db_and_tables
-from app.routers import connections, health, sync
+from app.routers import connections, health, polling, sync, sync_profiles
 
 
 @asynccontextmanager
@@ -21,3 +21,5 @@ app = FastAPI(
 app.include_router(health.router)
 app.include_router(connections.router)
 app.include_router(sync.router)
+app.include_router(sync_profiles.router)
+app.include_router(polling.router)

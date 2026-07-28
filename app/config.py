@@ -48,6 +48,26 @@ class Settings(BaseSettings):
             "PROCORE_INTAKE_SECRET_PROVIDER", "APP_SECRET_PROVIDER"
         ),
     )
+    default_polling_interval_minutes: int = Field(
+        default=30,
+        gt=0,
+        validation_alias="PROCORE_INTAKE_DEFAULT_POLLING_INTERVAL_MINUTES",
+    )
+    sync_lock_timeout_minutes: int = Field(
+        default=30,
+        gt=0,
+        validation_alias="PROCORE_INTAKE_SYNC_LOCK_TIMEOUT_MINUTES",
+    )
+    worker_id: str = Field(
+        default="local-dev-worker",
+        min_length=1,
+        validation_alias="PROCORE_INTAKE_WORKER_ID",
+    )
+    max_sync_lookback_days: int = Field(
+        default=30,
+        gt=0,
+        validation_alias="PROCORE_INTAKE_MAX_SYNC_LOOKBACK_DAYS",
+    )
 
 
 @lru_cache

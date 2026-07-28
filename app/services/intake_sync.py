@@ -28,15 +28,38 @@ def _normalize(source_type: str, item: dict) -> NormalizedRecord:
 
 def collect_fixture_records(
     connection: DMSAConnection,
+    procore_project_id: str | None = None,
+    sync_rfis: bool = True,
+    sync_submittals: bool = True,
+    updated_after: datetime | None = None,
 ) -> tuple[list[tuple[dict, NormalizedRecord]], list]:
     collected = []
     manifest = []
-    for project_id in connection.permitted_project_ids:
+    project_ids = (
+        [procore_project_id]
+        if procore_project_id is not None
+        else connection.permitted_project_ids
+    )
+    for project_id in project_ids:
         sources = []
-        if "rfis" in connection.enabled_tools:
-            sources.append(("rfi", list_rfis_for_project(connection, project_id)))
-        if "submittals" in connection.enabled_tools:
-            sources.append(("submittal", list_submittals_for_project(connection, project_id)))
+        if sync_rfis and "rfis" in connection.enabled_tools:
+            sources.append(
+                (
+                    "rfi",
+                    list_rfis_for_project(
+                        connection, project_id, updated_after=updated_after
+                    ),
+                )
+            )
+        if sync_submittals and "submittals" in connection.enabled_tools:
+            sources.append(
+                (
+                    "submittal",
+                    list_submittals_for_project(
+                        connection, project_id, updated_after=updated_after
+                    ),
+                )
+            )
         for source_type, items in sources:
             for item in items:
                 collected.append((item, _normalize(source_type, item)))
@@ -44,8 +67,27 @@ def collect_fixture_records(
     return collected, manifest
 
 
-def sync_connection(session: Session, connection: DMSAConnection, dry_run: bool) -> SyncSummary:
-    collected, manifest = collect_fixture_records(connection)
+def sync_connection(
+    session: Session,
+    connection: DMSAConnection,
+    dry_run: bool,
+    *,
+    procore_project_id: str | None = None,
+    sync_rfis: bool = True,
+    sync_submittals: bool = True,
+    updated_after: datetime | None = None,
+    mode: str = "fixture",
+    commit: bool = True,
+) -> SyncSummary:
+    if mode not in {"fixture", "mock"}:
+        raise ValueError("Live intake sync is not implemented in Phase A3.")
+    collected, manifest = collect_fixture_records(
+        connection,
+        procore_project_id=procore_project_id,
+        sync_rfis=sync_rfis,
+        sync_submittals=sync_submittals,
+        updated_after=updated_after,
+    )
     if dry_run:
         return SyncSummary(
             dry_run=True,
@@ -101,7 +143,10 @@ def sync_connection(session: Session, connection: DMSAConnection, dry_run: bool)
     run.record_count = len(collected)
     run.attachment_count = len(manifest)
     run.completed_at = datetime.now(UTC)
-    session.commit()
+    if commit:
+        session.commit()
+    else:
+        session.flush()
     return SyncSummary(
         dry_run=False,
         mode="fixture",

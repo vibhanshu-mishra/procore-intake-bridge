@@ -13,6 +13,9 @@ flowchart LR
     E --> G
     F --> G
     H["Local JSON fixtures"] --> C
+    I["Run-once Polling Worker"] --> J["Project SyncProfile"]
+    J --> C
+    J --> G
 ```
 
 PyProcore owns OAuth and token refresh, HTTP requests, pagination, retries, typed response parsing,
@@ -26,4 +29,7 @@ to an opt-in, read-only health diagnostic. `build_pyprocore_client_for_connectio
 PyProcore constructor remain centralized in the adapter.
 
 The data model separates DMSA connections, sync-run history, normalized intake records, and
-attachment metadata. A source/project/item uniqueness constraint supports idempotent re-syncs.
+attachment metadata. `SyncProfile` adds project-level schedules, watermarks, locks, and retry
+state. The run-once Polling Worker selects due profiles and calls the same intake service; there is
+no background daemon or external queue. A source/project/item uniqueness constraint supports
+idempotent re-syncs.

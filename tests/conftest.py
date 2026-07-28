@@ -12,7 +12,13 @@ from sqlalchemy.pool import StaticPool
 
 from app.database import Base, get_session
 from app.main import app
-from app.models import DMSAConnection, IntakeAttachment, IntakeRecord, SyncRun  # noqa: F401
+from app.models import (  # noqa: F401
+    DMSAConnection,
+    IntakeAttachment,
+    IntakeRecord,
+    SyncProfile,
+    SyncRun,
+)
 
 
 @pytest.fixture
@@ -47,6 +53,24 @@ def connection(db_session: Session) -> DMSAConnection:
         permitted_project_ids=["project-1001"],
         enabled_tools=["rfis", "submittals"],
         secret_name="secret/test-placeholder",
+    )
+    db_session.add(value)
+    db_session.commit()
+    db_session.refresh(value)
+    return value
+
+
+@pytest.fixture
+def sync_profile(db_session: Session, connection: DMSAConnection) -> SyncProfile:
+    value = SyncProfile(
+        connection_id=connection.id,
+        procore_project_id="project-1001",
+        name="Synthetic project polling",
+        enabled=True,
+        sync_rfis=True,
+        sync_submittals=True,
+        polling_interval_minutes=30,
+        mode="mock",
     )
     db_session.add(value)
     db_session.commit()

@@ -45,6 +45,11 @@ files.
 - `POST /connections/{id}/health-check`
 - `POST /connections/{id}/sync/dry-run`
 - `POST /connections/{id}/sync/run`
+- `GET`, `POST`, and `PATCH /sync-profiles`
+- `POST /sync-profiles/{id}/dry-run`
+- `POST /sync-profiles/{id}/run-once`
+- `GET /sync-profiles/{id}/state`
+- `POST /polling/run-once` (safe default: `dry_run=true`)
 
 Connection payloads accept `client_id_ref` and `secret_name` references. There is no client-secret
 field. Environment-backed resolution is available only to the live-gated health path. Dry runs
@@ -56,6 +61,12 @@ Health checks default to `mode=mock`. `mode=live` returns a safe disabled result
 [`docs/dmsa-credential-profiles.md`](docs/dmsa-credential-profiles.md) for the intentional opt-in
 and environment-variable mapping.
 
+Phase A3 adds project-level polling profiles, watermarks, retry state, and overlap protection. It
+is intentionally a run-once worker rather than a daemon or scheduler. The polling endpoint and
+[`scripts/run_poll_once.py`](scripts/run_poll_once.py) default to dry-run; pass
+`?dry_run=false` or `--execute` only to persist fixture intake and local sync state. See
+[`docs/polling-worker.md`](docs/polling-worker.md).
+
 ## Safety model and current limitations
 
 This service is **read-only with respect to Procore**. It has no routes or services for creating,
@@ -64,7 +75,7 @@ write-back routes, external AI/model calls, MCP execution, GitHub API calls, or 
 behavior. Live read checks are opt-in; tests use local fixtures and mocks only and never use the
 network.
 
-Phase A2 is not production-ready: the environment secret provider is for controlled local
-development; webhook delivery and polling are not implemented; managed secret storage, tenant
-authentication/authorization, migrations, audit logging, and production databases remain future
-work. See [`docs/safety-model.md`](docs/safety-model.md).
+Phase A3 is not production-ready: the environment secret provider is for controlled local
+development; hosted scheduling and webhook delivery are not implemented; managed secret storage,
+tenant authentication/authorization, migrations, audit logging, and production databases remain
+future work. See [`docs/safety-model.md`](docs/safety-model.md).

@@ -6,6 +6,9 @@ approvals, submissions, closures, uploads, or write-back routes.
 Phase A2 preserves these constraints:
 
 - Local JSON fixtures are the only sync source.
+- Polling reads Procore-shaped fixture data and never writes to Procore.
+- Polling dry-runs write no intake records and advance no watermarks.
+- Polling tests use fixtures and mocks only.
 - Live Procore access is opt-in and disabled by default.
 - Live-mode adapter calls fail closed with `LiveProcoreDisabledError`.
 - Mock health checks are deterministic and do not resolve credentials.

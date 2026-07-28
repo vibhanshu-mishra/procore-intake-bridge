@@ -13,6 +13,10 @@ def test_live_mode_defaults_off():
     settings = Settings(_env_file=None)
     assert settings.procore_live_mode_enabled is False
     assert settings.secret_provider == "env"
+    assert settings.default_polling_interval_minutes == 30
+    assert settings.sync_lock_timeout_minutes == 30
+    assert settings.worker_id == "local-dev-worker"
+    assert settings.max_sync_lookback_days == 30
 
 
 def test_env_secret_provider_maps_and_resolves(monkeypatch):

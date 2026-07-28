@@ -52,3 +52,6 @@ class DMSAConnection(Base):
     )
 
     sync_runs = relationship("SyncRun", back_populates="connection")
+    sync_profiles = relationship(
+        "SyncProfile", back_populates="connection", cascade="all, delete-orphan"
+    )
