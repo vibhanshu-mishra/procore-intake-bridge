@@ -61,6 +61,10 @@ Phase A2 preserves these constraints:
 - Local-optional access is local-only; token/provider failures in token-required mode fail closed.
 - Primary and rotation values are constant-time compared and never returned or logged.
 - This header token is not full user, tenant, role, session, OAuth, or identity-provider auth.
+- B5 storage accepts validated relative object keys and never stores raw signed source URLs,
+  returns absolute storage paths, generates presigned URLs, or exposes public file serving.
+- Local/test storage is bounded to development and tests. Disabled and external-placeholder
+  providers make no network calls and fail closed; a production adapter remains future work.
 
 Before production, add tenant authorization, an audited secret-manager integration, encryption and
 key rotation, database migrations, data retention controls, request logging with redaction,

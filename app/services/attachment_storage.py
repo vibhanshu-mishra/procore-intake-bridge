@@ -13,10 +13,46 @@ from app.schemas.attachments import (
     AttachmentPlanRequest,
     AttachmentPlanResult,
 )
+from app.services.attachment_storage_factory import (
+    build_attachment_storage_provider,
+    get_attachment_storage_provider_name,
+)
+from app.services.attachment_storage_keys import build_safe_storage_key
+from app.services.attachment_storage_provider import (
+    AttachmentStorageProviderError,
+    LocalAttachmentStorageProvider,
+)
 
 
 class AttachmentStorageError(RuntimeError):
     """Local attachment storage failed without exposing private paths or URLs."""
+
+
+ATTACHMENT_DOWNLOAD_STATUSES = {"planned", "downloaded", "skipped", "failed"}
+
+
+def set_attachment_download_status(
+    attachment: AttachmentObject,
+    status: str,
+    *,
+    failure_code: str | None = None,
+    failure_message: str | None = None,
+) -> None:
+    if status not in ATTACHMENT_DOWNLOAD_STATUSES:
+        raise AttachmentStorageError("Unknown attachment download status.")
+    attachment.download_status = status
+    if status == "failed":
+        attachment.failure_code = sanitize_filename(
+            failure_code or "AttachmentStorageError", 100
+        )
+        attachment.failure_message = (
+            "Attachment storage operation failed; private details were omitted."
+            if failure_message
+            else "Attachment storage operation failed safely."
+        )
+    else:
+        attachment.failure_code = None
+        attachment.failure_message = None
 
 
 class AttachmentStorageBackend(Protocol):
@@ -28,28 +64,19 @@ class LocalAttachmentStorage:
     def __init__(self, settings: Settings | None = None):
         self.settings = settings or get_settings()
         self.root = self.settings.attachment_storage_root.resolve()
+        self.provider = LocalAttachmentStorageProvider(self.settings)
 
     def write_bytes(self, storage_key: str, content: bytes) -> Path:
-        relative = Path(storage_key)
-        if relative.is_absolute() or ".." in relative.parts:
-            raise AttachmentStorageError("Unsafe attachment storage key.")
-        target = (self.root / relative).resolve()
-        if not target.is_relative_to(self.root):
-            raise AttachmentStorageError("Attachment path escaped the storage root.")
-        target.parent.mkdir(parents=True, exist_ok=True)
-        if target.exists() and not self.settings.attachment_allow_overwrite:
-            raise AttachmentStorageError(
-                "Attachment already exists and overwrite is disabled."
-            )
-        target.write_bytes(content)
-        return target
+        try:
+            result = self.provider.write_bytes(storage_key, content)
+            return self.root / result.storage_key
+        except AttachmentStorageProviderError as exc:
+            raise AttachmentStorageError("Attachment storage operation failed safely.") from exc
 
 
 def sanitize_filename(name: str, max_length: int = 160) -> str:
     normalized = str(name or "").replace("\\", "/").split("/")[-1].strip()
-    normalized = "".join(
-        character for character in normalized if character.isprintable()
-    )
+    normalized = "".join(character for character in normalized if character.isprintable())
     normalized = re.sub(r"\s+", "_", normalized)
     normalized = re.sub(r"[^A-Za-z0-9._-]+", "_", normalized)
     normalized = normalized.strip("._-")
@@ -72,14 +99,13 @@ def build_storage_key(
     *,
     max_filename_length: int = 160,
 ) -> str:
-    safe_filename = sanitize_filename(filename, max_filename_length)
-    connection = str(connection_id) if connection_id is not None else "unknown"
-    project = _safe_component(procore_project_id)
-    source = _safe_component(source_type)
-    item = _safe_component(procore_item_id)
-    return (
-        f"connection-{connection}/project-{project}/"
-        f"{source}-{item}/{safe_filename}"
+    return build_safe_storage_key(
+        connection_id,
+        procore_project_id,
+        source_type,
+        procore_item_id,
+        filename,
+        max_filename_length=max_filename_length,
     )
 
 
@@ -102,14 +128,12 @@ def plan_attachment_storage(
     source_url_present = bool(request.source_url)
     return {
         "safe_filename": safe_filename,
-        "storage_backend": "local",
+        "storage_backend": get_attachment_storage_provider_name(resolved),
         "storage_key": storage_key,
         "storage_path": storage_key,
         "source_url_present": source_url_present,
         "source_url_hash": (
-            hashlib.sha256(request.source_url.encode()).hexdigest()
-            if request.source_url
-            else None
+            hashlib.sha256(request.source_url.encode()).hexdigest() if request.source_url else None
         ),
         "download_status": "planned",
     }
@@ -133,9 +157,7 @@ def create_attachment_manifest_record(
     attachment.procore_project_id = request.procore_project_id
     attachment.procore_item_id = request.procore_item_id
     attachment.procore_attachment_id = request.procore_attachment_id
-    attachment.original_filename = sanitize_filename(
-        request.original_filename, 500
-    )
+    attachment.original_filename = sanitize_filename(request.original_filename, 500)
     attachment.safe_filename = plan["safe_filename"]
     attachment.content_type = request.content_type
     attachment.size_bytes = request.size_bytes
@@ -145,9 +167,7 @@ def create_attachment_manifest_record(
     attachment.storage_key = plan["storage_key"]
     attachment.storage_path = plan["storage_path"]
     if attachment.download_status != "downloaded":
-        attachment.download_status = "planned"
-        attachment.failure_code = None
-        attachment.failure_message = None
+        set_attachment_download_status(attachment, "planned")
     if existing is None:
         session.add(attachment)
     if commit:
@@ -167,34 +187,38 @@ def download_attachment_fixture_only(
 ) -> AttachmentDownloadResult:
     resolved = settings or get_settings()
     if not resolved.attachment_fixture_downloads_only:
-        raise AttachmentStorageError(
-            "A5 supports fixture attachment downloads only."
-        )
+        raise AttachmentStorageError("A5 supports fixture attachment downloads only.")
     content = (
-        "Procore Intake Bridge fixture attachment\n"
-        f"{attachment.storage_key}\n{fixture_label}\n"
+        f"Procore Intake Bridge fixture attachment\n{attachment.storage_key}\n{fixture_label}\n"
     ).encode()
     try:
-        path = write_fixture_attachment(
-            attachment.storage_key,
-            content,
-            LocalAttachmentStorage(resolved),
-        )
-    except AttachmentStorageError:
-        attachment.download_status = "failed"
-        attachment.failure_code = "FixtureStorageError"
-        attachment.failure_message = (
-            "Fixture attachment write failed; private path details were omitted."
+        provider_name = get_attachment_storage_provider_name(resolved)
+        if provider_name == "local":
+            path = write_fixture_attachment(
+                attachment.storage_key,
+                content,
+                LocalAttachmentStorage(resolved),
+            )
+            checksum = calculate_sha256(path)
+        else:
+            write_result = build_attachment_storage_provider(resolved).write_bytes(
+                attachment.storage_key, content
+            )
+            checksum = write_result.checksum_sha256
+    except (AttachmentStorageError, AttachmentStorageProviderError):
+        set_attachment_download_status(
+            attachment,
+            "failed",
+            failure_code="FixtureStorageError",
+            failure_message="private details omitted",
         )
         session.commit()
-        raise AttachmentStorageError(
-            "Fixture attachment write failed safely."
-        ) from None
-    attachment.download_status = "downloaded"
+        raise AttachmentStorageError("Fixture attachment write failed safely.") from None
+    set_attachment_download_status(attachment, "downloaded")
     attachment.size_bytes = len(content)
-    attachment.checksum_sha256 = calculate_sha256(path)
-    attachment.failure_code = None
-    attachment.failure_message = None
+    attachment.storage_backend = provider_name
+    attachment.storage_path = attachment.storage_key
+    attachment.checksum_sha256 = checksum
     session.commit()
     session.refresh(attachment)
     return AttachmentDownloadResult(
@@ -250,9 +274,7 @@ def attachment_plan_result(
     )
 
 
-def _find_existing(
-    session: Session, request: AttachmentPlanRequest
-) -> AttachmentObject | None:
+def _find_existing(session: Session, request: AttachmentPlanRequest) -> AttachmentObject | None:
     if request.procore_attachment_id is None:
         return None
     return session.scalar(
@@ -261,8 +283,7 @@ def _find_existing(
             AttachmentObject.procore_project_id == request.procore_project_id,
             AttachmentObject.source_type == request.source_type,
             AttachmentObject.procore_item_id == request.procore_item_id,
-            AttachmentObject.procore_attachment_id
-            == request.procore_attachment_id,
+            AttachmentObject.procore_attachment_id == request.procore_attachment_id,
         )
     )
 

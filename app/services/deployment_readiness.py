@@ -17,6 +17,12 @@ from app.security.secret_provider_factory import (
 )
 from app.security.secret_refs import SecretRefError, mask_secret_ref, validate_secret_ref
 from app.security.secrets import SecretProviderError
+from app.services.attachment_storage_factory import (
+    build_attachment_storage_provider,
+    get_attachment_storage_provider_name,
+    summarize_attachment_storage_config,
+)
+from app.services.attachment_storage_provider import AttachmentStorageProviderError
 
 
 class DeploymentFinding(BaseModel):
@@ -39,9 +45,7 @@ class DeploymentReadinessReport(BaseModel):
 
 
 def _finding(check: str, severity: str, message: str, *blocks: str) -> DeploymentFinding:
-    return DeploymentFinding(
-        check=check, severity=severity, message=message, blocks=list(blocks)
-    )
+    return DeploymentFinding(check=check, severity=severity, message=message, blocks=list(blocks))
 
 
 def check_environment_profile(settings: Settings) -> list[DeploymentFinding]:
@@ -132,12 +136,8 @@ def check_admin_dashboard_safety(settings: Settings) -> list[DeploymentFinding]:
             try:
                 validate_secret_ref(ref, settings)
             except SecretRefError:
-                severity = (
-                    "blocking" if settings.admin_auth_fail_closed else "warning"
-                )
-                blocks = (
-                    ("staging", "production") if severity == "blocking" else ()
-                )
+                severity = "blocking" if settings.admin_auth_fail_closed else "warning"
+                blocks = ("staging", "production") if severity == "blocking" else ()
                 findings.append(
                     _finding(
                         "admin_auth",
@@ -227,16 +227,123 @@ def check_webhook_signature_safety(settings: Settings) -> list[DeploymentFinding
 
 
 def check_attachment_storage_safety(settings: Settings) -> list[DeploymentFinding]:
-    if not settings.attachment_fixture_downloads_only:
-        return [
+    findings: list[DeploymentFinding] = []
+    name = get_attachment_storage_provider_name(settings)
+    if settings.attachment_storage_max_object_bytes <= 0:
+        findings.append(
             _finding(
                 "attachment_storage",
                 "blocking",
-                "Non-fixture downloads have no approved production storage backend.",
+                "Attachment object-size limit must be positive.",
+                "staging",
                 "production",
             )
-        ]
-    return [_finding("attachment_storage", "info", "Downloads remain fixture-only.")]
+        )
+    if not settings.attachment_storage_require_safe_keys:
+        findings.append(
+            _finding(
+                "attachment_storage",
+                "blocking",
+                "Safe attachment object keys are required.",
+                "staging",
+                "production",
+            )
+        )
+    if name == "local":
+        findings.append(
+            _finding(
+                "attachment_storage",
+                "blocking",
+                "Local attachment storage is not accepted as the final production backend.",
+                "production",
+            )
+        )
+    elif name == "test":
+        findings.append(
+            _finding(
+                "attachment_storage",
+                "blocking",
+                "The in-memory test storage provider is forbidden outside tests.",
+                "staging",
+                "production",
+            )
+        )
+    elif name == "disabled":
+        findings.append(
+            _finding(
+                "attachment_storage", "blocking", "Attachment storage is disabled.", "production"
+            )
+        )
+    elif name == "external_placeholder":
+        findings.append(
+            _finding(
+                "attachment_storage",
+                "blocking",
+                "External attachment storage is a fail-closed placeholder and is not implemented.",
+                "staging",
+                "production",
+            )
+        )
+    else:
+        findings.append(
+            _finding(
+                "attachment_storage",
+                "blocking",
+                "Unknown attachment storage provider fails closed.",
+                "staging",
+                "production",
+            )
+        )
+    if not settings.attachment_fixture_downloads_only:
+        findings.append(
+            _finding(
+                "attachment_storage",
+                "blocking",
+                "Non-fixture downloads have no implemented production storage provider.",
+                "production",
+            )
+        )
+    else:
+        findings.append(_finding("attachment_storage", "info", "Downloads remain fixture-only."))
+    if not settings.attachment_storage_health_check_enabled:
+        findings.append(
+            _finding(
+                "attachment_storage_health",
+                "warning",
+                "Attachment storage health checks are disabled.",
+            )
+        )
+    else:
+        try:
+            health = build_attachment_storage_provider(settings).health_check()
+            if health.available:
+                findings.append(
+                    _finding(
+                        "attachment_storage_health",
+                        "info",
+                        "Attachment storage health check completed without external calls.",
+                    )
+                )
+            else:
+                findings.append(
+                    _finding(
+                        "attachment_storage_health",
+                        "blocking",
+                        "Attachment storage provider is unavailable.",
+                        "production",
+                    )
+                )
+        except (AttachmentStorageProviderError, ValueError):
+            findings.append(
+                _finding(
+                    "attachment_storage_health",
+                    "blocking",
+                    "Attachment storage provider is unavailable or misconfigured.",
+                    "staging",
+                    "production",
+                )
+            )
+    return findings
 
 
 def check_secret_provider_safety(settings: Settings) -> list[DeploymentFinding]:
@@ -437,12 +544,10 @@ def build_deployment_readiness_report(settings: Settings) -> DeploymentReadiness
     ):
         findings.extend(check(settings))
     production_blockers = sum(
-        finding.severity == "blocking" and "production" in finding.blocks
-        for finding in findings
+        finding.severity == "blocking" and "production" in finding.blocks for finding in findings
     )
     staging_blockers = sum(
-        finding.severity == "blocking" and "staging" in finding.blocks
-        for finding in findings
+        finding.severity == "blocking" and "staging" in finding.blocks for finding in findings
     )
     return DeploymentReadinessReport(
         environment=settings.environment,
@@ -497,6 +602,7 @@ def build_sanitized_config_summary(settings: Settings) -> dict:
         "webhook_signature_required": settings.require_webhook_signature,
         "webhook_secret_reference_configured": bool(settings.webhook_secret_name.strip()),
         "attachment_fixture_downloads_only": settings.attachment_fixture_downloads_only,
+        "attachment_storage": summarize_attachment_storage_config(settings),
         "secret_provider": summarize_secret_provider_config(settings),
         "masked_required_secret_refs": masked_refs,
     }

@@ -22,6 +22,7 @@ live Procore access is disabled by default, and the project performs no Procore 
 - [Polling worker](polling-worker.md)
 - [Webhooks](webhooks.md)
 - [Attachment storage](attachment-storage.md)
+- [Attachment storage backends](attachment-storage-backends.md)
 - [Onboarding packets](onboarding-packets.md)
 - [Admin dashboard](admin-dashboard.md)
 - [Admin authentication](admin-authentication.md)

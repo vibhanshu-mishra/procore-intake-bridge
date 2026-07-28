@@ -53,3 +53,8 @@ invokes intake sync and therefore creates the same manifests. Polling follows th
 Future production phases may add a separately reviewed encrypted object-storage backend, retention
 policy, malware scanning, tenant authorization, and controlled download delivery. A5 intentionally
 has no S3, Azure Blob, Google Cloud Storage, or presigned URL implementation.
+
+Phase B5 now supplies the provider interface, safe-key validation, local/test implementations,
+fail-closed disabled/external placeholders, health reporting, and manifest consistency checks.
+See [attachment storage backends](attachment-storage-backends.md). Real cloud adapters remain
+future work; no presigned URLs or public file-serving routes are provided.

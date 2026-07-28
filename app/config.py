@@ -198,7 +198,13 @@ class Settings(BaseSettings):
         min_length=1,
         validation_alias="PROCORE_INTAKE_EVENT_WORKER_ID",
     )
-    attachment_storage_backend: Literal["local"] = Field(
+    attachment_storage_provider: Literal[
+        "local", "test", "disabled", "external_placeholder"
+    ] = Field(
+        default="local",
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_STORAGE_PROVIDER",
+    )
+    attachment_storage_backend: str = Field(
         default="local",
         validation_alias="PROCORE_INTAKE_ATTACHMENT_STORAGE_BACKEND",
     )
@@ -219,6 +225,50 @@ class Settings(BaseSettings):
     attachment_fixture_downloads_only: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_ATTACHMENT_FIXTURE_DOWNLOADS_ONLY",
+    )
+    attachment_storage_require_safe_keys: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_STORAGE_REQUIRE_SAFE_KEYS",
+    )
+    attachment_storage_health_check_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_STORAGE_HEALTH_CHECK_ENABLED",
+    )
+    attachment_storage_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_STORAGE_FAIL_CLOSED",
+    )
+    attachment_storage_max_object_bytes: int = Field(
+        default=25_000_000,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_STORAGE_MAX_OBJECT_BYTES",
+    )
+    attachment_storage_allowed_content_types: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_STORAGE_ALLOWED_CONTENT_TYPES",
+    )
+    attachment_storage_quarantine_unknown_types: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_STORAGE_QUARANTINE_UNKNOWN_TYPES",
+    )
+    attachment_storage_write_metadata_only: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_STORAGE_WRITE_METADATA_ONLY",
+    )
+    attachment_storage_external_provider_name: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_STORAGE_EXTERNAL_PROVIDER_NAME",
+    )
+    attachment_storage_external_bucket_ref: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_STORAGE_EXTERNAL_BUCKET_REF",
+    )
+    attachment_storage_external_region: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_STORAGE_EXTERNAL_REGION",
+    )
+    attachment_storage_external_endpoint_ref: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_STORAGE_EXTERNAL_ENDPOINT_REF",
     )
     packet_output_root: Path = Field(
         default=Path("./packet-output"),

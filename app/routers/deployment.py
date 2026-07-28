@@ -14,6 +14,10 @@ from app.security.secret_provider_factory import (
     build_secret_provider,
     summarize_secret_provider_config,
 )
+from app.services.attachment_storage_factory import (
+    build_attachment_storage_provider,
+    summarize_attachment_storage_config,
+)
 from app.services.deployment_readiness import (
     build_deployment_readiness_report,
     build_sanitized_config_summary,
@@ -22,15 +26,11 @@ from app.services.migration_status import build_migration_status_report
 from app.services.secret_inventory import collect_required_secret_refs
 
 
-def deployment_operator_guard(
-    request: Request, response: Response
-) -> Settings:
+def deployment_operator_guard(request: Request, response: Response) -> Settings:
     settings = get_settings()
     if settings.admin_auth_protect_deployment_routes:
         try:
-            require_admin_access(
-                request, settings, build_secret_provider(settings)
-            )
+            require_admin_access(request, settings, build_secret_provider(settings))
         except AdminAccessError as exc:
             raise HTTPException(
                 status_code=exc.status_code,
@@ -76,9 +76,7 @@ def deployment_config_summary() -> dict:
 @router.get("/secrets")
 def deployment_secrets(session: Session = Depends(get_session)) -> dict:
     settings = get_settings()
-    inventory = collect_required_secret_refs(
-        settings, db_session=session, run_health=True
-    )
+    inventory = collect_required_secret_refs(settings, db_session=session, run_health=True)
     return {
         "provider": summarize_secret_provider_config(settings),
         "required_refs": [item.model_dump() for item in inventory],
@@ -91,3 +89,17 @@ def deployment_secrets(session: Session = Depends(get_session)) -> dict:
 @router.get("/migrations")
 def deployment_migrations() -> dict:
     return build_migration_status_report(get_settings()).model_dump(mode="json")
+
+
+@router.get("/storage")
+def deployment_storage() -> dict:
+    settings = get_settings()
+    provider = build_attachment_storage_provider(settings)
+    health = provider.health_check() if settings.attachment_storage_health_check_enabled else None
+    return {
+        "config": summarize_attachment_storage_config(settings),
+        "health": health.model_dump() if health else {"status": "not_checked"},
+        "secrets_exposed": False,
+        "paths_exposed": False,
+        "external_calls": False,
+    }

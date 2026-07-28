@@ -64,3 +64,14 @@ protected deployment routes.
 During rotation, configure the previous token as the rotation ref, deploy a new primary, update
 operators, then remove the overlap. Never log either value. Disable immediately with
 `PROCORE_INTAKE_ADMIN_AUTH_MODE=disabled` or the dashboard-enabled switch if exposure is suspected.
+
+## Attachment storage checks
+
+Run `python scripts/check_attachment_storage.py` to inspect sanitized provider posture and
+`python scripts/check_attachment_manifest_consistency.py` to compare downloaded local/test
+manifests with object existence. Both make no external storage or Procore calls and print no
+contents or private paths. Use `--strict` in reviewed gates.
+
+Keep fixture-only downloads enabled unless a separately reviewed production adapter exists.
+Missing objects require investigation and recovery from an approved source; do not bypass safe-key
+validation, enable overwrite casually, expose the storage root, or construct public/presigned URLs.

@@ -38,3 +38,7 @@ Procore Intake Bridge is independent and is not affiliated with or endorsed by P
 B4 provides a secret-backed header guard for every admin and sensitive deployment route. Local
 optional access remains convenient locally; nonlocal readiness requires token mode. This is not
 user, tenant, role, session, OAuth, or identity-provider authentication.
+
+B5 provides a storage-provider contract with local/test implementations and disabled/external
+fail-closed placeholders. It validates object keys and adds sanitized health and manifest checks.
+No production cloud adapter, public file serving, presigned URL, or live download is implemented.

@@ -13,12 +13,16 @@ SQLite safety/drift checks.
 
 Completed: B4 adds secret-backed admin/deployment operator header authentication and rotation.
 
+Completed: B5 adds the attachment storage provider contract, safe object keys, sanitized health,
+local/test providers, and fail-closed external placeholders.
+
 Possible future phases below are **not implemented or committed**:
 
 - Future provider work: implement and review a real production secret-manager adapter.
 - Future database work: production engine, online migration, backup, and recovery hardening.
 - Future auth work: identity provider, users, tenants, roles, sessions, and audited access.
-- B5: production attachment storage backend.
+- Future storage work: reviewed S3/Azure/GCS-style adapter, retention, recovery, and malware
+  controls.
 - B6: webhook verification validated against current Procore documentation.
 - B7: reviewed customer-specific deployment pattern.
 - B8: hosted worker and scheduler.

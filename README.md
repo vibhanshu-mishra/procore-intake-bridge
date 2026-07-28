@@ -110,6 +110,7 @@ See [the architecture document](docs/architecture.md).
 | B2 | Complete | Production-shaped secret-provider adapter layer |
 | B3 | Complete | Deterministic schema migration hardening |
 | B4 | Complete | Secret-backed admin and deployment operator access |
+| B5 | Complete | Production-shaped attachment storage provider contract |
 
 The current source version is `0.1.0`; no package publication or release tag is implied.
 
@@ -181,6 +182,20 @@ which token matched. This is interim operator protection, not users, sessions, r
 OAuth, or full SaaS authentication. See
 [admin authentication](docs/admin-authentication.md).
 
+## Attachment storage providers
+
+B5 adds local, in-memory test, disabled, and fail-closed external-placeholder providers behind one
+storage contract. It validates relative object keys, limits object size, reports sanitized health,
+and checks local/test manifests without downloading or printing file contents.
+
+```bash
+python scripts/check_attachment_storage.py
+python scripts/check_attachment_manifest_consistency.py
+```
+
+No cloud adapter, cloud SDK, presigned URL, public file-serving route, or live attachment download
+is included. See [attachment storage backends](docs/attachment-storage-backends.md).
+
 ## Documentation
 
 - [Documentation home](docs/index.md)
@@ -189,6 +204,7 @@ OAuth, or full SaaS authentication. See
 - [Polling worker](docs/polling-worker.md)
 - [Webhooks](docs/webhooks.md)
 - [Attachment storage](docs/attachment-storage.md)
+- [Attachment storage backends](docs/attachment-storage-backends.md)
 - [Onboarding packets](docs/onboarding-packets.md)
 - [Admin dashboard](docs/admin-dashboard.md)
 - [Admin authentication](docs/admin-authentication.md)

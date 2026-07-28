@@ -9,5 +9,7 @@
 - B2: production-shaped secret-provider contract and fail-closed adapters.
 - B3: deterministic initial schema migration, status, and temporary-SQLite safety checks.
 - B4: secret-backed admin/deployment operator guard, rotation, and security headers.
+- B5: production-shaped attachment storage contract, safe keys, fail-closed providers, sanitized
+  health, and manifest consistency checks.
 
 No release tag or package publication is claimed.

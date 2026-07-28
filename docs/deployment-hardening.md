@@ -47,3 +47,9 @@ webhooks, repository-local outputs, or unreviewed live mode.
 Admin-auth readiness blocks staging/production when dashboard access is local-optional, the
 primary ref/provider is unavailable, or deployment routes are unprotected. B4 header-token auth
 is interim operator control, not production identity or tenant authentication.
+
+Attachment-storage readiness validates the provider, safe-key enforcement, positive object-size
+limit, health posture, fixture-download boundary, and production suitability. Local storage
+remains a production blocker, test storage is forbidden outside tests, and disabled/external
+placeholders fail closed. `GET /deployment/storage` is sanitized and protected with the other B4
+deployment routes.
