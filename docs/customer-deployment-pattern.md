@@ -65,3 +65,7 @@ configuration, reviewer identities, and approval records remain private.
 
 C3 can include a B7 customer-deployment profile ref and status, never the customer profile or
 private deployment configuration itself.
+# Pilot mode
+
+The customer deployment profile validator participates in `make pilot-check`. Real profiles,
+identifiers, and evidence stay in the authorized private pilot workspace outside GitHub.

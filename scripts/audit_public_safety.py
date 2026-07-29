@@ -33,11 +33,13 @@ SAFE_MARKERS = {
     "token-value",
 }
 PRIVATE_PATH_PARTS = {
+    "doctor-output",
     "downloads",
     "customer-deployment-output",
     "customer-output",
     "diagnostics-output",
     "logs",
+    "mode-output",
     "onboarding-output",
     "packet-output",
     "pilot-output",
@@ -51,6 +53,7 @@ PRIVATE_PATH_PARTS = {
     "evidence-expiry-output",
     "evidence-renewal-output",
     "private-evidence-review",
+    "quickstart-output",
     "pilot-approval-output",
     "approval-packet-output",
     "private-pilot-approval",
@@ -205,6 +208,16 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             continue
         if path.name.endswith((".smoke.json", ".smoke.log")):
             issues.append(SafetyIssue(path, "tracked sandbox smoke output"))
+            continue
+        if path.name.endswith((
+            ".mode-report.json",
+            ".mode-report.md",
+            ".doctor-report.json",
+            ".doctor-report.md",
+            ".quickstart-report.json",
+            ".quickstart-report.md",
+        )):
+            issues.append(SafetyIssue(path, "tracked generated usage-mode output"))
             continue
         if path.name.endswith((
             ".customer-profile.json",

@@ -44,3 +44,9 @@ affiliated with or endorsed by Procore Technologies and carries no production gu
 - [Private pilot evidence workspace](private-pilot-evidence.md)
 - [Evidence review and expiry](evidence-review-expiry.md)
 - [Private pilot approval packet](pilot-approval-packet.md)
+# Usage modes
+
+- [Three usage modes](usage-modes.md)
+- [Demo quickstart](quickstart-demo.md)
+- [Sandbox mode](sandbox-mode.md)
+- [Pilot mode](pilot-mode.md)

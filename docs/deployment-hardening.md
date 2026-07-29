@@ -82,3 +82,8 @@ windows. Local readiness never requires or reads a review manifest.
 C3 readiness reports only the safe approval-packet posture: placeholders, identity/ID/content
 blocking, production blocking, output-root safety, and local validator availability. It never
 requires or reads an approval packet for local readiness.
+# Mode doctor
+
+Run `make doctor` before deployment-oriented work to identify local mode prerequisites. A ready
+result is sanitized configuration guidance, not a deployment, security approval, or production
+authorization.

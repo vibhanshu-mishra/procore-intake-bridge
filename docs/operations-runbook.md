@@ -111,3 +111,8 @@ For C3, run `make pilot-approval-check` and `make pilot-approval-safety-check`. 
 safety blocker and privately review all open readiness, expiry, renewal, launch, rollback,
 limitation, risk, and signoff placeholders. Generate artifacts only in ignored local output and
 never treat `ready_for_private_review` or `approved_placeholder` as real authorization.
+# Mode checks
+
+Run `make modes` and `make doctor` first. Use `make check-local` for demo blockers,
+`make sandbox-check` for no-call sandbox planning, and `make pilot-check` for the fake validator
+chain. Sandbox smoke and all real pilot decisions remain separate, manual, private actions.

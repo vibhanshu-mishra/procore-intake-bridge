@@ -68,3 +68,7 @@ and risk templates, local safety validation, and ignored sanitized artifacts.
 
 Real approval workflow, reviewer identity/access control, binding signoff, legal/compliance
 review, notifications, audit history, and pilot authorization remain future private work.
+# Current roadmap note
+
+C4 (Three-Mode Quickstart and Doctor) is complete. Candidate follow-on work is C5 and D1–D5;
+none of that future work is implemented or implied by C4 readiness results.

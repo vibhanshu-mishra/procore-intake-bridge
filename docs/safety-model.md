@@ -101,3 +101,9 @@ placeholder metadata, send no notifications, add no routes, and write only ignor
 C3 approval packets contain refs, statuses, counts, conditions, limitations, and signoff
 placeholders only. Real approvals, identities, evidence, paths, URLs, reports, payloads,
 signatures, and customer data are blocked. C3 adds no routes, notifications, or deployment.
+# Three-mode boundary
+
+Demo is fixture-only and needs no secrets or external services. Sandbox readiness inspects only
+configuration posture; its live smoke mechanism stays separately gated. Pilot preparation relies
+on fake public examples while all real evidence, identities, approvals, and paths stay private.
+`make doctor` reports these boundaries without resolving values or making external calls.

@@ -65,3 +65,7 @@ notification, evidence review, or pilot approval is claimed.
 C3 is implemented as a CLI-only placeholder pilot approval packet pattern with sanitized ignored
 artifacts and a local safety checker. No real approval, identity, signoff, reviewer contact,
 notification, or pilot authorization is recorded.
+# Phase C4
+
+Three-Mode Quickstart and Doctor is implemented with local-only demo, sandbox-readiness, and
+pilot-readiness commands. Reports remain sanitized and generated outputs are ignored.

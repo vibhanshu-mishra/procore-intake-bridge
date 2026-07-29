@@ -1,5 +1,14 @@
 # Procore Intake Bridge
 
+## Choose a usage mode
+
+The repository supports three safe paths: a credential-free local **demo**, privately configured
+read-only **sandbox** readiness, and controlled private **pilot** preparation. Run `make modes`,
+then `make doctor`. For the fastest local start, see
+[Demo mode quickstart](docs/quickstart-demo.md); the complete boundaries are in
+[Three usage modes](docs/usage-modes.md), [Sandbox mode](docs/sandbox-mode.md), and
+[Pilot mode](docs/pilot-mode.md).
+
 > A read-only DMSA intake service for syncing Procore RFIs, Submittals, visible attachments,
 > webhooks, and onboarding workflows into a local tracking system.
 

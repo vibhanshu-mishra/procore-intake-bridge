@@ -66,3 +66,8 @@ include support bundle contents, reviewer identity, or a real signoff.
 
 C3 records only a diagnostics ref and redaction status. Support bundle contents, logs, paths, and
 diagnostic records remain outside the packet.
+# Mode doctor relationship
+
+`make doctor` uses sanitized posture summaries and command availability, not raw diagnostic,
+environment, database, or secret values. Use `make diagnostics` for the existing redacted
+operator view.

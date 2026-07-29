@@ -760,6 +760,49 @@ class Settings(BaseSettings):
         default=True,
         validation_alias="PROCORE_INTAKE_PILOT_APPROVAL_PACKET_FAIL_CLOSED",
     )
+    usage_mode: str = Field(
+        default="demo", validation_alias="PROCORE_INTAKE_USAGE_MODE"
+    )
+    allowed_usage_modes: str = Field(
+        default="demo,sandbox,pilot",
+        validation_alias="PROCORE_INTAKE_ALLOWED_USAGE_MODES",
+    )
+    mode_doctor_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_MODE_DOCTOR_ENABLED"
+    )
+    mode_doctor_strict_redaction: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_MODE_DOCTOR_STRICT_REDACTION",
+    )
+    mode_doctor_include_demo: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_MODE_DOCTOR_INCLUDE_DEMO",
+    )
+    mode_doctor_include_sandbox: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_MODE_DOCTOR_INCLUDE_SANDBOX",
+    )
+    mode_doctor_include_pilot: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_MODE_DOCTOR_INCLUDE_PILOT",
+    )
+    mode_doctor_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_MODE_DOCTOR_FAIL_CLOSED",
+    )
+    demo_mode_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DEMO_MODE_ENABLED"
+    )
+    sandbox_mode_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_SANDBOX_MODE_ENABLED"
+    )
+    pilot_mode_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_PILOT_MODE_ENABLED"
+    )
+    mode_report_output_root: Path = Field(
+        default=Path("./mode-output"),
+        validation_alias="PROCORE_INTAKE_MODE_REPORT_OUTPUT_ROOT",
+    )
 
 
 @lru_cache

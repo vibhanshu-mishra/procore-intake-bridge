@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Added Phase C4 Three-Mode Quickstart and Doctor for safe local demo, sandbox readiness, and
+  private-pilot preparation.
+
+## Unreleased
+
 - C3: placeholder-only private pilot approval packets, launch/rollback conditions, limitation and
   risk templates, local safety checking, and ignored sanitized artifacts. No real approval,
   reviewer contact, notification, or deployment is performed.

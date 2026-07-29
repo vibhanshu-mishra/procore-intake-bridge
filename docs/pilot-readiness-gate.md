@@ -76,3 +76,7 @@ approval.
 
 C3 consumes only the B9 decision status and a placeholder readiness reference. It never copies a
 readiness artifact or converts `GO` into real pilot approval.
+# Three-mode entry point
+
+Use `make doctor` to reach the pilot readiness tools from the three-mode workflow. Pilot remains
+unapproved until private evidence, review, expiry, rollback, and approval work is completed.

@@ -86,5 +86,14 @@ dist/
 build/
 .coverage
 htmlcov/
+mode-output/
+quickstart-output/
+doctor-output/
+*.mode-report.json
+*.mode-report.md
+*.doctor-report.json
+*.doctor-report.md
+*.quickstart-report.json
+*.quickstart-report.md
 *.egg-info/
 .DS_Store
