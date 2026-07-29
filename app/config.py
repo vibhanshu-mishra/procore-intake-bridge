@@ -183,6 +183,54 @@ class Settings(BaseSettings):
         default="",
         validation_alias="PROCORE_INTAKE_WEBHOOK_SECRET_NAME",
     )
+    webhook_verification_enabled: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_VERIFICATION_ENABLED",
+    )
+    webhook_verification_require_confirmation: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_VERIFICATION_REQUIRE_CONFIRMATION",
+    )
+    webhook_verification_confirmation_phrase: str = Field(
+        default="I_UNDERSTAND_THIS_ONLY_VERIFIES_WEBHOOK_RECEIVER_BEHAVIOR",
+        validation_alias="PROCORE_INTAKE_WEBHOOK_VERIFICATION_CONFIRMATION_PHRASE",
+    )
+    webhook_verification_allow_production: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_VERIFICATION_ALLOW_PRODUCTION",
+    )
+    webhook_verification_output_root: Path = Field(
+        default=Path("./webhook-verification-output"),
+        validation_alias="PROCORE_INTAKE_WEBHOOK_VERIFICATION_OUTPUT_ROOT",
+    )
+    webhook_verification_write_report: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_VERIFICATION_WRITE_REPORT",
+    )
+    webhook_verification_max_events: int = Field(
+        default=5,
+        ge=1,
+        le=10,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_VERIFICATION_MAX_EVENTS",
+    )
+    webhook_verification_require_docs_check: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_VERIFICATION_REQUIRE_DOCS_CHECK",
+    )
+    webhook_verification_docs_status: Literal[
+        "unverified", "verified", "needs_review", "deprecated"
+    ] = Field(
+        default="unverified",
+        validation_alias="PROCORE_INTAKE_WEBHOOK_VERIFICATION_DOCS_STATUS",
+    )
+    webhook_verification_expected_payload_version: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_WEBHOOK_VERIFICATION_EXPECTED_PAYLOAD_VERSION",
+    )
+    webhook_verification_expected_scope: str = Field(
+        default="company_or_project",
+        validation_alias="PROCORE_INTAKE_WEBHOOK_VERIFICATION_EXPECTED_SCOPE",
+    )
     event_lock_timeout_minutes: int = Field(
         default=30,
         gt=0,

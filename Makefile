@@ -1,4 +1,4 @@
-.PHONY: test lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check migration-status migration-safety-check schema-drift-check quality
+.PHONY: test lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check migration-status migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check webhook-verification-check quality
 
 PYTHON ?= .venv/bin/python
 
@@ -38,4 +38,13 @@ migration-safety-check:
 schema-drift-check:
 	$(PYTHON) scripts/verify_schema_drift.py
 
-quality: lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check migration-safety-check schema-drift-check test
+webhook-verification-plan:
+	$(PYTHON) scripts/print_webhook_verification_plan.py
+
+webhook-docs-check:
+	$(PYTHON) scripts/check_webhook_docs_record.py examples/webhook-verification/example_docs_record.json
+
+webhook-verification-check:
+	$(PYTHON) scripts/run_webhook_verification.py --help
+
+quality: lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check test

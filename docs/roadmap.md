@@ -30,3 +30,8 @@ Possible future phases below are **not implemented or committed**:
 
 Any future work must preserve GC/Owner control, project allowlists, read-only Procore behavior,
 secret redaction, and explicit live-mode gating.
+## Completed: B6 Webhook Production Verification Harness
+
+Offline planning, manual documentation records, synthetic probes, sanitized reports, and
+production readiness checks are complete. Creating, registering, changing, activating, or
+deleting real Procore webhook hooks remains a future explicit write-scope phase.

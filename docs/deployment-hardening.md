@@ -53,3 +53,10 @@ limit, health posture, fixture-download boundary, and production suitability. Lo
 remains a production blocker, test storage is forbidden outside tests, and disabled/external
 placeholders fail closed. `GET /deployment/storage` is sanitized and protected with the other B4
 deployment routes.
+## Webhook production verification readiness
+
+When the production receiver is enabled, signature verification is mandatory and
+unverified or deprecated documentation assumptions block readiness. `needs_review` is
+reported as a production warning. The verification harness itself may remain disabled;
+local fixture mode does not require a report. See
+[Webhook production verification](webhook-production-verification.md).

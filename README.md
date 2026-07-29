@@ -242,3 +242,17 @@ Licensed under the [MIT License](LICENSE).
 
 This is an independent open-source project. It is not affiliated with, endorsed by, certified by,
 or supported by Procore Technologies, Inc. “Procore” is used only to describe interoperability.
+## Phase B6: webhook production verification harness
+
+B6 adds a disabled-by-default, CLI-only synthetic verification harness. It checks current
+manual documentation assumptions plus local receiver, normalizer, deduplication, and queue
+behavior. It never calls Procore, registers hooks, exposes an endpoint, or includes raw
+payloads or real webhook secrets in reports.
+
+```bash
+make webhook-verification-plan
+make webhook-docs-check
+```
+
+See [Webhook production verification](docs/webhook-production-verification.md). Actual
+production webhook creation remains a future, explicitly approved write-scope phase.

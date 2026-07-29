@@ -70,3 +70,9 @@ Before production, add tenant authorization, an audited secret-manager integrati
 key rotation, database migrations, data retention controls, request logging with redaction,
 rate/backoff policy, and verified DMSA permission checks. Any live mode must preserve project
 allowlists and expose read operations only.
+## Webhook verification boundary
+
+The B6 harness is manual, disabled by default, bounded, synthetic-only, and CLI-only. It
+does not use the network, call Procore, scrape documentation, expose a route, run a worker,
+or mutate webhook registrations. Reports omit raw payloads, headers, signatures, secrets,
+URLs, and sensitive exception details. Current documentation must be manually verified.

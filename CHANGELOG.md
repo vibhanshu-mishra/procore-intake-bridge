@@ -13,3 +13,6 @@
   health, and manifest consistency checks.
 
 No release tag or package publication is claimed.
+- Added Phase B6: a disabled-by-default, documentation-gated synthetic webhook production
+  verification harness, sanitized reports, readiness checks, fixtures, CLI tools, and
+  operator guidance. It performs no Procore calls or webhook registration.

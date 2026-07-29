@@ -1,0 +1,20 @@
+{
+  "docs_checked_at": null,
+  "docs_source_label": "Example placeholder for current official Procore webhook documentation",
+  "docs_source_url_label": "current official Procore webhook documentation",
+  "observed_api_version": "v2.0",
+  "observed_scope_model": "company_or_project",
+  "observed_deprecated_versions": [
+    "v1.0 hooks/resources deprecated as of 2025-09-15"
+  ],
+  "supported_event_assumptions": [
+    "Example RFI and Submittal created/updated events only; manually verify before use"
+  ],
+  "signature_assumption_status": "needs_review",
+  "payload_shape_assumption_status": "needs_review",
+  "verification_notes": [
+    "Fake example only. Replace assumptions after a manual documentation review."
+  ],
+  "verified_by_operator": "",
+  "status": "needs_review"
+}

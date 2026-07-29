@@ -1,0 +1,8 @@
+{
+  "_fixture_notice": "v2-like synthetic fixture, not official sample payload",
+  "event_id": "example-event-111116",
+  "event_type": "malformed",
+  "namespace": "example.namespace",
+  "company": {"id": 111111, "name": "Example Company"},
+  "project": {"id": 222222, "name": "Example Project"}
+}

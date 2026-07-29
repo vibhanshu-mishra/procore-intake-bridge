@@ -16,6 +16,9 @@ sandbox-output/
 sync-output/
 event-output/
 webhook-logs/
+webhook-verification-output/
+*.webhook-verification.json
+*.webhook-verification.log
 storage/
 attachments/
 downloaded-attachments/

@@ -75,3 +75,10 @@ contents or private paths. Use `--strict` in reviewed gates.
 Keep fixture-only downloads enabled unless a separately reviewed production adapter exists.
 Missing objects require investigation and recovery from an approved source; do not bypass safe-key
 validation, enable overwrite casually, expose the storage root, or construct public/presigned URLs.
+## Webhook verification and emergency stop
+
+Run `make webhook-verification-plan` and `make webhook-docs-check` safely offline. Follow
+[Webhook production verification](webhook-production-verification.md) before a deliberately
+enabled synthetic run. For an emergency, disable the receiver, require signatures, rotate
+the external secret, remove any external route/tunnel, inspect the queue, and purge local
+verification output. B6 never creates or removes Procore hooks.

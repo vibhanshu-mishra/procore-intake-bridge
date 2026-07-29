@@ -226,6 +226,31 @@ def check_webhook_signature_safety(settings: Settings) -> list[DeploymentFinding
     return [_finding("webhook_signature", "info", "Webhook signature posture is safe.")]
 
 
+def check_webhook_verification_safety(settings: Settings) -> list[DeploymentFinding]:
+    if not settings.webhooks_enabled:
+        return [_finding(
+            "webhook_verification", "info",
+            "Webhook receiver is disabled; a production verification record is not required.",
+        )]
+    if settings.webhook_verification_docs_status in {"unverified", "deprecated"}:
+        return [_finding(
+            "webhook_verification", "blocking",
+            "Enabled production webhooks require current manually verified "
+            "documentation assumptions.",
+            "production",
+        )]
+    if settings.webhook_verification_docs_status == "needs_review":
+        return [_finding(
+            "webhook_verification", "warning",
+            "Webhook documentation assumptions still need operator review.",
+            "production",
+        )]
+    return [_finding(
+        "webhook_verification", "info",
+        "Webhook documentation assumptions are marked manually verified.",
+    )]
+
+
 def check_attachment_storage_safety(settings: Settings) -> list[DeploymentFinding]:
     findings: list[DeploymentFinding] = []
     name = get_attachment_storage_provider_name(settings)
@@ -537,6 +562,7 @@ def build_deployment_readiness_report(settings: Settings) -> DeploymentReadiness
         check_live_mode_safety,
         check_admin_dashboard_safety,
         check_webhook_signature_safety,
+        check_webhook_verification_safety,
         check_attachment_storage_safety,
         check_secret_provider_safety,
         check_output_paths,
@@ -601,6 +627,13 @@ def build_sanitized_config_summary(settings: Settings) -> dict:
         "webhooks_enabled": settings.webhooks_enabled,
         "webhook_signature_required": settings.require_webhook_signature,
         "webhook_secret_reference_configured": bool(settings.webhook_secret_name.strip()),
+        "webhook_verification": {
+            "enabled": settings.webhook_verification_enabled,
+            "docs_status": settings.webhook_verification_docs_status,
+            "docs_check_required": settings.webhook_verification_require_docs_check,
+            "production_allowed": settings.webhook_verification_allow_production,
+            "synthetic_only": True,
+        },
         "attachment_fixture_downloads_only": settings.attachment_fixture_downloads_only,
         "attachment_storage": summarize_attachment_storage_config(settings),
         "secret_provider": summarize_secret_provider_config(settings),
