@@ -116,3 +116,7 @@ never treat `ready_for_private_review` or `approved_placeholder` as real authori
 Run `make modes` and `make doctor` first. Use `make check-local` for demo blockers,
 `make sandbox-check` for no-call sandbox planning, and `make pilot-check` for the fake validator
 chain. Sandbox smoke and all real pilot decisions remain separate, manual, private actions.
+
+For Sandbox or Pilot preparation, run `make init-private-workspace`, privately fill only the
+necessary placeholders, then run `make validate-private-workspace` and
+`make private-workspace-git-safety`. Never stage the generated workspace.

@@ -1,4 +1,4 @@
-.PHONY: test lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check migration-status migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check webhook-verification-check customer-template customer-profile-check customer-artifact-check diagnostics support-bundle support-bundle-check pilot-template pilot-readiness-check pilot-artifact-check evidence-template evidence-manifest-check evidence-workspace-check evidence-review-template evidence-review-check evidence-expiry-check evidence-review-artifact-check pilot-approval-template pilot-approval-check pilot-approval-safety-check pilot-approval-artifact-check modes doctor setup-demo check-local demo demo-sync sandbox-check pilot-check mode-report quality
+.PHONY: test lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check migration-status migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check webhook-verification-check customer-template customer-profile-check customer-artifact-check diagnostics support-bundle support-bundle-check pilot-template pilot-readiness-check pilot-artifact-check evidence-template evidence-manifest-check evidence-workspace-check evidence-review-template evidence-review-check evidence-expiry-check evidence-review-artifact-check pilot-approval-template pilot-approval-check pilot-approval-safety-check pilot-approval-artifact-check modes doctor setup-demo check-local demo demo-sync sandbox-check pilot-check mode-report private-workspace-template init-private-workspace validate-private-workspace private-workspace-git-safety private-workspace-check quality
 
 PYTHON ?= .venv/bin/python
 
@@ -141,4 +141,19 @@ pilot-check:
 mode-report:
 	$(PYTHON) scripts/generate_mode_report.py
 
-quality: lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check customer-template customer-profile-check diagnostics pilot-template pilot-readiness-check evidence-template evidence-manifest-check evidence-review-template evidence-review-check evidence-expiry-check pilot-approval-template pilot-approval-check pilot-approval-safety-check modes doctor check-local test
+private-workspace-template:
+	$(PYTHON) scripts/print_private_workspace_template.py
+
+init-private-workspace:
+	$(PYTHON) scripts/init_private_workspace.py
+
+validate-private-workspace:
+	$(PYTHON) scripts/validate_private_workspace.py private-workspace --strict
+
+private-workspace-git-safety:
+	$(PYTHON) scripts/check_private_workspace_git_safety.py
+
+private-workspace-check: validate-private-workspace private-workspace-git-safety
+
+quality: lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check customer-template customer-profile-check diagnostics pilot-template pilot-readiness-check evidence-template evidence-manifest-check evidence-review-template evidence-review-check evidence-expiry-check pilot-approval-template pilot-approval-check pilot-approval-safety-check modes doctor check-local private-workspace-template private-workspace-git-safety test
+	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict

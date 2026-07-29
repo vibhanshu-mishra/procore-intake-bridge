@@ -95,5 +95,15 @@ doctor-output/
 *.doctor-report.md
 *.quickstart-report.json
 *.quickstart-report.md
+private-workspace/
+.local-workspace/
+sandbox-workspace/
+pilot-workspace/
+*.private.json
+*.private.md
+*.private.env
+*.workspace-report.json
+*.workspace-report.md
+*.workspace-manifest.json
 *.egg-info/
 .DS_Store

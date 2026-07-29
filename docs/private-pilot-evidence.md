@@ -65,3 +65,6 @@ timestamp, decision, expiry, and renewal metadata only; real review and signoff 
 
 C3 references C1 evidence refs only. Evidence contents, files, paths, reports, and private
 workspace artifacts never belong in an approval packet.
+
+C5 can bootstrap the ignored evidence-reference placeholder within `private-workspace/`; it does
+not copy, inspect, or validate real evidence contents.

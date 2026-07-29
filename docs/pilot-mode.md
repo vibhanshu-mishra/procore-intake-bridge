@@ -8,3 +8,7 @@ Real evidence, identities, signoffs, decisions, customer identifiers, and creden
 authorized ignored private workspace outside GitHub. The public repository never supplies or
 records a real approval. Pilot mode remains `needs_configuration` until operators complete that
 private work; its validators do not constitute production approval or security certification.
+
+Use `python scripts/init_private_workspace.py --mode pilot` for the C5 ignored scaffold covering
+customer profile, evidence refs, review/expiry, readiness, approval, launch, rollback, and incident
+response. Real evidence, signoffs, identities, and decisions remain outside GitHub.

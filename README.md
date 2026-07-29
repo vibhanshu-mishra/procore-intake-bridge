@@ -9,6 +9,11 @@ then `make doctor`. For the fastest local start, see
 [Three usage modes](docs/usage-modes.md), [Sandbox mode](docs/sandbox-mode.md), and
 [Pilot mode](docs/pilot-mode.md).
 
+Sandbox and Pilot users can initialize the C5 ignored placeholder workspace with
+`make init-private-workspace`, validate it with `make validate-private-workspace`, and confirm
+Git isolation with `make private-workspace-git-safety`. See
+[Private workspace bootstrap](docs/private-workspace-bootstrap.md). Demo needs no workspace.
+
 > A read-only DMSA intake service for syncing Procore RFIs, Submittals, visible attachments,
 > webhooks, and onboarding workflows into a local tracking system.
 

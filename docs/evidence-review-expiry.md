@@ -72,3 +72,7 @@ implements none of those integrations.
 
 C3 consumes only a C2 review-summary ref, status, expired count, and renewal-required count. It
 never copies review artifacts, reviewer identities, or signoff records into the packet.
+# C5 workspace bootstrap
+
+The ignored C5 workspace includes placeholder-only evidence review and expiry metadata files.
+Real reviewer identities, evidence, timestamps, decisions, and renewal records stay private.

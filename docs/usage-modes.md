@@ -16,3 +16,6 @@ not production approval, security certification, or Procore endorsement.
 Choose demo to evaluate the workflow locally. Choose sandbox only when you control an appropriate
 Procore sandbox and can keep its credentials in ignored private configuration. Choose pilot after
 the sandbox posture is understood and an authorized private workspace is available.
+
+C5 provides `make init-private-workspace` for Sandbox and Pilot placeholder scaffolds. Generated
+files are ignored; real values and evidence remain local/private. Demo does not require it.

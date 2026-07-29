@@ -69,3 +69,6 @@ notification, or pilot authorization is recorded.
 
 Three-Mode Quickstart and Doctor is implemented with local-only demo, sandbox-readiness, and
 pilot-readiness commands. Reports remain sanitized and generated outputs are ignored.
+
+C5 Private Workspace Bootstrap is implemented with ignored placeholder scaffolds, strict local
+validation, Git-isolation checks, and no external calls.

@@ -3,6 +3,9 @@
 Pilot mode links this packet through `make pilot-check`; the public fake packet is only structural
 validation and never records a real private approval.
 
+C5 creates an ignored approval placeholder in the private workspace. It never creates a real
+approval, signoff, identity, or decision.
+
 Phase C3 adds a local-only, placeholder approval packet pattern for a future controlled private
 pilot. It combines B9 readiness references, C1 evidence references, C2 review/expiry posture,
 launch and rollback conditions, known limitations, risk-acceptance placeholders, and unexecuted

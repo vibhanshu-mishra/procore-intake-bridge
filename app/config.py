@@ -803,6 +803,44 @@ class Settings(BaseSettings):
         default=Path("./mode-output"),
         validation_alias="PROCORE_INTAKE_MODE_REPORT_OUTPUT_ROOT",
     )
+    private_workspace_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_PRIVATE_WORKSPACE_ENABLED",
+    )
+    private_workspace_root: Path = Field(
+        default=Path("./private-workspace"),
+        validation_alias="PROCORE_INTAKE_PRIVATE_WORKSPACE_ROOT",
+    )
+    private_workspace_require_placeholders: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_PRIVATE_WORKSPACE_REQUIRE_PLACEHOLDERS",
+    )
+    private_workspace_allow_real_identities: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_PRIVATE_WORKSPACE_ALLOW_REAL_IDENTITIES",
+    )
+    private_workspace_allow_real_ids: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_PRIVATE_WORKSPACE_ALLOW_REAL_IDS",
+    )
+    private_workspace_allow_file_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_PRIVATE_WORKSPACE_ALLOW_FILE_CONTENTS",
+    )
+    private_workspace_allow_absolute_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_PRIVATE_WORKSPACE_ALLOW_ABSOLUTE_PATHS",
+    )
+    private_workspace_max_files: int = Field(
+        default=100,
+        ge=1,
+        le=100,
+        validation_alias="PROCORE_INTAKE_PRIVATE_WORKSPACE_MAX_FILES",
+    )
+    private_workspace_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_PRIVATE_WORKSPACE_FAIL_CLOSED",
+    )
 
 
 @lru_cache

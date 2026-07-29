@@ -327,6 +327,32 @@ def check_pilot_readiness_pattern(settings: Settings) -> list[DeploymentFinding]
     return findings
 
 
+def check_private_workspace_bootstrap(settings: Settings) -> list[DeploymentFinding]:
+    output = settings.private_workspace_root
+    output_safe = output not in {Path("."), Path("/")} and ".." not in output.parts
+    validators = Path("scripts/init_private_workspace.py").is_file() and Path(
+        "scripts/validate_private_workspace.py"
+    ).is_file()
+    posture = (
+        settings.private_workspace_enabled
+        and output_safe
+        and not settings.private_workspace_allow_real_ids
+        and not settings.private_workspace_allow_real_identities
+        and not settings.private_workspace_allow_file_contents
+        and not settings.private_workspace_allow_absolute_paths
+        and validators
+    )
+    return [
+        _finding(
+            "private_workspace_bootstrap",
+            "info" if posture else "warning",
+            "Private workspace bootstrap has a safe placeholder-only local posture."
+            if posture
+            else "Private workspace bootstrap posture needs review.",
+        )
+    ]
+
+
 def check_private_evidence_pattern(settings: Settings) -> list[DeploymentFinding]:
     findings = [
         _finding(
@@ -808,6 +834,7 @@ def build_deployment_readiness_report(settings: Settings) -> DeploymentReadiness
         check_webhook_verification_safety,
         check_customer_deployment_pattern,
         check_pilot_readiness_pattern,
+        check_private_workspace_bootstrap,
         check_private_evidence_pattern,
         check_evidence_review_pattern,
         check_pilot_approval_packet_pattern,
@@ -897,6 +924,19 @@ def build_sanitized_config_summary(settings: Settings) -> dict:
             "placeholders_required": settings.pilot_readiness_require_placeholders,
             "fail_closed": settings.pilot_readiness_fail_closed,
             "deployment_automation": False,
+        },
+        "private_workspace": {
+            "enabled": settings.private_workspace_enabled,
+            "output_root_safe": (
+                settings.private_workspace_root not in {Path("."), Path("/")}
+                and ".." not in settings.private_workspace_root.parts
+            ),
+            "real_ids_allowed": settings.private_workspace_allow_real_ids,
+            "real_identities_allowed": settings.private_workspace_allow_real_identities,
+            "file_contents_allowed": settings.private_workspace_allow_file_contents,
+            "absolute_paths_allowed": settings.private_workspace_allow_absolute_paths,
+            "validators_available": Path("scripts/validate_private_workspace.py").is_file(),
+            "generated_workspace_ignored": True,
         },
         "private_evidence": {
             "enabled": settings.private_evidence_pattern_enabled,

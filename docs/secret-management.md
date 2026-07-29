@@ -73,3 +73,7 @@ endpoints, or real approval records.
 C3 approval packets contain opaque refs and placeholders only. Credentials, Authorization
 headers, signed URLs, secret-manager locations, database/storage URLs, and raw private artifacts
 are prohibited.
+# Private workspace references
+
+The C5 workspace contains secret reference names only, never plaintext secret values. Its
+`*.private.env` scaffold uses placeholder refs and must remain ignored/local.

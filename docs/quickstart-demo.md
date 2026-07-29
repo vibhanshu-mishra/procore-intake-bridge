@@ -13,3 +13,5 @@ make demo
 
 `make demo` is a dry-run fixture sync. It does not call Procore. Local database and generated
 output files are ignored. Demo readiness does not mean production readiness.
+
+Demo mode does not need or read the C5 private workspace.

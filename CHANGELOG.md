@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Added Phase C5 Private Workspace Bootstrap with ignored placeholder scaffolds, validators, and
+  Git safety checks.
 - Added Phase C4 Three-Mode Quickstart and Doctor for safe local demo, sandbox readiness, and
   private-pilot preparation.
 

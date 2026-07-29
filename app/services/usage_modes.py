@@ -241,6 +241,12 @@ def build_sandbox_mode_readiness(
             and _file_available("scripts/check_webhook_docs_record.py"),
             "Offline webhook documentation and verification planning tools are available.",
         ),
+        _requirement(
+            "private_workspace_tools",
+            _file_available("scripts/init_private_workspace.py")
+            and _file_available("scripts/validate_private_workspace.py"),
+            "Ignored private workspace bootstrap and validation tools are available.",
+        ),
     ]
     status = _status(settings.sandbox_mode_enabled, requirements)
     return SandboxModeReadiness(
@@ -275,7 +281,7 @@ def build_sandbox_mode_readiness(
             ModeQuickstartStep(
                 order=1,
                 title="Private configuration",
-                instruction="Configure ignored DMSA refs and allowlisted sandbox scope.",
+                instruction="Run `make init-private-workspace` for ignored sandbox placeholders.",
             ),
             ModeQuickstartStep(
                 order=2,
@@ -323,6 +329,7 @@ PILOT_TOOLS = {
     "pilot_approval": "scripts/validate_pilot_approval_packet.py",
     "approval_safety": "scripts/check_pilot_approval_safety.py",
     "support_diagnostics": "scripts/print_operator_diagnostics.py",
+    "private_workspace_tools": "scripts/validate_private_workspace.py",
 }
 
 
@@ -333,7 +340,7 @@ def build_pilot_mode_readiness(
         _requirement(
             name,
             _file_available(path),
-            f"The local {name.replace('_', ' ')} tool is available.",
+            f"The local {name.replace('_', ' ')} capability is available.",
         )
         for name, path in PILOT_TOOLS.items()
     ]
@@ -368,8 +375,7 @@ def build_pilot_mode_readiness(
         _requirement(
             "private_workspace",
             False,
-            "Create ignored private workspace, evidence, review, and approval files "
-            "outside GitHub.",
+            "Initialize and privately complete the ignored workspace outside GitHub.",
         ),
     ]
     status = _status(settings.pilot_mode_enabled, requirements)
@@ -402,7 +408,7 @@ def build_pilot_mode_readiness(
             ModeQuickstartStep(
                 order=2,
                 title="Create private workspace",
-                instruction="Use ignored local files and opaque evidence references.",
+                instruction="Run `make init-private-workspace`, then fill placeholders privately.",
             ),
             ModeQuickstartStep(
                 order=3,

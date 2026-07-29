@@ -8,3 +8,8 @@ Run `make sandbox-check` to explain missing prerequisites. It makes no Procore c
 resolve secret values. The existing smoke harness remains separate, manual, read-only, explicitly
 confirmed, and gated; review its plan before any authorized run. A ready sandbox check is not
 production approval.
+
+Initialize the C5 sandbox workspace with
+`python scripts/init_private_workspace.py --mode sandbox`. It provides ignored placeholder files
+for DMSA refs, allowed scope, permissions, webhook review, and diagnostics. Never commit the
+privately completed files.

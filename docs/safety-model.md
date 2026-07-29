@@ -107,3 +107,7 @@ Demo is fixture-only and needs no secrets or external services. Sandbox readines
 configuration posture; its live smoke mechanism stays separately gated. Pilot preparation relies
 on fake public examples while all real evidence, identities, approvals, and paths stay private.
 `make doctor` reports these boundaries without resolving values or making external calls.
+
+The C5 workspace boundary is filesystem-local and ignored by Git. The public repo owns only
+placeholder schemas and fake examples; privately completed refs and records remain in the ignored
+workspace. Validators read safe text types under the selected root and reject unsafe content.

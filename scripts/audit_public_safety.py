@@ -33,6 +33,7 @@ SAFE_MARKERS = {
     "token-value",
 }
 PRIVATE_PATH_PARTS = {
+    ".local-workspace",
     "doctor-output",
     "downloads",
     "customer-deployment-output",
@@ -43,8 +44,10 @@ PRIVATE_PATH_PARTS = {
     "onboarding-output",
     "packet-output",
     "pilot-output",
+    "pilot-workspace",
     "pilot-readiness-output",
     "private-evidence-output",
+    "private-workspace",
     "pilot-evidence-output",
     "evidence-output",
     "private-pilot-evidence",
@@ -62,6 +65,7 @@ PRIVATE_PATH_PARTS = {
     "smoke-output",
     "support-output",
     "sandbox-output",
+    "sandbox-workspace",
     "sync-output",
     "tokens",
 }
@@ -218,6 +222,16 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             ".quickstart-report.md",
         )):
             issues.append(SafetyIssue(path, "tracked generated usage-mode output"))
+            continue
+        if path.name.endswith((
+            ".private.json",
+            ".private.md",
+            ".private.env",
+            ".workspace-report.json",
+            ".workspace-report.md",
+            ".workspace-manifest.json",
+        )) and "examples/private-workspace" not in path.as_posix():
+            issues.append(SafetyIssue(path, "tracked generated private workspace output"))
             continue
         if path.name.endswith((
             ".customer-profile.json",
