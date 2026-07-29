@@ -1,0 +1,9 @@
+services:
+  app:
+    image: APP_IMAGE_REF_PLACEHOLDER
+    environment:
+      DATABASE_URL_REF: DATABASE_URL_REF_PLACEHOLDER
+      SECRET_PROVIDER_REF: SECRET_PROVIDER_REF_PLACEHOLDER
+    ports:
+      - "8000:8000"
+# Template only. No deployment automation or private values.

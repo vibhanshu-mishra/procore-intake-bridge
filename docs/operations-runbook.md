@@ -83,6 +83,10 @@ Cloud posture checks make no external calls.
 For D3, run `make database-check`, `make migration-plan`, and `make backup-restore-plan`. Complete
 the plans privately before Pilot use. The connectivity target is separate, disabled by default,
 confirmation-gated, and excluded from routine checks.
+
+For D4, run `make deployment-check`, `make deployment-safety-check`, and
+`make https-webhook-checklist`. Generate artifacts only in an ignored local or temporary output
+root, then complete them through a separately authorized private deployment process.
 ## Webhook verification and emergency stop
 
 Run `make webhook-verification-plan` and `make webhook-docs-check` safely offline. Follow

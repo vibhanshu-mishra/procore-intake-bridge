@@ -5,6 +5,8 @@
 - Added D3 PostgreSQL posture, masked database references, offline migration and recovery plans,
   private workspace database templates, and an opt-in manually confirmed read-only connectivity
   boundary.
+- Added D4 placeholder deployment recipes, HTTPS/webhook ingress checks, cutover and recovery
+  runbooks, private-workspace scaffolds, and offline safety validation.
 
 - Added Phase D1 real environment and contained file secret providers, optional fail-closed cloud
   contracts, masked readiness checks, and private ref templates.

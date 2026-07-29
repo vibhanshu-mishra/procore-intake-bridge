@@ -80,6 +80,17 @@
       "contains_file_contents": false,
       "contains_secret_values": false,
       "notes": ["APPROVER_PLACEHOLDER and DECISION_PLACEHOLDER only."]
+    },
+    {
+      "relative_path": "deployment/deployment-recipe.private.json",
+      "section": "deployment",
+      "purpose": "Example deployment references without infrastructure values.",
+      "required_for_modes": ["sandbox", "pilot", "sandbox_and_pilot"],
+      "template_kind": "json",
+      "placeholder_only": true,
+      "contains_file_contents": false,
+      "contains_secret_values": false,
+      "notes": ["PUBLIC_BASE_URL_PLACEHOLDER and TLS_CERT_REF_PLACEHOLDER only."]
     }
   ],
   "notes": [

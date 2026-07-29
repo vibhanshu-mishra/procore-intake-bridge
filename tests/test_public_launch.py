@@ -100,4 +100,4 @@ def test_makefile_quality_is_local_and_docker_optional():
         "quality:",
     ):
         assert target in makefile
-    assert "docker" not in makefile
+    assert "\tdocker " not in makefile

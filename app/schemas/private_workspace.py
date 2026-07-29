@@ -25,6 +25,7 @@ class PrivateWorkspaceSection(StrEnum):
     DIAGNOSTICS = "diagnostics"
     STORAGE = "storage"
     DATABASE = "database"
+    DEPLOYMENT = "deployment"
     CUSTOMER_PROFILE = "customer_profile"
     EVIDENCE = "evidence"
     EVIDENCE_REVIEW = "evidence_review"

@@ -86,3 +86,6 @@ network calls. See [Secret providers](secret-providers.md).
 D3 treats the external database URL as a secret reference. Reports may state whether
 `DATABASE_URL` is configured, but never resolve or display its URL, username, password, hostname,
 or path.
+
+D4 deployment recipes reference secret, database, storage, admin-auth, webhook, and certificate
+configuration by placeholder only. Resolved values never enter generated deployment artifacts.

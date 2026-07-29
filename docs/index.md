@@ -35,6 +35,10 @@ live Procore access is disabled by default, and the project performs no Procore 
 ## Operations and safety
 
 - [Deployment hardening](deployment-hardening.md)
+- [Deployment recipes](deployment-recipes.md)
+- [HTTPS and webhook ingress](https-webhook-ingress.md)
+- [Deployment cutover](deployment-cutover.md)
+- [Deployment backup and rollback](deployment-backup-rollback.md)
 - [Operations runbook](operations-runbook.md)
 - [Safety model](safety-model.md)
 - [Roadmap](roadmap.md)

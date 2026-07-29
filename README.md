@@ -227,6 +227,13 @@ PostgreSQL configured through a private database URL reference. Run `make databa
 `make migration-plan`, and `make backup-restore-plan`; none connects externally or runs a
 migration. See [database providers](docs/database-providers.md).
 
+## Deployment recipes
+
+D4 adds placeholder-only Docker, VPS, managed PaaS, and generic-cloud recipe validation. Run
+`make deployment-check` and `make https-webhook-checklist`. These tools provision nothing and
+make no DNS, TLS, webhook, cloud, database, storage, secret-manager, or Procore calls. See
+[deployment recipes](docs/deployment-recipes.md).
+
 ## Documentation
 
 - [Documentation home](docs/index.md)

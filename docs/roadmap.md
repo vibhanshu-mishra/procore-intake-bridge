@@ -77,3 +77,5 @@ C4 (Three-Mode Quickstart and Doctor) and C5 (Private Workspace Bootstrap) are c
 D1 (Real Secret Provider Adapters) and D2 (Real Storage Provider Adapters) are complete.
 D3 (PostgreSQL and Migration Execution Readiness) is complete. D4 and D5 remain separately scoped
 future work; D3 performs no automatic connection, migration, backup, or restore.
+D4 (Deployment Recipes, HTTPS, Backups, and Rollback) is complete. D5 remains separately scoped
+future work; D4 contains no infrastructure automation.

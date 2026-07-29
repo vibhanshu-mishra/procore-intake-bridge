@@ -3,6 +3,7 @@
 PYTHON ?= .venv/bin/python
 
 .PHONY: database-template database-check migration-plan backup-restore-plan database-connectivity-check
+.PHONY: deployment-template deployment-check deployment-safety-check deployment-artifact-check https-webhook-checklist
 
 test:
 	$(PYTHON) -m pytest
@@ -60,6 +61,22 @@ backup-restore-plan:
 
 database-connectivity-check:
 	$(PYTHON) scripts/check_database_connectivity.py
+
+deployment-template:
+	$(PYTHON) scripts/print_deployment_recipe_template.py --target docker_local
+
+deployment-check:
+	$(PYTHON) scripts/check_deployment_recipe.py examples/deployment-recipes/example_docker_local_recipe.json
+	$(PYTHON) scripts/check_deployment_recipe.py examples/deployment-recipes/example_managed_paas_recipe.json
+
+deployment-safety-check:
+	$(PYTHON) scripts/check_deployment_safety.py examples/deployment-recipes/example_docker_local_recipe.json
+
+deployment-artifact-check:
+	$(PYTHON) scripts/generate_deployment_recipe_artifacts.py --help
+
+https-webhook-checklist:
+	$(PYTHON) scripts/print_https_webhook_checklist.py
 
 migration-safety-check:
 	$(PYTHON) scripts/run_migration_safety_check.py
@@ -196,5 +213,5 @@ secret-refs-check:
 file-secret-provider-check:
 	$(PYTHON) scripts/test_file_secret_provider.py
 
-quality: lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check storage-provider-template storage-provider-check storage-refs-check database-template database-check migration-plan backup-restore-plan migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check customer-template customer-profile-check diagnostics pilot-template pilot-readiness-check evidence-template evidence-manifest-check evidence-review-template evidence-review-check evidence-expiry-check pilot-approval-template pilot-approval-check pilot-approval-safety-check modes doctor check-local private-workspace-template private-workspace-git-safety secret-provider-check secret-provider-template secret-refs-check test
+quality: lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check storage-provider-template storage-provider-check storage-refs-check database-template database-check migration-plan backup-restore-plan deployment-template deployment-check deployment-safety-check https-webhook-checklist migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check customer-template customer-profile-check diagnostics pilot-template pilot-readiness-check evidence-template evidence-manifest-check evidence-review-template evidence-review-check evidence-expiry-check pilot-approval-template pilot-approval-check pilot-approval-safety-check modes doctor check-local private-workspace-template private-workspace-git-safety secret-provider-check secret-provider-template secret-refs-check test
 	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict

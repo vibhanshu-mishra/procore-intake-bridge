@@ -414,6 +414,12 @@ def build_pilot_mode_readiness(
             "PostgreSQL and a private URL reference are required for Pilot.",
         ),
         _requirement(
+            "deployment_recipe_posture",
+            settings.deployment_recipes_enabled
+            and not settings.deployment_external_provisioning_enabled,
+            "Deployment recipes and runbooks are available without executing deployment.",
+        ),
+        _requirement(
             "rollback_backup_guidance",
             _file_available("docs/database-migrations.md")
             and _file_available("docs/pilot-approval-packet.md"),

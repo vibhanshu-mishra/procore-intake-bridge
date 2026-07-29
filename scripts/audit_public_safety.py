@@ -54,6 +54,13 @@ PRIVATE_PATH_PARTS = {
     "db-output",
     "backup-output",
     "restore-output",
+    "deployment-output",
+    "deploy-output",
+    "release-output",
+    "tls-output",
+    "cert-output",
+    "dns-output",
+    "infra-output",
     "pilot-evidence-output",
     "evidence-output",
     "private-pilot-evidence",
@@ -222,6 +229,11 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             ".sql", ".dump", ".backup", ".bak", ".pgdump"
         }:
             issues.append(SafetyIssue(path, "tracked database dump or backup"))
+            continue
+        if path.suffix.casefold() in {
+            ".pem", ".key", ".crt", ".csr", ".p12", ".pfx", ".tfstate", ".tfvars"
+        }:
+            issues.append(SafetyIssue(path, "tracked certificate or infrastructure state"))
             continue
         if path.name.endswith((".smoke.json", ".smoke.log")):
             issues.append(SafetyIssue(path, "tracked sandbox smoke output"))

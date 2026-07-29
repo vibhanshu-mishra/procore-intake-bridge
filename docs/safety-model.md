@@ -67,6 +67,8 @@ Phase A2 preserves these constraints:
   disabled, make no health-check calls, and fail closed; storage D3-D5 controls remain future work.
 - Database D3 treats external URLs as secret references. Routine checks never resolve them,
   connect externally, execute migrations, or inspect database dumps/backups.
+- D4 deployment recipes accept placeholders only and never provision infrastructure, change DNS,
+  issue certificates, register webhooks, or expose private deployment state.
 - Local/test storage is bounded to development and tests. Disabled and external-placeholder
   providers make no network calls and fail closed; a production adapter remains future work.
 

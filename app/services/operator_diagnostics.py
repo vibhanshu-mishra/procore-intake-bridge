@@ -172,6 +172,11 @@ def collect_configuration_summary(
             "database_url_reference_configured": bool(
                 settings.database_url_ref.strip()
             ),
+            "deployment_target": settings.deployment_target,
+            "deployment_recipes_enabled": settings.deployment_recipes_enabled,
+            "deployment_external_provisioning_enabled": (
+                settings.deployment_external_provisioning_enabled
+            ),
             "attachment_fixture_only": settings.attachment_fixture_downloads_only,
             "migration_check_enabled": settings.migration_check_enabled,
             "sandbox_smoke_enabled": settings.sandbox_smoke_enabled,

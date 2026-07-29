@@ -1,0 +1,23 @@
+{
+  "recipe_name": "example-managed-paas-recipe",
+  "target_kind": "managed_paas",
+  "environment_label": "PILOT_ENVIRONMENT_PLACEHOLDER",
+  "public_base_url_placeholder": "PUBLIC_BASE_URL_PLACEHOLDER",
+  "allowed_hosts_placeholders": ["ALLOWED_HOST_PLACEHOLDER"],
+  "database_url_ref_placeholder": "DATABASE_URL_REF_PLACEHOLDER",
+  "secret_provider_ref_placeholder": "SECRET_PROVIDER_REF_PLACEHOLDER",
+  "storage_provider_ref_placeholder": "STORAGE_PROVIDER_REF_PLACEHOLDER",
+  "admin_auth_ref_placeholder": "ADMIN_AUTH_REF_PLACEHOLDER",
+  "webhook_secret_ref_placeholder": "WEBHOOK_SECRET_REF_PLACEHOLDER",
+  "tls_status": "ready",
+  "public_ingress_status": "ready",
+  "database_status": "needs_review",
+  "migration_status": "needs_review",
+  "backup_status": "needs_review",
+  "rollback_status": "needs_review",
+  "diagnostics_status": "needs_review",
+  "operator_runbook_status": "needs_review",
+  "webhooks_planned": true,
+  "known_limitations": ["PRIVATE_PLATFORM_REVIEW_PLACEHOLDER"],
+  "notes": ["EXAMPLE_PLACEHOLDER_RECIPE_ONLY"]
+}

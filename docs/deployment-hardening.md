@@ -95,3 +95,6 @@ adapters remain unavailable pending separate private configuration and permissio
 
 D3 blocks Pilot-like SQLite posture when PostgreSQL is required and summarizes URL-reference,
 migration, backup, and rollback posture without connecting or executing migrations.
+
+D4 readiness reports the selected recipe target, validator availability, required HTTPS/ingress and
+runbook posture, and confirms external provisioning is disabled.

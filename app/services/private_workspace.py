@@ -178,6 +178,27 @@ def build_private_workspace_manifest(
               "Private restore plan reference.", pilot),
         _spec("database/rollback-plan.private.md", PrivateWorkspaceSection.DATABASE,
               "Private rollback plan reference.", pilot),
+        _spec("deployment/README.private.md", PrivateWorkspaceSection.DEPLOYMENT,
+              "Private deployment recipe boundaries.", both),
+        _spec("deployment/deployment-recipe.private.json",
+              PrivateWorkspaceSection.DEPLOYMENT,
+              "Deployment recipe placeholder references.", both),
+        _spec("deployment/https-tls.private.md", PrivateWorkspaceSection.DEPLOYMENT,
+              "HTTPS and certificate reference checklist.", both),
+        _spec("deployment/webhook-ingress.private.md",
+              PrivateWorkspaceSection.DEPLOYMENT,
+              "Webhook ingress reference checklist.", both),
+        _spec("deployment/cutover-checklist.private.md",
+              PrivateWorkspaceSection.DEPLOYMENT, "Private cutover checklist.", pilot),
+        _spec("deployment/backup-runbook.private.md",
+              PrivateWorkspaceSection.DEPLOYMENT,
+              "Private backup runbook reference.", pilot),
+        _spec("deployment/rollback-runbook.private.md",
+              PrivateWorkspaceSection.DEPLOYMENT,
+              "Private rollback runbook reference.", pilot),
+        _spec("deployment/operator-runbook.private.md",
+              PrivateWorkspaceSection.DEPLOYMENT,
+              "Private operator runbook reference.", pilot),
         _spec(
             "sandbox/sandbox-scope.private.json",
             PrivateWorkspaceSection.SANDBOX,
@@ -421,6 +442,27 @@ def build_private_workspace_validation_report(
 def render_private_workspace_file(
     spec: PrivateWorkspaceFileSpec, manifest: PrivateWorkspaceManifest
 ) -> str:
+    if spec.relative_path == "deployment/deployment-recipe.private.json":
+        return json.dumps({
+            "public_base_url": "PUBLIC_BASE_URL_PLACEHOLDER",
+            "allowed_host": "ALLOWED_HOST_PLACEHOLDER",
+            "database_url_ref": "DATABASE_URL_REF_PLACEHOLDER",
+            "secret_provider_ref": "SECRET_PROVIDER_REF_PLACEHOLDER",
+            "storage_provider_ref": "STORAGE_PROVIDER_REF_PLACEHOLDER",
+            "tls_cert_ref": "TLS_CERT_REF_PLACEHOLDER",
+            "webhook_ingress_ref": "WEBHOOK_INGRESS_REF_PLACEHOLDER",
+            "external_provisioning": False,
+        }, indent=2) + "\n"
+    if spec.relative_path.startswith("deployment/") and spec.template_kind == "markdown":
+        return (
+            f"# {spec.purpose}\n\n"
+            "- `PUBLIC_BASE_URL_PLACEHOLDER`\n"
+            "- `TLS_CERT_REF_PLACEHOLDER`\n"
+            "- `WEBHOOK_INGRESS_REF_PLACEHOLDER`\n"
+            "- `BACKUP_PLAN_REF_PLACEHOLDER`\n"
+            "- `ROLLBACK_PLAN_REF_PLACEHOLDER`\n"
+            "- No deployment, DNS, certificate, webhook, or cloud operation is performed.\n"
+        )
     if spec.relative_path == "database/database-refs.private.env":
         return (
             "DATABASE_URL_REF=ENV_REF_PLACEHOLDER_DATABASE_URL\n"

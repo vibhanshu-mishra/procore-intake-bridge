@@ -1040,6 +1040,71 @@ class Settings(BaseSettings):
         default=True,
         validation_alias="PROCORE_INTAKE_MIGRATION_EXECUTION_FAIL_CLOSED",
     )
+    deployment_recipes_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DEPLOYMENT_RECIPES_ENABLED"
+    )
+    deployment_recipe_output_root: Path = Field(
+        default=Path("./deployment-output"),
+        validation_alias="PROCORE_INTAKE_DEPLOYMENT_RECIPE_OUTPUT_ROOT",
+    )
+    deployment_recipe_require_placeholders: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_DEPLOYMENT_RECIPE_REQUIRE_PLACEHOLDERS",
+    )
+    deployment_recipe_allow_real_domains: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_DEPLOYMENT_RECIPE_ALLOW_REAL_DOMAINS",
+    )
+    deployment_recipe_allow_real_infra_ids: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_DEPLOYMENT_RECIPE_ALLOW_REAL_INFRA_IDS",
+    )
+    deployment_recipe_allow_cert_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_DEPLOYMENT_RECIPE_ALLOW_CERT_CONTENTS",
+    )
+    deployment_recipe_allow_absolute_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_DEPLOYMENT_RECIPE_ALLOW_ABSOLUTE_PATHS",
+    )
+    deployment_recipe_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_DEPLOYMENT_RECIPE_FAIL_CLOSED",
+    )
+    deployment_target: Literal[
+        "docker_local", "docker_vps", "managed_paas", "generic_cloud"
+    ] = Field(
+        default="docker_local",
+        validation_alias="PROCORE_INTAKE_DEPLOYMENT_TARGET",
+    )
+    deployment_allowed_targets: str = Field(
+        default="docker_local,docker_vps,managed_paas,generic_cloud",
+        validation_alias="PROCORE_INTAKE_DEPLOYMENT_ALLOWED_TARGETS",
+    )
+    deployment_require_https_for_webhooks: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_DEPLOYMENT_REQUIRE_HTTPS_FOR_WEBHOOKS",
+    )
+    deployment_require_public_ingress_for_webhooks: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_DEPLOYMENT_REQUIRE_PUBLIC_INGRESS_FOR_WEBHOOKS",
+    )
+    deployment_require_backup_plan: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_DEPLOYMENT_REQUIRE_BACKUP_PLAN",
+    )
+    deployment_require_rollback_plan: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_DEPLOYMENT_REQUIRE_ROLLBACK_PLAN",
+    )
+    deployment_require_operator_runbook: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_DEPLOYMENT_REQUIRE_OPERATOR_RUNBOOK",
+    )
+    deployment_external_provisioning_enabled: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_DEPLOYMENT_EXTERNAL_PROVISIONING_ENABLED",
+    )
 
 
 @lru_cache

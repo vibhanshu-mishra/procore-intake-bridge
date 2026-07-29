@@ -21,3 +21,6 @@ masked ref presence and never invokes Procore.
 SQLite is acceptable for local Sandbox simulation. A hosted Sandbox should use PostgreSQL through
 a private `DATABASE_URL` secret reference. `make database-check` reports posture without resolving
 the reference or connecting.
+
+Local Sandbox needs no hosted recipe. Before hosting Sandbox, validate a D4 recipe and review HTTPS
+and public ingress when webhooks are planned. The repository does not provision the environment.

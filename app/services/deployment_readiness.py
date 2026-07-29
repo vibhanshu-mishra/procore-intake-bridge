@@ -28,6 +28,10 @@ from app.services.database_readiness import (
 from app.services.database_readiness import (
     mask_database_url as _mask_database_url,
 )
+from app.services.deployment_recipes import (
+    build_default_deployment_recipe_template,
+    build_deployment_recipe_readiness_report,
+)
 from app.services.storage import build_storage_provider_readiness
 
 
@@ -673,6 +677,24 @@ def check_database_provider_posture(settings: Settings) -> list[DeploymentFindin
     ]
 
 
+def check_deployment_recipe_posture(settings: Settings) -> list[DeploymentFinding]:
+    profile = build_default_deployment_recipe_template(
+        settings.deployment_target, settings
+    )
+    report = build_deployment_recipe_readiness_report(profile, settings)
+    blocked = report.status == "blocked"
+    return [
+        _finding(
+            "deployment_recipe_posture",
+            "blocking" if blocked else "info",
+            "Deployment recipe validators are available and provisioning is disabled."
+            if not blocked
+            else "Deployment recipe posture is blocked or provisioning is enabled.",
+            *(("staging", "production") if blocked else ()),
+        )
+    ]
+
+
 def check_secret_provider_safety(settings: Settings) -> list[DeploymentFinding]:
     findings: list[DeploymentFinding] = []
     if settings.secret_provider == "env":
@@ -887,6 +909,7 @@ def build_deployment_readiness_report(settings: Settings) -> DeploymentReadiness
         check_attachment_storage_safety,
         check_storage_provider_posture,
         check_database_provider_posture,
+        check_deployment_recipe_posture,
         check_secret_provider_safety,
         check_output_paths,
         check_migration_safety,

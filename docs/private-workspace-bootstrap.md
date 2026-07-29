@@ -47,3 +47,6 @@ provider maps, local-root references, and object references. It never scaffolds 
 
 D3 adds database URL-reference, PostgreSQL, migration, backup, restore, and rollback placeholders.
 It never scaffolds a URL, hostname, credential, dump, backup, log, or absolute path.
+
+D4 adds a `deployment/` folder with recipe, HTTPS, ingress, cutover, backup, rollback, and operator
+placeholders. Real domains, certificates, infrastructure IDs, logs, and state remain private.

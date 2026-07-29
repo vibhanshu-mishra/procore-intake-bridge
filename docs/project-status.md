@@ -45,6 +45,8 @@ readiness, private-workspace storage maps, and disabled-by-default optional clou
 No production cloud operation, public file serving, presigned URL, or live download is implemented.
 D3 adds offline PostgreSQL readiness, masked database references, migration/recovery planning, and
 a disabled-by-default manually confirmed `SELECT 1` connectivity boundary.
+D4 is implemented as public-safe deployment recipe validation and offline HTTPS, ingress, cutover,
+backup, rollback, and operator checklists. It performs no deployment or provisioning.
 Phase B6, the manually gated Webhook Production Verification Harness, is implemented. It is
 CLI-only, synthetic, disabled by default, documentation-aware, and makes no Procore calls.
 B7 is implemented as a local-only customer deployment planning pattern with placeholder-only

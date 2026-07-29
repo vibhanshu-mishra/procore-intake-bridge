@@ -27,3 +27,7 @@ Optional cloud kinds remain disabled and make no calls during doctor/readiness c
 Database posture follows the same progression: Demo uses SQLite, local Sandbox may simulate with
 SQLite, and Pilot requires PostgreSQL through a private URL reference plus reviewed migration,
 backup, restore, and rollback plans. Mode checks never connect externally.
+
+Deployment is not required for Demo. Hosted Sandbox should review an appropriate D4 recipe, and
+Pilot should complete deployment, HTTPS/ingress, backup, rollback, and operator runbooks privately.
+Repository checks never execute deployment.

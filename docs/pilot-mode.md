@@ -19,3 +19,6 @@ secret-management readiness.
 
 D3 Pilot posture requires PostgreSQL by default, with SSL, migration execution, backup, restore,
 and rollback plans completed privately. Readiness does not connect or run migrations.
+
+Pilot should also complete a private D4 deployment recipe, cutover checklist, HTTPS/ingress review,
+backup/rollback runbooks, and operator runbook. These artifacts are not deployment automation.
