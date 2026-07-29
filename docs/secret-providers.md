@@ -1,5 +1,8 @@
 # Secret providers
 
+Secret-provider readiness is a Pilot preflight milestone in the
+[sandbox-to-pilot flow](sandbox-to-pilot-flow.md).
+
 Phase D1 keeps Demo mode secret-free while adding real, optional secret resolution for Sandbox and
 Pilot modes. Secret values flow only to internal authentication callers. Reports, diagnostics,
 doctor output, exceptions, and CLI tools expose masked refs and presence status only.

@@ -1,5 +1,8 @@
 # Safety model
 
+Mode transitions are local decisions: Pilot can only become ready for private review. No
+transition approves production, calls Procore automatically, or exposes private data.
+
 Procore Intake Bridge is read-only. It performs no Procore writes: no creates, updates, deletes,
 approvals, submissions, closures, uploads, or write-back routes.
 

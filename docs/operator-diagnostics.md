@@ -1,5 +1,8 @@
 # Operator observability and support diagnostics
 
+Diagnostics summarize the D5 mode posture using safe flags only; they expose no private flow
+contents and never call external services.
+
 Phase B8 adds local-first, sanitized diagnostics and support-bundle tooling. It summarizes runtime
 posture, dependency versions, safe route metadata, aggregate database and queue counts,
 configuration posture, migration/readiness signals, and redaction status. It is not production

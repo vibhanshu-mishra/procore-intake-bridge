@@ -163,42 +163,96 @@ def build_private_workspace_manifest(
             "Masked attachment object reference placeholders.",
             both,
         ),
-        _spec("database/README.private.md", PrivateWorkspaceSection.DATABASE,
-              "Private database boundaries and no-connect defaults.", both),
-        _spec("database/database-refs.private.env", PrivateWorkspaceSection.DATABASE,
-              "Database secret references without URL values.", both),
-        _spec("database/postgres-plan.private.md", PrivateWorkspaceSection.DATABASE,
-              "PostgreSQL SSL and version posture placeholders.", both),
-        _spec("database/migration-execution-plan.private.md",
-              PrivateWorkspaceSection.DATABASE,
-              "Reviewed migration execution plan reference.", both),
-        _spec("database/backup-plan.private.md", PrivateWorkspaceSection.DATABASE,
-              "Private backup plan reference.", pilot),
-        _spec("database/restore-plan.private.md", PrivateWorkspaceSection.DATABASE,
-              "Private restore plan reference.", pilot),
-        _spec("database/rollback-plan.private.md", PrivateWorkspaceSection.DATABASE,
-              "Private rollback plan reference.", pilot),
-        _spec("deployment/README.private.md", PrivateWorkspaceSection.DEPLOYMENT,
-              "Private deployment recipe boundaries.", both),
-        _spec("deployment/deployment-recipe.private.json",
-              PrivateWorkspaceSection.DEPLOYMENT,
-              "Deployment recipe placeholder references.", both),
-        _spec("deployment/https-tls.private.md", PrivateWorkspaceSection.DEPLOYMENT,
-              "HTTPS and certificate reference checklist.", both),
-        _spec("deployment/webhook-ingress.private.md",
-              PrivateWorkspaceSection.DEPLOYMENT,
-              "Webhook ingress reference checklist.", both),
-        _spec("deployment/cutover-checklist.private.md",
-              PrivateWorkspaceSection.DEPLOYMENT, "Private cutover checklist.", pilot),
-        _spec("deployment/backup-runbook.private.md",
-              PrivateWorkspaceSection.DEPLOYMENT,
-              "Private backup runbook reference.", pilot),
-        _spec("deployment/rollback-runbook.private.md",
-              PrivateWorkspaceSection.DEPLOYMENT,
-              "Private rollback runbook reference.", pilot),
-        _spec("deployment/operator-runbook.private.md",
-              PrivateWorkspaceSection.DEPLOYMENT,
-              "Private operator runbook reference.", pilot),
+        _spec(
+            "database/README.private.md",
+            PrivateWorkspaceSection.DATABASE,
+            "Private database boundaries and no-connect defaults.",
+            both,
+        ),
+        _spec(
+            "database/database-refs.private.env",
+            PrivateWorkspaceSection.DATABASE,
+            "Database secret references without URL values.",
+            both,
+        ),
+        _spec(
+            "database/postgres-plan.private.md",
+            PrivateWorkspaceSection.DATABASE,
+            "PostgreSQL SSL and version posture placeholders.",
+            both,
+        ),
+        _spec(
+            "database/migration-execution-plan.private.md",
+            PrivateWorkspaceSection.DATABASE,
+            "Reviewed migration execution plan reference.",
+            both,
+        ),
+        _spec(
+            "database/backup-plan.private.md",
+            PrivateWorkspaceSection.DATABASE,
+            "Private backup plan reference.",
+            pilot,
+        ),
+        _spec(
+            "database/restore-plan.private.md",
+            PrivateWorkspaceSection.DATABASE,
+            "Private restore plan reference.",
+            pilot,
+        ),
+        _spec(
+            "database/rollback-plan.private.md",
+            PrivateWorkspaceSection.DATABASE,
+            "Private rollback plan reference.",
+            pilot,
+        ),
+        _spec(
+            "deployment/README.private.md",
+            PrivateWorkspaceSection.DEPLOYMENT,
+            "Private deployment recipe boundaries.",
+            both,
+        ),
+        _spec(
+            "deployment/deployment-recipe.private.json",
+            PrivateWorkspaceSection.DEPLOYMENT,
+            "Deployment recipe placeholder references.",
+            both,
+        ),
+        _spec(
+            "deployment/https-tls.private.md",
+            PrivateWorkspaceSection.DEPLOYMENT,
+            "HTTPS and certificate reference checklist.",
+            both,
+        ),
+        _spec(
+            "deployment/webhook-ingress.private.md",
+            PrivateWorkspaceSection.DEPLOYMENT,
+            "Webhook ingress reference checklist.",
+            both,
+        ),
+        _spec(
+            "deployment/cutover-checklist.private.md",
+            PrivateWorkspaceSection.DEPLOYMENT,
+            "Private cutover checklist.",
+            pilot,
+        ),
+        _spec(
+            "deployment/backup-runbook.private.md",
+            PrivateWorkspaceSection.DEPLOYMENT,
+            "Private backup runbook reference.",
+            pilot,
+        ),
+        _spec(
+            "deployment/rollback-runbook.private.md",
+            PrivateWorkspaceSection.DEPLOYMENT,
+            "Private rollback runbook reference.",
+            pilot,
+        ),
+        _spec(
+            "deployment/operator-runbook.private.md",
+            PrivateWorkspaceSection.DEPLOYMENT,
+            "Private operator runbook reference.",
+            pilot,
+        ),
         _spec(
             "sandbox/sandbox-scope.private.json",
             PrivateWorkspaceSection.SANDBOX,
@@ -283,6 +337,42 @@ def build_private_workspace_manifest(
             "Incident response placeholders.",
             pilot,
         ),
+        _spec(
+            "flow/README.private.md",
+            PrivateWorkspaceSection.FLOW,
+            "Private sandbox-to-pilot flow boundaries.",
+            both,
+        ),
+        _spec(
+            "flow/sandbox-flow.private.json",
+            PrivateWorkspaceSection.FLOW,
+            "Private sandbox readiness references.",
+            both,
+        ),
+        _spec(
+            "flow/pilot-flow.private.json",
+            PrivateWorkspaceSection.FLOW,
+            "Private pilot readiness references.",
+            pilot,
+        ),
+        _spec(
+            "flow/sandbox-to-pilot-plan.private.md",
+            PrivateWorkspaceSection.FLOW,
+            "Private transition plan.",
+            both,
+        ),
+        _spec(
+            "flow/pilot-preflight.private.md",
+            PrivateWorkspaceSection.FLOW,
+            "Private pilot preflight references.",
+            pilot,
+        ),
+        _spec(
+            "flow/launch-hold.private.md",
+            PrivateWorkspaceSection.FLOW,
+            "Mandatory launch hold pending private approval.",
+            pilot,
+        ),
     ]
     applicable = [spec for spec in specs if selected in spec.required_for_modes]
     return PrivateWorkspaceManifest(
@@ -332,10 +422,7 @@ def _unsafe_codes(value: str, settings: Settings) -> set[str]:
         codes.add("secret")
     if SIGNED_URL.search(value):
         codes.add("signed_url")
-    if (
-        ABSOLUTE_PATH.search(value)
-        and not settings.private_workspace_allow_absolute_paths
-    ):
+    if ABSOLUTE_PATH.search(value) and not settings.private_workspace_allow_absolute_paths:
         codes.add("absolute_path")
     for match in ENV_VALUE.finditer(value):
         if not _placeholder(match.group(1)):
@@ -385,8 +472,7 @@ def validate_private_workspace_manifest(
             )
         seen.add(spec.relative_path)
         unsafe_contents = (
-            spec.contains_file_contents
-            and not settings.private_workspace_allow_file_contents
+            spec.contains_file_contents and not settings.private_workspace_allow_file_contents
         )
         missing_placeholders = (
             settings.private_workspace_require_placeholders and not spec.placeholder_only
@@ -443,16 +529,22 @@ def render_private_workspace_file(
     spec: PrivateWorkspaceFileSpec, manifest: PrivateWorkspaceManifest
 ) -> str:
     if spec.relative_path == "deployment/deployment-recipe.private.json":
-        return json.dumps({
-            "public_base_url": "PUBLIC_BASE_URL_PLACEHOLDER",
-            "allowed_host": "ALLOWED_HOST_PLACEHOLDER",
-            "database_url_ref": "DATABASE_URL_REF_PLACEHOLDER",
-            "secret_provider_ref": "SECRET_PROVIDER_REF_PLACEHOLDER",
-            "storage_provider_ref": "STORAGE_PROVIDER_REF_PLACEHOLDER",
-            "tls_cert_ref": "TLS_CERT_REF_PLACEHOLDER",
-            "webhook_ingress_ref": "WEBHOOK_INGRESS_REF_PLACEHOLDER",
-            "external_provisioning": False,
-        }, indent=2) + "\n"
+        return (
+            json.dumps(
+                {
+                    "public_base_url": "PUBLIC_BASE_URL_PLACEHOLDER",
+                    "allowed_host": "ALLOWED_HOST_PLACEHOLDER",
+                    "database_url_ref": "DATABASE_URL_REF_PLACEHOLDER",
+                    "secret_provider_ref": "SECRET_PROVIDER_REF_PLACEHOLDER",
+                    "storage_provider_ref": "STORAGE_PROVIDER_REF_PLACEHOLDER",
+                    "tls_cert_ref": "TLS_CERT_REF_PLACEHOLDER",
+                    "webhook_ingress_ref": "WEBHOOK_INGRESS_REF_PLACEHOLDER",
+                    "external_provisioning": False,
+                },
+                indent=2,
+            )
+            + "\n"
+        )
     if spec.relative_path.startswith("deployment/") and spec.template_kind == "markdown":
         return (
             f"# {spec.purpose}\n\n"
@@ -487,9 +579,7 @@ def render_private_workspace_file(
                 json.dumps(
                     {
                         "storage_provider_ref": "LOCAL_STORAGE_REF_PLACEHOLDER",
-                        "attachment_storage_root_ref": (
-                            "LOCAL_STORAGE_ROOT_REF_PLACEHOLDER"
-                        ),
+                        "attachment_storage_root_ref": ("LOCAL_STORAGE_ROOT_REF_PLACEHOLDER"),
                         "bucket_or_endpoint_included": False,
                         "object_contents_included": False,
                     },
@@ -502,9 +592,7 @@ def render_private_workspace_file(
             return (
                 json.dumps(
                     {
-                        "attachment_manifest_ref": (
-                            "OBJECT_REF_PLACEHOLDER_ATTACHMENT_MANIFEST"
-                        ),
+                        "attachment_manifest_ref": ("OBJECT_REF_PLACEHOLDER_ATTACHMENT_MANIFEST"),
                         "raw_object_key_included": False,
                         "object_contents_included": False,
                     },

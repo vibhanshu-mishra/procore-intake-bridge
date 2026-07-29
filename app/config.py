@@ -13,9 +13,7 @@ class Settings(BaseSettings):
 
     environment: Literal["local", "staging", "production"] = Field(
         default="local",
-        validation_alias=AliasChoices(
-            "PROCORE_INTAKE_ENVIRONMENT", "APP_DEPLOYMENT_ENVIRONMENT"
-        ),
+        validation_alias=AliasChoices("PROCORE_INTAKE_ENVIRONMENT", "APP_DEPLOYMENT_ENVIRONMENT"),
     )
     require_safe_production_settings: bool = Field(
         default=True,
@@ -32,9 +30,7 @@ class Settings(BaseSettings):
         default="localhost,127.0.0.1",
         validation_alias="PROCORE_INTAKE_ALLOWED_HOSTS",
     )
-    cors_origins: str = Field(
-        default="", validation_alias="PROCORE_INTAKE_CORS_ORIGINS"
-    )
+    cors_origins: str = Field(default="", validation_alias="PROCORE_INTAKE_CORS_ORIGINS")
     log_level: Literal["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"] = Field(
         default="INFO", validation_alias="PROCORE_INTAKE_LOG_LEVEL"
     )
@@ -106,9 +102,7 @@ class Settings(BaseSettings):
         "gcp_secret_manager",
     ] = Field(
         default="env",
-        validation_alias=AliasChoices(
-            "PROCORE_INTAKE_SECRET_PROVIDER", "APP_SECRET_PROVIDER"
-        ),
+        validation_alias=AliasChoices("PROCORE_INTAKE_SECRET_PROVIDER", "APP_SECRET_PROVIDER"),
     )
     secret_ref_prefix: str = Field(
         default="PROCORE_INTAKE_SECRET_",
@@ -217,9 +211,7 @@ class Settings(BaseSettings):
         gt=0,
         validation_alias="PROCORE_INTAKE_MAX_SYNC_LOOKBACK_DAYS",
     )
-    webhooks_enabled: bool = Field(
-        default=True, validation_alias="PROCORE_INTAKE_WEBHOOKS_ENABLED"
-    )
+    webhooks_enabled: bool = Field(default=True, validation_alias="PROCORE_INTAKE_WEBHOOKS_ENABLED")
     require_webhook_signature: bool = Field(
         default=False,
         validation_alias="PROCORE_INTAKE_REQUIRE_WEBHOOK_SIGNATURE",
@@ -305,11 +297,11 @@ class Settings(BaseSettings):
         min_length=1,
         validation_alias="PROCORE_INTAKE_EVENT_WORKER_ID",
     )
-    attachment_storage_provider: Literal[
-        "local", "test", "disabled", "external_placeholder"
-    ] = Field(
-        default="local",
-        validation_alias="PROCORE_INTAKE_ATTACHMENT_STORAGE_PROVIDER",
+    attachment_storage_provider: Literal["local", "test", "disabled", "external_placeholder"] = (
+        Field(
+            default="local",
+            validation_alias="PROCORE_INTAKE_ATTACHMENT_STORAGE_PROVIDER",
+        )
     )
     attachment_storage_backend: str = Field(
         default="local",
@@ -781,27 +773,19 @@ class Settings(BaseSettings):
     )
     pilot_approval_packet_require_no_expired_evidence: bool = Field(
         default=True,
-        validation_alias=(
-            "PROCORE_INTAKE_PILOT_APPROVAL_PACKET_REQUIRE_NO_EXPIRED_EVIDENCE"
-        ),
+        validation_alias=("PROCORE_INTAKE_PILOT_APPROVAL_PACKET_REQUIRE_NO_EXPIRED_EVIDENCE"),
     )
     pilot_approval_packet_require_limitations_section: bool = Field(
         default=True,
-        validation_alias=(
-            "PROCORE_INTAKE_PILOT_APPROVAL_PACKET_REQUIRE_LIMITATIONS_SECTION"
-        ),
+        validation_alias=("PROCORE_INTAKE_PILOT_APPROVAL_PACKET_REQUIRE_LIMITATIONS_SECTION"),
     )
     pilot_approval_packet_require_rollback_conditions: bool = Field(
         default=True,
-        validation_alias=(
-            "PROCORE_INTAKE_PILOT_APPROVAL_PACKET_REQUIRE_ROLLBACK_CONDITIONS"
-        ),
+        validation_alias=("PROCORE_INTAKE_PILOT_APPROVAL_PACKET_REQUIRE_ROLLBACK_CONDITIONS"),
     )
     pilot_approval_packet_require_signoff_placeholders: bool = Field(
         default=True,
-        validation_alias=(
-            "PROCORE_INTAKE_PILOT_APPROVAL_PACKET_REQUIRE_SIGNOFF_PLACEHOLDERS"
-        ),
+        validation_alias=("PROCORE_INTAKE_PILOT_APPROVAL_PACKET_REQUIRE_SIGNOFF_PLACEHOLDERS"),
     )
     pilot_approval_packet_max_approvers: int = Field(
         default=10,
@@ -819,9 +803,7 @@ class Settings(BaseSettings):
         default=True,
         validation_alias="PROCORE_INTAKE_PILOT_APPROVAL_PACKET_FAIL_CLOSED",
     )
-    usage_mode: str = Field(
-        default="demo", validation_alias="PROCORE_INTAKE_USAGE_MODE"
-    )
+    usage_mode: str = Field(default="demo", validation_alias="PROCORE_INTAKE_USAGE_MODE")
     allowed_usage_modes: str = Field(
         default="demo,sandbox,pilot",
         validation_alias="PROCORE_INTAKE_ALLOWED_USAGE_MODES",
@@ -1071,11 +1053,11 @@ class Settings(BaseSettings):
         default=True,
         validation_alias="PROCORE_INTAKE_DEPLOYMENT_RECIPE_FAIL_CLOSED",
     )
-    deployment_target: Literal[
-        "docker_local", "docker_vps", "managed_paas", "generic_cloud"
-    ] = Field(
-        default="docker_local",
-        validation_alias="PROCORE_INTAKE_DEPLOYMENT_TARGET",
+    deployment_target: Literal["docker_local", "docker_vps", "managed_paas", "generic_cloud"] = (
+        Field(
+            default="docker_local",
+            validation_alias="PROCORE_INTAKE_DEPLOYMENT_TARGET",
+        )
     )
     deployment_allowed_targets: str = Field(
         default="docker_local,docker_vps,managed_paas,generic_cloud",
@@ -1104,6 +1086,70 @@ class Settings(BaseSettings):
     deployment_external_provisioning_enabled: bool = Field(
         default=False,
         validation_alias="PROCORE_INTAKE_DEPLOYMENT_EXTERNAL_PROVISIONING_ENABLED",
+    )
+    sandbox_pilot_flow_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_SANDBOX_PILOT_FLOW_ENABLED"
+    )
+    sandbox_pilot_flow_output_root: Path = Field(
+        default=Path("./sandbox-pilot-output"),
+        validation_alias="PROCORE_INTAKE_SANDBOX_PILOT_FLOW_OUTPUT_ROOT",
+    )
+    sandbox_pilot_flow_require_placeholders: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_SANDBOX_PILOT_FLOW_REQUIRE_PLACEHOLDERS"
+    )
+    sandbox_pilot_flow_allow_real_ids: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_SANDBOX_PILOT_FLOW_ALLOW_REAL_IDS"
+    )
+    sandbox_pilot_flow_allow_real_identities: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_SANDBOX_PILOT_FLOW_ALLOW_REAL_IDENTITIES"
+    )
+    sandbox_pilot_flow_allow_real_domains: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_SANDBOX_PILOT_FLOW_ALLOW_REAL_DOMAINS"
+    )
+    sandbox_pilot_flow_allow_production: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_SANDBOX_PILOT_FLOW_ALLOW_PRODUCTION"
+    )
+    sandbox_pilot_flow_fail_closed: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_SANDBOX_PILOT_FLOW_FAIL_CLOSED"
+    )
+    flow_require_demo_ready: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_FLOW_REQUIRE_DEMO_READY"
+    )
+    flow_require_dmsa_refs_for_sandbox: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_FLOW_REQUIRE_DMSA_REFS_FOR_SANDBOX"
+    )
+    flow_require_project_scope_for_sandbox: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_FLOW_REQUIRE_PROJECT_SCOPE_FOR_SANDBOX"
+    )
+    flow_require_admin_auth_for_sandbox: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_FLOW_REQUIRE_ADMIN_AUTH_FOR_SANDBOX"
+    )
+    flow_require_sandbox_smoke_before_pilot: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_FLOW_REQUIRE_SANDBOX_SMOKE_BEFORE_PILOT"
+    )
+    flow_require_private_workspace_for_pilot: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_FLOW_REQUIRE_PRIVATE_WORKSPACE_FOR_PILOT"
+    )
+    flow_require_secret_provider_for_pilot: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_FLOW_REQUIRE_SECRET_PROVIDER_FOR_PILOT"
+    )
+    flow_require_storage_provider_for_pilot: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_FLOW_REQUIRE_STORAGE_PROVIDER_FOR_PILOT"
+    )
+    flow_require_postgres_for_pilot: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_FLOW_REQUIRE_POSTGRES_FOR_PILOT"
+    )
+    flow_require_deployment_recipe_for_pilot: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_FLOW_REQUIRE_DEPLOYMENT_RECIPE_FOR_PILOT"
+    )
+    flow_require_evidence_review_for_pilot: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_FLOW_REQUIRE_EVIDENCE_REVIEW_FOR_PILOT"
+    )
+    flow_require_approval_packet_for_pilot: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_FLOW_REQUIRE_APPROVAL_PACKET_FOR_PILOT"
+    )
+    flow_require_rollback_for_pilot: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_FLOW_REQUIRE_ROLLBACK_FOR_PILOT"
     )
 
 

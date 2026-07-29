@@ -1,5 +1,9 @@
 # Documentation
 
+- [Demo → Sandbox → Pilot](sandbox-to-pilot-flow.md)
+- [Sandbox onboarding](sandbox-onboarding.md)
+- [Pilot preflight](pilot-preflight.md)
+
 This is the documentation home for Procore Intake Bridge. The runtime is fixture/mock by default,
 live Procore access is disabled by default, and the project performs no Procore writes.
 

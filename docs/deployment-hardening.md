@@ -1,5 +1,8 @@
 # Deployment hardening (Phase A8)
 
+D5 orders these checks through [pilot preflight](pilot-preflight.md) without provisioning,
+deployment, DNS/TLS calls, migrations, or webhook registration.
+
 A8 adds deployment profiles, sanitized readiness reports, startup checks, Alembic scaffolding,
 local Docker assets, and operational guidance. It does not deploy the service or add production
 authentication, cloud storage, scheduling, email, infrastructure, Procore writes, or default live

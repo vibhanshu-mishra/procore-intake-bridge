@@ -4,6 +4,7 @@ PYTHON ?= .venv/bin/python
 
 .PHONY: database-template database-check migration-plan backup-restore-plan database-connectivity-check
 .PHONY: deployment-template deployment-check deployment-safety-check deployment-artifact-check https-webhook-checklist
+.PHONY: sandbox-pilot-template sandbox-onboarding-check pilot-preflight sandbox-to-pilot-plan sandbox-pilot-artifact-check
 
 test:
 	$(PYTHON) -m pytest
@@ -173,6 +174,7 @@ demo-sync:
 
 sandbox-check:
 	PROCORE_INTAKE_USAGE_MODE=sandbox $(PYTHON) scripts/doctor.py
+	$(PYTHON) scripts/check_sandbox_onboarding.py examples/sandbox-pilot-flow/example_sandbox_flow.json
 
 pilot-check:
 	$(PYTHON) scripts/validate_customer_deployment_profile.py examples/customer-deployments/example_customer_profile.json
@@ -183,6 +185,24 @@ pilot-check:
 	$(PYTHON) scripts/validate_pilot_approval_packet.py examples/pilot-approval/example_pilot_approval_packet.json
 	$(PYTHON) scripts/check_pilot_approval_safety.py examples/pilot-approval/example_pilot_approval_packet.json
 	PROCORE_INTAKE_USAGE_MODE=pilot $(PYTHON) scripts/doctor.py
+	$(PYTHON) scripts/check_pilot_preflight.py examples/sandbox-pilot-flow/example_pilot_flow.json
+
+sandbox-pilot-template:
+	$(PYTHON) scripts/print_sandbox_pilot_flow_template.py --path demo
+	$(PYTHON) scripts/print_sandbox_pilot_flow_template.py --path sandbox
+	$(PYTHON) scripts/print_sandbox_pilot_flow_template.py --path pilot
+
+sandbox-onboarding-check:
+	$(PYTHON) scripts/check_sandbox_onboarding.py examples/sandbox-pilot-flow/example_sandbox_flow.json
+
+pilot-preflight:
+	$(PYTHON) scripts/check_pilot_preflight.py examples/sandbox-pilot-flow/example_pilot_flow.json
+
+sandbox-to-pilot-plan:
+	$(PYTHON) scripts/print_sandbox_to_pilot_plan.py
+
+sandbox-pilot-artifact-check:
+	$(PYTHON) scripts/generate_sandbox_pilot_flow_artifacts.py --help
 
 mode-report:
 	$(PYTHON) scripts/generate_mode_report.py
@@ -213,5 +233,5 @@ secret-refs-check:
 file-secret-provider-check:
 	$(PYTHON) scripts/test_file_secret_provider.py
 
-quality: lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check storage-provider-template storage-provider-check storage-refs-check database-template database-check migration-plan backup-restore-plan deployment-template deployment-check deployment-safety-check https-webhook-checklist migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check customer-template customer-profile-check diagnostics pilot-template pilot-readiness-check evidence-template evidence-manifest-check evidence-review-template evidence-review-check evidence-expiry-check pilot-approval-template pilot-approval-check pilot-approval-safety-check modes doctor check-local private-workspace-template private-workspace-git-safety secret-provider-check secret-provider-template secret-refs-check test
+quality: lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check storage-provider-template storage-provider-check storage-refs-check database-template database-check migration-plan backup-restore-plan deployment-template deployment-check deployment-safety-check https-webhook-checklist migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check customer-template customer-profile-check diagnostics pilot-template pilot-readiness-check evidence-template evidence-manifest-check evidence-review-template evidence-review-check evidence-expiry-check pilot-approval-template pilot-approval-check pilot-approval-safety-check modes doctor check-local private-workspace-template private-workspace-git-safety secret-provider-check secret-provider-template secret-refs-check sandbox-to-pilot-plan sandbox-pilot-template sandbox-onboarding-check pilot-preflight test
 	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict

@@ -1,5 +1,8 @@
 # Demo mode quickstart
 
+After the fixture-only demo, continue with the private, no-live-call
+[sandbox onboarding flow](sandbox-onboarding.md).
+
 Demo mode requires no Procore credentials, no secrets, no cloud, no external database, and no
 external services. It uses committed synthetic fixtures and local SQLite state.
 

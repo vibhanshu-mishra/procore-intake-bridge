@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- D5 adds a placeholder-only, local sandbox-to-pilot flow, readiness CLIs, private-workspace
+  scaffolds, ignored artifacts, diagnostics posture, and explicit launch hold.
+
 - Added D3 PostgreSQL posture, masked database references, offline migration and recovery plans,
   private workspace database templates, and an opt-in manually confirmed read-only connectivity
   boundary.

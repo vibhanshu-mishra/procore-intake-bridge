@@ -1,5 +1,8 @@
 # Pilot readiness gate
 
+D5 consumes this gate as part of [pilot preflight](pilot-preflight.md); neither check grants
+approval.
+
 Phase B9 is a local-only, fail-closed go/no-go gate for planning a controlled pilot. It validates
 placeholder evidence references and generates sanitized local checklists. It includes no deployment
 automation and makes no Procore calls, live sync, infrastructure changes, webhook registration or

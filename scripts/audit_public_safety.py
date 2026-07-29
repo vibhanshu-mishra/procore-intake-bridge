@@ -78,6 +78,9 @@ PRIVATE_PATH_PARTS = {
     "smoke-output",
     "support-output",
     "sandbox-output",
+    "sandbox-pilot-output",
+    "pilot-flow-output",
+    "flow-output",
     "sandbox-workspace",
     "secrets.local",
     ".local-secrets",
@@ -107,9 +110,7 @@ DATABASE_CREDENTIAL_URL = re.compile(
 )
 CUSTOMER_EMAIL = re.compile(r"(?i)\b[\w.+-]+@[\w.-]+\.[a-z]{2,}\b")
 CUSTOMER_URL = re.compile(r"(?i)https?://([a-z0-9.-]+)")
-GENERIC_SIGNED_URL = re.compile(
-    r"(?i)https?://[^\s\"']+[?&](signature|signed|token|expires)="
-)
+GENERIC_SIGNED_URL = re.compile(r"(?i)https?://[^\s\"']+[?&](signature|signed|token|expires)=")
 OBSERVABILITY_CREDENTIAL = re.compile(
     r"(?i)(?:sentry_dsn|datadog_api_key|new_relic_license_key|honeycomb_api_key)"
     r"\s*[:=]\s*[^\s\"']+"
@@ -130,10 +131,7 @@ BINARY_EVIDENCE_REFERENCE = re.compile(
 
 def _safe_value(value: str) -> bool:
     lowered = value.casefold()
-    return (
-        any(marker in lowered for marker in SAFE_MARKERS)
-        or value.startswith(("${", "{"))
-    )
+    return any(marker in lowered for marker in SAFE_MARKERS) or value.startswith(("${", "{"))
 
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
@@ -166,9 +164,7 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
         for match in CUSTOMER_URL.finditer(text):
             host = match.group(1).casefold()
             if not host.endswith((".local", ".invalid")):
-                issues.append(
-                    SafetyIssue(path, "evidence example contains a non-placeholder URL")
-                )
+                issues.append(SafetyIssue(path, "evidence example contains a non-placeholder URL"))
         if GENERIC_SIGNED_URL.search(text):
             issues.append(SafetyIssue(path, "evidence example contains a signed URL"))
     if "examples/evidence-review" in path.as_posix():
@@ -177,30 +173,22 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
         for match in CUSTOMER_URL.finditer(text):
             host = match.group(1).casefold()
             if not host.endswith((".local", ".invalid")):
-                issues.append(
-                    SafetyIssue(path, "review example contains a non-placeholder URL")
-                )
+                issues.append(SafetyIssue(path, "review example contains a non-placeholder URL"))
         if GENERIC_SIGNED_URL.search(text):
             issues.append(SafetyIssue(path, "review example contains a signed URL"))
         for match in REVIEWER_IDENTITY.finditer(text):
             if not _safe_value(match.group(1)):
-                issues.append(
-                    SafetyIssue(path, "review example contains a reviewer identity")
-                )
+                issues.append(SafetyIssue(path, "review example contains a reviewer identity"))
     if "examples/pilot-approval" in path.as_posix():
         if CUSTOMER_EMAIL.search(text):
             issues.append(SafetyIssue(path, "approval example contains an email address"))
         for match in CUSTOMER_URL.finditer(text):
             host = match.group(1).casefold()
             if not host.endswith((".local", ".invalid")):
-                issues.append(
-                    SafetyIssue(path, "approval example contains a non-placeholder URL")
-                )
+                issues.append(SafetyIssue(path, "approval example contains a non-placeholder URL"))
         for match in REVIEWER_IDENTITY.finditer(text):
             if not _safe_value(match.group(1)):
-                issues.append(
-                    SafetyIssue(path, "approval example contains a reviewer identity")
-                )
+                issues.append(SafetyIssue(path, "approval example contains a reviewer identity"))
         if GENERIC_SIGNED_URL.search(text):
             issues.append(SafetyIssue(path, "approval example contains a signed URL"))
     if (
@@ -225,85 +213,115 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
         if path.suffix.casefold() in {".db", ".sqlite", ".sqlite3"}:
             issues.append(SafetyIssue(path, "tracked local database file"))
             continue
-        if path.suffix.casefold() in {
-            ".sql", ".dump", ".backup", ".bak", ".pgdump"
-        }:
+        if path.suffix.casefold() in {".sql", ".dump", ".backup", ".bak", ".pgdump"}:
             issues.append(SafetyIssue(path, "tracked database dump or backup"))
             continue
         if path.suffix.casefold() in {
-            ".pem", ".key", ".crt", ".csr", ".p12", ".pfx", ".tfstate", ".tfvars"
+            ".pem",
+            ".key",
+            ".crt",
+            ".csr",
+            ".p12",
+            ".pfx",
+            ".tfstate",
+            ".tfvars",
         }:
             issues.append(SafetyIssue(path, "tracked certificate or infrastructure state"))
             continue
         if path.name.endswith((".smoke.json", ".smoke.log")):
             issues.append(SafetyIssue(path, "tracked sandbox smoke output"))
             continue
-        if path.name.endswith((
-            ".mode-report.json",
-            ".mode-report.md",
-            ".doctor-report.json",
-            ".doctor-report.md",
-            ".quickstart-report.json",
-            ".quickstart-report.md",
-        )):
+        if path.name.endswith(
+            (
+                ".mode-report.json",
+                ".mode-report.md",
+                ".doctor-report.json",
+                ".doctor-report.md",
+                ".quickstart-report.json",
+                ".quickstart-report.md",
+                ".sandbox-pilot-flow.json",
+                ".sandbox-pilot-flow.md",
+                ".flow-report.json",
+                ".flow-report.md",
+                ".pilot-preflight.json",
+                ".pilot-preflight.md",
+                ".sandbox-onboarding-report.json",
+                ".sandbox-onboarding-report.md",
+            )
+        ):
             issues.append(SafetyIssue(path, "tracked generated usage-mode output"))
             continue
-        if path.name.endswith((
-            ".secret",
-            ".secret.txt",
-            ".secrets.json",
-            ".secrets.env",
-            ".credential",
-            ".credentials.json",
-        )):
+        if path.name.endswith(
+            (
+                ".secret",
+                ".secret.txt",
+                ".secrets.json",
+                ".secrets.env",
+                ".credential",
+                ".credentials.json",
+            )
+        ):
             issues.append(SafetyIssue(path, "tracked generated secret or credential file"))
             continue
-        if path.name.endswith((
-            ".private.json",
-            ".private.md",
-            ".private.env",
-            ".workspace-report.json",
-            ".workspace-report.md",
-            ".workspace-manifest.json",
-        )) and "examples/private-workspace" not in path.as_posix():
+        if (
+            path.name.endswith(
+                (
+                    ".private.json",
+                    ".private.md",
+                    ".private.env",
+                    ".workspace-report.json",
+                    ".workspace-report.md",
+                    ".workspace-manifest.json",
+                )
+            )
+            and "examples/private-workspace" not in path.as_posix()
+        ):
             issues.append(SafetyIssue(path, "tracked generated private workspace output"))
             continue
-        if path.name.endswith((
-            ".customer-profile.json",
-            ".customer-deployment-report.json",
-            ".customer-checklist.md",
-        )):
+        if path.name.endswith(
+            (
+                ".customer-profile.json",
+                ".customer-deployment-report.json",
+                ".customer-checklist.md",
+            )
+        ):
             issues.append(SafetyIssue(path, "tracked generated customer deployment output"))
             continue
-        if path.name.endswith((
-            ".pilot-approval-packet.json",
-            ".pilot-approval-packet.md",
-            ".pilot-approval-summary.md",
-            ".pilot-approval-manifest.json",
-            ".pilot-signoff.md",
-            ".risk-acceptance.md",
-            ".launch-conditions.md",
-            ".rollback-conditions.md",
-        )):
+        if path.name.endswith(
+            (
+                ".pilot-approval-packet.json",
+                ".pilot-approval-packet.md",
+                ".pilot-approval-summary.md",
+                ".pilot-approval-manifest.json",
+                ".pilot-signoff.md",
+                ".risk-acceptance.md",
+                ".launch-conditions.md",
+                ".rollback-conditions.md",
+            )
+        ):
             issues.append(SafetyIssue(path, "tracked generated pilot approval output"))
             continue
-        if path.name.endswith((
-            ".evidence-review.json",
-            ".evidence-review.md",
-            ".evidence-expiry-report.json",
-            ".evidence-renewal-checklist.md",
-            ".evidence-signoff.md",
-            ".reviewer-signoff.json",
-        )):
+        if path.name.endswith(
+            (
+                ".evidence-review.json",
+                ".evidence-review.md",
+                ".evidence-expiry-report.json",
+                ".evidence-renewal-checklist.md",
+                ".evidence-signoff.md",
+                ".reviewer-signoff.json",
+            )
+        ):
             issues.append(SafetyIssue(path, "tracked generated evidence review output"))
             continue
-        if path.name.endswith((
-            ".evidence-manifest.json",
-            ".evidence-index.md",
-            ".evidence-report.json",
-            ".evidence-redaction-report.json",
-            ".evidence-checklist.md",
-        )):
+        if path.name.endswith(
+            (
+                ".evidence-manifest.json",
+                ".evidence-index.md",
+                ".evidence-report.json",
+                ".evidence-redaction-report.json",
+                ".evidence-checklist.md",
+            )
+        ):
             issues.append(SafetyIssue(path, "tracked generated private evidence output"))
             continue
         if path.suffix.casefold() in {
@@ -320,24 +338,28 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
         }:
             issues.append(SafetyIssue(path, "tracked binary evidence-capable file"))
             continue
-        if path.name.endswith((
-            ".pilot-readiness.json",
-            ".pilot-readiness.md",
-            ".pilot-readiness-report.json",
-            ".pilot-checklist.md",
-            ".go-no-go.md",
-        )):
+        if path.name.endswith(
+            (
+                ".pilot-readiness.json",
+                ".pilot-readiness.md",
+                ".pilot-readiness-report.json",
+                ".pilot-checklist.md",
+                ".go-no-go.md",
+            )
+        ):
             issues.append(SafetyIssue(path, "tracked generated pilot readiness output"))
             continue
-        if path.name.endswith((
-            ".support-bundle.json",
-            ".support-bundle.md",
-            ".support-bundle.log",
-            ".diagnostics.json",
-            ".diagnostics.md",
-            ".diagnostics.log",
-            ".redaction-report.json",
-        )):
+        if path.name.endswith(
+            (
+                ".support-bundle.json",
+                ".support-bundle.md",
+                ".support-bundle.log",
+                ".diagnostics.json",
+                ".diagnostics.md",
+                ".diagnostics.log",
+                ".redaction-report.json",
+            )
+        ):
             issues.append(SafetyIssue(path, "tracked diagnostics or support output"))
             continue
         if (

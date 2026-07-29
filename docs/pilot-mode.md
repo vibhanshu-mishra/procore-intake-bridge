@@ -1,5 +1,8 @@
 # Pilot mode
 
+Use [pilot preflight](pilot-preflight.md) to prepare for private review. It does not approve a
+pilot, inspect real evidence, deploy infrastructure, or call external services.
+
 Pilot mode assembles the repository's customer-profile, diagnostics, readiness, evidence review,
 expiry, approval, launch-condition, and rollback tooling. Run `make pilot-check` against the
 committed fake examples and `make doctor` for a concise posture summary.

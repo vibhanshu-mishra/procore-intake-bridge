@@ -47,15 +47,11 @@ def with_note(note: str) -> PrivateWorkspaceManifest:
 
 def blocking_codes(manifest: PrivateWorkspaceManifest) -> set[str]:
     report = build_private_workspace_validation_report(manifest, configured())
-    return {
-        finding.code for finding in report.findings if finding.severity == "blocking"
-    }
+    return {finding.code for finding in report.findings if finding.severity == "blocking"}
 
 
 def test_example_validates_and_modes_are_recognized() -> None:
-    assert build_private_workspace_validation_report(
-        load_example(), configured()
-    ).valid
+    assert build_private_workspace_validation_report(load_example(), configured()).valid
     for mode in PrivateWorkspaceMode:
         manifest = build_private_workspace_manifest(mode, configured())
         assert manifest.mode == mode
@@ -88,7 +84,17 @@ def test_combined_manifest_has_expected_sections() -> None:
         PrivateWorkspaceSection.LAUNCH,
         PrivateWorkspaceSection.ROLLBACK,
         PrivateWorkspaceSection.INCIDENT_RESPONSE,
+        PrivateWorkspaceSection.FLOW,
     } <= sections
+    paths = {item.relative_path for item in manifest.files}
+    assert {
+        "flow/README.private.md",
+        "flow/sandbox-flow.private.json",
+        "flow/pilot-flow.private.json",
+        "flow/sandbox-to-pilot-plan.private.md",
+        "flow/pilot-preflight.private.md",
+        "flow/launch-hold.private.md",
+    } <= paths
 
 
 @pytest.mark.parametrize(
@@ -124,9 +130,7 @@ def test_too_many_files_and_unsafe_paths_are_blocked() -> None:
     assert "max_files" in blocking_codes(PrivateWorkspaceManifest.model_validate(payload))
     payload = load_example().model_dump(mode="json")
     payload["files"][0]["relative_path"] = "../escape.private.md"
-    assert "unsafe_path" in blocking_codes(
-        PrivateWorkspaceManifest.model_validate(payload)
-    )
+    assert "unsafe_path" in blocking_codes(PrivateWorkspaceManifest.model_validate(payload))
 
 
 def test_generation_is_contained_placeholder_only_and_overwrite_guarded(
@@ -137,12 +141,9 @@ def test_generation_is_contained_placeholder_only_and_overwrite_guarded(
     assert result.output_directory == "private-workspace"
     assert "workspace-manifest.json" in result.files
     assert all(
-        not Path(item).is_absolute() and ".." not in Path(item).parts
-        for item in result.files
+        not Path(item).is_absolute() and ".." not in Path(item).parts for item in result.files
     )
-    contents = "\n".join(
-        path.read_text() for path in root.rglob("*") if path.is_file()
-    )
+    contents = "\n".join(path.read_text() for path in root.rglob("*") if path.is_file())
     for forbidden in ("Authorization:", "Bearer ", "/Users/", "postgresql://", "@customer"):
         assert forbidden not in contents
     with pytest.raises(PrivateWorkspaceBlockedError):
@@ -187,9 +188,7 @@ def test_cli_workflow_is_safe(tmp_path: Path) -> None:
         [sys.executable, "scripts/check_private_workspace_git_safety.py"],
     ]
     for command in commands:
-        result = subprocess.run(
-            command, cwd=ROOT, check=False, capture_output=True, text=True
-        )
+        result = subprocess.run(command, cwd=ROOT, check=False, capture_output=True, text=True)
         assert result.returncode == 0, result.stderr
         assert str(ROOT) not in result.stdout
     output = tmp_path / "private-workspace"
@@ -228,15 +227,9 @@ def test_usage_modes_integrate_workspace_without_affecting_demo() -> None:
     sandbox = build_sandbox_mode_readiness(configured())
     pilot = build_pilot_mode_readiness(configured())
     assert all(item.requirement != "private_workspace" for item in demo.requirements)
-    assert "private_workspace_tools" in {
-        item.requirement for item in sandbox.requirements
-    }
-    assert "private_workspace_tools" in {
-        item.requirement for item in pilot.requirements
-    }
-    sandbox_doctor = build_usage_mode_doctor_report(
-        configured(usage_mode="sandbox")
-    )
+    assert "private_workspace_tools" in {item.requirement for item in sandbox.requirements}
+    assert "private_workspace_tools" in {item.requirement for item in pilot.requirements}
+    sandbox_doctor = build_usage_mode_doctor_report(configured(usage_mode="sandbox"))
     pilot_doctor = build_usage_mode_doctor_report(configured(usage_mode="pilot"))
     assert any("init-private-workspace" in item for item in sandbox_doctor.recommended_next_steps)
     assert any("init-private-workspace" in item for item in pilot_doctor.recommended_next_steps)

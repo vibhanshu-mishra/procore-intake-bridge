@@ -1,0 +1,27 @@
+{
+  "profile_name": "Example Pilot Flow",
+  "selected_path": "pilot",
+  "environment_label": "EXAMPLE_PILOT_PLACEHOLDER",
+  "demo_status": "ready",
+  "private_workspace_status": "needs_configuration",
+  "sandbox_smoke_status": "needs_configuration",
+  "sandbox_smoke_ref": "SANDBOX_SMOKE_REF_PLACEHOLDER",
+  "secret_provider_status": "needs_configuration",
+  "storage_provider_status": "needs_configuration",
+  "database_status": "needs_configuration",
+  "deployment_recipe_status": "needs_configuration",
+  "evidence_manifest_status": "needs_configuration",
+  "evidence_review_status": "needs_configuration",
+  "pilot_readiness_status": "needs_configuration",
+  "pilot_approval_status": "needs_review",
+  "rollback_status": "needs_configuration",
+  "backup_status": "needs_configuration",
+  "legal_privacy_review_placeholder": "LEGAL_PRIVACY_REVIEW_PLACEHOLDER",
+  "customer_approval_placeholder": "PILOT_APPROVAL_PACKET_REF_PLACEHOLDER",
+  "internal_operator_approval_placeholder": "OPERATOR_APPROVAL_PLACEHOLDER",
+  "notes": [
+    "PRIVATE_WORKSPACE_REF_PLACEHOLDER",
+    "ROLLBACK_PLAN_REF_PLACEHOLDER",
+    "BACKUP_PLAN_REF_PLACEHOLDER"
+  ]
+}

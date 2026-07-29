@@ -1,0 +1,14 @@
+{
+  "profile_name": "Example Sandbox Flow",
+  "selected_path": "sandbox",
+  "environment_label": "EXAMPLE_SANDBOX_PLACEHOLDER",
+  "demo_status": "ready",
+  "dmsa_refs_status": "needs_configuration",
+  "admin_auth_status": "needs_configuration",
+  "allowed_scope_status": "needs_configuration",
+  "permission_review_status": "needs_review",
+  "sandbox_smoke_status": "needs_configuration",
+  "sandbox_smoke_ref": "SANDBOX_SMOKE_REF_PLACEHOLDER",
+  "webhook_review_status": "needs_review",
+  "notes": ["DMSA_REF_PLACEHOLDER", "PROJECT_SCOPE_REF_PLACEHOLDER"]
+}

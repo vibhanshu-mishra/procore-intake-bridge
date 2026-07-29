@@ -1,5 +1,8 @@
 # Operations runbook
 
+Use the [Demo → Sandbox → Pilot order](sandbox-to-pilot-flow.md) before any separately authorized
+private pilot execution.
+
 Install with `python -m pip install -e ".[dev]"`, start with
 `uvicorn app.main:app --reload`, and run tests with `pytest`. Check `GET /ready`,
 `GET /deployment/readiness`, and `python scripts/check_deployment_readiness.py`. Run startup

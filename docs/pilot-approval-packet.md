@@ -1,5 +1,8 @@
 # Private pilot approval packet
 
+The packet remains private and is referenced by [pilot preflight](pilot-preflight.md). A public
+flow profile never contains real approval contents or a real approval decision.
+
 Pilot mode links this packet through `make pilot-check`; the public fake packet is only structural
 validation and never records a real private approval.
 

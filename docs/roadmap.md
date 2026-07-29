@@ -1,5 +1,8 @@
 # Roadmap
 
+Phase D5 is complete: the repository guides Demo → Sandbox → Pilot readiness without live calls
+or approval. Separately authorized private pilot execution remains future work.
+
 Completed: A1–A8 established the fixture intake service, guarded SDK boundary, polling, webhooks,
 attachment manifests, onboarding, local admin, and deployment-hardening structure.
 

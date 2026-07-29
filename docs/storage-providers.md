@@ -1,5 +1,8 @@
 # Storage providers
 
+Storage-provider readiness is a Pilot preflight milestone in the
+[sandbox-to-pilot flow](sandbox-to-pilot-flow.md).
+
 Phase D2 adds a shared, fail-closed storage facade for sanitized object references. The default
 local provider supports bounded text writes, reads, existence checks, deletion, and masked
 inventories only inside ignored private roots. It rejects traversal, absolute keys, symlink

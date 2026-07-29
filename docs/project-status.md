@@ -1,5 +1,8 @@
 # Project status
 
+Phase D5, Real Sandbox-to-Pilot Flow, is implemented as a local placeholder-only workflow.
+Actual private pilot execution remains future, separately authorized work.
+
 Current phase: A9 repository polish is complete. A1–A8 behavior and the A9 public-safety
 contracts are validated by the current test suite.
 

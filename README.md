@@ -14,6 +14,13 @@ Sandbox and Pilot users can initialize the C5 ignored placeholder workspace with
 Git isolation with `make private-workspace-git-safety`. See
 [Private workspace bootstrap](docs/private-workspace-bootstrap.md). Demo needs no workspace.
 
+## Demo → Sandbox → Pilot
+
+Run `make sandbox-to-pilot-plan` for the exact local-only progression, then use
+`make sandbox-onboarding-check` or `make pilot-preflight` for the selected path. These checks
+make no automatic live calls and never approve or deploy a pilot. See the
+[guided flow](docs/sandbox-to-pilot-flow.md).
+
 For Sandbox or Pilot secrets, D1 supports a real private environment-variable provider and a
 contained local file provider. Start with `make secret-provider-template` and
 `make secret-provider-check`; see [Secret providers](docs/secret-providers.md). Demo remains

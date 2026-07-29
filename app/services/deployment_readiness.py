@@ -238,63 +238,95 @@ def check_webhook_signature_safety(settings: Settings) -> list[DeploymentFinding
 
 def check_webhook_verification_safety(settings: Settings) -> list[DeploymentFinding]:
     if not settings.webhooks_enabled:
-        return [_finding(
-            "webhook_verification", "info",
-            "Webhook receiver is disabled; a production verification record is not required.",
-        )]
+        return [
+            _finding(
+                "webhook_verification",
+                "info",
+                "Webhook receiver is disabled; a production verification record is not required.",
+            )
+        ]
     if settings.webhook_verification_docs_status in {"unverified", "deprecated"}:
-        return [_finding(
-            "webhook_verification", "blocking",
-            "Enabled production webhooks require current manually verified "
-            "documentation assumptions.",
-            "production",
-        )]
+        return [
+            _finding(
+                "webhook_verification",
+                "blocking",
+                "Enabled production webhooks require current manually verified "
+                "documentation assumptions.",
+                "production",
+            )
+        ]
     if settings.webhook_verification_docs_status == "needs_review":
-        return [_finding(
-            "webhook_verification", "warning",
-            "Webhook documentation assumptions still need operator review.",
-            "production",
-        )]
-    return [_finding(
-        "webhook_verification", "info",
-        "Webhook documentation assumptions are marked manually verified.",
-    )]
+        return [
+            _finding(
+                "webhook_verification",
+                "warning",
+                "Webhook documentation assumptions still need operator review.",
+                "production",
+            )
+        ]
+    return [
+        _finding(
+            "webhook_verification",
+            "info",
+            "Webhook documentation assumptions are marked manually verified.",
+        )
+    ]
 
 
 def check_customer_deployment_pattern(settings: Settings) -> list[DeploymentFinding]:
     findings = []
     if settings.customer_deployment_pattern_enabled:
-        findings.append(_finding(
-            "customer_deployment_pattern", "info",
-            "Local customer deployment profile validation is available; it deploys nothing.",
-        ))
+        findings.append(
+            _finding(
+                "customer_deployment_pattern",
+                "info",
+                "Local customer deployment profile validation is available; it deploys nothing.",
+            )
+        )
     else:
-        findings.append(_finding(
-            "customer_deployment_pattern", "warning",
-            "Customer deployment profile validation is disabled.",
-        ))
+        findings.append(
+            _finding(
+                "customer_deployment_pattern",
+                "warning",
+                "Customer deployment profile validation is disabled.",
+            )
+        )
     if settings.customer_profile_allow_real_ids:
-        findings.append(_finding(
-            "customer_profile_ids", "warning",
-            "Customer profile validation permits real-looking IDs; public examples must not.",
-        ))
+        findings.append(
+            _finding(
+                "customer_profile_ids",
+                "warning",
+                "Customer profile validation permits real-looking IDs; public examples must not.",
+            )
+        )
     else:
-        findings.append(_finding(
-            "customer_profile_ids", "info",
-            "Real-looking customer and project identifiers are blocked by default.",
-        ))
+        findings.append(
+            _finding(
+                "customer_profile_ids",
+                "info",
+                "Real-looking customer and project identifiers are blocked by default.",
+            )
+        )
     output = settings.customer_profile_output_root
     if output in {Path("."), Path("/")} or ".." in output.parts:
-        findings.append(_finding(
-            "customer_profile_output", "blocking",
-            "Customer profile output root is unsafe.",
-            "local", "staging", "production",
-        ))
+        findings.append(
+            _finding(
+                "customer_profile_output",
+                "blocking",
+                "Customer profile output root is unsafe.",
+                "local",
+                "staging",
+                "production",
+            )
+        )
     else:
-        findings.append(_finding(
-            "customer_profile_output", "info",
-            "Customer planning output uses a dedicated ignored directory.",
-        ))
+        findings.append(
+            _finding(
+                "customer_profile_output",
+                "info",
+                "Customer planning output uses a dedicated ignored directory.",
+            )
+        )
     return findings
 
 
@@ -308,41 +340,54 @@ def check_pilot_readiness_pattern(settings: Settings) -> list[DeploymentFinding]
             else "Local pilot readiness validation is disabled.",
         )
     ]
-    findings.append(_finding(
-        "pilot_production",
-        "warning" if settings.pilot_readiness_allow_production else "info",
-        "Production pilot profiles are explicitly allowed."
-        if settings.pilot_readiness_allow_production
-        else "Production pilot profiles are blocked by default.",
-    ))
-    findings.append(_finding(
-        "pilot_real_ids",
-        "warning" if settings.pilot_readiness_allow_real_ids else "info",
-        "Real-looking IDs are allowed by pilot profile settings."
-        if settings.pilot_readiness_allow_real_ids
-        else "Real-looking pilot identifiers are blocked by default.",
-    ))
+    findings.append(
+        _finding(
+            "pilot_production",
+            "warning" if settings.pilot_readiness_allow_production else "info",
+            "Production pilot profiles are explicitly allowed."
+            if settings.pilot_readiness_allow_production
+            else "Production pilot profiles are blocked by default.",
+        )
+    )
+    findings.append(
+        _finding(
+            "pilot_real_ids",
+            "warning" if settings.pilot_readiness_allow_real_ids else "info",
+            "Real-looking IDs are allowed by pilot profile settings."
+            if settings.pilot_readiness_allow_real_ids
+            else "Real-looking pilot identifiers are blocked by default.",
+        )
+    )
     output = settings.pilot_readiness_output_root
     if output in {Path("."), Path("/")} or ".." in output.parts:
-        findings.append(_finding(
-            "pilot_output", "blocking",
-            "Pilot readiness output root is unsafe.",
-            "local", "staging", "production",
-        ))
+        findings.append(
+            _finding(
+                "pilot_output",
+                "blocking",
+                "Pilot readiness output root is unsafe.",
+                "local",
+                "staging",
+                "production",
+            )
+        )
     else:
-        findings.append(_finding(
-            "pilot_output", "info",
-            "Pilot readiness output uses a dedicated ignored directory.",
-        ))
+        findings.append(
+            _finding(
+                "pilot_output",
+                "info",
+                "Pilot readiness output uses a dedicated ignored directory.",
+            )
+        )
     return findings
 
 
 def check_private_workspace_bootstrap(settings: Settings) -> list[DeploymentFinding]:
     output = settings.private_workspace_root
     output_safe = output not in {Path("."), Path("/")} and ".." not in output.parts
-    validators = Path("scripts/init_private_workspace.py").is_file() and Path(
-        "scripts/validate_private_workspace.py"
-    ).is_file()
+    validators = (
+        Path("scripts/init_private_workspace.py").is_file()
+        and Path("scripts/validate_private_workspace.py").is_file()
+    )
     posture = (
         settings.private_workspace_enabled
         and output_safe
@@ -678,9 +723,7 @@ def check_database_provider_posture(settings: Settings) -> list[DeploymentFindin
 
 
 def check_deployment_recipe_posture(settings: Settings) -> list[DeploymentFinding]:
-    profile = build_default_deployment_recipe_template(
-        settings.deployment_target, settings
-    )
+    profile = build_default_deployment_recipe_template(settings.deployment_target, settings)
     report = build_deployment_recipe_readiness_report(profile, settings)
     blocked = report.status == "blocked"
     return [
@@ -984,6 +1027,17 @@ def build_sanitized_config_summary(settings: Settings) -> dict:
             "placeholders_required": settings.pilot_readiness_require_placeholders,
             "fail_closed": settings.pilot_readiness_fail_closed,
             "deployment_automation": False,
+        },
+        "sandbox_pilot_flow": {
+            "enabled": settings.sandbox_pilot_flow_enabled,
+            "placeholders_required": settings.sandbox_pilot_flow_require_placeholders,
+            "real_ids_allowed": settings.sandbox_pilot_flow_allow_real_ids,
+            "real_identities_allowed": settings.sandbox_pilot_flow_allow_real_identities,
+            "real_domains_allowed": settings.sandbox_pilot_flow_allow_real_domains,
+            "production_allowed": settings.sandbox_pilot_flow_allow_production,
+            "fail_closed": settings.sandbox_pilot_flow_fail_closed,
+            "external_calls": False,
+            "pilot_approval": False,
         },
         "private_workspace": {
             "enabled": settings.private_workspace_enabled,

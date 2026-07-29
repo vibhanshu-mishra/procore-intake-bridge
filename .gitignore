@@ -165,5 +165,16 @@ infra-output/
 *.pfx
 *.tfstate
 *.tfvars
+sandbox-pilot-output/
+pilot-flow-output/
+flow-output/
+*.sandbox-pilot-flow.json
+*.sandbox-pilot-flow.md
+*.flow-report.json
+*.flow-report.md
+*.pilot-preflight.json
+*.pilot-preflight.md
+*.sandbox-onboarding-report.json
+*.sandbox-onboarding-report.md
 *.egg-info/
 .DS_Store

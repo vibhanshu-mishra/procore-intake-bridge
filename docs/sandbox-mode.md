@@ -1,5 +1,8 @@
 # Sandbox mode
 
+Use the [D5 sandbox onboarding checklist](sandbox-onboarding.md). Readiness checks do not run the
+manually gated smoke harness or make automatic live Procore calls.
+
 Sandbox mode is for a user-owned Procore sandbox. Store private credentials and DMSA secret
 references only in ignored `.env` or other approved private configuration. Configure an allowlisted
 company/project scope without copying identifiers into reports or GitHub.

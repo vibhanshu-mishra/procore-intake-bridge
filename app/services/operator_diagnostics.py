@@ -83,9 +83,7 @@ def collect_route_inventory(app: FastAPI | None) -> RouteDiagnosticSummary:
             candidates.append(candidate)
         elif original_router := getattr(candidate, "original_router", None):
             candidates.extend(
-                route
-                for route in original_router.routes
-                if isinstance(route, APIRoute)
+                route for route in original_router.routes if isinstance(route, APIRoute)
             )
     for route in candidates:
         if not isinstance(route, APIRoute):
@@ -93,14 +91,16 @@ def collect_route_inventory(app: FastAPI | None) -> RouteDiagnosticSummary:
         methods = sorted((route.methods or set()) - {"HEAD", "OPTIONS"})
         for method in methods:
             method_counts[method] = method_counts.get(method, 0) + 1
-        routes.append({
-            "path": route.path,
-            "methods": methods,
-            "name": route.name,
-            "read_only": all(method == "GET" for method in methods),
-            "operator": route.path.startswith("/deployment"),
-            "admin": route.path.startswith("/admin"),
-        })
+        routes.append(
+            {
+                "path": route.path,
+                "methods": methods,
+                "name": route.name,
+                "read_only": all(method == "GET" for method in methods),
+                "operator": route.path.startswith("/deployment"),
+                "admin": route.path.startswith("/admin"),
+            }
+        )
     return RouteDiagnosticSummary(
         available=True,
         total=len(routes),
@@ -136,8 +136,9 @@ def collect_queue_summary(db_session: Session | None) -> QueueDiagnosticSummary:
         return QueueDiagnosticSummary(available=False)
     counts = dict(
         db_session.execute(
-            select(WebhookEvent.processing_status, func.count())
-            .group_by(WebhookEvent.processing_status)
+            select(WebhookEvent.processing_status, func.count()).group_by(
+                WebhookEvent.processing_status
+            )
         ).all()
     )
     return QueueDiagnosticSummary(
@@ -166,12 +167,8 @@ def collect_configuration_summary(
             "storage_provider": settings.storage_provider,
             "storage_provider_fail_closed": settings.storage_provider_fail_closed,
             "database_provider": settings.database_provider,
-            "database_external_connect_enabled": (
-                settings.database_external_connect_enabled
-            ),
-            "database_url_reference_configured": bool(
-                settings.database_url_ref.strip()
-            ),
+            "database_external_connect_enabled": (settings.database_external_connect_enabled),
+            "database_url_reference_configured": bool(settings.database_url_ref.strip()),
             "deployment_target": settings.deployment_target,
             "deployment_recipes_enabled": settings.deployment_recipes_enabled,
             "deployment_external_provisioning_enabled": (
@@ -207,43 +204,66 @@ def collect_existing_readiness_summaries(
     sections = []
     if local_database:
         deployment = build_deployment_readiness_report(settings)
-        sections.append(DiagnosticSection(
-            name="deployment_readiness",
-            status="ready" if deployment.ready_for_production else "blocked",
-            summary={
-                "production_ready": deployment.ready_for_production,
-                "blocking_count": deployment.blocking_findings_count,
-                "warning_count": deployment.warning_findings_count,
-                "external_connection": False,
-            },
-        ))
+        sections.append(
+            DiagnosticSection(
+                name="deployment_readiness",
+                status="ready" if deployment.ready_for_production else "blocked",
+                summary={
+                    "production_ready": deployment.ready_for_production,
+                    "blocking_count": deployment.blocking_findings_count,
+                    "warning_count": deployment.warning_findings_count,
+                    "external_connection": False,
+                },
+            )
+        )
     else:
-        sections.append(DiagnosticSection(
-            name="deployment_readiness",
-            status="unavailable",
-            summary={"external_connection": False},
-        ))
+        sections.append(
+            DiagnosticSection(
+                name="deployment_readiness",
+                status="unavailable",
+                summary={"external_connection": False},
+            )
+        )
     if local_database:
         migration = build_migration_status_report(settings)
-        sections.append(DiagnosticSection(
-            name="migration_status",
-            status="ready" if migration.is_at_head else "attention",
-            summary={
-                "check_enabled": migration.migration_check_enabled,
-                "at_head": migration.is_at_head,
-                "pending_count": migration.pending_migrations_count,
-                "external_connection": False,
-            },
-        ))
+        sections.append(
+            DiagnosticSection(
+                name="migration_status",
+                status="ready" if migration.is_at_head else "attention",
+                summary={
+                    "check_enabled": migration.migration_check_enabled,
+                    "at_head": migration.is_at_head,
+                    "pending_count": migration.pending_migrations_count,
+                    "external_connection": False,
+                },
+            )
+        )
     else:
-        sections.append(DiagnosticSection(
-            name="migration_status",
-            status="unavailable",
+        sections.append(
+            DiagnosticSection(
+                name="migration_status",
+                status="unavailable",
+                summary={
+                    "check_enabled": settings.migration_check_enabled,
+                    "external_connection": False,
+                },
+            )
+        )
+    sections.append(
+        DiagnosticSection(
+            name="sandbox_pilot_flow",
+            status="ready" if settings.sandbox_pilot_flow_enabled else "blocked",
             summary={
-                "check_enabled": settings.migration_check_enabled,
+                "enabled": settings.sandbox_pilot_flow_enabled,
+                "selected_mode": settings.usage_mode,
+                "production_allowed": settings.sandbox_pilot_flow_allow_production,
+                "real_ids_allowed": settings.sandbox_pilot_flow_allow_real_ids,
+                "real_identities_allowed": (settings.sandbox_pilot_flow_allow_real_identities),
                 "external_connection": False,
+                "pilot_approved": False,
             },
-        ))
+        )
+    )
     return sections
 
 
@@ -253,9 +273,7 @@ def sanitize_diagnostics_report(report: OperatorDiagnosticsReport) -> dict[str, 
 
 def validate_diagnostics_report_safe(report: OperatorDiagnosticsReport | dict[str, Any]) -> None:
     value = (
-        report.model_dump(mode="json")
-        if isinstance(report, OperatorDiagnosticsReport)
-        else report
+        report.model_dump(mode="json") if isinstance(report, OperatorDiagnosticsReport) else report
     )
     try:
         assert_diagnostics_safe(value)
@@ -303,15 +321,19 @@ def build_operator_diagnostics_report(
     configuration = collect_configuration_summary(settings)
     safety = collect_safety_summary(settings)
     sections = collect_existing_readiness_summaries(settings, db_session)
-    findings = [
-        DiagnosticFinding(
-            code="database_unavailable",
-            severity=DiagnosticSeverity.INFO,
-            message=(
-                "Database aggregate counts were not requested or no local session was supplied."
-            ),
-        )
-    ] if not database.available else []
+    findings = (
+        [
+            DiagnosticFinding(
+                code="database_unavailable",
+                severity=DiagnosticSeverity.INFO,
+                message=(
+                    "Database aggregate counts were not requested or no local session was supplied."
+                ),
+            )
+        ]
+        if not database.available
+        else []
+    )
     draft = {
         "runtime": runtime.model_dump(mode="json"),
         "dependencies": dependencies.model_dump(mode="json"),

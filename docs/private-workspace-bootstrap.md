@@ -1,5 +1,8 @@
 # Private workspace bootstrap
 
+D5 adds `flow/` placeholder files for sandbox readiness, pilot readiness, the ordered plan,
+preflight, and mandatory launch hold. See [the guided flow](sandbox-to-pilot-flow.md).
+
 Phase C5 adds a public-safe way to initialize an ignored local workspace for Sandbox and Pilot
 modes. The public repository remains public: it contains schemas, placeholder templates,
 validators, fake examples, scripts, and documentation only. Real customer data never belongs

@@ -1,5 +1,7 @@
 # Three usage modes
 
+For the ordered transition and local checks, see [Demo → Sandbox → Pilot](sandbox-to-pilot-flow.md).
+
 Procore Intake Bridge has three explicit modes. Start with `make modes` and `make doctor`;
 both commands are local-only and print configuration posture rather than private values.
 

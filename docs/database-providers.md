@@ -1,5 +1,8 @@
 # Database providers
 
+PostgreSQL, backup, rollback, and migration planning feed
+[pilot preflight](pilot-preflight.md); the flow never connects or migrates automatically.
+
 Demo uses local SQLite and needs no external database. Sandbox may use SQLite for local simulation,
 while hosted Sandbox and Pilot should use PostgreSQL through a private `DATABASE_URL` secret
 reference. Database URLs, usernames, passwords, hostnames, and paths are never report fields.
