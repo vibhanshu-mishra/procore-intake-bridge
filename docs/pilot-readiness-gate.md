@@ -69,3 +69,7 @@ C1 provides the companion private-evidence workspace pattern. B9 profiles contai
 evidence refs; actual reports, screenshots, payloads, approvals, and attachments stay in the
 separately controlled private system described in
 [private pilot evidence](private-pilot-evidence.md).
+
+C2 review and expiry status can support B9 evidence gates. Required evidence that needs review,
+has expired, or requires renewal remains a gate blocker; placeholder acceptance is not real pilot
+approval.

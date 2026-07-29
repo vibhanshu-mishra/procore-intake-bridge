@@ -60,3 +60,6 @@ copies support-bundle contents into a readiness profile or packet.
 
 C1 records a diagnostics evidence ref only. Never copy a support bundle, logs, database records,
 environment values, or diagnostic output into a public evidence manifest.
+
+C2 diagnostics review metadata should reference the redaction-review status only. It must never
+include support bundle contents, reviewer identity, or a real signoff.

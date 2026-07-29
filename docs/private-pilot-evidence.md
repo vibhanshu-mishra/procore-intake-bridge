@@ -59,3 +59,6 @@ current, complete, approved, or sufficient, and it does not mean a pilot is appr
 Future private work may add an independently reviewed evidence repository, collection process,
 retention policy, access audit, redaction review, approval workflow, and evidence expiry handling.
 That work requires separate authorization and must remain outside the public repository.
+
+C2 adds a local review and expiry workflow over C1 evidence refs. It stores placeholder reviewer,
+timestamp, decision, expiry, and renewal metadata only; real review and signoff stay private.

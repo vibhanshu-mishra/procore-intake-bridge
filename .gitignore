@@ -50,6 +50,16 @@ pilot-evidence/
 *.evidence-report.json
 *.evidence-redaction-report.json
 *.evidence-checklist.md
+evidence-review-output/
+evidence-expiry-output/
+evidence-renewal-output/
+private-evidence-review/
+*.evidence-review.json
+*.evidence-review.md
+*.evidence-expiry-report.json
+*.evidence-renewal-checklist.md
+*.evidence-signoff.md
+*.reviewer-signoff.json
 storage/
 attachments/
 downloaded-attachments/

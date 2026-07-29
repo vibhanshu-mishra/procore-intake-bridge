@@ -1,4 +1,4 @@
-.PHONY: test lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check migration-status migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check webhook-verification-check customer-template customer-profile-check customer-artifact-check diagnostics support-bundle support-bundle-check pilot-template pilot-readiness-check pilot-artifact-check evidence-template evidence-manifest-check evidence-workspace-check quality
+.PHONY: test lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check migration-status migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check webhook-verification-check customer-template customer-profile-check customer-artifact-check diagnostics support-bundle support-bundle-check pilot-template pilot-readiness-check pilot-artifact-check evidence-template evidence-manifest-check evidence-workspace-check evidence-review-template evidence-review-check evidence-expiry-check evidence-review-artifact-check quality
 
 PYTHON ?= .venv/bin/python
 
@@ -83,4 +83,16 @@ evidence-manifest-check:
 evidence-workspace-check:
 	$(PYTHON) scripts/generate_private_evidence_workspace.py --help
 
-quality: lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check customer-template customer-profile-check diagnostics pilot-template pilot-readiness-check evidence-template evidence-manifest-check test
+evidence-review-template:
+	$(PYTHON) scripts/print_evidence_review_template.py
+
+evidence-review-check:
+	$(PYTHON) scripts/validate_evidence_review.py examples/evidence-review/example_evidence_review_manifest.json
+
+evidence-expiry-check:
+	$(PYTHON) scripts/check_evidence_expiry.py examples/evidence-review/example_evidence_review_manifest.json
+
+evidence-review-artifact-check:
+	$(PYTHON) scripts/generate_evidence_review_artifacts.py --help
+
+quality: lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check customer-template customer-profile-check diagnostics pilot-template pilot-readiness-check evidence-template evidence-manifest-check evidence-review-template evidence-review-check evidence-expiry-check test

@@ -57,3 +57,7 @@ no real pilot, deployment, or production security claim is made.
 C1 is implemented as a CLI-only private pilot evidence workspace pattern. The public repository
 contains fake manifests and validators only; generated scaffolds and all real evidence remain
 private and ignored. No evidence has been collected and no pilot approval is claimed.
+
+C2 is implemented as a CLI-only placeholder evidence review and expiry workflow with bounded
+expiry windows, renewal posture, and ignored sanitized artifacts. No real reviewer, signoff,
+notification, evidence review, or pilot approval is claimed.

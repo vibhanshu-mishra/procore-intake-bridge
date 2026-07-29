@@ -312,3 +312,18 @@ make evidence-workspace-check
 ```
 
 See [Private pilot evidence](docs/private-pilot-evidence.md).
+
+## Phase C2: evidence review and expiry
+
+C2 adds local placeholder-only review status, bounded expiry checks, renewal checklists, and
+ignored review artifacts. It records no real reviewer or signoff, sends no notifications, and
+makes no Procore or external calls.
+
+```bash
+make evidence-review-template
+make evidence-review-check
+make evidence-expiry-check
+make evidence-review-artifact-check
+```
+
+See [Evidence review and expiry](docs/evidence-review-expiry.md).

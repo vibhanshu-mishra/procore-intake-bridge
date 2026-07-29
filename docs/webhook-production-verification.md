@@ -77,3 +77,6 @@ pass with a placeholder evidence reference. B9 never registers or exposes a hook
 
 C1 stores only webhook documentation, signature-review, and verification evidence refs. Raw
 verification reports, webhook payloads, headers, signatures, and URLs remain private.
+
+C2 may track review and expiry of webhook evidence refs. It never stores raw verification reports,
+payloads, headers, signatures, hook details, or real signoff records.

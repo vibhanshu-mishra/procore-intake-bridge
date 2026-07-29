@@ -374,6 +374,65 @@ def check_private_evidence_pattern(settings: Settings) -> list[DeploymentFinding
     return findings
 
 
+def check_evidence_review_pattern(settings: Settings) -> list[DeploymentFinding]:
+    findings = [
+        _finding(
+            "evidence_review_pattern",
+            "info" if settings.evidence_review_enabled else "warning",
+            "Local evidence review and expiry CLIs are available."
+            if settings.evidence_review_enabled
+            else "Evidence review and expiry workflow is disabled.",
+        ),
+        _finding(
+            "evidence_review_identities",
+            "warning" if settings.evidence_review_allow_real_identities else "info",
+            "Real reviewer identities are allowed by review settings."
+            if settings.evidence_review_allow_real_identities
+            else "Real reviewer identities are blocked by default.",
+        ),
+        _finding(
+            "evidence_review_ids",
+            "warning" if settings.evidence_review_allow_real_ids else "info",
+            "Real-looking identifiers are allowed by review settings."
+            if settings.evidence_review_allow_real_ids
+            else "Real-looking review identifiers are blocked by default.",
+        ),
+        _finding(
+            "evidence_review_contents",
+            "warning" if settings.evidence_review_allow_file_contents else "info",
+            "Evidence contents are allowed by review settings."
+            if settings.evidence_review_allow_file_contents
+            else "Evidence contents are blocked by default.",
+        ),
+        _finding(
+            "evidence_review_expiry",
+            "info",
+            "Evidence review uses bounded local expiry and warning windows.",
+        ),
+    ]
+    output = settings.evidence_review_output_root
+    if output in {Path("."), Path("/")} or ".." in output.parts:
+        findings.append(
+            _finding(
+                "evidence_review_output",
+                "blocking",
+                "Evidence review output root is unsafe.",
+                "local",
+                "staging",
+                "production",
+            )
+        )
+    else:
+        findings.append(
+            _finding(
+                "evidence_review_output",
+                "info",
+                "Evidence review output uses a dedicated ignored directory.",
+            )
+        )
+    return findings
+
+
 def check_attachment_storage_safety(settings: Settings) -> list[DeploymentFinding]:
     findings: list[DeploymentFinding] = []
     name = get_attachment_storage_provider_name(settings)
@@ -689,6 +748,7 @@ def build_deployment_readiness_report(settings: Settings) -> DeploymentReadiness
         check_customer_deployment_pattern,
         check_pilot_readiness_pattern,
         check_private_evidence_pattern,
+        check_evidence_review_pattern,
         check_attachment_storage_safety,
         check_secret_provider_safety,
         check_output_paths,
@@ -790,6 +850,26 @@ def build_sanitized_config_summary(settings: Settings) -> dict:
             ),
             "validators_available": True,
             "generated_artifacts_allowed_in_repo": False,
+        },
+        "evidence_review": {
+            "enabled": settings.evidence_review_enabled,
+            "placeholders_required": settings.evidence_review_require_placeholders,
+            "real_identities_allowed": settings.evidence_review_allow_real_identities,
+            "real_ids_allowed": settings.evidence_review_allow_real_ids,
+            "file_contents_allowed": settings.evidence_review_allow_file_contents,
+            "absolute_paths_allowed": settings.evidence_review_allow_absolute_paths,
+            "default_expiry_days": settings.evidence_review_default_expiry_days,
+            "max_expiry_days": settings.evidence_review_max_expiry_days,
+            "warn_within_days": settings.evidence_review_warn_within_days,
+            "max_items": settings.evidence_review_max_items,
+            "fail_closed": settings.evidence_review_fail_closed,
+            "output_root_safe": (
+                settings.evidence_review_output_root not in {Path("."), Path("/")}
+                and ".." not in settings.evidence_review_output_root.parts
+            ),
+            "validators_available": True,
+            "generated_artifacts_allowed_in_repo": False,
+            "notifications_enabled": False,
         },
         "attachment_fixture_downloads_only": settings.attachment_fixture_downloads_only,
         "attachment_storage": summarize_attachment_storage_config(settings),

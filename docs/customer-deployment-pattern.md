@@ -59,3 +59,6 @@ copies customer-profile contents or treats B7 validation as pilot approval.
 
 C1 can index that placeholder evidence ref for private review, but neither B7 nor C1 stores
 private customer profile contents in this public repository.
+
+C2 may track placeholder review and expiry status for the B7 evidence ref. Real customer
+configuration, reviewer identities, and approval records remain private.

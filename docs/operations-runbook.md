@@ -101,3 +101,8 @@ For C1, keep actual pilot evidence outside GitHub. Print a fake template with
 scaffold with `python scripts/generate_private_evidence_workspace.py MANIFEST --output-root
 private-evidence-output`. Confirm no workspace output is staged. The validator reads only the
 manifest and makes no Procore or external calls.
+
+For C2, run `make evidence-review-check` and `make evidence-expiry-check`. Resolve unsafe manifest
+findings first, then privately address required evidence marked needs-review, expires-soon,
+expired, or renewal-required. Generate review artifacts only in ignored local output, inspect
+them before private handoff, and never copy a real review or signoff record into GitHub.

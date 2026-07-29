@@ -42,3 +42,4 @@ affiliated with or endorsed by Procore Technologies and carries no production gu
 - [Operator diagnostics and support bundles](operator-diagnostics.md)
 - [Pilot readiness gate](pilot-readiness-gate.md)
 - [Private pilot evidence workspace](private-pilot-evidence.md)
+- [Evidence review and expiry](evidence-review-expiry.md)

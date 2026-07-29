@@ -65,3 +65,7 @@ values and does not resolve, print, or copy any credential.
 C1 evidence manifests contain opaque refs only. Never include a secret value, secret-manager
 location, Authorization header, token, App Version Key, signed URL, `.env` assignment, database
 URL, cloud credential, bucket URL, or storage endpoint.
+
+C2 review manifests contain evidence refs and identity/date/signoff placeholders only. They never
+contain credentials, Authorization headers, signed URLs, secret-manager locations, storage
+endpoints, or real approval records.

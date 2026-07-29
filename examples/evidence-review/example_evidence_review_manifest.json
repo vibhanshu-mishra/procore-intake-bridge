@@ -1,0 +1,123 @@
+{
+  "schema_version": "1.0",
+  "profile_name": "example-evidence-review",
+  "review_label": "Example Evidence Review",
+  "customer_label": "Example Customer",
+  "environment": "staging",
+  "review_owner_placeholder": "REVIEW_OWNER_PLACEHOLDER",
+  "review_cycle_placeholder": "REVIEW_CYCLE_PLACEHOLDER",
+  "source_evidence_manifest_ref": "EVIDENCE_MANIFEST_REF_PLACEHOLDER",
+  "review_items": [
+    {
+      "evidence_id": "EVIDENCE_PLACEHOLDER_001",
+      "evidence_type": "dmsa_onboarding",
+      "related_gate": "B9_GATE_PLACEHOLDER_DMSA_ONBOARDING",
+      "evidence_ref_placeholder": "PRIVATE_EVIDENCE_REF_PLACEHOLDER_DMSA_ONBOARDING",
+      "review_status": "accepted_placeholder",
+      "expiry_status": "current",
+      "reviewer_placeholder": {
+        "reviewer_placeholder": "REVIEWER_PLACEHOLDER_DMSA",
+        "approver_placeholder": "APPROVER_PLACEHOLDER_DMSA",
+        "signoff_placeholder": "SIGNOFF_PLACEHOLDER_DMSA"
+      },
+      "reviewed_at_placeholder": "REVIEWED_AT_PLACEHOLDER",
+      "expires_at_placeholder": "EXPIRES_AT_PLACEHOLDER",
+      "renewal_required": false,
+      "renewal_reason": "",
+      "decision": "accept_placeholder",
+      "notes": ["Fake review metadata only; no source material is included."],
+      "sensitivity": "placeholder",
+      "redaction_required": true,
+      "required_for_gate": true
+    },
+    {
+      "evidence_id": "EVIDENCE_PLACEHOLDER_002",
+      "evidence_type": "sandbox_smoke",
+      "related_gate": "B9_GATE_PLACEHOLDER_SANDBOX_SMOKE",
+      "evidence_ref_placeholder": "PRIVATE_EVIDENCE_REF_PLACEHOLDER_SANDBOX_SMOKE",
+      "review_status": "needs_review",
+      "expiry_status": "needs_review",
+      "reviewer_placeholder": {
+        "reviewer_placeholder": "REVIEWER_PLACEHOLDER_SMOKE",
+        "approver_placeholder": "APPROVER_PLACEHOLDER_SMOKE",
+        "signoff_placeholder": "SIGNOFF_PLACEHOLDER_SMOKE"
+      },
+      "reviewed_at_placeholder": "REVIEWED_AT_PLACEHOLDER",
+      "expires_at_placeholder": "EXPIRES_AT_PLACEHOLDER",
+      "renewal_required": false,
+      "renewal_reason": "",
+      "decision": "pending",
+      "notes": ["Fake review metadata only; no source material is included."],
+      "sensitivity": "placeholder",
+      "redaction_required": true,
+      "required_for_gate": true
+    },
+    {
+      "evidence_id": "EVIDENCE_PLACEHOLDER_003",
+      "evidence_type": "support_diagnostics",
+      "related_gate": "B9_GATE_PLACEHOLDER_SUPPORT_DIAGNOSTICS",
+      "evidence_ref_placeholder": "PRIVATE_EVIDENCE_REF_PLACEHOLDER_SUPPORT_DIAGNOSTICS",
+      "review_status": "reviewed_placeholder",
+      "expiry_status": "expires_soon",
+      "reviewer_placeholder": {
+        "reviewer_placeholder": "REVIEWER_PLACEHOLDER_DIAGNOSTICS",
+        "approver_placeholder": "APPROVER_PLACEHOLDER_DIAGNOSTICS",
+        "signoff_placeholder": "SIGNOFF_PLACEHOLDER_DIAGNOSTICS"
+      },
+      "reviewed_at_placeholder": "REVIEWED_AT_PLACEHOLDER",
+      "expires_at_placeholder": "EXPIRES_AT_PLACEHOLDER",
+      "renewal_required": false,
+      "renewal_reason": "",
+      "decision": "pending",
+      "notes": ["Fake review metadata only; redaction status is referenced."],
+      "sensitivity": "placeholder",
+      "redaction_required": true,
+      "required_for_gate": true
+    },
+    {
+      "evidence_id": "EVIDENCE_PLACEHOLDER_004",
+      "evidence_type": "webhook_docs_verification",
+      "related_gate": "B9_GATE_PLACEHOLDER_WEBHOOK_DOCS",
+      "evidence_ref_placeholder": "PRIVATE_EVIDENCE_REF_PLACEHOLDER_WEBHOOK_DOCS",
+      "review_status": "reviewed_placeholder",
+      "expiry_status": "renewal_required",
+      "reviewer_placeholder": {
+        "reviewer_placeholder": "REVIEWER_PLACEHOLDER_WEBHOOK",
+        "approver_placeholder": "APPROVER_PLACEHOLDER_WEBHOOK",
+        "signoff_placeholder": "SIGNOFF_PLACEHOLDER_WEBHOOK"
+      },
+      "reviewed_at_placeholder": "REVIEWED_AT_PLACEHOLDER",
+      "expires_at_placeholder": "EXPIRES_AT_PLACEHOLDER",
+      "renewal_required": true,
+      "renewal_reason": "RENEWAL_REASON_PLACEHOLDER",
+      "decision": "renewal_required",
+      "notes": ["Fake review metadata only; no source material is included."],
+      "sensitivity": "placeholder",
+      "redaction_required": true,
+      "required_for_gate": true
+    },
+    {
+      "evidence_id": "EVIDENCE_PLACEHOLDER_005",
+      "evidence_type": "known_limitations",
+      "related_gate": "B9_GATE_PLACEHOLDER_KNOWN_LIMITATIONS",
+      "evidence_ref_placeholder": "PRIVATE_EVIDENCE_REF_PLACEHOLDER_LIMITATIONS",
+      "review_status": "not_applicable",
+      "expiry_status": "not_applicable",
+      "reviewer_placeholder": {
+        "reviewer_placeholder": "REVIEWER_PLACEHOLDER_NOT_APPLICABLE",
+        "approver_placeholder": "APPROVER_PLACEHOLDER_NOT_APPLICABLE",
+        "signoff_placeholder": "SIGNOFF_PLACEHOLDER_NOT_APPLICABLE"
+      },
+      "reviewed_at_placeholder": "REVIEWED_AT_PLACEHOLDER",
+      "expires_at_placeholder": "EXPIRES_AT_PLACEHOLDER",
+      "renewal_required": false,
+      "renewal_reason": "",
+      "decision": "not_applicable",
+      "notes": ["Fake review metadata only; this item is not applicable."],
+      "sensitivity": "placeholder",
+      "redaction_required": true,
+      "required_for_gate": false
+    }
+  ],
+  "notes": ["Fake placeholders only; no real review or signoff is claimed."]
+}

@@ -628,6 +628,62 @@ class Settings(BaseSettings):
         default=True,
         validation_alias="PROCORE_INTAKE_PRIVATE_EVIDENCE_FAIL_CLOSED",
     )
+    evidence_review_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_EVIDENCE_REVIEW_ENABLED",
+    )
+    evidence_review_output_root: Path = Field(
+        default=Path("./evidence-review-output"),
+        validation_alias="PROCORE_INTAKE_EVIDENCE_REVIEW_OUTPUT_ROOT",
+    )
+    evidence_review_require_placeholders: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_EVIDENCE_REVIEW_REQUIRE_PLACEHOLDERS",
+    )
+    evidence_review_allow_real_identities: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_EVIDENCE_REVIEW_ALLOW_REAL_IDENTITIES",
+    )
+    evidence_review_allow_real_ids: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_EVIDENCE_REVIEW_ALLOW_REAL_IDS",
+    )
+    evidence_review_allow_file_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_EVIDENCE_REVIEW_ALLOW_FILE_CONTENTS",
+    )
+    evidence_review_allow_absolute_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_EVIDENCE_REVIEW_ALLOW_ABSOLUTE_PATHS",
+    )
+    evidence_review_default_expiry_days: int = Field(
+        default=30,
+        ge=1,
+        le=90,
+        validation_alias="PROCORE_INTAKE_EVIDENCE_REVIEW_DEFAULT_EXPIRY_DAYS",
+    )
+    evidence_review_max_expiry_days: int = Field(
+        default=90,
+        ge=1,
+        le=365,
+        validation_alias="PROCORE_INTAKE_EVIDENCE_REVIEW_MAX_EXPIRY_DAYS",
+    )
+    evidence_review_warn_within_days: int = Field(
+        default=7,
+        ge=0,
+        le=90,
+        validation_alias="PROCORE_INTAKE_EVIDENCE_REVIEW_WARN_WITHIN_DAYS",
+    )
+    evidence_review_max_items: int = Field(
+        default=100,
+        ge=1,
+        le=100,
+        validation_alias="PROCORE_INTAKE_EVIDENCE_REVIEW_MAX_ITEMS",
+    )
+    evidence_review_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_EVIDENCE_REVIEW_FAIL_CLOSED",
+    )
 
 
 @lru_cache

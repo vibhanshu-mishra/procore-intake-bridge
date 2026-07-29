@@ -74,3 +74,7 @@ turn a `GO` into deployment approval.
 C1 adds a local private-evidence metadata pattern. Real IDs, file contents, and absolute paths are
 blocked by default; the output root is dedicated and ignored. Deployment readiness reports only
 this safe posture and never require or read a private evidence manifest.
+
+C2 readiness integration reports only whether local review tooling is enabled, whether identities,
+IDs, and contents are blocked, whether the output root is safe, and the configured expiry/warning
+windows. Local readiness never requires or reads a review manifest.

@@ -56,3 +56,9 @@ local ignored private-evidence workspace scaffold.
 
 Real evidence collection, private storage integration, access audit, redaction review, retention,
 reviewer handoff, and approval workflow remain future private work outside this public repository.
+
+Completed: C2 adds placeholder review states, bounded local expiry evaluation, renewal checklists,
+and sanitized ignored review artifacts.
+
+Real reviewer authentication, private signoff records, notifications, escalation, access control,
+audit history, and approval workflow remain future separately authorized private work.

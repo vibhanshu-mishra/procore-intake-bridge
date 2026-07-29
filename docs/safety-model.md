@@ -93,3 +93,7 @@ C1 keeps a hard boundary between public placeholder metadata and private pilot e
 manifests cannot contain real IDs, contacts, domains, credentials, paths, URLs, raw reports,
 payloads, screenshots, databases, attachments, or binary documents. Validators read only the
 manifest and make no external or Procore calls; generated workspace artifacts are ignored.
+
+C2 blocks reviewer PII, real signoffs, real IDs, contacts, domains, credentials, paths, URLs,
+reports, payloads, signatures, and binary evidence. Review and expiry operate only on local
+placeholder metadata, send no notifications, add no routes, and write only ignored artifacts.

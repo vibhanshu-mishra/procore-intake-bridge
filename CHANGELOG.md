@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- C2: placeholder-only evidence review statuses, bounded local expiry evaluation, renewal
+  checklists, fake examples, and ignored sanitized review artifacts. No real review, signoff,
+  notification, or approval is performed.
+
 - C1: placeholder-only private pilot evidence schemas, offline redaction validation, fake examples,
   and local ignored workspace scaffolds. No evidence collection, external calls, or pilot approval
   is performed.

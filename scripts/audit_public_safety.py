@@ -47,6 +47,10 @@ PRIVATE_PATH_PARTS = {
     "evidence-output",
     "private-pilot-evidence",
     "pilot-evidence",
+    "evidence-review-output",
+    "evidence-expiry-output",
+    "evidence-renewal-output",
+    "private-evidence-review",
     "storage",
     "smoke-output",
     "support-output",
@@ -83,6 +87,18 @@ GENERIC_SIGNED_URL = re.compile(
 OBSERVABILITY_CREDENTIAL = re.compile(
     r"(?i)(?:sentry_dsn|datadog_api_key|new_relic_license_key|honeycomb_api_key)"
     r"\s*[:=]\s*[^\s\"']+"
+)
+REVIEWER_IDENTITY = re.compile(
+    r"""(?ix)["']?(?:reviewer|approver|operator)(?:_placeholder)?["']?\s*:\s*
+    ["']([^"'\r\n]+)["']"""
+)
+RAW_PRIVATE_CONTENT = re.compile(
+    r"(?i)(?:raw[_ -]?(?:payload|support bundle|smoke report|webhook report)|"
+    r"(?:support bundle|smoke report|webhook report)[_ -]?contents?)"
+)
+ABSOLUTE_LOCAL_PATH = re.compile(r"(?i)(?:/Users/|/home/|/private/|/tmp/|[A-Z]:\\)")
+BINARY_EVIDENCE_REFERENCE = re.compile(
+    r"(?i)\.(?:db|sqlite3?|pdf|docx|xlsx?|png|jpe?g|gif|webp|zip)(?:\b|$)"
 )
 
 
@@ -129,6 +145,32 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
                 )
         if GENERIC_SIGNED_URL.search(text):
             issues.append(SafetyIssue(path, "evidence example contains a signed URL"))
+    if "examples/evidence-review" in path.as_posix():
+        if CUSTOMER_EMAIL.search(text):
+            issues.append(SafetyIssue(path, "review example contains an email address"))
+        for match in CUSTOMER_URL.finditer(text):
+            host = match.group(1).casefold()
+            if not host.endswith((".local", ".invalid")):
+                issues.append(
+                    SafetyIssue(path, "review example contains a non-placeholder URL")
+                )
+        if GENERIC_SIGNED_URL.search(text):
+            issues.append(SafetyIssue(path, "review example contains a signed URL"))
+        for match in REVIEWER_IDENTITY.finditer(text):
+            if not _safe_value(match.group(1)):
+                issues.append(
+                    SafetyIssue(path, "review example contains a reviewer identity")
+                )
+    if (
+        "examples/private-evidence" in path.as_posix()
+        or "examples/evidence-review" in path.as_posix()
+    ):
+        if RAW_PRIVATE_CONTENT.search(text):
+            issues.append(SafetyIssue(path, "evidence example contains raw private content"))
+        if ABSOLUTE_LOCAL_PATH.search(text):
+            issues.append(SafetyIssue(path, "evidence example contains an absolute local path"))
+        if BINARY_EVIDENCE_REFERENCE.search(text):
+            issues.append(SafetyIssue(path, "evidence example contains a binary reference"))
     return issues
 
 
@@ -149,6 +191,16 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             ".customer-checklist.md",
         )):
             issues.append(SafetyIssue(path, "tracked generated customer deployment output"))
+            continue
+        if path.name.endswith((
+            ".evidence-review.json",
+            ".evidence-review.md",
+            ".evidence-expiry-report.json",
+            ".evidence-renewal-checklist.md",
+            ".evidence-signoff.md",
+            ".reviewer-signoff.json",
+        )):
+            issues.append(SafetyIssue(path, "tracked generated evidence review output"))
             continue
         if path.name.endswith((
             ".evidence-manifest.json",

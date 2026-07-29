@@ -68,3 +68,6 @@ must not be embedded in pilot profiles or generated readiness artifacts.
 
 C1 may organize the corresponding smoke evidence ref, never the report contents, identifiers,
 payloads, or local report path.
+
+C2 may review the smoke evidence ref and its expiry posture, never the smoke report contents,
+connection identifiers, payloads, or reviewer identity.
