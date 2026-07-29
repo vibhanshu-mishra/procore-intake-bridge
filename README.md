@@ -284,3 +284,17 @@ make support-bundle-check
 
 See [Operator diagnostics](docs/operator-diagnostics.md). No external observability, telemetry,
 monitoring service, or production deployment behavior is implemented.
+## Phase B9: pilot readiness gate
+
+B9 adds a local-only, fail-closed `GO` / `NO_GO` / `NEEDS_REVIEW` / `BLOCKED` gate using fake
+profiles and evidence references. It does not deploy, call Procore, expose webhooks, or approve a
+real pilot.
+
+```bash
+make pilot-template
+make pilot-readiness-check
+make pilot-artifact-check
+```
+
+See [Pilot readiness gate](docs/pilot-readiness-gate.md). A `GO` is not production deployment
+approval; real execution remains separately controlled.

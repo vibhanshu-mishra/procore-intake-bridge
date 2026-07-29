@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- B9: local-only pilot readiness profiles, evidence gates, fail-closed go/no-go decisions,
+  sanitized readiness packets, fake examples, and operator documentation. No pilot execution or
+  deployment is performed.
+
 - B8: strict local diagnostics, aggregate route/database/queue/readiness summaries, an
   operator-protected read-only endpoint, and sanitized CLI-only support bundles. No external
   observability or telemetry is added.

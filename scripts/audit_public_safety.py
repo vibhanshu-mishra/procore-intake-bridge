@@ -40,6 +40,8 @@ PRIVATE_PATH_PARTS = {
     "logs",
     "onboarding-output",
     "packet-output",
+    "pilot-output",
+    "pilot-readiness-output",
     "storage",
     "smoke-output",
     "support-output",
@@ -131,6 +133,15 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             ".customer-checklist.md",
         )):
             issues.append(SafetyIssue(path, "tracked generated customer deployment output"))
+            continue
+        if path.name.endswith((
+            ".pilot-readiness.json",
+            ".pilot-readiness.md",
+            ".pilot-readiness-report.json",
+            ".pilot-checklist.md",
+            ".go-no-go.md",
+        )):
+            issues.append(SafetyIssue(path, "tracked generated pilot readiness output"))
             continue
         if path.name.endswith((
             ".support-bundle.json",

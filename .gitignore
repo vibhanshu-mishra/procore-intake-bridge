@@ -33,6 +33,13 @@ diagnostics-output/
 *.diagnostics.md
 *.diagnostics.log
 *.redaction-report.json
+pilot-readiness-output/
+pilot-output/
+*.pilot-readiness.json
+*.pilot-readiness.md
+*.pilot-readiness-report.json
+*.pilot-checklist.md
+*.go-no-go.md
 storage/
 attachments/
 downloaded-attachments/

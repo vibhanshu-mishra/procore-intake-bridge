@@ -50,3 +50,6 @@ deployment automation and does not claim a production deployment or production s
 B8 is implemented with sanitized local diagnostics, aggregate database/queue summaries, protected
 read-only route inventory, and a four-file local support bundle. No production observability,
 telemetry, external logging, or monitoring integration is implemented.
+B9 is implemented as a local-only pilot readiness gate with placeholder evidence references,
+fail-closed decisions, and sanitized ignored artifacts. The fake example remains `NEEDS_REVIEW`;
+no real pilot, deployment, or production security claim is made.

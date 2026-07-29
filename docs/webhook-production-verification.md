@@ -72,3 +72,5 @@ hook.
 B8 diagnostics expose only webhook enablement, signature-enforcement posture, documentation
 status, and aggregate queue counts. They never include webhook payloads, signatures, secrets,
 headers, event identifiers, or verification reports.
+When a B9 profile plans webhooks, B6 documentation, signature, and verification statuses must all
+pass with a placeholder evidence reference. B9 never registers or exposes a hook.

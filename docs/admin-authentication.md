@@ -48,3 +48,5 @@ integration, tenant authorization, roles, audited access, rate controls, and inc
 Production customer profiles require primary and rotation admin token references. References are
 configuration metadata, never token values; B7 does not implement an identity provider or claim
 production-grade authentication.
+B9 requires `token_required` admin authentication for sandbox, staging, and other pilot-like
+profiles. `local_optional` is accepted only for local development and cannot support a real pilot.

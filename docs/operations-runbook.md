@@ -90,3 +90,7 @@ For safe troubleshooting, run `make diagnostics`, generate a local bundle only w
 run `make support-bundle-check` before handoff. Inspect all bundle files manually and use a private
 approved channel. Never attach raw logs, a database, `.env`, payloads, screenshots, or downloaded
 files.
+Before any controlled pilot discussion, run `make pilot-template` and
+`make pilot-readiness-check`, resolve every `NO_GO`/`BLOCKED` item, review all
+`NEEDS_REVIEW` findings, and keep generated packets in ignored local output. Real approvals and
+evidence belong in an approved private system.

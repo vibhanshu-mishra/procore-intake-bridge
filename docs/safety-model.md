@@ -84,3 +84,7 @@ B8 diagnostics contain posture, safe route metadata, and aggregate counts only. 
 settings/environment values, records, payloads, filenames, logs, database files, attachments,
 signed URLs, local paths, contacts, and credentials. Strict redaction fails closed, support output
 is ignored, and bundle generation is never exposed through an API route.
+B9 accepts placeholder evidence references only. Production and real-looking identifiers are
+blocked by default; private evidence, support bundles, reports, payloads, contacts, credentials,
+signed URLs, and absolute paths are prohibited. A generated `GO` never means a real pilot is
+approved or deployed.

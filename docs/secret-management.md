@@ -59,3 +59,5 @@ values never belong in profiles, readiness output, generated artifacts, or this 
 Diagnostics report only secret-provider posture booleans and never reference names or values.
 Support bundles reject Authorization material, token/secret assignments, database URLs, cloud
 URLs, `.env` values, and absolute paths before local files are accepted.
+B9 records only secret-provider posture and placeholder evidence references. It rejects secret
+values and does not resolve, print, or copy any credential.

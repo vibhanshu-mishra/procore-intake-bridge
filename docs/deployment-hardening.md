@@ -67,3 +67,6 @@ Passing validation does not deploy or certify the application.
 The B8 `GET /deployment/diagnostics` endpoint is operator-protected, read-only, no-store, and
 sanitized. Support-bundle generation remains CLI-only and local; it copies no logs, database
 files, attachments, payloads, environment values, or private paths.
+B9 adds a separate local pilot gate that consumes placeholder evidence and fails closed on unsafe
+or incomplete pilot-like posture. It does not alter deployment readiness, provision anything, or
+turn a `GO` into deployment approval.

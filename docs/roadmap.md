@@ -45,3 +45,8 @@ CLI-only sanitized support bundles.
 
 Production metrics, audited structured logs, external monitoring, alerts, retention, and incident
 integrations remain future separately reviewed work.
+Completed: B9 adds a local controlled-pilot go/no-go profile, evidence gates, decision logic, and
+sanitized readiness packet generation.
+
+Real pilot execution, private approvals/evidence, infrastructure, launch operations, monitoring,
+and production deployment remain future separately authorized work.

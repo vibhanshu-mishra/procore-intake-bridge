@@ -55,3 +55,5 @@ Future work may add a separately reviewed production monitoring design, audited 
 metrics, alerts, retention, access control, and incident integrations. B8 adds none of those and
 introduces no Sentry, Datadog, New Relic, Honeycomb, OpenTelemetry, Prometheus, Grafana, or
 external logging dependency.
+B9 requires passed B8 diagnostics and support-bundle redaction evidence references. It never
+copies support-bundle contents into a readiness profile or packet.

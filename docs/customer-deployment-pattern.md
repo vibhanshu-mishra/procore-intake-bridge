@@ -54,3 +54,5 @@ no Terraform, Pulumi, Kubernetes, Helm, CI/CD, cloud SDK, or deployment automati
 future reviewed work.
 B8 support bundles must not contain customer profiles, customer-output artifacts, contacts, IDs,
 domains, or private paths. They summarize only the global customer-pattern safety posture.
+B9 consumes only the B7 customer profile status and a placeholder evidence reference. It never
+copies customer-profile contents or treats B7 validation as pilot approval.

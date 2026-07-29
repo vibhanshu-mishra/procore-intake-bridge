@@ -288,6 +288,45 @@ def check_customer_deployment_pattern(settings: Settings) -> list[DeploymentFind
     return findings
 
 
+def check_pilot_readiness_pattern(settings: Settings) -> list[DeploymentFinding]:
+    findings = [
+        _finding(
+            "pilot_readiness",
+            "info" if settings.pilot_readiness_enabled else "warning",
+            "Local pilot readiness CLI gate is available."
+            if settings.pilot_readiness_enabled
+            else "Local pilot readiness validation is disabled.",
+        )
+    ]
+    findings.append(_finding(
+        "pilot_production",
+        "warning" if settings.pilot_readiness_allow_production else "info",
+        "Production pilot profiles are explicitly allowed."
+        if settings.pilot_readiness_allow_production
+        else "Production pilot profiles are blocked by default.",
+    ))
+    findings.append(_finding(
+        "pilot_real_ids",
+        "warning" if settings.pilot_readiness_allow_real_ids else "info",
+        "Real-looking IDs are allowed by pilot profile settings."
+        if settings.pilot_readiness_allow_real_ids
+        else "Real-looking pilot identifiers are blocked by default.",
+    ))
+    output = settings.pilot_readiness_output_root
+    if output in {Path("."), Path("/")} or ".." in output.parts:
+        findings.append(_finding(
+            "pilot_output", "blocking",
+            "Pilot readiness output root is unsafe.",
+            "local", "staging", "production",
+        ))
+    else:
+        findings.append(_finding(
+            "pilot_output", "info",
+            "Pilot readiness output uses a dedicated ignored directory.",
+        ))
+    return findings
+
+
 def check_attachment_storage_safety(settings: Settings) -> list[DeploymentFinding]:
     findings: list[DeploymentFinding] = []
     name = get_attachment_storage_provider_name(settings)
@@ -601,6 +640,7 @@ def build_deployment_readiness_report(settings: Settings) -> DeploymentReadiness
         check_webhook_signature_safety,
         check_webhook_verification_safety,
         check_customer_deployment_pattern,
+        check_pilot_readiness_pattern,
         check_attachment_storage_safety,
         check_secret_provider_safety,
         check_output_paths,
@@ -678,6 +718,14 @@ def build_sanitized_config_summary(settings: Settings) -> dict:
             "real_ids_allowed": settings.customer_profile_allow_real_ids,
             "max_projects": settings.customer_profile_max_projects,
             "fail_closed": settings.customer_profile_fail_closed,
+            "deployment_automation": False,
+        },
+        "pilot_readiness": {
+            "enabled": settings.pilot_readiness_enabled,
+            "production_allowed": settings.pilot_readiness_allow_production,
+            "real_ids_allowed": settings.pilot_readiness_allow_real_ids,
+            "placeholders_required": settings.pilot_readiness_require_placeholders,
+            "fail_closed": settings.pilot_readiness_fail_closed,
             "deployment_automation": False,
         },
         "attachment_fixture_downloads_only": settings.attachment_fixture_downloads_only,

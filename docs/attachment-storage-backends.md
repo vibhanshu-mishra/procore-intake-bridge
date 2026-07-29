@@ -47,3 +47,5 @@ The B7 customer storage plan records only a provider posture and placeholder buc
 endpoints, credentials, retention, and recovery belong in a separately reviewed private plan.
 B8 diagnostics report storage-provider posture and aggregate manifest counts only. Support bundles
 contain no attachment names, paths, source URLs, metadata rows, downloaded bytes, or file content.
+B9 requires passed storage-review evidence and an implemented provider posture. The fail-closed
+external placeholder is not accepted as pilot-ready.

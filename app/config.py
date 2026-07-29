@@ -534,6 +534,66 @@ class Settings(BaseSettings):
         default=False,
         validation_alias="PROCORE_INTAKE_SUPPORT_BUNDLE_INCLUDE_PAYLOADS",
     )
+    pilot_readiness_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_PILOT_READINESS_ENABLED",
+    )
+    pilot_readiness_output_root: Path = Field(
+        default=Path("./pilot-readiness-output"),
+        validation_alias="PROCORE_INTAKE_PILOT_READINESS_OUTPUT_ROOT",
+    )
+    pilot_readiness_require_placeholders: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_PILOT_READINESS_REQUIRE_PLACEHOLDERS",
+    )
+    pilot_readiness_allow_real_ids: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_PILOT_READINESS_ALLOW_REAL_IDS",
+    )
+    pilot_readiness_allow_production: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_PILOT_READINESS_ALLOW_PRODUCTION",
+    )
+    pilot_readiness_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_PILOT_READINESS_FAIL_CLOSED",
+    )
+    pilot_readiness_require_sandbox_smoke: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_PILOT_READINESS_REQUIRE_SANDBOX_SMOKE",
+    )
+    pilot_readiness_require_dmsa_onboarding: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_PILOT_READINESS_REQUIRE_DMSA_ONBOARDING",
+    )
+    pilot_readiness_require_admin_auth: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_PILOT_READINESS_REQUIRE_ADMIN_AUTH",
+    )
+    pilot_readiness_require_migration_safety: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_PILOT_READINESS_REQUIRE_MIGRATION_SAFETY",
+    )
+    pilot_readiness_require_storage_review: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_PILOT_READINESS_REQUIRE_STORAGE_REVIEW",
+    )
+    pilot_readiness_require_webhook_review: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_PILOT_READINESS_REQUIRE_WEBHOOK_REVIEW",
+    )
+    pilot_readiness_require_support_diagnostics: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_PILOT_READINESS_REQUIRE_SUPPORT_DIAGNOSTICS",
+    )
+    pilot_readiness_require_rollback_plan: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_PILOT_READINESS_REQUIRE_ROLLBACK_PLAN",
+    )
+    pilot_readiness_require_operator_approvals: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_PILOT_READINESS_REQUIRE_OPERATOR_APPROVALS",
+    )
 
 
 @lru_cache

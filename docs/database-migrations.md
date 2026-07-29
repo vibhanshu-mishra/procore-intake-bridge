@@ -50,3 +50,5 @@ verified backup, restore, and rollback plans. The profile validator runs no migr
 to no external database.
 B8 diagnostics include only sanitized migration state—check enabled, at-head status, and pending
 count. They include no database URL, file, schema dump, row, path, or migration execution.
+B9 requires passed database/migration safety plus backup and rollback evidence. A real pilot-like
+profile cannot use SQLite/local database posture; B9 runs no migration or database connection.
