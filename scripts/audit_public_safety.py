@@ -36,11 +36,13 @@ PRIVATE_PATH_PARTS = {
     "downloads",
     "customer-deployment-output",
     "customer-output",
+    "diagnostics-output",
     "logs",
     "onboarding-output",
     "packet-output",
     "storage",
     "smoke-output",
+    "support-output",
     "sandbox-output",
     "sync-output",
     "tokens",
@@ -71,6 +73,10 @@ CUSTOMER_URL = re.compile(r"(?i)https?://([a-z0-9.-]+)")
 GENERIC_SIGNED_URL = re.compile(
     r"(?i)https?://[^\s\"']+[?&](signature|signed|token|expires)="
 )
+OBSERVABILITY_CREDENTIAL = re.compile(
+    r"(?i)(?:sentry_dsn|datadog_api_key|new_relic_license_key|honeycomb_api_key)"
+    r"\s*[:=]\s*[^\s\"']+"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -91,6 +97,8 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
             issues.append(SafetyIssue(path, "Authorization bearer value"))
     if SIGNED_PROCORE_URL.search(text):
         issues.append(SafetyIssue(path, "signed Procore URL"))
+    if OBSERVABILITY_CREDENTIAL.search(text):
+        issues.append(SafetyIssue(path, "external observability credential"))
     for match in DATABASE_CREDENTIAL_URL.finditer(text):
         if not _safe_value(match.group(1)):
             issues.append(SafetyIssue(path, "database URL contains credentials"))
@@ -123,6 +131,17 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             ".customer-checklist.md",
         )):
             issues.append(SafetyIssue(path, "tracked generated customer deployment output"))
+            continue
+        if path.name.endswith((
+            ".support-bundle.json",
+            ".support-bundle.md",
+            ".support-bundle.log",
+            ".diagnostics.json",
+            ".diagnostics.md",
+            ".diagnostics.log",
+            ".redaction-report.json",
+        )):
+            issues.append(SafetyIssue(path, "tracked diagnostics or support output"))
             continue
         if any(part in PRIVATE_PATH_PARTS for part in path.parts):
             issues.append(SafetyIssue(path, "tracked private output path"))

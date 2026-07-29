@@ -24,6 +24,15 @@ customer-deployment-output/
 *.customer-profile.json
 *.customer-deployment-report.json
 *.customer-checklist.md
+support-output/
+diagnostics-output/
+*.support-bundle.json
+*.support-bundle.md
+*.support-bundle.log
+*.diagnostics.json
+*.diagnostics.md
+*.diagnostics.log
+*.redaction-report.json
 storage/
 attachments/
 downloaded-attachments/

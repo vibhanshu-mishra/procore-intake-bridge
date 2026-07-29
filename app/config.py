@@ -454,6 +454,86 @@ class Settings(BaseSettings):
         default=True,
         validation_alias="PROCORE_INTAKE_CUSTOMER_PROFILE_FAIL_CLOSED",
     )
+    operator_diagnostics_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_OPERATOR_DIAGNOSTICS_ENABLED",
+    )
+    operator_diagnostics_redaction_strict: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_OPERATOR_DIAGNOSTICS_REDACTION_STRICT",
+    )
+    operator_diagnostics_include_db_counts: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_OPERATOR_DIAGNOSTICS_INCLUDE_DB_COUNTS",
+    )
+    operator_diagnostics_include_route_inventory: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_OPERATOR_DIAGNOSTICS_INCLUDE_ROUTE_INVENTORY",
+    )
+    operator_diagnostics_include_dependency_inventory: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_OPERATOR_DIAGNOSTICS_INCLUDE_DEPENDENCY_INVENTORY",
+    )
+    operator_diagnostics_include_config_summary: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_OPERATOR_DIAGNOSTICS_INCLUDE_CONFIG_SUMMARY",
+    )
+    operator_diagnostics_include_env_key_names: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_OPERATOR_DIAGNOSTICS_INCLUDE_ENV_KEY_NAMES",
+    )
+    operator_diagnostics_allow_local_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_OPERATOR_DIAGNOSTICS_ALLOW_LOCAL_PATHS",
+    )
+    operator_diagnostics_max_findings: int = Field(
+        default=100,
+        ge=1,
+        le=1000,
+        validation_alias="PROCORE_INTAKE_OPERATOR_DIAGNOSTICS_MAX_FINDINGS",
+    )
+    operator_diagnostics_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_OPERATOR_DIAGNOSTICS_FAIL_CLOSED",
+    )
+    support_bundle_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SUPPORT_BUNDLE_ENABLED",
+    )
+    support_bundle_output_root: Path = Field(
+        default=Path("./support-output"),
+        validation_alias="PROCORE_INTAKE_SUPPORT_BUNDLE_OUTPUT_ROOT",
+    )
+    support_bundle_max_files: int = Field(
+        default=10,
+        ge=1,
+        le=20,
+        validation_alias="PROCORE_INTAKE_SUPPORT_BUNDLE_MAX_FILES",
+    )
+    support_bundle_write_json: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SUPPORT_BUNDLE_WRITE_JSON",
+    )
+    support_bundle_write_markdown: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SUPPORT_BUNDLE_WRITE_MARKDOWN",
+    )
+    support_bundle_include_raw_logs: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SUPPORT_BUNDLE_INCLUDE_RAW_LOGS",
+    )
+    support_bundle_include_db_file: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SUPPORT_BUNDLE_INCLUDE_DB_FILE",
+    )
+    support_bundle_include_attachments: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SUPPORT_BUNDLE_INCLUDE_ATTACHMENTS",
+    )
+    support_bundle_include_payloads: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SUPPORT_BUNDLE_INCLUDE_PAYLOADS",
+    )
 
 
 @lru_cache

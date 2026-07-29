@@ -158,6 +158,7 @@ def test_admin_html_and_json_routes_require_token(client, monkeypatch, path):
         "/deployment/secrets",
         "/deployment/migrations",
         "/deployment/storage",
+        "/deployment/diagnostics",
     ],
 )
 def test_deployment_routes_are_protected_but_health_ready_are_public(

@@ -270,3 +270,17 @@ make customer-artifact-check
 
 See [Customer-specific deployment pattern](docs/customer-deployment-pattern.md). Real deployment
 automation remains future, separately reviewed work.
+## Phase B8: operator diagnostics and support bundles
+
+B8 adds strict local diagnostics, a protected read-only summary route, and sanitized local support
+bundles. It includes aggregate posture and counts only—never raw logs, database files,
+attachments, payloads, environment values, local paths, or credentials.
+
+```bash
+make diagnostics
+make support-bundle
+make support-bundle-check
+```
+
+See [Operator diagnostics](docs/operator-diagnostics.md). No external observability, telemetry,
+monitoring service, or production deployment behavior is implemented.

@@ -1,4 +1,4 @@
-.PHONY: test lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check migration-status migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check webhook-verification-check customer-template customer-profile-check customer-artifact-check quality
+.PHONY: test lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check migration-status migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check webhook-verification-check customer-template customer-profile-check customer-artifact-check diagnostics support-bundle support-bundle-check quality
 
 PYTHON ?= .venv/bin/python
 
@@ -56,4 +56,13 @@ customer-profile-check:
 customer-artifact-check:
 	$(PYTHON) scripts/generate_customer_deployment_artifacts.py --help
 
-quality: lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check customer-template customer-profile-check test
+diagnostics:
+	$(PYTHON) scripts/print_operator_diagnostics.py
+
+support-bundle:
+	$(PYTHON) scripts/generate_support_bundle.py
+
+support-bundle-check:
+	$(PYTHON) scripts/check_support_bundle_redaction.py support-output
+
+quality: lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check customer-template customer-profile-check diagnostics test

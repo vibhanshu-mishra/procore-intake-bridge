@@ -86,3 +86,7 @@ For customer planning, run `make customer-template` and `make customer-profile-c
 strict blockers, and generate artifacts only into ignored local output. Store any real-customer
 profile and assigned contacts in an approved private system. The generated runbook is a template,
 not an operational approval or deployment procedure.
+For safe troubleshooting, run `make diagnostics`, generate a local bundle only when needed, and
+run `make support-bundle-check` before handoff. Inspect all bundle files manually and use a private
+approved channel. Never attach raw logs, a database, `.env`, payloads, screenshots, or downloaded
+files.

@@ -69,3 +69,6 @@ and must follow the separately approved production process.
 A B7 production customer profile that plans webhooks depends on a verified B6 documentation
 record, signature enforcement, and a webhook secret reference. B7 does not register or expose the
 hook.
+B8 diagnostics expose only webhook enablement, signature-enforcement posture, documentation
+status, and aggregate queue counts. They never include webhook payloads, signatures, secrets,
+headers, event identifiers, or verification reports.

@@ -48,3 +48,5 @@ engine-specific validation remain future work.
 A production B7 customer profile must name a non-SQLite database posture plus explicit migration,
 verified backup, restore, and rollback plans. The profile validator runs no migration and connects
 to no external database.
+B8 diagnostics include only sanitized migration state—check enabled, at-head status, and pending
+count. They include no database URL, file, schema dump, row, path, or migration execution.

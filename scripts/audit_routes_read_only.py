@@ -47,6 +47,10 @@ def audit_routes() -> list[RouteIssue]:
             lowered = route.path.casefold()
             if route.path.startswith("/admin") and method != "GET":
                 issues.append(RouteIssue(route.path, method, "admin routes must be GET-only"))
+            if route.path.startswith("/deployment") and method != "GET":
+                issues.append(
+                    RouteIssue(route.path, method, "deployment routes must be GET-only")
+                )
             if method in {"DELETE", "PUT"}:
                 issues.append(RouteIssue(route.path, method, "destructive method is not allowed"))
             if method == "PATCH" and route.path not in LOCAL_PATCH_PATHS:

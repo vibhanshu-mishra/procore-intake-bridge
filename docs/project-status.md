@@ -47,3 +47,6 @@ CLI-only, synthetic, disabled by default, documentation-aware, and makes no Proc
 B7 is implemented as a local-only customer deployment planning pattern with placeholder-only
 profiles, fail-closed readiness validation, and sanitized ignored artifacts. It includes no
 deployment automation and does not claim a production deployment or production security.
+B8 is implemented with sanitized local diagnostics, aggregate database/queue summaries, protected
+read-only route inventory, and a four-file local support bundle. No production observability,
+telemetry, external logging, or monitoring integration is implemented.

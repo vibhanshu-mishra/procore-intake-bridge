@@ -80,3 +80,7 @@ B7 customer deployment profiles are local planning inputs, not deployment automa
 examples require fake placeholders and secret references only. Real-looking IDs, customer domains,
 Authorization material, signed URLs, secret values, wildcard production hosts, and private paths
 are blocked. Generated output is ignored and must not be committed.
+B8 diagnostics contain posture, safe route metadata, and aggregate counts only. They exclude raw
+settings/environment values, records, payloads, filenames, logs, database files, attachments,
+signed URLs, local paths, contacts, and credentials. Strict redaction fails closed, support output
+is ignored, and bundle generation is never exposed through an API route.

@@ -52,3 +52,5 @@ review each blocker with the customer/GC/Owner, and separately approve infrastru
 database, secrets, storage, monitoring, deployment, rollback, and webhook registration. B7 adds
 no Terraform, Pulumi, Kubernetes, Helm, CI/CD, cloud SDK, or deployment automation; those remain
 future reviewed work.
+B8 support bundles must not contain customer profiles, customer-output artifacts, contacts, IDs,
+domains, or private paths. They summarize only the global customer-pattern safety posture.

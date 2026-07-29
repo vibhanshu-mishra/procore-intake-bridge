@@ -39,3 +39,4 @@ The GC/Owner controls private DMSA installation and permissions. This independen
 affiliated with or endorsed by Procore Technologies and carries no production guarantee.
 - [Webhook production verification](webhook-production-verification.md)
 - [Customer-specific deployment pattern](customer-deployment-pattern.md)
+- [Operator diagnostics and support bundles](operator-diagnostics.md)

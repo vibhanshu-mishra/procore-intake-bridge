@@ -40,3 +40,8 @@ local checklists/runbooks, and fail-closed production planning blockers.
 
 Actual infrastructure provisioning, cloud integrations, ingress, deployment automation, private
 customer configuration, and production operations remain future explicitly reviewed work.
+Completed: B8 adds local operator diagnostics, strict redaction, aggregate support summaries, and
+CLI-only sanitized support bundles.
+
+Production metrics, audited structured logs, external monitoring, alerts, retention, and incident
+integrations remain future separately reviewed work.

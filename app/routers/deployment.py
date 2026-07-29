@@ -23,6 +23,7 @@ from app.services.deployment_readiness import (
     build_sanitized_config_summary,
 )
 from app.services.migration_status import build_migration_status_report
+from app.services.operator_diagnostics import build_operator_diagnostics_report
 from app.services.secret_inventory import collect_required_secret_refs
 
 
@@ -103,3 +104,13 @@ def deployment_storage() -> dict:
         "paths_exposed": False,
         "external_calls": False,
     }
+
+
+@router.get("/diagnostics")
+def deployment_diagnostics(
+    request: Request, session: Session = Depends(get_session)
+) -> dict:
+    report = build_operator_diagnostics_report(
+        get_settings(), db_session=session, app=request.app
+    )
+    return report.model_dump(mode="json")

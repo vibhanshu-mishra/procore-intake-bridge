@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- B8: strict local diagnostics, aggregate route/database/queue/readiness summaries, an
+  operator-protected read-only endpoint, and sanitized CLI-only support bundles. No external
+  observability or telemetry is added.
+
 - B7: placeholder-only customer deployment planning profiles, offline validation, sanitized local
   artifact generation, production planning blockers, and operator documentation. No deployment or
   external integration is performed.

@@ -45,3 +45,5 @@ concurrency semantics, and independently reviewed failure recovery.
 The B7 customer storage plan records only a provider posture and placeholder bucket reference.
 `external_placeholder` remains a production blocker and performs no storage call. Real buckets,
 endpoints, credentials, retention, and recovery belong in a separately reviewed private plan.
+B8 diagnostics report storage-provider posture and aggregate manifest counts only. Support bundles
+contain no attachment names, paths, source URLs, metadata rows, downloaded bytes, or file content.

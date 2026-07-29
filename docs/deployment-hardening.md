@@ -64,3 +64,6 @@ Customer-specific planning should first pass the B7 profile validator. Its block
 hosts, admin token references, non-SQLite production database posture, provider placeholders,
 migration/recovery plans, sandbox evidence, onboarding evidence, and B6 webhook documentation.
 Passing validation does not deploy or certify the application.
+The B8 `GET /deployment/diagnostics` endpoint is operator-protected, read-only, no-store, and
+sanitized. Support-bundle generation remains CLI-only and local; it copies no logs, database
+files, attachments, payloads, environment values, or private paths.

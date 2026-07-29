@@ -56,3 +56,6 @@ without revealing which matched.
 Customer deployment profiles contain opaque secret references only. DMSA, admin-token rotation,
 webhook, and storage references must be resolved through a separately approved runtime process;
 values never belong in profiles, readiness output, generated artifacts, or this repository.
+Diagnostics report only secret-provider posture booleans and never reference names or values.
+Support bundles reject Authorization material, token/secret assignments, database URLs, cloud
+URLs, `.env` values, and absolute paths before local files are accepted.
