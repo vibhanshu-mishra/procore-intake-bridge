@@ -77,3 +77,8 @@ are prohibited.
 
 The C5 workspace contains secret reference names only, never plaintext secret values. Its
 `*.private.env` scaffold uses placeholder refs and must remain ignored/local.
+
+D1 implements the real `env` and contained `file` providers behind the shared DMSA/admin/webhook
+provider interface. `make secret-provider-check` reports masked presence only. Optional AWS,
+Azure, and GCP kinds remain opt-in, dependency-aware, and fail closed without making health-check
+network calls. See [Secret providers](secret-providers.md).

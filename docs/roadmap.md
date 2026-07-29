@@ -71,4 +71,5 @@ review, notifications, audit history, and pilot authorization remain future priv
 # Current roadmap note
 
 C4 (Three-Mode Quickstart and Doctor) and C5 (Private Workspace Bootstrap) are complete.
-Candidate follow-on work is D1–D5; none is implemented or implied by readiness results.
+D1 (Real Secret Provider Adapters) is complete. Candidate follow-on work is D2–D5; none is
+implemented or implied by readiness results.

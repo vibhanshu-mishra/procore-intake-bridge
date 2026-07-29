@@ -95,7 +95,16 @@ class Settings(BaseSettings):
             "PROCORE_INTAKE_PROCORE_ENVIRONMENT", "APP_PROCORE_ENVIRONMENT"
         ),
     )
-    secret_provider: Literal["env", "test", "disabled", "external_placeholder"] = Field(
+    secret_provider: Literal[
+        "env",
+        "file",
+        "test",
+        "disabled",
+        "external_placeholder",
+        "aws_secrets_manager",
+        "azure_key_vault",
+        "gcp_secret_manager",
+    ] = Field(
         default="env",
         validation_alias=AliasChoices(
             "PROCORE_INTAKE_SECRET_PROVIDER", "APP_SECRET_PROVIDER"
@@ -121,6 +130,56 @@ class Settings(BaseSettings):
     secret_fail_closed: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_SECRET_FAIL_CLOSED",
+    )
+    secret_provider_strict_redaction: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SECRET_PROVIDER_STRICT_REDACTION",
+    )
+    secret_provider_allow_env: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SECRET_PROVIDER_ALLOW_ENV",
+    )
+    secret_provider_allow_file: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SECRET_PROVIDER_ALLOW_FILE",
+    )
+    secret_provider_allow_cloud: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SECRET_PROVIDER_ALLOW_CLOUD",
+    )
+    secret_provider_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SECRET_PROVIDER_FAIL_CLOSED",
+    )
+    file_secret_root: Path = Field(
+        default=Path("./private-workspace/environment/secrets"),
+        validation_alias="PROCORE_INTAKE_FILE_SECRET_ROOT",
+    )
+    file_secret_allow_relative_refs: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_FILE_SECRET_ALLOW_RELATIVE_REFS",
+    )
+    file_secret_max_bytes: int = Field(
+        default=8192,
+        ge=1,
+        le=65536,
+        validation_alias="PROCORE_INTAKE_FILE_SECRET_MAX_BYTES",
+    )
+    file_secret_require_private_root: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_FILE_SECRET_REQUIRE_PRIVATE_ROOT",
+    )
+    aws_secrets_enabled: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_AWS_SECRETS_ENABLED",
+    )
+    azure_key_vault_enabled: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_AZURE_KEY_VAULT_ENABLED",
+    )
+    gcp_secret_manager_enabled: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_GCP_SECRET_MANAGER_ENABLED",
     )
     external_secret_provider_name: str = Field(
         default="",

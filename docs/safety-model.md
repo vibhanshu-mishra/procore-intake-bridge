@@ -111,3 +111,7 @@ on fake public examples while all real evidence, identities, approvals, and path
 The C5 workspace boundary is filesystem-local and ignored by Git. The public repo owns only
 placeholder schemas and fake examples; privately completed refs and records remain in the ignored
 workspace. Validators read safe text types under the selected root and reject unsafe content.
+
+D1's secret boundary permits values only inside explicit provider resolution calls. Every public,
+diagnostic, readiness, and doctor surface uses masked refs and booleans/counts. File resolution is
+root-contained; cloud posture checks make no external calls.

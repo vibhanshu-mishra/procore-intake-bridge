@@ -39,3 +39,7 @@ Fill placeholders only in an authorized local/private environment, validate afte
 the Git safety check before any commit. C5 does not approve a pilot, contact Procore, deploy
 infrastructure, or certify production security. D1–D5 may extend private operational workflows
 later, subject to separate scope and authorization.
+
+D1 adds `environment/secrets/README.private.md` plus env/file ref examples. The `secrets/` folder
+is ignored and may hold small private text secrets for the file provider; generated templates
+contain refs only and never create secret files.

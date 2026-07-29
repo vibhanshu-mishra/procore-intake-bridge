@@ -62,7 +62,7 @@ def main() -> int:
                 ],
                 "message": health.message,
             }
-            unavailable = health.status in {"disabled", "unavailable"}
+            unavailable = health.status not in {"healthy", "degraded"}
         except SecretProviderError:
             health_payload = {
                 "provider": settings.secret_provider,

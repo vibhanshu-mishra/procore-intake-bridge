@@ -652,6 +652,16 @@ def check_secret_provider_safety(settings: Settings) -> list[DeploymentFinding]:
                 "production",
             )
         )
+    elif settings.secret_provider == "file":
+        findings.append(
+            _finding(
+                "secret_provider",
+                "blocking",
+                "The file provider supports local private use but requires separate "
+                "production secret-management review.",
+                "production",
+            )
+        )
     elif settings.secret_provider == "disabled":
         findings.append(
             _finding(
@@ -686,7 +696,10 @@ def check_secret_provider_safety(settings: Settings) -> list[DeploymentFinding]:
         required_refs.append(settings.webhook_secret_name)
     for ref in required_refs:
         try:
-            validate_secret_ref(ref, settings)
+            if settings.secret_provider == "file":
+                build_secret_provider(settings).describe_ref(ref)
+            else:
+                validate_secret_ref(ref, settings)
         except SecretRefError:
             findings.append(
                 _finding(

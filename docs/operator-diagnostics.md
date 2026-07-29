@@ -71,3 +71,6 @@ diagnostic records remain outside the packet.
 `make doctor` uses sanitized posture summaries and command availability, not raw diagnostic,
 environment, database, or secret values. Use `make diagnostics` for the existing redacted
 operator view.
+
+D1 diagnostics include the selected provider kind and health-check posture only. Secret refs stay
+masked; values, environment dumps, file contents, and private paths are excluded.

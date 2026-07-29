@@ -8,6 +8,7 @@ from app.security.secrets import (
     DisabledSecretProvider,
     EnvSecretProvider,
     ExternalPlaceholderSecretProvider,
+    FileSecretProvider,
     SecretNotFoundError,
     SecretProvider,
     SecretProviderError,
@@ -36,6 +37,7 @@ def get_secret_provider(settings: Settings) -> SecretProvider:
 __all__ = [
     "DisabledSecretProvider",
     "EnvSecretProvider",
+    "FileSecretProvider",
     "ExternalPlaceholderSecretProvider",
     "SecretNotFoundError",
     "SecretProvider",

@@ -13,3 +13,7 @@ Initialize the C5 sandbox workspace with
 `python scripts/init_private_workspace.py --mode sandbox`. It provides ignored placeholder files
 for DMSA refs, allowed scope, permissions, webhook review, and diagnostics. Never commit the
 privately completed files.
+
+For DMSA credentials, choose `env` for the simplest private sandbox setup or `file` with safe
+relative refs under the ignored workspace. Run `make secret-provider-check`; it reports only
+masked ref presence and never invokes Procore.

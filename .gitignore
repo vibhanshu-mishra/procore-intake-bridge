@@ -105,5 +105,14 @@ pilot-workspace/
 *.workspace-report.json
 *.workspace-report.md
 *.workspace-manifest.json
+private-secrets/
+.local-secrets/
+secrets.local/
+*.secret
+*.secret.txt
+*.secrets.json
+*.secrets.env
+*.credential
+*.credentials.json
 *.egg-info/
 .DS_Store

@@ -87,3 +87,7 @@ requires or reads an approval packet for local readiness.
 Run `make doctor` before deployment-oriented work to identify local mode prerequisites. A ready
 result is sanitized configuration guidance, not a deployment, security approval, or production
 authorization.
+
+D1 deployment posture distinguishes real env/file providers from disabled/test/placeholders and
+reports optional cloud dependency/configuration status without contacting a provider. File and env
+usage still require separate production review.

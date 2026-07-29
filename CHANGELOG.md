@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Added Phase D1 real environment and contained file secret providers, optional fail-closed cloud
+  contracts, masked readiness checks, and private ref templates.
 - Added Phase C5 Private Workspace Bootstrap with ignored placeholder scaffolds, validators, and
   Git safety checks.
 - Added Phase C4 Three-Mode Quickstart and Doctor for safe local demo, sandbox readiness, and

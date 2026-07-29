@@ -4,6 +4,10 @@ from dataclasses import dataclass
 from app.config import Settings
 
 SECRET_REF_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_./:-]{1,254}$")
+UNSAFE_REF = re.compile(
+    r"(?i)(authorization|bearer|(?:sqlite|postgres(?:ql)?|mysql|mongodb)://|"
+    r"https?://|[?&](?:signature|token|expires)=)"
+)
 PLACEHOLDER_MARKERS = (
     "demo",
     "example",
@@ -35,6 +39,7 @@ def parse_secret_ref(value: str) -> SecretRef:
         raise SecretRefError("Secret reference has an invalid format.")
     if (
         candidate.casefold().startswith(("bearer", "sk-", "http://", "https://"))
+        or UNSAFE_REF.search(candidate)
         or "=" in candidate
         or any(character.isspace() for character in candidate)
     ):

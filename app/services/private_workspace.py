@@ -134,6 +134,12 @@ def build_private_workspace_manifest(
             both,
         ),
         _spec(
+            "environment/secrets/README.private.md",
+            PrivateWorkspaceSection.ENVIRONMENT,
+            "File-provider secret directory instructions and safe relative refs.",
+            both,
+        ),
+        _spec(
             "sandbox/sandbox-scope.private.json",
             PrivateWorkspaceSection.SANDBOX,
             "Allowed sandbox scope placeholders.",
@@ -377,6 +383,24 @@ def render_private_workspace_file(
     spec: PrivateWorkspaceFileSpec, manifest: PrivateWorkspaceManifest
 ) -> str:
     if spec.template_kind == "json":
+        if spec.relative_path == "environment/secrets-map.private.json":
+            return (
+                json.dumps(
+                    {
+                        "provider": "ENV_OR_FILE_PROVIDER_PLACEHOLDER",
+                        "refs": {
+                            "client_id_ref": "dmsa/client_id.secret",
+                            "client_secret_ref": "dmsa/client_secret.secret",
+                            "admin_token_ref": "admin/admin_token.secret",
+                            "webhook_secret_ref": "webhooks/procore_signature.secret",
+                        },
+                        "secret_values_included": False,
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+                + "\n"
+            )
         return (
             json.dumps(
                 {
@@ -394,9 +418,10 @@ def render_private_workspace_file(
     if spec.template_kind == "env":
         return (
             "# Reference names only. Never place secret values in this file.\n"
-            "DMSA_CLIENT_ID_REF=CLIENT_ID_REF_PLACEHOLDER\n"
-            "DMSA_CLIENT_SECRET_REF=CLIENT_SECRET_REF_PLACEHOLDER\n"
-            "ADMIN_TOKEN_REF=ADMIN_TOKEN_REF_PLACEHOLDER\n"
+            "PROCORE_CLIENT_ID_REF=ENV_REF_PLACEHOLDER_PROCORE_CLIENT_ID\n"
+            "PROCORE_CLIENT_SECRET_REF=ENV_REF_PLACEHOLDER_PROCORE_CLIENT_SECRET\n"
+            "ADMIN_TOKEN_REF=ENV_REF_PLACEHOLDER_ADMIN_TOKEN\n"
+            "WEBHOOK_SECRET_REF=ENV_REF_PLACEHOLDER_WEBHOOK_SECRET\n"
         )
     return (
         f"# {spec.section.value.replace('_', ' ').title()}\n\n"

@@ -72,3 +72,6 @@ pilot-readiness commands. Reports remain sanitized and generated outputs are ign
 
 C5 Private Workspace Bootstrap is implemented with ignored placeholder scaffolds, strict local
 validation, Git-isolation checks, and no external calls.
+
+D1 Real Secret Provider Adapters is implemented for private environment variables and contained
+local files, with disabled/fail-closed optional cloud contracts and sanitized readiness.

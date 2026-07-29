@@ -120,3 +120,7 @@ chain. Sandbox smoke and all real pilot decisions remain separate, manual, priva
 For Sandbox or Pilot preparation, run `make init-private-workspace`, privately fill only the
 necessary placeholders, then run `make validate-private-workspace` and
 `make private-workspace-git-safety`. Never stage the generated workspace.
+
+Before Sandbox or Pilot authentication, run `make secret-provider-template`,
+`make secret-refs-check`, and `make secret-provider-check`. Use
+`make file-secret-provider-check` only for its temporary fake local self-test.

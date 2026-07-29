@@ -51,3 +51,4 @@ affiliated with or endorsed by Procore Technologies and carries no production gu
 - [Sandbox mode](sandbox-mode.md)
 - [Pilot mode](pilot-mode.md)
 - [Private workspace bootstrap](private-workspace-bootstrap.md)
+- [Secret providers](secret-providers.md)

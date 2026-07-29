@@ -47,6 +47,7 @@ PRIVATE_PATH_PARTS = {
     "pilot-workspace",
     "pilot-readiness-output",
     "private-evidence-output",
+    "private-secrets",
     "private-workspace",
     "pilot-evidence-output",
     "evidence-output",
@@ -66,6 +67,8 @@ PRIVATE_PATH_PARTS = {
     "support-output",
     "sandbox-output",
     "sandbox-workspace",
+    "secrets.local",
+    ".local-secrets",
     "sync-output",
     "tokens",
 }
@@ -222,6 +225,16 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             ".quickstart-report.md",
         )):
             issues.append(SafetyIssue(path, "tracked generated usage-mode output"))
+            continue
+        if path.name.endswith((
+            ".secret",
+            ".secret.txt",
+            ".secrets.json",
+            ".secrets.env",
+            ".credential",
+            ".credentials.json",
+        )):
+            issues.append(SafetyIssue(path, "tracked generated secret or credential file"))
             continue
         if path.name.endswith((
             ".private.json",

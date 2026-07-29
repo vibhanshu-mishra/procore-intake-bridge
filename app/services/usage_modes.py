@@ -247,6 +247,18 @@ def build_sandbox_mode_readiness(
             and _file_available("scripts/validate_private_workspace.py"),
             "Ignored private workspace bootstrap and validation tools are available.",
         ),
+        _requirement(
+            "secret_provider",
+            settings.secret_provider
+            in {
+                "env",
+                "file",
+                "aws_secrets_manager",
+                "azure_key_vault",
+                "gcp_secret_manager",
+            },
+            "A real env, file, or privately verified optional cloud provider is selected.",
+        ),
     ]
     status = _status(settings.sandbox_mode_enabled, requirements)
     return SandboxModeReadiness(
@@ -275,6 +287,14 @@ def build_sandbox_mode_readiness(
                 code="sandbox_automatic_calls",
                 status=UsageModeStatus.READY,
                 message="Sandbox readiness performs no automatic Procore calls.",
+            ),
+            UsageModeFinding(
+                code="sandbox_secret_provider_guidance",
+                status=UsageModeStatus.READY,
+                message=(
+                    "Use env refs for the simplest sandbox setup or file refs for an "
+                    "ignored local private workspace."
+                ),
             ),
         ],
         quickstart_steps=[
@@ -353,8 +373,9 @@ def build_pilot_mode_readiness(
         ),
         _requirement(
             "secret_provider_posture",
-            settings.secret_provider not in {"disabled", "test"},
-            "A production-shaped secret-provider posture is selected without resolving values.",
+            settings.secret_provider
+            not in {"disabled", "test", "external_placeholder"},
+            "A real secret provider is selected without resolving or displaying values.",
         ),
         _requirement(
             "storage_provider_posture",

@@ -19,3 +19,7 @@ the sandbox posture is understood and an authorized private workspace is availab
 
 C5 provides `make init-private-workspace` for Sandbox and Pilot placeholder scaffolds. Generated
 files are ignored; real values and evidence remain local/private. Demo does not require it.
+
+Demo requires no secret provider. Sandbox can use private env refs or contained file refs. Pilot
+requires a real provider posture; `external_placeholder` is not sufficient for a real pilot.
+Optional cloud kinds remain disabled and make no calls during doctor/readiness checks.

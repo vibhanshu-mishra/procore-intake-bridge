@@ -12,3 +12,7 @@ private work; its validators do not constitute production approval or security c
 Use `python scripts/init_private_workspace.py --mode pilot` for the C5 ignored scaffold covering
 customer profile, evidence refs, review/expiry, readiness, approval, launch, rollback, and incident
 response. Real evidence, signoffs, identities, and decisions remain outside GitHub.
+
+A real pilot must select `env`, `file`, or a separately verified optional cloud provider.
+`external_placeholder`, `test`, and `disabled` remain fail-closed and do not establish pilot
+secret-management readiness.

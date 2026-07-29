@@ -14,6 +14,11 @@ Sandbox and Pilot users can initialize the C5 ignored placeholder workspace with
 Git isolation with `make private-workspace-git-safety`. See
 [Private workspace bootstrap](docs/private-workspace-bootstrap.md). Demo needs no workspace.
 
+For Sandbox or Pilot secrets, D1 supports a real private environment-variable provider and a
+contained local file provider. Start with `make secret-provider-template` and
+`make secret-provider-check`; see [Secret providers](docs/secret-providers.md). Demo remains
+secret-free, and optional cloud provider contracts are disabled/fail-closed by default.
+
 > A read-only DMSA intake service for syncing Procore RFIs, Submittals, visible attachments,
 > webhooks, and onboarding workflows into a local tracking system.
 
