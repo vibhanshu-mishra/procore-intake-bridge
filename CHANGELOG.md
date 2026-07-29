@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- C3: placeholder-only private pilot approval packets, launch/rollback conditions, limitation and
+  risk templates, local safety checking, and ignored sanitized artifacts. No real approval,
+  reviewer contact, notification, or deployment is performed.
+
 - C2: placeholder-only evidence review statuses, bounded local expiry evaluation, renewal
   checklists, fake examples, and ignored sanitized review artifacts. No real review, signoff,
   notification, or approval is performed.

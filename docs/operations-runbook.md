@@ -106,3 +106,8 @@ For C2, run `make evidence-review-check` and `make evidence-expiry-check`. Resol
 findings first, then privately address required evidence marked needs-review, expires-soon,
 expired, or renewal-required. Generate review artifacts only in ignored local output, inspect
 them before private handoff, and never copy a real review or signoff record into GitHub.
+
+For C3, run `make pilot-approval-check` and `make pilot-approval-safety-check`. Resolve every
+safety blocker and privately review all open readiness, expiry, renewal, launch, rollback,
+limitation, risk, and signoff placeholders. Generate artifacts only in ignored local output and
+never treat `ready_for_private_review` or `approved_placeholder` as real authorization.

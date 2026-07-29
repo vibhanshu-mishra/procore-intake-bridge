@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0",
+  "packet_name": "example-pilot-approval-packet",
+  "pilot_label": "Example Pilot Approval Packet",
+  "customer_label": "Example Customer",
+  "environment": "staging",
+  "readiness": {
+    "pilot_readiness_decision_ref": "PILOT_READINESS_REF_PLACEHOLDER",
+    "pilot_readiness_decision_status": "NEEDS_REVIEW"
+  },
+  "evidence": {
+    "evidence_manifest_ref": "PRIVATE_EVIDENCE_REF_PLACEHOLDER",
+    "evidence_item_count_placeholder": "EVIDENCE_ITEM_COUNT_PLACEHOLDER",
+    "evidence_status": "ready_for_private_review"
+  },
+  "review": {
+    "evidence_review_ref": "EVIDENCE_REVIEW_REF_PLACEHOLDER",
+    "evidence_review_status": "ready_for_private_review",
+    "expired_evidence_count": 0,
+    "renewal_required_count": 0
+  },
+  "support_diagnostics_ref": "SUPPORT_DIAGNOSTICS_REF_PLACEHOLDER",
+  "support_redaction_status": "ready_for_private_review",
+  "sandbox_smoke_ref": "SANDBOX_SMOKE_REF_PLACEHOLDER",
+  "sandbox_smoke_status": "ready_for_private_review",
+  "webhook_verification_ref": "WEBHOOK_VERIFICATION_REF_PLACEHOLDER",
+  "webhook_verification_status": "not_applicable",
+  "migration_safety_ref": "MIGRATION_SAFETY_REF_PLACEHOLDER",
+  "migration_safety_status": "ready_for_private_review",
+  "customer_deployment_profile_ref": "CUSTOMER_DEPLOYMENT_REF_PLACEHOLDER",
+  "customer_deployment_status": "ready_for_private_review",
+  "launch_conditions": [
+    {
+      "condition_id": "LAUNCH_CONDITION_PLACEHOLDER_001",
+      "description_placeholder": "LAUNCH_REQUIREMENT_PLACEHOLDER",
+      "required": true,
+      "status": "ready_for_private_review",
+      "evidence_ref_placeholder": "LAUNCH_EVIDENCE_REF_PLACEHOLDER"
+    }
+  ],
+  "rollback_conditions": [
+    {
+      "condition_id": "ROLLBACK_CONDITION_PLACEHOLDER_001",
+      "trigger_placeholder": "ROLLBACK_TRIGGER_PLACEHOLDER",
+      "response_placeholder": "ROLLBACK_RESPONSE_PLACEHOLDER",
+      "status": "ready_for_private_review",
+      "evidence_ref_placeholder": "ROLLBACK_EVIDENCE_REF_PLACEHOLDER"
+    }
+  ],
+  "known_limitations": [
+    {
+      "limitation_id": "LIMITATION_PLACEHOLDER_001",
+      "description_placeholder": "KNOWN_LIMITATION_PLACEHOLDER",
+      "impact_placeholder": "LIMITATION_IMPACT_PLACEHOLDER",
+      "mitigation_placeholder": "LIMITATION_MITIGATION_PLACEHOLDER",
+      "status": "needs_review"
+    }
+  ],
+  "risk_acceptance": [
+    {
+      "limitation_ref": "LIMITATION_PLACEHOLDER_001",
+      "acceptance_status": "needs_review",
+      "owner_placeholder": "RISK_OWNER_PLACEHOLDER",
+      "rationale_placeholder": "RISK_RATIONALE_PLACEHOLDER",
+      "review_ref_placeholder": "RISK_REVIEW_REF_PLACEHOLDER"
+    }
+  ],
+  "signoff_placeholders": [
+    {
+      "role_placeholder": "PRIVATE_REVIEWER_ROLE_PLACEHOLDER",
+      "reviewer_placeholder": "REVIEWER_PLACEHOLDER",
+      "approver_placeholder": "APPROVER_PLACEHOLDER",
+      "decision": "draft_placeholder",
+      "reviewed_at_placeholder": "REVIEWED_AT_PLACEHOLDER",
+      "signoff_ref_placeholder": "SIGNOFF_REF_PLACEHOLDER"
+    }
+  ],
+  "approval_decision": "draft_placeholder",
+  "approval_status": "needs_review",
+  "approval_notes": ["Fake packet only; no real approval is represented."],
+  "generated_by_placeholder": "PACKET_GENERATOR_PLACEHOLDER",
+  "reviewed_by_placeholders": ["REVIEWER_PLACEHOLDER"],
+  "approved_by_placeholders": ["APPROVER_PLACEHOLDER"]
+}

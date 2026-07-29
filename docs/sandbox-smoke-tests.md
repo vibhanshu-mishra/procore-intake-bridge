@@ -71,3 +71,6 @@ payloads, or local report path.
 
 C2 may review the smoke evidence ref and its expiry posture, never the smoke report contents,
 connection identifiers, payloads, or reviewer identity.
+
+C3 records only a smoke evidence ref and status. It never embeds a smoke report, connection or
+project identifiers, payloads, or local paths.

@@ -80,3 +80,6 @@ verification reports, webhook payloads, headers, signatures, and URLs remain pri
 
 C2 may track review and expiry of webhook evidence refs. It never stores raw verification reports,
 payloads, headers, signatures, hook details, or real signoff records.
+
+C3 records only webhook verification refs and status. Raw reports, hooks, payloads, signatures,
+headers, event identifiers, and URLs remain private.

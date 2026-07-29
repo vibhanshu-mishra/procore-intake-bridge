@@ -62,3 +62,6 @@ private customer profile contents in this public repository.
 
 C2 may track placeholder review and expiry status for the B7 evidence ref. Real customer
 configuration, reviewer identities, and approval records remain private.
+
+C3 can include a B7 customer-deployment profile ref and status, never the customer profile or
+private deployment configuration itself.

@@ -433,6 +433,67 @@ def check_evidence_review_pattern(settings: Settings) -> list[DeploymentFinding]
     return findings
 
 
+def check_pilot_approval_packet_pattern(settings: Settings) -> list[DeploymentFinding]:
+    findings = [
+        _finding(
+            "pilot_approval_packet",
+            "info" if settings.pilot_approval_packet_enabled else "warning",
+            "Local placeholder pilot approval packet CLIs are available."
+            if settings.pilot_approval_packet_enabled
+            else "Pilot approval packet pattern is disabled.",
+        ),
+        _finding(
+            "pilot_approval_identities",
+            "warning" if settings.pilot_approval_packet_allow_real_identities else "info",
+            "Real approval identities are allowed by packet settings."
+            if settings.pilot_approval_packet_allow_real_identities
+            else "Real approval identities are blocked by default.",
+        ),
+        _finding(
+            "pilot_approval_ids",
+            "warning" if settings.pilot_approval_packet_allow_real_ids else "info",
+            "Real-looking identifiers are allowed by packet settings."
+            if settings.pilot_approval_packet_allow_real_ids
+            else "Real-looking approval identifiers are blocked by default.",
+        ),
+        _finding(
+            "pilot_approval_contents",
+            "warning" if settings.pilot_approval_packet_allow_file_contents else "info",
+            "Private file contents are allowed by packet settings."
+            if settings.pilot_approval_packet_allow_file_contents
+            else "Private file contents are blocked by default.",
+        ),
+        _finding(
+            "pilot_approval_production",
+            "warning" if settings.pilot_approval_packet_allow_production else "info",
+            "Production approval packets are allowed by packet settings."
+            if settings.pilot_approval_packet_allow_production
+            else "Production approval packets are blocked by default.",
+        ),
+    ]
+    output = settings.pilot_approval_packet_output_root
+    if output in {Path("."), Path("/")} or ".." in output.parts:
+        findings.append(
+            _finding(
+                "pilot_approval_output",
+                "blocking",
+                "Pilot approval output root is unsafe.",
+                "local",
+                "staging",
+                "production",
+            )
+        )
+    else:
+        findings.append(
+            _finding(
+                "pilot_approval_output",
+                "info",
+                "Pilot approval output uses a dedicated ignored directory.",
+            )
+        )
+    return findings
+
+
 def check_attachment_storage_safety(settings: Settings) -> list[DeploymentFinding]:
     findings: list[DeploymentFinding] = []
     name = get_attachment_storage_provider_name(settings)
@@ -749,6 +810,7 @@ def build_deployment_readiness_report(settings: Settings) -> DeploymentReadiness
         check_pilot_readiness_pattern,
         check_private_evidence_pattern,
         check_evidence_review_pattern,
+        check_pilot_approval_packet_pattern,
         check_attachment_storage_safety,
         check_secret_provider_safety,
         check_output_paths,
@@ -870,6 +932,25 @@ def build_sanitized_config_summary(settings: Settings) -> dict:
             "validators_available": True,
             "generated_artifacts_allowed_in_repo": False,
             "notifications_enabled": False,
+        },
+        "pilot_approval_packet": {
+            "enabled": settings.pilot_approval_packet_enabled,
+            "placeholders_required": settings.pilot_approval_packet_require_placeholders,
+            "real_identities_allowed": settings.pilot_approval_packet_allow_real_identities,
+            "real_ids_allowed": settings.pilot_approval_packet_allow_real_ids,
+            "file_contents_allowed": settings.pilot_approval_packet_allow_file_contents,
+            "absolute_paths_allowed": settings.pilot_approval_packet_allow_absolute_paths,
+            "production_allowed": settings.pilot_approval_packet_allow_production,
+            "max_approvers": settings.pilot_approval_packet_max_approvers,
+            "max_conditions": settings.pilot_approval_packet_max_conditions,
+            "fail_closed": settings.pilot_approval_packet_fail_closed,
+            "output_root_safe": (
+                settings.pilot_approval_packet_output_root not in {Path("."), Path("/")}
+                and ".." not in settings.pilot_approval_packet_output_root.parts
+            ),
+            "validators_available": True,
+            "generated_artifacts_allowed_in_repo": False,
+            "approval_or_deployment_automation": False,
         },
         "attachment_fixture_downloads_only": settings.attachment_fixture_downloads_only,
         "attachment_storage": summarize_attachment_storage_config(settings),

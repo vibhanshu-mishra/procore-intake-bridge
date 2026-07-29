@@ -73,3 +73,6 @@ separately controlled private system described in
 C2 review and expiry status can support B9 evidence gates. Required evidence that needs review,
 has expired, or requires renewal remains a gate blocker; placeholder acceptance is not real pilot
 approval.
+
+C3 consumes only the B9 decision status and a placeholder readiness reference. It never copies a
+readiness artifact or converts `GO` into real pilot approval.

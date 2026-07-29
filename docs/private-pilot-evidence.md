@@ -62,3 +62,6 @@ That work requires separate authorization and must remain outside the public rep
 
 C2 adds a local review and expiry workflow over C1 evidence refs. It stores placeholder reviewer,
 timestamp, decision, expiry, and renewal metadata only; real review and signoff stay private.
+
+C3 references C1 evidence refs only. Evidence contents, files, paths, reports, and private
+workspace artifacts never belong in an approval packet.

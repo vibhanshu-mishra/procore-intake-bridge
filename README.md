@@ -327,3 +327,17 @@ make evidence-review-artifact-check
 ```
 
 See [Evidence review and expiry](docs/evidence-review-expiry.md).
+
+## Phase C3: private pilot approval packet
+
+C3 combines B9/C1/C2 placeholder references with launch, rollback, limitation, risk, and signoff
+templates. It creates no real approval, contacts nobody, and makes no Procore or external calls.
+
+```bash
+make pilot-approval-template
+make pilot-approval-check
+make pilot-approval-safety-check
+make pilot-approval-artifact-check
+```
+
+See [Private pilot approval packet](docs/pilot-approval-packet.md).

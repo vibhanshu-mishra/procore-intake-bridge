@@ -63,3 +63,6 @@ environment values, or diagnostic output into a public evidence manifest.
 
 C2 diagnostics review metadata should reference the redaction-review status only. It must never
 include support bundle contents, reviewer identity, or a real signoff.
+
+C3 records only a diagnostics ref and redaction status. Support bundle contents, logs, paths, and
+diagnostic records remain outside the packet.

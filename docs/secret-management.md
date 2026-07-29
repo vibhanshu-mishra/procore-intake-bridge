@@ -69,3 +69,7 @@ URL, cloud credential, bucket URL, or storage endpoint.
 C2 review manifests contain evidence refs and identity/date/signoff placeholders only. They never
 contain credentials, Authorization headers, signed URLs, secret-manager locations, storage
 endpoints, or real approval records.
+
+C3 approval packets contain opaque refs and placeholders only. Credentials, Authorization
+headers, signed URLs, secret-manager locations, database/storage URLs, and raw private artifacts
+are prohibited.

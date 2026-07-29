@@ -62,3 +62,9 @@ and sanitized ignored review artifacts.
 
 Real reviewer authentication, private signoff records, notifications, escalation, access control,
 audit history, and approval workflow remain future separately authorized private work.
+
+Completed: C3 adds placeholder pilot approval packets, launch and rollback conditions, limitation
+and risk templates, local safety validation, and ignored sanitized artifacts.
+
+Real approval workflow, reviewer identity/access control, binding signoff, legal/compliance
+review, notifications, audit history, and pilot authorization remain future private work.

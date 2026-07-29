@@ -684,6 +684,82 @@ class Settings(BaseSettings):
         default=True,
         validation_alias="PROCORE_INTAKE_EVIDENCE_REVIEW_FAIL_CLOSED",
     )
+    pilot_approval_packet_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_PILOT_APPROVAL_PACKET_ENABLED",
+    )
+    pilot_approval_packet_output_root: Path = Field(
+        default=Path("./pilot-approval-output"),
+        validation_alias="PROCORE_INTAKE_PILOT_APPROVAL_PACKET_OUTPUT_ROOT",
+    )
+    pilot_approval_packet_require_placeholders: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_PILOT_APPROVAL_PACKET_REQUIRE_PLACEHOLDERS",
+    )
+    pilot_approval_packet_allow_real_identities: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_PILOT_APPROVAL_PACKET_ALLOW_REAL_IDENTITIES",
+    )
+    pilot_approval_packet_allow_real_ids: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_PILOT_APPROVAL_PACKET_ALLOW_REAL_IDS",
+    )
+    pilot_approval_packet_allow_file_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_PILOT_APPROVAL_PACKET_ALLOW_FILE_CONTENTS",
+    )
+    pilot_approval_packet_allow_absolute_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_PILOT_APPROVAL_PACKET_ALLOW_ABSOLUTE_PATHS",
+    )
+    pilot_approval_packet_allow_production: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_PILOT_APPROVAL_PACKET_ALLOW_PRODUCTION",
+    )
+    pilot_approval_packet_require_go_decision: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_PILOT_APPROVAL_PACKET_REQUIRE_GO_DECISION",
+    )
+    pilot_approval_packet_require_no_expired_evidence: bool = Field(
+        default=True,
+        validation_alias=(
+            "PROCORE_INTAKE_PILOT_APPROVAL_PACKET_REQUIRE_NO_EXPIRED_EVIDENCE"
+        ),
+    )
+    pilot_approval_packet_require_limitations_section: bool = Field(
+        default=True,
+        validation_alias=(
+            "PROCORE_INTAKE_PILOT_APPROVAL_PACKET_REQUIRE_LIMITATIONS_SECTION"
+        ),
+    )
+    pilot_approval_packet_require_rollback_conditions: bool = Field(
+        default=True,
+        validation_alias=(
+            "PROCORE_INTAKE_PILOT_APPROVAL_PACKET_REQUIRE_ROLLBACK_CONDITIONS"
+        ),
+    )
+    pilot_approval_packet_require_signoff_placeholders: bool = Field(
+        default=True,
+        validation_alias=(
+            "PROCORE_INTAKE_PILOT_APPROVAL_PACKET_REQUIRE_SIGNOFF_PLACEHOLDERS"
+        ),
+    )
+    pilot_approval_packet_max_approvers: int = Field(
+        default=10,
+        ge=1,
+        le=10,
+        validation_alias="PROCORE_INTAKE_PILOT_APPROVAL_PACKET_MAX_APPROVERS",
+    )
+    pilot_approval_packet_max_conditions: int = Field(
+        default=50,
+        ge=1,
+        le=50,
+        validation_alias="PROCORE_INTAKE_PILOT_APPROVAL_PACKET_MAX_CONDITIONS",
+    )
+    pilot_approval_packet_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_PILOT_APPROVAL_PACKET_FAIL_CLOSED",
+    )
 
 
 @lru_cache

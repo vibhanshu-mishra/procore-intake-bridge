@@ -51,6 +51,10 @@ PRIVATE_PATH_PARTS = {
     "evidence-expiry-output",
     "evidence-renewal-output",
     "private-evidence-review",
+    "pilot-approval-output",
+    "approval-packet-output",
+    "private-pilot-approval",
+    "pilot-approval-packets",
     "storage",
     "smoke-output",
     "support-output",
@@ -161,9 +165,26 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
                 issues.append(
                     SafetyIssue(path, "review example contains a reviewer identity")
                 )
+    if "examples/pilot-approval" in path.as_posix():
+        if CUSTOMER_EMAIL.search(text):
+            issues.append(SafetyIssue(path, "approval example contains an email address"))
+        for match in CUSTOMER_URL.finditer(text):
+            host = match.group(1).casefold()
+            if not host.endswith((".local", ".invalid")):
+                issues.append(
+                    SafetyIssue(path, "approval example contains a non-placeholder URL")
+                )
+        for match in REVIEWER_IDENTITY.finditer(text):
+            if not _safe_value(match.group(1)):
+                issues.append(
+                    SafetyIssue(path, "approval example contains a reviewer identity")
+                )
+        if GENERIC_SIGNED_URL.search(text):
+            issues.append(SafetyIssue(path, "approval example contains a signed URL"))
     if (
         "examples/private-evidence" in path.as_posix()
         or "examples/evidence-review" in path.as_posix()
+        or "examples/pilot-approval" in path.as_posix()
     ):
         if RAW_PRIVATE_CONTENT.search(text):
             issues.append(SafetyIssue(path, "evidence example contains raw private content"))
@@ -191,6 +212,18 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             ".customer-checklist.md",
         )):
             issues.append(SafetyIssue(path, "tracked generated customer deployment output"))
+            continue
+        if path.name.endswith((
+            ".pilot-approval-packet.json",
+            ".pilot-approval-packet.md",
+            ".pilot-approval-summary.md",
+            ".pilot-approval-manifest.json",
+            ".pilot-signoff.md",
+            ".risk-acceptance.md",
+            ".launch-conditions.md",
+            ".rollback-conditions.md",
+        )):
+            issues.append(SafetyIssue(path, "tracked generated pilot approval output"))
             continue
         if path.name.endswith((
             ".evidence-review.json",

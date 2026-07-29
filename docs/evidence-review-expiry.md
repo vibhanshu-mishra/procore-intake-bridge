@@ -69,3 +69,6 @@ an approved channel. Do not copy review or signoff records into this repo.
 Future work may add a separately authorized private approval system, reviewer authentication,
 access control, audit history, retention, notifications, escalation, and renewal scheduling. C2
 implements none of those integrations.
+
+C3 consumes only a C2 review-summary ref, status, expired count, and renewal-required count. It
+never copies review artifacts, reviewer identities, or signoff records into the packet.

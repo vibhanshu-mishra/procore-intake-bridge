@@ -97,3 +97,7 @@ manifest and make no external or Procore calls; generated workspace artifacts ar
 C2 blocks reviewer PII, real signoffs, real IDs, contacts, domains, credentials, paths, URLs,
 reports, payloads, signatures, and binary evidence. Review and expiry operate only on local
 placeholder metadata, send no notifications, add no routes, and write only ignored artifacts.
+
+C3 approval packets contain refs, statuses, counts, conditions, limitations, and signoff
+placeholders only. Real approvals, identities, evidence, paths, URLs, reports, payloads,
+signatures, and customer data are blocked. C3 adds no routes, notifications, or deployment.

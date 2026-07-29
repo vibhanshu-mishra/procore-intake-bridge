@@ -78,3 +78,7 @@ this safe posture and never require or read a private evidence manifest.
 C2 readiness integration reports only whether local review tooling is enabled, whether identities,
 IDs, and contents are blocked, whether the output root is safe, and the configured expiry/warning
 windows. Local readiness never requires or reads a review manifest.
+
+C3 readiness reports only the safe approval-packet posture: placeholders, identity/ID/content
+blocking, production blocking, output-root safety, and local validator availability. It never
+requires or reads an approval packet for local readiness.

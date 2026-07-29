@@ -61,3 +61,7 @@ private and ignored. No evidence has been collected and no pilot approval is cla
 C2 is implemented as a CLI-only placeholder evidence review and expiry workflow with bounded
 expiry windows, renewal posture, and ignored sanitized artifacts. No real reviewer, signoff,
 notification, evidence review, or pilot approval is claimed.
+
+C3 is implemented as a CLI-only placeholder pilot approval packet pattern with sanitized ignored
+artifacts and a local safety checker. No real approval, identity, signoff, reviewer contact,
+notification, or pilot authorization is recorded.
