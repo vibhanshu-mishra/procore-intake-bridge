@@ -251,6 +251,43 @@ def check_webhook_verification_safety(settings: Settings) -> list[DeploymentFind
     )]
 
 
+def check_customer_deployment_pattern(settings: Settings) -> list[DeploymentFinding]:
+    findings = []
+    if settings.customer_deployment_pattern_enabled:
+        findings.append(_finding(
+            "customer_deployment_pattern", "info",
+            "Local customer deployment profile validation is available; it deploys nothing.",
+        ))
+    else:
+        findings.append(_finding(
+            "customer_deployment_pattern", "warning",
+            "Customer deployment profile validation is disabled.",
+        ))
+    if settings.customer_profile_allow_real_ids:
+        findings.append(_finding(
+            "customer_profile_ids", "warning",
+            "Customer profile validation permits real-looking IDs; public examples must not.",
+        ))
+    else:
+        findings.append(_finding(
+            "customer_profile_ids", "info",
+            "Real-looking customer and project identifiers are blocked by default.",
+        ))
+    output = settings.customer_profile_output_root
+    if output in {Path("."), Path("/")} or ".." in output.parts:
+        findings.append(_finding(
+            "customer_profile_output", "blocking",
+            "Customer profile output root is unsafe.",
+            "local", "staging", "production",
+        ))
+    else:
+        findings.append(_finding(
+            "customer_profile_output", "info",
+            "Customer planning output uses a dedicated ignored directory.",
+        ))
+    return findings
+
+
 def check_attachment_storage_safety(settings: Settings) -> list[DeploymentFinding]:
     findings: list[DeploymentFinding] = []
     name = get_attachment_storage_provider_name(settings)
@@ -563,6 +600,7 @@ def build_deployment_readiness_report(settings: Settings) -> DeploymentReadiness
         check_admin_dashboard_safety,
         check_webhook_signature_safety,
         check_webhook_verification_safety,
+        check_customer_deployment_pattern,
         check_attachment_storage_safety,
         check_secret_provider_safety,
         check_output_paths,
@@ -633,6 +671,14 @@ def build_sanitized_config_summary(settings: Settings) -> dict:
             "docs_check_required": settings.webhook_verification_require_docs_check,
             "production_allowed": settings.webhook_verification_allow_production,
             "synthetic_only": True,
+        },
+        "customer_deployment_pattern": {
+            "enabled": settings.customer_deployment_pattern_enabled,
+            "placeholders_required": settings.customer_profile_require_placeholders,
+            "real_ids_allowed": settings.customer_profile_allow_real_ids,
+            "max_projects": settings.customer_profile_max_projects,
+            "fail_closed": settings.customer_profile_fail_closed,
+            "deployment_automation": False,
         },
         "attachment_fixture_downloads_only": settings.attachment_fixture_downloads_only,
         "attachment_storage": summarize_attachment_storage_config(settings),

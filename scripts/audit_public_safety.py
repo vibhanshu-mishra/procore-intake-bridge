@@ -34,6 +34,8 @@ SAFE_MARKERS = {
 }
 PRIVATE_PATH_PARTS = {
     "downloads",
+    "customer-deployment-output",
+    "customer-output",
     "logs",
     "onboarding-output",
     "packet-output",
@@ -64,6 +66,11 @@ SIGNED_PROCORE_URL = re.compile(
 DATABASE_CREDENTIAL_URL = re.compile(
     r"(?i)(?:postgresql|postgres|mysql|mariadb)://[^:\s/]+:([^@\s/]+)@"
 )
+CUSTOMER_EMAIL = re.compile(r"(?i)\b[\w.+-]+@[\w.-]+\.[a-z]{2,}\b")
+CUSTOMER_URL = re.compile(r"(?i)https?://([a-z0-9.-]+)")
+GENERIC_SIGNED_URL = re.compile(
+    r"(?i)https?://[^\s\"']+[?&](signature|signed|token|expires)="
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -87,6 +94,15 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     for match in DATABASE_CREDENTIAL_URL.finditer(text):
         if not _safe_value(match.group(1)):
             issues.append(SafetyIssue(path, "database URL contains credentials"))
+    if "examples/customer-deployments" in path.as_posix():
+        if CUSTOMER_EMAIL.search(text):
+            issues.append(SafetyIssue(path, "customer example contains an email address"))
+        for match in CUSTOMER_URL.finditer(text):
+            host = match.group(1).casefold()
+            if not host.endswith((".local", ".invalid")):
+                issues.append(SafetyIssue(path, "customer example contains a non-placeholder URL"))
+        if GENERIC_SIGNED_URL.search(text):
+            issues.append(SafetyIssue(path, "customer example contains a signed URL"))
     return issues
 
 
@@ -100,6 +116,13 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             continue
         if path.name.endswith((".smoke.json", ".smoke.log")):
             issues.append(SafetyIssue(path, "tracked sandbox smoke output"))
+            continue
+        if path.name.endswith((
+            ".customer-profile.json",
+            ".customer-deployment-report.json",
+            ".customer-checklist.md",
+        )):
+            issues.append(SafetyIssue(path, "tracked generated customer deployment output"))
             continue
         if any(part in PRIVATE_PATH_PARTS for part in path.parts):
             issues.append(SafetyIssue(path, "tracked private output path"))

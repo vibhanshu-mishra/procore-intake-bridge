@@ -76,3 +76,7 @@ The B6 harness is manual, disabled by default, bounded, synthetic-only, and CLI-
 does not use the network, call Procore, scrape documentation, expose a route, run a worker,
 or mutate webhook registrations. Reports omit raw payloads, headers, signatures, secrets,
 URLs, and sensitive exception details. Current documentation must be manually verified.
+B7 customer deployment profiles are local planning inputs, not deployment automation. Public
+examples require fake placeholders and secret references only. Real-looking IDs, customer domains,
+Authorization material, signed URLs, secret values, wildcard production hosts, and private paths
+are blocked. Generated output is ignored and must not be committed.

@@ -44,3 +44,6 @@ fail-closed placeholders. It validates object keys and adds sanitized health and
 No production cloud adapter, public file serving, presigned URL, or live download is implemented.
 Phase B6, the manually gated Webhook Production Verification Harness, is implemented. It is
 CLI-only, synthetic, disabled by default, documentation-aware, and makes no Procore calls.
+B7 is implemented as a local-only customer deployment planning pattern with placeholder-only
+profiles, fail-closed readiness validation, and sanitized ignored artifacts. It includes no
+deployment automation and does not claim a production deployment or production security.

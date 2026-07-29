@@ -66,3 +66,6 @@ Disable the receiver, require signatures, rotate the webhook secret through the 
 secret system, remove the external route or tunnel, inspect and pause the event queue, and
 purge local `webhook-verification-output` artifacts. Removing a Procore hook is outside B6
 and must follow the separately approved production process.
+A B7 production customer profile that plans webhooks depends on a verified B6 documentation
+record, signature enforcement, and a webhook secret reference. B7 does not register or expose the
+hook.

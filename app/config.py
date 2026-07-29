@@ -428,6 +428,32 @@ class Settings(BaseSettings):
         default=None,
         validation_alias="PROCORE_INTAKE_SANDBOX_SMOKE_COMPANY_ID",
     )
+    customer_deployment_pattern_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_CUSTOMER_DEPLOYMENT_PATTERN_ENABLED",
+    )
+    customer_profile_output_root: Path = Field(
+        default=Path("./customer-output"),
+        validation_alias="PROCORE_INTAKE_CUSTOMER_PROFILE_OUTPUT_ROOT",
+    )
+    customer_profile_require_placeholders: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_CUSTOMER_PROFILE_REQUIRE_PLACEHOLDERS",
+    )
+    customer_profile_allow_real_ids: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_CUSTOMER_PROFILE_ALLOW_REAL_IDS",
+    )
+    customer_profile_max_projects: int = Field(
+        default=25,
+        ge=1,
+        le=100,
+        validation_alias="PROCORE_INTAKE_CUSTOMER_PROFILE_MAX_PROJECTS",
+    )
+    customer_profile_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_CUSTOMER_PROFILE_FAIL_CLOSED",
+    )
 
 
 @lru_cache

@@ -256,3 +256,17 @@ make webhook-docs-check
 
 See [Webhook production verification](docs/webhook-production-verification.md). Actual
 production webhook creation remains a future, explicitly approved write-scope phase.
+## Phase B7: customer-specific deployment pattern
+
+B7 adds a local-only customer deployment profile validator and sanitized checklist/runbook
+generator. It uses fake examples and secret references, writes only ignored local artifacts, and
+does not deploy infrastructure, connect services, call Procore, or expose webhooks.
+
+```bash
+make customer-template
+make customer-profile-check
+make customer-artifact-check
+```
+
+See [Customer-specific deployment pattern](docs/customer-deployment-pattern.md). Real deployment
+automation remains future, separately reviewed work.

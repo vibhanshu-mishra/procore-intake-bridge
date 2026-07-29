@@ -38,3 +38,4 @@ live Procore access is disabled by default, and the project performs no Procore 
 The GC/Owner controls private DMSA installation and permissions. This independent project is not
 affiliated with or endorsed by Procore Technologies and carries no production guarantee.
 - [Webhook production verification](webhook-production-verification.md)
+- [Customer-specific deployment pattern](customer-deployment-pattern.md)

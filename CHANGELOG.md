@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- B7: placeholder-only customer deployment planning profiles, offline validation, sanitized local
+  artifact generation, production planning blockers, and operator documentation. No deployment or
+  external integration is performed.
+
 - A1–A8: initial public foundation for fixture intake, guarded DMSA configuration, polling,
   webhooks, attachment manifests, onboarding, local admin, and deployment hardening.
 - A9: repository documentation, examples, community files, and public safety audits.

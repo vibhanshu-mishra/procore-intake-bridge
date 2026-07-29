@@ -45,3 +45,6 @@ then remove the overlap. If exposed, revoke both immediately. Disable quickly wi
 
 This remains interim operator-token protection. Production still needs reviewed identity-provider
 integration, tenant authorization, roles, audited access, rate controls, and incident procedures.
+Production customer profiles require primary and rotation admin token references. References are
+configuration metadata, never token values; B7 does not implement an identity provider or claim
+production-grade authentication.

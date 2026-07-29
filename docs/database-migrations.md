@@ -45,3 +45,6 @@ Never put credentialed database URLs in files, command history, logs, issues, or
 status URLs and refuses external-engine inspection, but provides no production migration
 guarantee. Managed operations, backup automation, point-in-time recovery, online migrations, and
 engine-specific validation remain future work.
+A production B7 customer profile must name a non-SQLite database posture plus explicit migration,
+verified backup, restore, and rollback plans. The profile validator runs no migration and connects
+to no external database.

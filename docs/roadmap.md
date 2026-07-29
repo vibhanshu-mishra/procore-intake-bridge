@@ -35,3 +35,8 @@ secret redaction, and explicit live-mode gating.
 Offline planning, manual documentation records, synthetic probes, sanitized reports, and
 production readiness checks are complete. Creating, registering, changing, activating, or
 deleting real Procore webhook hooks remains a future explicit write-scope phase.
+Completed: B7 adds placeholder-only customer deployment profiles, offline validation, sanitized
+local checklists/runbooks, and fail-closed production planning blockers.
+
+Actual infrastructure provisioning, cloud integrations, ingress, deployment automation, private
+customer configuration, and production operations remain future explicitly reviewed work.

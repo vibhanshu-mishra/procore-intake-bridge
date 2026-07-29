@@ -60,3 +60,7 @@ unverified or deprecated documentation assumptions block readiness. `needs_revie
 reported as a production warning. The verification harness itself may remain disabled;
 local fixture mode does not require a report. See
 [Webhook production verification](webhook-production-verification.md).
+Customer-specific planning should first pass the B7 profile validator. Its blockers cover explicit
+hosts, admin token references, non-SQLite production database posture, provider placeholders,
+migration/recovery plans, sandbox evidence, onboarding evidence, and B6 webhook documentation.
+Passing validation does not deploy or certify the application.

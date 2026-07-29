@@ -42,3 +42,6 @@ posture and inherits B4 deployment-route authentication.
 Production work still requires a real encrypted object-store adapter, credential delivery,
 retention/deletion policy, malware handling, backup/recovery, residency decisions, access logging,
 concurrency semantics, and independently reviewed failure recovery.
+The B7 customer storage plan records only a provider posture and placeholder bucket reference.
+`external_placeholder` remains a production blocker and performs no storage call. Real buckets,
+endpoints, credentials, retention, and recovery belong in a separately reviewed private plan.

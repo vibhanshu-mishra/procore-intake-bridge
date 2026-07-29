@@ -53,3 +53,6 @@ sufficient. Never paste leaked material into troubleshooting output.
 B4 uses primary and optional rotation refs for the admin header token. Inventory and health show
 only masked names/status. Both values are resolved transiently during rotation and accepted
 without revealing which matched.
+Customer deployment profiles contain opaque secret references only. DMSA, admin-token rotation,
+webhook, and storage references must be resolved through a separately approved runtime process;
+values never belong in profiles, readiness output, generated artifacts, or this repository.

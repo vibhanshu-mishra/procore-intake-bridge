@@ -82,3 +82,7 @@ Run `make webhook-verification-plan` and `make webhook-docs-check` safely offlin
 enabled synthetic run. For an emergency, disable the receiver, require signatures, rotate
 the external secret, remove any external route/tunnel, inspect the queue, and purge local
 verification output. B6 never creates or removes Procore hooks.
+For customer planning, run `make customer-template` and `make customer-profile-check`, resolve all
+strict blockers, and generate artifacts only into ignored local output. Store any real-customer
+profile and assigned contacts in an approved private system. The generated runbook is a template,
+not an operational approval or deployment procedure.

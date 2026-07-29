@@ -19,6 +19,11 @@ webhook-logs/
 webhook-verification-output/
 *.webhook-verification.json
 *.webhook-verification.log
+customer-output/
+customer-deployment-output/
+*.customer-profile.json
+*.customer-deployment-report.json
+*.customer-checklist.md
 storage/
 attachments/
 downloaded-attachments/
