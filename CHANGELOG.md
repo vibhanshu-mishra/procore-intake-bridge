@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Added D3 PostgreSQL posture, masked database references, offline migration and recovery plans,
+  private workspace database templates, and an opt-in manually confirmed read-only connectivity
+  boundary.
+
 - Added Phase D1 real environment and contained file secret providers, optional fail-closed cloud
   contracts, masked readiness checks, and private ref templates.
 - Added Phase C5 Private Workspace Bootstrap with ignored placeholder scaffolds, validators, and

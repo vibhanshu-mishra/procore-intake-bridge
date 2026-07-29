@@ -165,6 +165,13 @@ def collect_configuration_summary(
             "attachment_storage_provider": get_attachment_storage_provider_name(settings),
             "storage_provider": settings.storage_provider,
             "storage_provider_fail_closed": settings.storage_provider_fail_closed,
+            "database_provider": settings.database_provider,
+            "database_external_connect_enabled": (
+                settings.database_external_connect_enabled
+            ),
+            "database_url_reference_configured": bool(
+                settings.database_url_ref.strip()
+            ),
             "attachment_fixture_only": settings.attachment_fixture_downloads_only,
             "migration_check_enabled": settings.migration_check_enabled,
             "sandbox_smoke_enabled": settings.sandbox_smoke_enabled,

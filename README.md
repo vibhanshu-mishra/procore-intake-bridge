@@ -220,6 +220,13 @@ adapter boundaries. Run `make storage-provider-check` and see
 [storage providers](docs/storage-providers.md). No public file serving or cloud operation is
 enabled.
 
+## Database providers
+
+Demo remains local on SQLite. Sandbox can start with SQLite, while Pilot readiness expects
+PostgreSQL configured through a private database URL reference. Run `make database-check`,
+`make migration-plan`, and `make backup-restore-plan`; none connects externally or runs a
+migration. See [database providers](docs/database-providers.md).
+
 ## Documentation
 
 - [Documentation home](docs/index.md)

@@ -23,3 +23,7 @@ files are ignored; real values and evidence remain local/private. Demo does not 
 Demo requires no secret provider. Sandbox can use private env refs or contained file refs. Pilot
 requires a real provider posture; `external_placeholder` is not sufficient for a real pilot.
 Optional cloud kinds remain disabled and make no calls during doctor/readiness checks.
+
+Database posture follows the same progression: Demo uses SQLite, local Sandbox may simulate with
+SQLite, and Pilot requires PostgreSQL through a private URL reference plus reviewed migration,
+backup, restore, and rollback plans. Mode checks never connect externally.

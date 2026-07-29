@@ -13,6 +13,9 @@ signoff sections.
 
 C3 performs no Procore calls, external calls, evidence collection, reviewer contact,
 notifications, approval, deployment, or production enablement. No real approval belongs in this
+
+D3 database approval evidence remains reference-only: provider, migration review, backup, restore,
+and rollback posture. Database URLs, hostnames, dumps, backup paths, and logs are prohibited.
 public repo.
 
 ## Public and private boundary

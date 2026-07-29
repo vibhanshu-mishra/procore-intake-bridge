@@ -76,3 +76,6 @@ D1 diagnostics include the selected provider kind and health-check posture only.
 masked; values, environment dumps, file contents, and private paths are excluded. D2 diagnostics
 add storage provider kind and fail-closed posture only, never paths, object references, bucket
 names, or contents.
+
+D3 diagnostics include database provider kind, connectivity-gate state, and URL-reference
+presence only. URLs, credentials, hostnames, paths, schema data, and logs remain excluded.

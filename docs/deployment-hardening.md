@@ -92,3 +92,6 @@ D1 deployment posture distinguishes real env/file providers from disabled/test/p
 reports optional cloud dependency/configuration status without contacting a provider. D2 adds
 sanitized storage-provider readiness. Local storage remains non-production; optional cloud
 adapters remain unavailable pending separate private configuration and permission review.
+
+D3 blocks Pilot-like SQLite posture when PostgreSQL is required and summarizes URL-reference,
+migration, backup, and rollback posture without connecting or executing migrations.

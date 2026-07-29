@@ -163,6 +163,21 @@ def build_private_workspace_manifest(
             "Masked attachment object reference placeholders.",
             both,
         ),
+        _spec("database/README.private.md", PrivateWorkspaceSection.DATABASE,
+              "Private database boundaries and no-connect defaults.", both),
+        _spec("database/database-refs.private.env", PrivateWorkspaceSection.DATABASE,
+              "Database secret references without URL values.", both),
+        _spec("database/postgres-plan.private.md", PrivateWorkspaceSection.DATABASE,
+              "PostgreSQL SSL and version posture placeholders.", both),
+        _spec("database/migration-execution-plan.private.md",
+              PrivateWorkspaceSection.DATABASE,
+              "Reviewed migration execution plan reference.", both),
+        _spec("database/backup-plan.private.md", PrivateWorkspaceSection.DATABASE,
+              "Private backup plan reference.", pilot),
+        _spec("database/restore-plan.private.md", PrivateWorkspaceSection.DATABASE,
+              "Private restore plan reference.", pilot),
+        _spec("database/rollback-plan.private.md", PrivateWorkspaceSection.DATABASE,
+              "Private rollback plan reference.", pilot),
         _spec(
             "sandbox/sandbox-scope.private.json",
             PrivateWorkspaceSection.SANDBOX,
@@ -406,6 +421,24 @@ def build_private_workspace_validation_report(
 def render_private_workspace_file(
     spec: PrivateWorkspaceFileSpec, manifest: PrivateWorkspaceManifest
 ) -> str:
+    if spec.relative_path == "database/database-refs.private.env":
+        return (
+            "DATABASE_URL_REF=ENV_REF_PLACEHOLDER_DATABASE_URL\n"
+            "POSTGRES_SSL_MODE=POSTGRES_SSL_MODE_PLACEHOLDER\n"
+            "BACKUP_PLAN_REF=BACKUP_PLAN_REF_PLACEHOLDER\n"
+            "RESTORE_PLAN_REF=RESTORE_PLAN_REF_PLACEHOLDER\n"
+            "MIGRATION_PLAN_REF=MIGRATION_PLAN_REF_PLACEHOLDER\n"
+        )
+    if spec.relative_path.startswith("database/") and spec.template_kind == "markdown":
+        return (
+            f"# {spec.purpose}\n\n"
+            "- DATABASE_URL_REF: `ENV_REF_PLACEHOLDER_DATABASE_URL`\n"
+            "- SSL posture: `POSTGRES_SSL_MODE_PLACEHOLDER`\n"
+            "- Migration: `MIGRATION_PLAN_REF_PLACEHOLDER`\n"
+            "- Backup: `BACKUP_PLAN_REF_PLACEHOLDER`\n"
+            "- Restore: `RESTORE_PLAN_REF_PLACEHOLDER`\n"
+            "- No database URL, hostname, credentials, dump, or contents are included.\n"
+        )
     if spec.template_kind == "json":
         if spec.relative_path == "storage/storage-map.private.json":
             return (

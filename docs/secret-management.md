@@ -82,3 +82,7 @@ D1 implements the real `env` and contained `file` providers behind the shared DM
 provider interface. `make secret-provider-check` reports masked presence only. Optional AWS,
 Azure, and GCP kinds remain opt-in, dependency-aware, and fail closed without making health-check
 network calls. See [Secret providers](secret-providers.md).
+
+D3 treats the external database URL as a secret reference. Reports may state whether
+`DATABASE_URL` is configured, but never resolve or display its URL, username, password, hostname,
+or path.

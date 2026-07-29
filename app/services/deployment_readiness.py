@@ -1,6 +1,5 @@
 from datetime import UTC, datetime
 from pathlib import Path
-from urllib.parse import urlsplit, urlunsplit
 
 from pydantic import BaseModel
 
@@ -23,6 +22,12 @@ from app.services.attachment_storage_factory import (
     summarize_attachment_storage_config,
 )
 from app.services.attachment_storage_provider import AttachmentStorageProviderError
+from app.services.database_readiness import (
+    build_database_readiness_report,
+)
+from app.services.database_readiness import (
+    mask_database_url as _mask_database_url,
+)
 from app.services.storage import build_storage_provider_readiness
 
 
@@ -654,6 +659,20 @@ def check_storage_provider_posture(settings: Settings) -> list[DeploymentFinding
     ]
 
 
+def check_database_provider_posture(settings: Settings) -> list[DeploymentFinding]:
+    mode = "pilot" if settings.environment in {"staging", "production"} else "demo"
+    report = build_database_readiness_report(settings, mode)
+    return [
+        _finding(
+            "database_provider_posture",
+            item.severity,
+            item.message,
+            *(("staging", "production") if item.severity == "blocking" else ()),
+        )
+        for item in report.findings
+    ]
+
+
 def check_secret_provider_safety(settings: Settings) -> list[DeploymentFinding]:
     findings: list[DeploymentFinding] = []
     if settings.secret_provider == "env":
@@ -867,6 +886,7 @@ def build_deployment_readiness_report(settings: Settings) -> DeploymentReadiness
         check_pilot_approval_packet_pattern,
         check_attachment_storage_safety,
         check_storage_provider_posture,
+        check_database_provider_posture,
         check_secret_provider_safety,
         check_output_paths,
         check_migration_safety,
@@ -892,18 +912,7 @@ def build_deployment_readiness_report(settings: Settings) -> DeploymentReadiness
 
 
 def mask_database_url(database_url: str) -> str:
-    try:
-        parsed = urlsplit(database_url)
-        if parsed.password is None:
-            return database_url
-        hostname = parsed.hostname or ""
-        if parsed.port:
-            hostname = f"{hostname}:{parsed.port}"
-        username = parsed.username or ""
-        netloc = f"{username}:***@{hostname}"
-        return urlunsplit((parsed.scheme, netloc, parsed.path, parsed.query, parsed.fragment))
-    except ValueError:
-        return "[invalid database URL]"
+    return _mask_database_url(database_url)
 
 
 def build_sanitized_config_summary(settings: Settings) -> dict:

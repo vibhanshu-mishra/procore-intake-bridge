@@ -17,3 +17,7 @@ privately completed files.
 For DMSA credentials, choose `env` for the simplest private sandbox setup or `file` with safe
 relative refs under the ignored workspace. Run `make secret-provider-check`; it reports only
 masked ref presence and never invokes Procore.
+
+SQLite is acceptable for local Sandbox simulation. A hosted Sandbox should use PostgreSQL through
+a private `DATABASE_URL` secret reference. `make database-check` reports posture without resolving
+the reference or connecting.

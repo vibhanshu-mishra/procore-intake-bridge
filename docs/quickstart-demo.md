@@ -15,3 +15,6 @@ make demo
 output files are ignored. Demo readiness does not mean production readiness.
 
 Demo mode does not need or read the C5 private workspace.
+
+The D3 database provider stays `sqlite` for Demo. No `DATABASE_URL` secret reference, PostgreSQL
+server, connectivity probe, or migration execution is required.

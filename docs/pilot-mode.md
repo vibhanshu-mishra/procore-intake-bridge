@@ -16,3 +16,6 @@ response. Real evidence, signoffs, identities, and decisions remain outside GitH
 A real pilot must select `env`, `file`, or a separately verified optional cloud provider.
 `external_placeholder`, `test`, and `disabled` remain fail-closed and do not establish pilot
 secret-management readiness.
+
+D3 Pilot posture requires PostgreSQL by default, with SSL, migration execution, backup, restore,
+and rollback plans completed privately. Readiness does not connect or run migrations.

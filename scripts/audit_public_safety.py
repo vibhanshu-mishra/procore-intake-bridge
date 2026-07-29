@@ -49,6 +49,11 @@ PRIVATE_PATH_PARTS = {
     "private-evidence-output",
     "private-secrets",
     "private-workspace",
+    "migration-output",
+    "database-output",
+    "db-output",
+    "backup-output",
+    "restore-output",
     "pilot-evidence-output",
     "evidence-output",
     "private-pilot-evidence",
@@ -212,6 +217,11 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             continue
         if path.suffix.casefold() in {".db", ".sqlite", ".sqlite3"}:
             issues.append(SafetyIssue(path, "tracked local database file"))
+            continue
+        if path.suffix.casefold() in {
+            ".sql", ".dump", ".backup", ".bak", ".pgdump"
+        }:
+            issues.append(SafetyIssue(path, "tracked database dump or backup"))
             continue
         if path.name.endswith((".smoke.json", ".smoke.log")):
             issues.append(SafetyIssue(path, "tracked sandbox smoke output"))

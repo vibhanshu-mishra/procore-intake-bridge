@@ -43,6 +43,8 @@ B5 provides a storage-provider contract with local/test implementations and disa
 fail-closed placeholders. D2 extends that boundary with safe local object operations, sanitized
 readiness, private-workspace storage maps, and disabled-by-default optional cloud adapters.
 No production cloud operation, public file serving, presigned URL, or live download is implemented.
+D3 adds offline PostgreSQL readiness, masked database references, migration/recovery planning, and
+a disabled-by-default manually confirmed `SELECT 1` connectivity boundary.
 Phase B6, the manually gated Webhook Production Verification Harness, is implemented. It is
 CLI-only, synthetic, disabled by default, documentation-aware, and makes no Procore calls.
 B7 is implemented as a local-only customer deployment planning pattern with placeholder-only

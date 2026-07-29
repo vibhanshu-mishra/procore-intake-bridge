@@ -34,6 +34,9 @@ customer approval placeholders; monitoring; and known limitations.
 Sandbox smoke may be `not_applicable` only for an explicitly local-only dry-run profile. A
 pilot-like staging/sandbox profile cannot use `local_optional` admin authentication or a
 SQLite/local database posture. External placeholder secret/storage adapters do not count as
+
+D3 requires private PostgreSQL, migration, backup, restore, and rollback evidence references. No
+database URL, hostname, dump, backup path, or migration log belongs in the gate.
 implemented providers.
 
 ## Offline workflow

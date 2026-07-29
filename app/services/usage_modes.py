@@ -129,8 +129,8 @@ def build_demo_mode_readiness(
         ),
         _requirement(
             "local_database",
-            bool(settings.database_url),
-            "A local database configuration is present; no external database is required.",
+            settings.database_provider == "sqlite" and settings.database_allow_sqlite,
+            "SQLite is available for Demo; no external database is required.",
         ),
         _requirement(
             "demo_scripts",
@@ -406,6 +406,12 @@ def build_pilot_mode_readiness(
             "migration_posture",
             settings.migration_check_enabled and not settings.auto_run_migrations,
             "Migration checks are enabled and automatic migration remains off.",
+        ),
+        _requirement(
+            "database_provider_posture",
+            settings.database_provider == "postgres"
+            or not settings.postgres_required_for_pilot,
+            "PostgreSQL and a private URL reference are required for Pilot.",
         ),
         _requirement(
             "rollback_backup_guidance",

@@ -79,6 +79,10 @@ validation, enable overwrite casually, expose the storage root, or construct pub
 For D2, run `make storage-provider-check`, `make storage-refs-check`, and the explicit temporary
 write smoke test `make local-storage-provider-check`. Quality never runs the write smoke test.
 Cloud posture checks make no external calls.
+
+For D3, run `make database-check`, `make migration-plan`, and `make backup-restore-plan`. Complete
+the plans privately before Pilot use. The connectivity target is separate, disabled by default,
+confirmation-gated, and excluded from routine checks.
 ## Webhook verification and emergency stop
 
 Run `make webhook-verification-plan` and `make webhook-docs-check` safely offline. Follow

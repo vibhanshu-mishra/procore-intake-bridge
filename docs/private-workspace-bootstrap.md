@@ -37,10 +37,13 @@ reports, evidence, signoffs, approval decisions, binary references, and absolute
 
 Fill placeholders only in an authorized local/private environment, validate after edits, and run
 the Git safety check before any commit. C5 does not approve a pilot, contact Procore, deploy
-infrastructure, or certify production security. D1–D5 may extend private operational workflows
+infrastructure, or certify production security. Later phases may extend private operational workflows
 later, subject to separate scope and authorization.
 
 D1 adds `environment/secrets/README.private.md` plus env/file ref examples. The `secrets/` folder
 is ignored and may hold small private text secrets for the file provider; generated templates
 contain refs only and never create secret files. D2 adds placeholder-only storage documentation,
 provider maps, local-root references, and object references. It never scaffolds stored objects.
+
+D3 adds database URL-reference, PostgreSQL, migration, backup, restore, and rollback placeholders.
+It never scaffolds a URL, hostname, credential, dump, backup, log, or absolute path.

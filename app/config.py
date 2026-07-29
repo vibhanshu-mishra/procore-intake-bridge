@@ -967,6 +967,79 @@ class Settings(BaseSettings):
         default=False,
         validation_alias="PROCORE_INTAKE_GCS_STORAGE_ENABLED",
     )
+    database_provider: Literal["sqlite", "postgres"] = Field(
+        default="sqlite", validation_alias="PROCORE_INTAKE_DATABASE_PROVIDER"
+    )
+    database_provider_strict_redaction: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_DATABASE_PROVIDER_STRICT_REDACTION",
+    )
+    database_allow_sqlite: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DATABASE_ALLOW_SQLITE"
+    )
+    database_allow_postgres: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DATABASE_ALLOW_POSTGRES"
+    )
+    database_external_connect_enabled: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_DATABASE_EXTERNAL_CONNECT_ENABLED",
+    )
+    database_external_connect_confirmation: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_DATABASE_EXTERNAL_CONNECT_CONFIRMATION",
+    )
+    database_fail_closed: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DATABASE_FAIL_CLOSED"
+    )
+    database_url_ref: str = Field(
+        default="DATABASE_URL", validation_alias="PROCORE_INTAKE_DATABASE_URL_REF"
+    )
+    database_url_source: Literal["env", "file", "secret_provider"] = Field(
+        default="env", validation_alias="PROCORE_INTAKE_DATABASE_URL_SOURCE"
+    )
+    database_require_secret_ref_for_external: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_DATABASE_REQUIRE_SECRET_REF_FOR_EXTERNAL",
+    )
+    database_mask_hostnames: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DATABASE_MASK_HOSTNAMES"
+    )
+    database_mask_usernames: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DATABASE_MASK_USERNAMES"
+    )
+    postgres_required_for_pilot: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_POSTGRES_REQUIRED_FOR_PILOT"
+    )
+    postgres_min_version: int = Field(
+        default=14, ge=12, validation_alias="PROCORE_INTAKE_POSTGRES_MIN_VERSION"
+    )
+    postgres_require_ssl: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_POSTGRES_REQUIRE_SSL"
+    )
+    postgres_require_backup_plan: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_POSTGRES_REQUIRE_BACKUP_PLAN",
+    )
+    postgres_require_rollback_plan: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_POSTGRES_REQUIRE_ROLLBACK_PLAN",
+    )
+    migration_execution_plan_required: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_MIGRATION_EXECUTION_PLAN_REQUIRED",
+    )
+    migration_execution_output_root: Path = Field(
+        default=Path("./migration-output"),
+        validation_alias="PROCORE_INTAKE_MIGRATION_EXECUTION_OUTPUT_ROOT",
+    )
+    migration_execution_allow_external: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_MIGRATION_EXECUTION_ALLOW_EXTERNAL",
+    )
+    migration_execution_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_MIGRATION_EXECUTION_FAIL_CLOSED",
+    )
 
 
 @lru_cache

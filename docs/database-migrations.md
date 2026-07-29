@@ -52,3 +52,6 @@ B8 diagnostics include only sanitized migration state—check enabled, at-head s
 count. They include no database URL, file, schema dump, row, path, or migration execution.
 B9 requires passed database/migration safety plus backup and rollback evidence. A real pilot-like
 profile cannot use SQLite/local database posture; B9 runs no migration or database connection.
+
+D3 adds `make migration-plan`, an offline execution checklist using command placeholders only.
+The separately gated connectivity probe runs `SELECT 1` and never executes Alembic.

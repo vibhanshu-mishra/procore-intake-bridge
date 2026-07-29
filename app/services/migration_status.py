@@ -11,7 +11,7 @@ from sqlalchemy import create_engine, inspect
 
 from app.config import Settings
 from app.database import Base
-from app.services.deployment_readiness import mask_database_url as _mask_database_url
+from app.services.database_readiness import mask_database_url as _mask_database_url
 
 
 class MigrationStatusError(RuntimeError):

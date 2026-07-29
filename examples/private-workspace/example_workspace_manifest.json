@@ -60,6 +60,17 @@
       "notes": ["PRIVATE_EVIDENCE_REF_PLACEHOLDER only."]
     },
     {
+      "relative_path": "database/database-refs.private.env",
+      "section": "database",
+      "purpose": "Example database secret references without URL values.",
+      "required_for_modes": ["sandbox", "pilot", "sandbox_and_pilot"],
+      "template_kind": "env",
+      "placeholder_only": true,
+      "contains_file_contents": false,
+      "contains_secret_values": false,
+      "notes": ["ENV_REF_PLACEHOLDER_DATABASE_URL only."]
+    },
+    {
       "relative_path": "pilot-approval/pilot-approval.private.json",
       "section": "pilot_approval",
       "purpose": "Example approval placeholders without a real decision.",

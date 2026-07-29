@@ -2,6 +2,8 @@
 
 PYTHON ?= .venv/bin/python
 
+.PHONY: database-template database-check migration-plan backup-restore-plan database-connectivity-check
+
 test:
 	$(PYTHON) -m pytest
 
@@ -43,6 +45,21 @@ local-storage-provider-check:
 
 migration-status:
 	$(PYTHON) scripts/check_migration_status.py
+
+database-template:
+	$(PYTHON) scripts/print_database_template.py
+
+database-check:
+	$(PYTHON) scripts/check_database_readiness.py
+
+migration-plan:
+	$(PYTHON) scripts/plan_migration_execution.py
+
+backup-restore-plan:
+	$(PYTHON) scripts/plan_backup_restore.py
+
+database-connectivity-check:
+	$(PYTHON) scripts/check_database_connectivity.py
 
 migration-safety-check:
 	$(PYTHON) scripts/run_migration_safety_check.py
@@ -179,5 +196,5 @@ secret-refs-check:
 file-secret-provider-check:
 	$(PYTHON) scripts/test_file_secret_provider.py
 
-quality: lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check storage-provider-template storage-provider-check storage-refs-check migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check customer-template customer-profile-check diagnostics pilot-template pilot-readiness-check evidence-template evidence-manifest-check evidence-review-template evidence-review-check evidence-expiry-check pilot-approval-template pilot-approval-check pilot-approval-safety-check modes doctor check-local private-workspace-template private-workspace-git-safety secret-provider-check secret-provider-template secret-refs-check test
+quality: lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check storage-provider-template storage-provider-check storage-refs-check database-template database-check migration-plan backup-restore-plan migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check customer-template customer-profile-check diagnostics pilot-template pilot-readiness-check evidence-template evidence-manifest-check evidence-review-template evidence-review-check evidence-expiry-check pilot-approval-template pilot-approval-check pilot-approval-safety-check modes doctor check-local private-workspace-template private-workspace-git-safety secret-provider-check secret-provider-template secret-refs-check test
 	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict
