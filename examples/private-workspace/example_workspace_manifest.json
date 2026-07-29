@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "workspace_name": "example-private-workspace",
+  "workspace_label": "Example Private Workspace",
+  "mode": "sandbox_and_pilot",
+  "files": [
+    {
+      "relative_path": "README.private.md",
+      "section": "README",
+      "purpose": "Example private workspace boundaries.",
+      "required_for_modes": ["sandbox", "pilot", "sandbox_and_pilot"],
+      "template_kind": "markdown",
+      "placeholder_only": true,
+      "contains_file_contents": false,
+      "contains_secret_values": false,
+      "notes": ["Fake placeholder scaffold only."]
+    },
+    {
+      "relative_path": "environment/secrets-map.private.json",
+      "section": "environment",
+      "purpose": "Example secret reference mapping without values.",
+      "required_for_modes": ["sandbox", "sandbox_and_pilot"],
+      "template_kind": "json",
+      "placeholder_only": true,
+      "contains_file_contents": false,
+      "contains_secret_values": false,
+      "notes": ["REFERENCE_NAME_PLACEHOLDER only."]
+    },
+    {
+      "relative_path": "sandbox/sandbox-scope.private.json",
+      "section": "sandbox",
+      "purpose": "Example company and project scope placeholders.",
+      "required_for_modes": ["sandbox", "sandbox_and_pilot"],
+      "template_kind": "json",
+      "placeholder_only": true,
+      "contains_file_contents": false,
+      "contains_secret_values": false,
+      "notes": ["COMPANY_ID_PLACEHOLDER and PROJECT_ID_PLACEHOLDER only."]
+    },
+    {
+      "relative_path": "evidence/evidence-manifest.private.json",
+      "section": "evidence",
+      "purpose": "Example evidence references without evidence contents.",
+      "required_for_modes": ["pilot", "sandbox_and_pilot"],
+      "template_kind": "json",
+      "placeholder_only": true,
+      "contains_file_contents": false,
+      "contains_secret_values": false,
+      "notes": ["PRIVATE_EVIDENCE_REF_PLACEHOLDER only."]
+    },
+    {
+      "relative_path": "pilot-approval/pilot-approval.private.json",
+      "section": "pilot_approval",
+      "purpose": "Example approval placeholders without a real decision.",
+      "required_for_modes": ["pilot", "sandbox_and_pilot"],
+      "template_kind": "json",
+      "placeholder_only": true,
+      "contains_file_contents": false,
+      "contains_secret_values": false,
+      "notes": ["APPROVER_PLACEHOLDER and DECISION_PLACEHOLDER only."]
+    }
+  ],
+  "notes": [
+    "Fake examples only.",
+    "Real workspace files must remain ignored, local, and private."
+  ],
+  "placeholder_only": true,
+  "external_calls": false,
+  "procore_calls": false,
+  "file_contents_included": false,
+  "values_exposed": false
+}
