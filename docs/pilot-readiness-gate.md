@@ -64,3 +64,8 @@ uses fake values only and intentionally returns `NEEDS_REVIEW`.
 Any real pilot still requires private customer/GC/Owner evidence, security and operational review,
 approved infrastructure, ingress, deployment, monitoring, incident response, rollback, and launch
 authorization. Those execution and approval processes remain future work.
+
+C1 provides the companion private-evidence workspace pattern. B9 profiles contain only opaque
+evidence refs; actual reports, screenshots, payloads, approvals, and attachments stay in the
+separately controlled private system described in
+[private pilot evidence](private-pilot-evidence.md).

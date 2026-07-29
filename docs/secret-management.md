@@ -61,3 +61,7 @@ Support bundles reject Authorization material, token/secret assignments, databas
 URLs, `.env` values, and absolute paths before local files are accepted.
 B9 records only secret-provider posture and placeholder evidence references. It rejects secret
 values and does not resolve, print, or copy any credential.
+
+C1 evidence manifests contain opaque refs only. Never include a secret value, secret-manager
+location, Authorization header, token, App Version Key, signed URL, `.env` assignment, database
+URL, cloud credential, bucket URL, or storage endpoint.

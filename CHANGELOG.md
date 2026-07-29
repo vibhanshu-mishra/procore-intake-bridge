@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- C1: placeholder-only private pilot evidence schemas, offline redaction validation, fake examples,
+  and local ignored workspace scaffolds. No evidence collection, external calls, or pilot approval
+  is performed.
+
 - B9: local-only pilot readiness profiles, evidence gates, fail-closed go/no-go decisions,
   sanitized readiness packets, fake examples, and operator documentation. No pilot execution or
   deployment is performed.

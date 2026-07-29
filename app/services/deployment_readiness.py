@@ -327,6 +327,53 @@ def check_pilot_readiness_pattern(settings: Settings) -> list[DeploymentFinding]
     return findings
 
 
+def check_private_evidence_pattern(settings: Settings) -> list[DeploymentFinding]:
+    findings = [
+        _finding(
+            "private_evidence_pattern",
+            "info" if settings.private_evidence_pattern_enabled else "warning",
+            "Local private-evidence template and validation CLIs are available."
+            if settings.private_evidence_pattern_enabled
+            else "Private-evidence workspace pattern is disabled.",
+        ),
+        _finding(
+            "private_evidence_ids",
+            "warning" if settings.private_evidence_allow_real_ids else "info",
+            "Real-looking identifiers are allowed by private-evidence settings."
+            if settings.private_evidence_allow_real_ids
+            else "Real-looking identifiers are blocked by default.",
+        ),
+        _finding(
+            "private_evidence_contents",
+            "warning" if settings.private_evidence_allow_file_contents else "info",
+            "Evidence file contents are allowed by private-evidence settings."
+            if settings.private_evidence_allow_file_contents
+            else "Evidence file contents are blocked by default.",
+        ),
+    ]
+    output = settings.private_evidence_output_root
+    if output in {Path("."), Path("/")} or ".." in output.parts:
+        findings.append(
+            _finding(
+                "private_evidence_output",
+                "blocking",
+                "Private-evidence output root is unsafe.",
+                "local",
+                "staging",
+                "production",
+            )
+        )
+    else:
+        findings.append(
+            _finding(
+                "private_evidence_output",
+                "info",
+                "Private-evidence output uses a dedicated ignored directory.",
+            )
+        )
+    return findings
+
+
 def check_attachment_storage_safety(settings: Settings) -> list[DeploymentFinding]:
     findings: list[DeploymentFinding] = []
     name = get_attachment_storage_provider_name(settings)
@@ -641,6 +688,7 @@ def build_deployment_readiness_report(settings: Settings) -> DeploymentReadiness
         check_webhook_verification_safety,
         check_customer_deployment_pattern,
         check_pilot_readiness_pattern,
+        check_private_evidence_pattern,
         check_attachment_storage_safety,
         check_secret_provider_safety,
         check_output_paths,
@@ -727,6 +775,21 @@ def build_sanitized_config_summary(settings: Settings) -> dict:
             "placeholders_required": settings.pilot_readiness_require_placeholders,
             "fail_closed": settings.pilot_readiness_fail_closed,
             "deployment_automation": False,
+        },
+        "private_evidence": {
+            "enabled": settings.private_evidence_pattern_enabled,
+            "placeholders_required": settings.private_evidence_require_placeholders,
+            "real_ids_allowed": settings.private_evidence_allow_real_ids,
+            "file_contents_allowed": settings.private_evidence_allow_file_contents,
+            "absolute_paths_allowed": settings.private_evidence_allow_absolute_paths,
+            "max_items": settings.private_evidence_max_items,
+            "fail_closed": settings.private_evidence_fail_closed,
+            "output_root_safe": (
+                settings.private_evidence_output_root not in {Path("."), Path("/")}
+                and ".." not in settings.private_evidence_output_root.parts
+            ),
+            "validators_available": True,
+            "generated_artifacts_allowed_in_repo": False,
         },
         "attachment_fixture_downloads_only": settings.attachment_fixture_downloads_only,
         "attachment_storage": summarize_attachment_storage_config(settings),

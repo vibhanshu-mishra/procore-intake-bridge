@@ -57,3 +57,6 @@ introduces no Sentry, Datadog, New Relic, Honeycomb, OpenTelemetry, Prometheus, 
 external logging dependency.
 B9 requires passed B8 diagnostics and support-bundle redaction evidence references. It never
 copies support-bundle contents into a readiness profile or packet.
+
+C1 records a diagnostics evidence ref only. Never copy a support bundle, logs, database records,
+environment values, or diagnostic output into a public evidence manifest.

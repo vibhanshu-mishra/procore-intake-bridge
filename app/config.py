@@ -594,6 +594,40 @@ class Settings(BaseSettings):
         default=True,
         validation_alias="PROCORE_INTAKE_PILOT_READINESS_REQUIRE_OPERATOR_APPROVALS",
     )
+    private_evidence_pattern_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_PRIVATE_EVIDENCE_PATTERN_ENABLED",
+    )
+    private_evidence_output_root: Path = Field(
+        default=Path("./private-evidence-output"),
+        validation_alias="PROCORE_INTAKE_PRIVATE_EVIDENCE_OUTPUT_ROOT",
+    )
+    private_evidence_require_placeholders: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_PRIVATE_EVIDENCE_REQUIRE_PLACEHOLDERS",
+    )
+    private_evidence_allow_real_ids: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_PRIVATE_EVIDENCE_ALLOW_REAL_IDS",
+    )
+    private_evidence_allow_file_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_PRIVATE_EVIDENCE_ALLOW_FILE_CONTENTS",
+    )
+    private_evidence_allow_absolute_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_PRIVATE_EVIDENCE_ALLOW_ABSOLUTE_PATHS",
+    )
+    private_evidence_max_items: int = Field(
+        default=100,
+        ge=1,
+        le=100,
+        validation_alias="PROCORE_INTAKE_PRIVATE_EVIDENCE_MAX_ITEMS",
+    )
+    private_evidence_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_PRIVATE_EVIDENCE_FAIL_CLOSED",
+    )
 
 
 @lru_cache

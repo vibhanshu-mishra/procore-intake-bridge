@@ -50,3 +50,9 @@ sanitized readiness packet generation.
 
 Real pilot execution, private approvals/evidence, infrastructure, launch operations, monitoring,
 and production deployment remain future separately authorized work.
+
+Completed: C1 adds placeholder-only evidence metadata schemas, fail-closed validation, and a
+local ignored private-evidence workspace scaffold.
+
+Real evidence collection, private storage integration, access audit, redaction review, retention,
+reviewer handoff, and approval workflow remain future private work outside this public repository.

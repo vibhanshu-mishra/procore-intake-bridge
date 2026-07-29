@@ -94,3 +94,10 @@ Before any controlled pilot discussion, run `make pilot-template` and
 `make pilot-readiness-check`, resolve every `NO_GO`/`BLOCKED` item, review all
 `NEEDS_REVIEW` findings, and keep generated packets in ignored local output. Real approvals and
 evidence belong in an approved private system.
+
+For C1, keep actual pilot evidence outside GitHub. Print a fake template with
+`python scripts/print_private_evidence_template.py`, validate a metadata-only manifest with
+`python scripts/validate_private_evidence_manifest.py MANIFEST --strict`, and generate an ignored
+scaffold with `python scripts/generate_private_evidence_workspace.py MANIFEST --output-root
+private-evidence-output`. Confirm no workspace output is staged. The validator reads only the
+manifest and makes no Procore or external calls.

@@ -298,3 +298,17 @@ make pilot-artifact-check
 
 See [Pilot readiness gate](docs/pilot-readiness-gate.md). A `GO` is not production deployment
 approval; real execution remains separately controlled.
+
+## Phase C1: private pilot evidence workspace
+
+C1 adds strict placeholder-only evidence manifests, offline safety validation, and an ignored
+local workspace scaffold. It collects no evidence, reads no evidence files, and makes no Procore
+or external calls. Real evidence must remain in an approved private system outside GitHub.
+
+```bash
+make evidence-template
+make evidence-manifest-check
+make evidence-workspace-check
+```
+
+See [Private pilot evidence](docs/private-pilot-evidence.md).

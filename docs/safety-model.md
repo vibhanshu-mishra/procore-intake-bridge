@@ -88,3 +88,8 @@ B9 accepts placeholder evidence references only. Production and real-looking ide
 blocked by default; private evidence, support bundles, reports, payloads, contacts, credentials,
 signed URLs, and absolute paths are prohibited. A generated `GO` never means a real pilot is
 approved or deployed.
+
+C1 keeps a hard boundary between public placeholder metadata and private pilot evidence. Public
+manifests cannot contain real IDs, contacts, domains, credentials, paths, URLs, raw reports,
+payloads, screenshots, databases, attachments, or binary documents. Validators read only the
+manifest and make no external or Procore calls; generated workspace artifacts are ignored.

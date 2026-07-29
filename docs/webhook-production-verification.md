@@ -74,3 +74,6 @@ status, and aggregate queue counts. They never include webhook payloads, signatu
 headers, event identifiers, or verification reports.
 When a B9 profile plans webhooks, B6 documentation, signature, and verification statuses must all
 pass with a placeholder evidence reference. B9 never registers or exposes a hook.
+
+C1 stores only webhook documentation, signature-review, and verification evidence refs. Raw
+verification reports, webhook payloads, headers, signatures, and URLs remain private.

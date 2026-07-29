@@ -65,3 +65,6 @@ Passing this smoke test is not a production guarantee and does not validate prod
 storage, scheduling, webhooks, operations, or security controls.
 B9 consumes only a sanitized B1 sandbox-smoke evidence reference and status. Smoke report contents
 must not be embedded in pilot profiles or generated readiness artifacts.
+
+C1 may organize the corresponding smoke evidence ref, never the report contents, identifiers,
+payloads, or local report path.

@@ -70,3 +70,7 @@ files, attachments, payloads, environment values, or private paths.
 B9 adds a separate local pilot gate that consumes placeholder evidence and fails closed on unsafe
 or incomplete pilot-like posture. It does not alter deployment readiness, provision anything, or
 turn a `GO` into deployment approval.
+
+C1 adds a local private-evidence metadata pattern. Real IDs, file contents, and absolute paths are
+blocked by default; the output root is dedicated and ignored. Deployment readiness reports only
+this safe posture and never require or read a private evidence manifest.

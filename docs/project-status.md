@@ -53,3 +53,7 @@ telemetry, external logging, or monitoring integration is implemented.
 B9 is implemented as a local-only pilot readiness gate with placeholder evidence references,
 fail-closed decisions, and sanitized ignored artifacts. The fake example remains `NEEDS_REVIEW`;
 no real pilot, deployment, or production security claim is made.
+
+C1 is implemented as a CLI-only private pilot evidence workspace pattern. The public repository
+contains fake manifests and validators only; generated scaffolds and all real evidence remain
+private and ignored. No evidence has been collected and no pilot approval is claimed.

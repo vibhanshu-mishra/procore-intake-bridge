@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0",
+  "workspace_name": "example-pilot-evidence-workspace",
+  "workspace_label": "Example Pilot Evidence Workspace",
+  "customer_label": "Example Customer",
+  "environment": "staging",
+  "purpose": "Private pilot evidence metadata planning",
+  "owner_placeholder": "WORKSPACE_OWNER_PLACEHOLDER",
+  "storage_location_placeholder": "PRIVATE_STORAGE_LOCATION_PLACEHOLDER",
+  "review_cadence_placeholder": "REVIEW_CADENCE_PLACEHOLDER",
+  "evidence_items": [
+    {
+      "evidence_id": "EVIDENCE_PLACEHOLDER_001",
+      "evidence_type": "sandbox_smoke",
+      "title": "Example Sandbox Smoke Evidence",
+      "status": "planned",
+      "sensitivity": "placeholder",
+      "owner_placeholder": "SANDBOX_SMOKE_OWNER_PLACEHOLDER",
+      "evidence_ref_placeholder": "PRIVATE_EVIDENCE_REF_PLACEHOLDER_SANDBOX_SMOKE",
+      "collected_at_placeholder": "COLLECTED_AT_PLACEHOLDER",
+      "expires_at_placeholder": "EXPIRES_AT_PLACEHOLDER",
+      "related_gate": "B9_GATE_PLACEHOLDER_SANDBOX_SMOKE",
+      "notes": ["Fake metadata only; no source material is included."],
+      "redaction_required": true,
+      "file_expected": true,
+      "external_system_placeholder": "EXTERNAL_SYSTEM_PLACEHOLDER"
+    },
+    {
+      "evidence_id": "EVIDENCE_PLACEHOLDER_002",
+      "evidence_type": "support_diagnostics",
+      "title": "Example Support Diagnostics Evidence",
+      "status": "planned",
+      "sensitivity": "placeholder",
+      "owner_placeholder": "SUPPORT_OWNER_PLACEHOLDER",
+      "evidence_ref_placeholder": "PRIVATE_EVIDENCE_REF_PLACEHOLDER_SUPPORT_DIAGNOSTICS",
+      "collected_at_placeholder": "COLLECTED_AT_PLACEHOLDER",
+      "expires_at_placeholder": "EXPIRES_AT_PLACEHOLDER",
+      "related_gate": "B9_GATE_PLACEHOLDER_SUPPORT_DIAGNOSTICS",
+      "notes": ["Fake metadata only; no source material is included."],
+      "redaction_required": true,
+      "file_expected": true,
+      "external_system_placeholder": "EXTERNAL_SYSTEM_PLACEHOLDER"
+    },
+    {
+      "evidence_id": "EVIDENCE_PLACEHOLDER_003",
+      "evidence_type": "pilot_go_no_go",
+      "title": "Example Pilot Go No-Go Evidence",
+      "status": "planned",
+      "sensitivity": "placeholder",
+      "owner_placeholder": "PILOT_REVIEW_OWNER_PLACEHOLDER",
+      "evidence_ref_placeholder": "PRIVATE_EVIDENCE_REF_PLACEHOLDER_PILOT_GO_NO_GO",
+      "collected_at_placeholder": "COLLECTED_AT_PLACEHOLDER",
+      "expires_at_placeholder": "EXPIRES_AT_PLACEHOLDER",
+      "related_gate": "B9_GATE_PLACEHOLDER_GO_NO_GO",
+      "notes": ["Fake metadata only; this is not pilot approval."],
+      "redaction_required": true,
+      "file_expected": true,
+      "external_system_placeholder": "EXTERNAL_SYSTEM_PLACEHOLDER"
+    }
+  ],
+  "notes": ["Fake placeholders only; real evidence must remain outside the public repository."]
+}

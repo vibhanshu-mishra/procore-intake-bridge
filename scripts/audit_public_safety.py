@@ -42,6 +42,11 @@ PRIVATE_PATH_PARTS = {
     "packet-output",
     "pilot-output",
     "pilot-readiness-output",
+    "private-evidence-output",
+    "pilot-evidence-output",
+    "evidence-output",
+    "private-pilot-evidence",
+    "pilot-evidence",
     "storage",
     "smoke-output",
     "support-output",
@@ -113,6 +118,17 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
                 issues.append(SafetyIssue(path, "customer example contains a non-placeholder URL"))
         if GENERIC_SIGNED_URL.search(text):
             issues.append(SafetyIssue(path, "customer example contains a signed URL"))
+    if "examples/private-evidence" in path.as_posix():
+        if CUSTOMER_EMAIL.search(text):
+            issues.append(SafetyIssue(path, "evidence example contains an email address"))
+        for match in CUSTOMER_URL.finditer(text):
+            host = match.group(1).casefold()
+            if not host.endswith((".local", ".invalid")):
+                issues.append(
+                    SafetyIssue(path, "evidence example contains a non-placeholder URL")
+                )
+        if GENERIC_SIGNED_URL.search(text):
+            issues.append(SafetyIssue(path, "evidence example contains a signed URL"))
     return issues
 
 
@@ -133,6 +149,29 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             ".customer-checklist.md",
         )):
             issues.append(SafetyIssue(path, "tracked generated customer deployment output"))
+            continue
+        if path.name.endswith((
+            ".evidence-manifest.json",
+            ".evidence-index.md",
+            ".evidence-report.json",
+            ".evidence-redaction-report.json",
+            ".evidence-checklist.md",
+        )):
+            issues.append(SafetyIssue(path, "tracked generated private evidence output"))
+            continue
+        if path.suffix.casefold() in {
+            ".pdf",
+            ".docx",
+            ".xlsx",
+            ".xls",
+            ".png",
+            ".jpg",
+            ".jpeg",
+            ".gif",
+            ".webp",
+            ".zip",
+        }:
+            issues.append(SafetyIssue(path, "tracked binary evidence-capable file"))
             continue
         if path.name.endswith((
             ".pilot-readiness.json",

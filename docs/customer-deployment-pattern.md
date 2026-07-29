@@ -56,3 +56,6 @@ B8 support bundles must not contain customer profiles, customer-output artifacts
 domains, or private paths. They summarize only the global customer-pattern safety posture.
 B9 consumes only the B7 customer profile status and a placeholder evidence reference. It never
 copies customer-profile contents or treats B7 validation as pilot approval.
+
+C1 can index that placeholder evidence ref for private review, but neither B7 nor C1 stores
+private customer profile contents in this public repository.

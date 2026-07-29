@@ -41,3 +41,4 @@ affiliated with or endorsed by Procore Technologies and carries no production gu
 - [Customer-specific deployment pattern](customer-deployment-pattern.md)
 - [Operator diagnostics and support bundles](operator-diagnostics.md)
 - [Pilot readiness gate](pilot-readiness-gate.md)
+- [Private pilot evidence workspace](private-pilot-evidence.md)

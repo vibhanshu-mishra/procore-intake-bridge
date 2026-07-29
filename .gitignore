@@ -40,6 +40,16 @@ pilot-output/
 *.pilot-readiness-report.json
 *.pilot-checklist.md
 *.go-no-go.md
+private-evidence-output/
+pilot-evidence-output/
+evidence-output/
+private-pilot-evidence/
+pilot-evidence/
+*.evidence-manifest.json
+*.evidence-index.md
+*.evidence-report.json
+*.evidence-redaction-report.json
+*.evidence-checklist.md
 storage/
 attachments/
 downloaded-attachments/
