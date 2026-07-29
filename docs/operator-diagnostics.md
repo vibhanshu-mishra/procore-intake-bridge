@@ -73,4 +73,6 @@ environment, database, or secret values. Use `make diagnostics` for the existing
 operator view.
 
 D1 diagnostics include the selected provider kind and health-check posture only. Secret refs stay
-masked; values, environment dumps, file contents, and private paths are excluded.
+masked; values, environment dumps, file contents, and private paths are excluded. D2 diagnostics
+add storage provider kind and fail-closed posture only, never paths, object references, bucket
+names, or contents.

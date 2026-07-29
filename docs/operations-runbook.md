@@ -75,6 +75,10 @@ contents or private paths. Use `--strict` in reviewed gates.
 Keep fixture-only downloads enabled unless a separately reviewed production adapter exists.
 Missing objects require investigation and recovery from an approved source; do not bypass safe-key
 validation, enable overwrite casually, expose the storage root, or construct public/presigned URLs.
+
+For D2, run `make storage-provider-check`, `make storage-refs-check`, and the explicit temporary
+write smoke test `make local-storage-provider-check`. Quality never runs the write smoke test.
+Cloud posture checks make no external calls.
 ## Webhook verification and emergency stop
 
 Run `make webhook-verification-plan` and `make webhook-docs-check` safely offline. Follow

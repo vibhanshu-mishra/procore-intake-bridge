@@ -61,6 +61,8 @@ class AttachmentStorageProvider(Protocol):
     ) -> AttachmentStorageWriteResult: ...
     def read_bytes(self, key: str) -> AttachmentStorageReadResult: ...
     def exists(self, key: str) -> bool: ...
+    def delete(self, key: str) -> bool: ...
+    def list_objects(self) -> list[dict]: ...
     def describe_object(self, key: str) -> dict: ...
     def health_check(self, required_keys: list[str] | None = None) -> AttachmentStorageHealth: ...
     def summarize_config(self) -> dict: ...
@@ -118,6 +120,29 @@ class LocalAttachmentStorageProvider:
     def exists(self, key: str) -> bool:
         _, target = self._target(key)
         return target.is_file()
+
+    def delete(self, key: str) -> bool:
+        _, target = self._target(key)
+        if not target.is_file():
+            return False
+        target.unlink()
+        return True
+
+    def list_objects(self) -> list[dict]:
+        if not self.root.is_dir():
+            return []
+        items = []
+        for target in self.root.rglob("*"):
+            if not target.is_file():
+                continue
+            resolved = target.resolve()
+            if not resolved.is_relative_to(self.root):
+                raise AttachmentStorageBlockedError(
+                    "Attachment storage object escaped its configured root."
+                )
+            key = target.relative_to(self.root).as_posix()
+            items.append(self.describe_object(key))
+        return items
 
     def describe_object(self, key: str) -> dict:
         safe_key, target = self._target(key)
@@ -189,6 +214,13 @@ class TestAttachmentStorageProvider:
     def exists(self, key: str) -> bool:
         return validate_storage_key(key, self.settings) in self.storage
 
+    def delete(self, key: str) -> bool:
+        safe_key = validate_storage_key(key, self.settings)
+        return self.storage.pop(safe_key, None) is not None
+
+    def list_objects(self) -> list[dict]:
+        return [self.describe_object(key) for key in sorted(self.storage)]
+
     def describe_object(self, key: str) -> dict:
         safe_key = validate_storage_key(key, self.settings)
         return {
@@ -230,6 +262,12 @@ class DisabledAttachmentStorageProvider:
         self._blocked()
 
     def describe_object(self, key):
+        self._blocked()
+
+    def delete(self, key):
+        self._blocked()
+
+    def list_objects(self):
         self._blocked()
 
     def health_check(self, required_keys=None):

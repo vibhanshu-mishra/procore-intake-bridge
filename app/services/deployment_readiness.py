@@ -23,6 +23,7 @@ from app.services.attachment_storage_factory import (
     summarize_attachment_storage_config,
 )
 from app.services.attachment_storage_provider import AttachmentStorageProviderError
+from app.services.storage import build_storage_provider_readiness
 
 
 class DeploymentFinding(BaseModel):
@@ -640,6 +641,19 @@ def check_attachment_storage_safety(settings: Settings) -> list[DeploymentFindin
     return findings
 
 
+def check_storage_provider_posture(settings: Settings) -> list[DeploymentFinding]:
+    readiness = build_storage_provider_readiness(settings)
+    return [
+        _finding(
+            "storage_provider_posture",
+            "info" if readiness.ready else "warning",
+            "D2 storage provider is locally available with sanitized diagnostics."
+            if readiness.ready
+            else "D2 storage provider is unavailable or needs private configuration.",
+        )
+    ]
+
+
 def check_secret_provider_safety(settings: Settings) -> list[DeploymentFinding]:
     findings: list[DeploymentFinding] = []
     if settings.secret_provider == "env":
@@ -852,6 +866,7 @@ def build_deployment_readiness_report(settings: Settings) -> DeploymentReadiness
         check_evidence_review_pattern,
         check_pilot_approval_packet_pattern,
         check_attachment_storage_safety,
+        check_storage_provider_posture,
         check_secret_provider_safety,
         check_output_paths,
         check_migration_safety,

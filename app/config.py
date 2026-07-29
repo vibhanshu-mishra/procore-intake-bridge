@@ -900,6 +900,73 @@ class Settings(BaseSettings):
         default=True,
         validation_alias="PROCORE_INTAKE_PRIVATE_WORKSPACE_FAIL_CLOSED",
     )
+    storage_provider: Literal[
+        "disabled",
+        "local",
+        "test",
+        "external_placeholder",
+        "s3",
+        "azure_blob",
+        "gcs",
+    ] = Field(default="local", validation_alias="PROCORE_INTAKE_STORAGE_PROVIDER")
+    storage_provider_strict_redaction: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_STORAGE_PROVIDER_STRICT_REDACTION",
+    )
+    storage_provider_allow_local: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_STORAGE_PROVIDER_ALLOW_LOCAL",
+    )
+    storage_provider_allow_cloud: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_STORAGE_PROVIDER_ALLOW_CLOUD",
+    )
+    storage_provider_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_STORAGE_PROVIDER_FAIL_CLOSED",
+    )
+    local_storage_root: Path = Field(
+        default=Path("./private-workspace/storage"),
+        validation_alias="PROCORE_INTAKE_LOCAL_STORAGE_ROOT",
+    )
+    local_storage_require_private_root: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_LOCAL_STORAGE_REQUIRE_PRIVATE_ROOT",
+    )
+    local_storage_allow_absolute_root: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_LOCAL_STORAGE_ALLOW_ABSOLUTE_ROOT",
+    )
+    local_storage_max_bytes: int = Field(
+        default=10485760,
+        ge=1,
+        le=104857600,
+        validation_alias="PROCORE_INTAKE_LOCAL_STORAGE_MAX_BYTES",
+    )
+    local_storage_allowed_extensions: str = Field(
+        default=".txt,.json,.md,.csv",
+        validation_alias="PROCORE_INTAKE_LOCAL_STORAGE_ALLOWED_EXTENSIONS",
+    )
+    local_storage_block_binary: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_LOCAL_STORAGE_BLOCK_BINARY",
+    )
+    local_storage_overwrite: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_LOCAL_STORAGE_OVERWRITE",
+    )
+    s3_storage_enabled: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_S3_STORAGE_ENABLED",
+    )
+    azure_blob_storage_enabled: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_AZURE_BLOB_STORAGE_ENABLED",
+    )
+    gcs_storage_enabled: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_GCS_STORAGE_ENABLED",
+    )
 
 
 @lru_cache

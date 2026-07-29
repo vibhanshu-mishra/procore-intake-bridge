@@ -9,6 +9,7 @@ from app.services.attachment_storage_factory import (
     summarize_attachment_storage_config,
 )
 from app.services.attachment_storage_provider import AttachmentStorageProviderError
+from app.services.storage import build_storage_provider_readiness
 
 
 def main() -> int:
@@ -33,6 +34,9 @@ def main() -> int:
         "external_calls": False,
         "secrets_exposed": False,
         "paths_exposed": False,
+        "storage_readiness": build_storage_provider_readiness(settings).model_dump(
+            mode="json"
+        ),
     }
     print(json.dumps(payload, indent=2, sort_keys=True))
     name = get_attachment_storage_provider_name(settings)

@@ -63,6 +63,8 @@ Phase A2 preserves these constraints:
 - This header token is not full user, tenant, role, session, OAuth, or identity-provider auth.
 - B5 storage accepts validated relative object keys and never stores raw signed source URLs,
   returns absolute storage paths, generates presigned URLs, or exposes public file serving.
+- D2 local storage adds bounded text operations in ignored private roots. Cloud adapters remain
+  disabled, make no health-check calls, and fail closed; D3-D5 controls remain future work.
 - Local/test storage is bounded to development and tests. Disabled and external-placeholder
   providers make no network calls and fail closed; a production adapter remains future work.
 

@@ -151,6 +151,11 @@ def build_demo_mode_readiness(
             status=UsageModeStatus.READY,
             message="Demo mode requires no cloud or external services.",
         ),
+        UsageModeFinding(
+            code="demo_storage",
+            status=UsageModeStatus.READY,
+            message="Storage is optional for the basic demo; local private storage is available.",
+        ),
     ]
     return DemoModeReadiness(
         status=status,
@@ -259,6 +264,12 @@ def build_sandbox_mode_readiness(
             },
             "A real env, file, or privately verified optional cloud provider is selected.",
         ),
+        _requirement(
+            "storage_provider",
+            settings.storage_provider
+            in {"local", "s3", "azure_blob", "gcs"},
+            "Local or optional cloud storage posture is selected; attachments stay metadata-first.",
+        ),
     ]
     status = _status(settings.sandbox_mode_enabled, requirements)
     return SandboxModeReadiness(
@@ -281,6 +292,14 @@ def build_sandbox_mode_readiness(
                     "Live mode remains off; a real smoke run requires separate explicit opt-in."
                     if not settings.procore_live_mode_enabled
                     else "Live mode is explicitly enabled, but no call is made by this check."
+                ),
+            ),
+            UsageModeFinding(
+                code="sandbox_storage_guidance",
+                status=UsageModeStatus.READY,
+                message=(
+                    "Keep attachments metadata-only first; cloud storage is never contacted "
+                    "by this check."
                 ),
             ),
             UsageModeFinding(
@@ -379,8 +398,9 @@ def build_pilot_mode_readiness(
         ),
         _requirement(
             "storage_provider_posture",
-            settings.attachment_storage_provider != "disabled",
-            "Attachment storage posture is configured without contacting a provider.",
+            settings.storage_provider
+            not in {"disabled", "test", "external_placeholder"},
+            "A local or optional cloud storage posture is selected without contacting it.",
         ),
         _requirement(
             "migration_posture",

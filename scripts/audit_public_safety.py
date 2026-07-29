@@ -318,7 +318,10 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
         )):
             issues.append(SafetyIssue(path, "tracked diagnostics or support output"))
             continue
-        if any(part in PRIVATE_PATH_PARTS for part in path.parts):
+        if (
+            any(part in PRIVATE_PATH_PARTS for part in path.parts)
+            and "examples/private-workspace" not in path.as_posix()
+        ):
             issues.append(SafetyIssue(path, "tracked private output path"))
             continue
         if path.suffix.casefold() not in TEXT_SUFFIXES:

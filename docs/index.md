@@ -23,6 +23,7 @@ live Procore access is disabled by default, and the project performs no Procore 
 - [Webhooks](webhooks.md)
 - [Attachment storage](attachment-storage.md)
 - [Attachment storage backends](attachment-storage-backends.md)
+- [Storage providers](storage-providers.md)
 - [Onboarding packets](onboarding-packets.md)
 - [Admin dashboard](admin-dashboard.md)
 - [Admin authentication](admin-authentication.md)

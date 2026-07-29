@@ -114,5 +114,14 @@ secrets.local/
 *.secrets.env
 *.credential
 *.credentials.json
+private-storage/
+.local-storage/
+storage.local/
+attachment-storage/
+object-storage/
+*.storage.json
+*.storage-report.json
+*.storage-manifest.json
+*.object-ref.json
 *.egg-info/
 .DS_Store

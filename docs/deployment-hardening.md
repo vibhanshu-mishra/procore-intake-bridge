@@ -89,5 +89,6 @@ result is sanitized configuration guidance, not a deployment, security approval,
 authorization.
 
 D1 deployment posture distinguishes real env/file providers from disabled/test/placeholders and
-reports optional cloud dependency/configuration status without contacting a provider. File and env
-usage still require separate production review.
+reports optional cloud dependency/configuration status without contacting a provider. D2 adds
+sanitized storage-provider readiness. Local storage remains non-production; optional cloud
+adapters remain unavailable pending separate private configuration and permission review.

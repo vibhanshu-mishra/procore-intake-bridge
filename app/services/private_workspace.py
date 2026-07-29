@@ -140,6 +140,30 @@ def build_private_workspace_manifest(
             both,
         ),
         _spec(
+            "storage/README.private.md",
+            PrivateWorkspaceSection.ENVIRONMENT,
+            "Private storage boundaries and no-public-serving guidance.",
+            both,
+        ),
+        _spec(
+            "storage/storage-map.private.json",
+            PrivateWorkspaceSection.ENVIRONMENT,
+            "Storage provider and root reference placeholders only.",
+            both,
+        ),
+        _spec(
+            "storage/local-storage-root.private.md",
+            PrivateWorkspaceSection.ENVIRONMENT,
+            "Local ignored storage root reference.",
+            both,
+        ),
+        _spec(
+            "storage/object-refs.private.json",
+            PrivateWorkspaceSection.ENVIRONMENT,
+            "Masked attachment object reference placeholders.",
+            both,
+        ),
+        _spec(
             "sandbox/sandbox-scope.private.json",
             PrivateWorkspaceSection.SANDBOX,
             "Allowed sandbox scope placeholders.",
@@ -383,6 +407,37 @@ def render_private_workspace_file(
     spec: PrivateWorkspaceFileSpec, manifest: PrivateWorkspaceManifest
 ) -> str:
     if spec.template_kind == "json":
+        if spec.relative_path == "storage/storage-map.private.json":
+            return (
+                json.dumps(
+                    {
+                        "storage_provider_ref": "LOCAL_STORAGE_REF_PLACEHOLDER",
+                        "attachment_storage_root_ref": (
+                            "LOCAL_STORAGE_ROOT_REF_PLACEHOLDER"
+                        ),
+                        "bucket_or_endpoint_included": False,
+                        "object_contents_included": False,
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+                + "\n"
+            )
+        if spec.relative_path == "storage/object-refs.private.json":
+            return (
+                json.dumps(
+                    {
+                        "attachment_manifest_ref": (
+                            "OBJECT_REF_PLACEHOLDER_ATTACHMENT_MANIFEST"
+                        ),
+                        "raw_object_key_included": False,
+                        "object_contents_included": False,
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+                + "\n"
+            )
         if spec.relative_path == "environment/secrets-map.private.json":
             return (
                 json.dumps(

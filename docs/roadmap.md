@@ -21,7 +21,10 @@ Possible future phases below are **not implemented or committed**:
 - Future provider work: implement and review a real production secret-manager adapter.
 - Future database work: production engine, online migration, backup, and recovery hardening.
 - Future auth work: identity provider, users, tenants, roles, sessions, and audited access.
-- Future storage work: reviewed S3/Azure/GCS-style adapter, retention, recovery, and malware
+- D2 completed: shared local storage operations and disabled-by-default, no-call
+  S3/Azure/GCS adapter boundaries with sanitized readiness.
+- Future D3-D5 storage work: retention/cleanup, malware/content scanning, and
+  encryption/key-management/recovery.
   controls.
 - B6: webhook verification validated against current Procore documentation.
 - B7: reviewed customer-specific deployment pattern.
@@ -71,5 +74,5 @@ review, notifications, audit history, and pilot authorization remain future priv
 # Current roadmap note
 
 C4 (Three-Mode Quickstart and Doctor) and C5 (Private Workspace Bootstrap) are complete.
-D1 (Real Secret Provider Adapters) is complete. Candidate follow-on work is D2–D5; none is
-implemented or implied by readiness results.
+D1 (Real Secret Provider Adapters) and D2 (Real Storage Provider Adapters) are complete.
+Candidate D3–D5 work is not implemented or implied by readiness results.

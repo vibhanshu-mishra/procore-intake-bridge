@@ -163,6 +163,8 @@ def collect_configuration_summary(
             "secret_provider_kind": settings.secret_provider,
             "secret_provider_health_checks": settings.secret_health_check_enabled,
             "attachment_storage_provider": get_attachment_storage_provider_name(settings),
+            "storage_provider": settings.storage_provider,
+            "storage_provider_fail_closed": settings.storage_provider_fail_closed,
             "attachment_fixture_only": settings.attachment_fixture_downloads_only,
             "migration_check_enabled": settings.migration_check_enabled,
             "sandbox_smoke_enabled": settings.sandbox_smoke_enabled,

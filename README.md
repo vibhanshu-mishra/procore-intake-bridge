@@ -215,6 +215,11 @@ python scripts/check_attachment_manifest_consistency.py
 No cloud adapter, cloud SDK, presigned URL, public file-serving route, or live attachment download
 is included. See [attachment storage backends](docs/attachment-storage-backends.md).
 
+Phase D2 adds a fail-closed local storage provider plus no-call optional S3, Azure Blob, and GCS
+adapter boundaries. Run `make storage-provider-check` and see
+[storage providers](docs/storage-providers.md). No public file serving or cloud operation is
+enabled.
+
 ## Documentation
 
 - [Documentation home](docs/index.md)

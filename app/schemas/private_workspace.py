@@ -23,6 +23,7 @@ class PrivateWorkspaceSection(StrEnum):
     PERMISSIONS = "permissions"
     WEBHOOKS = "webhooks"
     DIAGNOSTICS = "diagnostics"
+    STORAGE = "storage"
     CUSTOMER_PROFILE = "customer_profile"
     EVIDENCE = "evidence"
     EVIDENCE_REVIEW = "evidence_review"

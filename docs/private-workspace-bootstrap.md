@@ -42,4 +42,5 @@ later, subject to separate scope and authorization.
 
 D1 adds `environment/secrets/README.private.md` plus env/file ref examples. The `secrets/` folder
 is ignored and may hold small private text secrets for the file provider; generated templates
-contain refs only and never create secret files.
+contain refs only and never create secret files. D2 adds placeholder-only storage documentation,
+provider maps, local-root references, and object references. It never scaffolds stored objects.

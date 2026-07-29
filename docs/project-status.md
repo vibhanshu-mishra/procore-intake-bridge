@@ -40,8 +40,9 @@ optional access remains convenient locally; nonlocal readiness requires token mo
 user, tenant, role, session, OAuth, or identity-provider authentication.
 
 B5 provides a storage-provider contract with local/test implementations and disabled/external
-fail-closed placeholders. It validates object keys and adds sanitized health and manifest checks.
-No production cloud adapter, public file serving, presigned URL, or live download is implemented.
+fail-closed placeholders. D2 extends that boundary with safe local object operations, sanitized
+readiness, private-workspace storage maps, and disabled-by-default optional cloud adapters.
+No production cloud operation, public file serving, presigned URL, or live download is implemented.
 Phase B6, the manually gated Webhook Production Verification Harness, is implemented. It is
 CLI-only, synthetic, disabled by default, documentation-aware, and makes no Procore calls.
 B7 is implemented as a local-only customer deployment planning pattern with placeholder-only
