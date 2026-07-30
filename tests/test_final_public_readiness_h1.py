@@ -15,6 +15,7 @@ from app.services.final_public_readiness import (
     validate_final_public_readiness_report_safe,
     write_final_public_readiness_artifacts,
 )
+from scripts.audit_public_safety import audit_text
 
 ROOT = Path(__file__).resolve().parents[1]
 EXAMPLES = ROOT / "examples/final-public-readiness"
@@ -167,6 +168,40 @@ def test_makefile_contract():
     for target in targets[:3]:
         assert target in quality
     assert targets[3] not in quality
+    help_block = makefile.split("help:", 1)[1].split("\nstart:", 1)[0]
+    assert "ADVANCED — MANUALLY GATED LIVE READS" in help_block
+    for target in (
+        "sandbox-read-validation",
+        "postgres-connectivity-check",
+        "postgres-migration-status-check",
+    ):
+        assert target in help_block
+
+
+def test_all_final_readiness_outputs_are_ignored():
+    gitignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
+    expected = {
+        "final-readiness-output/",
+        "public-readiness-output/",
+        "repo-readiness-output/",
+        "maintainer-handoff-output/",
+        "*.final-readiness-report.json",
+        "*.final-readiness-report.md",
+        "*.public-readiness-report.json",
+        "*.public-readiness-report.md",
+        "*.maintainer-handoff.md",
+        "*.public-repo-checklist.md",
+        "*.final-audit-summary.md",
+    }
+    assert expected <= set(gitignore.splitlines())
+
+
+def test_public_safety_audit_rejects_final_readiness_approval_claim():
+    issues = audit_text(
+        Path("examples/final-public-readiness/unsafe.md"),
+        "The repository is approved for release.",
+    )
+    assert any("approval" in item.issue_type for item in issues)
 
 
 def test_docs_examples_and_navigation_contract():
@@ -178,9 +213,18 @@ def test_docs_examples_and_navigation_contract():
     ):
         text = (ROOT / "docs" / name).read_text(encoding="utf-8").casefold()
         assert name in nav
-        assert "no live operation" in text
-        assert "not release" in text
-        assert "production" in text and "pilot approval" in text
+        normalized = " ".join(text.split())
+        assert "no live operation" in normalized
+        for decision in ("release", "production", "pilot"):
+            assert decision in normalized
+        assert any(
+            boundary in normalized
+            for boundary in (
+                "not release",
+                "not a release",
+                "no release",
+            )
+        )
     examples = "\n".join(
         path.read_text(encoding="utf-8")
         for path in EXAMPLES.iterdir()

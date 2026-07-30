@@ -16,3 +16,13 @@ No live Procore credentials, private identifiers, signed URLs, or network access
 
 The `https-webhook-planning/` examples contain only public-safe planning references. They perform
 no DNS/TLS/ACME check, public URL verification, certificate generation, or webhook registration.
+
+The `hosted-pilot-dry-run/` examples connect opaque G1–G5 and pilot-operations references without
+opening linked evidence or claiming launch approval.
+
+The `final-public-readiness/` examples illustrate maintainer-review output and checklist wording.
+They contain placeholders only and do not represent release, production, or pilot approval.
+
+Provider, PostgreSQL, hosted-template, webhook-planning, dry-run, and final-readiness examples are
+conceptual inputs—not ready-to-deploy configuration. Private values and generated outputs stay
+outside Git.

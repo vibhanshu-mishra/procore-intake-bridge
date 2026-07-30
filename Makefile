@@ -14,7 +14,6 @@ help:
 	@echo "  make walkthroughs           Guided Demo, Sandbox, and Pilot docs"
 	@echo "  make sandbox-smoke-explain  Explain the separate manual live check"
 	@echo "  make sandbox-read-plan      Offline bounded read-validation plan"
-	@echo "  make sandbox-read-validation Manually gated live Sandbox reads"
 	@echo "  make sandbox-evidence-check  Validate placeholder-only Sandbox evidence refs"
 	@echo "  make cloud-secret-check      Offline optional cloud-provider posture"
 	@echo "  make cloud-storage-check     Offline optional cloud-storage posture"
@@ -31,6 +30,11 @@ help:
 	@echo "  make release-readiness      Local checklist; publishes nothing"
 	@echo "  make final-readiness        Final offline public repository review"
 	@echo "  make quality                Complete offline developer checks"
+	@echo "ADVANCED — MANUALLY GATED LIVE READS"
+	@echo "  make sandbox-read-validation Separate bounded Sandbox read validation"
+	@echo "  make postgres-connectivity-check Separate PostgreSQL connectivity probe"
+	@echo "  make postgres-migration-status-check Separate PostgreSQL status-only probe"
+	@echo "These advanced commands refuse by default and are never part of quality or onboarding."
 	@echo "All friendly commands are local-only. See docs/command-reference.md for advanced commands."
 
 start:

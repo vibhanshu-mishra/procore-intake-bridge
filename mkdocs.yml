@@ -61,6 +61,7 @@ nav:
       - Final Public Readiness: final-public-readiness.md
       - Public Repository Handoff: public-repository-handoff.md
       - Final Readiness Checklist: final-readiness-checklist.md
+      - Maintainer Review Fix Pack: maintainer-review-fix-pack.md
       - Webhook Ingress Planning: webhook-ingress-planning.md
       - TLS and DNS Planning: tls-dns-planning.md
       - Backup and Restore: backup-restore-plan.md

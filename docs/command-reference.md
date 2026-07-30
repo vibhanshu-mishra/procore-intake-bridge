@@ -22,6 +22,7 @@ For documentation navigation and optional local preview guidance, see the
 | Difficulty | Command | Purpose | Writes | Procore | External | Private config | Demo-safe |
 |---|---|---|---:|---:|---:|---:|---:|
 | Beginner | `make help` | Show grouped primary commands. | No | No | No | No | Yes |
+| Beginner | `make first-run` | Compatibility alias for the safe onboarding summary. | No | No | No | No | Yes |
 | Beginner | `make start` | Show onboarding, doctor, and the best next command. | No | No | No | No | Yes |
 | Beginner | `make commands` | Print the grouped public command guide. | No | No | No | No | Yes |
 | Beginner | `make next` | Recommend Demo Mode as the default next step. | No | No | No | No | Yes |
@@ -41,6 +42,9 @@ For documentation navigation and optional local preview guidance, see the
 | Advanced | `make release-readiness` | Run local advisory release checks. | No | No | No | No | Yes |
 | Advanced | `make release-notes-draft` | Print draft public notes without publishing. | No | No | No | No | Yes |
 | Advanced | `make release-readiness-artifact-check` | Generate and remove disposable sanitized drafts. | Temporary | No | No | No | Yes |
+| Advanced | `make final-readiness` | Inspect the public repository for maintainer review. | No | No | No | No | Yes |
+| Advanced | `make final-readiness-checklist` | Print the final public checklist. | No | No | No | No | Yes |
+| Advanced | `make public-handoff-summary` | Print the public/private handoff boundary. | No | No | No | No | Yes |
 
 `make prepare-sandbox` never runs live smoke or resolves secret values.
 `make prepare-pilot` never reads real evidence, approves a pilot, connects externally, or deploys.

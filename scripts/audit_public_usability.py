@@ -56,6 +56,7 @@ REQUIRED_DOCS = {
     "docs/final-public-readiness.md",
     "docs/public-repository-handoff.md",
     "docs/final-readiness-checklist.md",
+    "docs/maintainer-review-fix-pack.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",

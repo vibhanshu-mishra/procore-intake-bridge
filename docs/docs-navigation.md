@@ -72,3 +72,6 @@ Use [Final public readiness](final-public-readiness.md), the
 [Public repository handoff](public-repository-handoff.md), and the
 [Final readiness checklist](final-readiness-checklist.md). These guides make no live calls and
 grant no release, production, or pilot approval.
+
+The [H2 maintainer review fix pack](maintainer-review-fix-pack.md) records the bounded cleanup
+performed after H1. It adds no runtime or live capability.

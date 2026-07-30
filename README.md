@@ -503,3 +503,7 @@ make public-handoff-summary
 
 It performs no live operation and reads no private report. Final readiness is not release,
 production, or pilot approval; private values and real reports stay outside Git.
+
+Maintainers reviewing the post-H1 cleanup can read the
+[H2 maintainer review fix pack](docs/maintainer-review-fix-pack.md). H2 changes documentation,
+command clarity, and regression coverage only; it adds no runtime or live behavior.
