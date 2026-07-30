@@ -154,6 +154,9 @@ release-readiness-output/
 package-output/
 dist-output/
 build-output/
+site/
+docs-site-output/
+mkdocs-site-output/
 tls-output/
 cert-output/
 dns-output/
@@ -180,6 +183,8 @@ infra-output/
 *.release-notes-draft.md
 *.release-blockers.md
 *.maintainer-review-checklist.md
+*.docs-site-report.json
+*.docs-site-report.md
 sandbox-pilot-output/
 pilot-flow-output/
 flow-output/

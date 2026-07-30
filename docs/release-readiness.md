@@ -35,3 +35,7 @@ Before any future manual release decision, independently review:
 - security, legal, operational, and maintainer approval
 
 Any future tag or publication remains a separate manual action outside E4.
+
+Review the [docs-site guide](docs-site.md) and [navigation map](docs-navigation.md) as part of
+documentation completeness. E5 validates only a local navigation foundation; it does not publish
+or deploy documentation.

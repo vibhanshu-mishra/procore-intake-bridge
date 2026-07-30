@@ -1,0 +1,53 @@
+site_name: Procore Intake Bridge Documentation
+docs_dir: docs
+
+nav:
+  - Start Here:
+      - Home: index.md
+      - Quickstart: quickstart-site.md
+      - Command Reference: command-reference.md
+      - Troubleshooting: troubleshooting.md
+  - Choose Your Mode:
+      - Usage Modes: usage-modes.md
+      - Demo Walkthrough: walkthrough-demo.md
+      - Sandbox Walkthrough: walkthrough-sandbox.md
+      - Pilot Walkthrough: walkthrough-pilot.md
+      - Sandbox to Pilot Flow: sandbox-to-pilot-flow.md
+  - Demo Mode:
+      - Quickstart Demo: quickstart-demo.md
+  - Sandbox Mode:
+      - Sandbox Mode: sandbox-mode.md
+      - Sandbox Onboarding: sandbox-onboarding.md
+      - Sandbox Smoke UX: sandbox-smoke-ux.md
+      - Sandbox Smoke Evidence: sandbox-smoke-evidence.md
+  - Pilot Mode:
+      - Pilot Mode: pilot-mode.md
+      - Pilot Preflight: pilot-preflight.md
+      - Pilot Readiness Gate: pilot-readiness-gate.md
+      - Pilot Approval Packet: pilot-approval-packet.md
+      - Private Workspace Bootstrap: private-workspace-bootstrap.md
+      - Private Pilot Evidence: private-pilot-evidence.md
+      - Evidence Review and Expiry: evidence-review-expiry.md
+  - Providers and Infrastructure:
+      - Secret Providers: secret-providers.md
+      - Storage Providers: storage-providers.md
+      - Database Providers: database-providers.md
+      - PostgreSQL Readiness: postgres-readiness.md
+      - Deployment Recipes: deployment-recipes.md
+      - HTTPS and Webhook Ingress: https-webhook-ingress.md
+      - Backup and Restore: backup-restore-plan.md
+      - Deployment Backup and Rollback: deployment-backup-rollback.md
+  - Operations:
+      - Operations Runbook: operations-runbook.md
+      - Operator Diagnostics: operator-diagnostics.md
+      - Deployment Hardening: deployment-hardening.md
+      - Webhook Verification: webhook-production-verification.md
+      - Database Migrations: database-migrations.md
+  - Public Safety and Release:
+      - Safety Model: safety-model.md
+      - Public Usability Audit: public-usability-audit.md
+      - Release Readiness: release-readiness.md
+      - Release Checklist: release-checklist.md
+      - Release Notes Template: release-notes-template.md
+      - Project Status: project-status.md
+      - Roadmap: roadmap.md

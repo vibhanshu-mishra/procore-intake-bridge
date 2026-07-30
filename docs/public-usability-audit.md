@@ -17,6 +17,10 @@ the continued separation of the manually gated live runner.
 E4 verifies release-readiness docs and local advisory commands, plus explicit language that
 publication and final maintainer approval remain manual.
 
+E5 verifies the local-only MkDocs navigation config, docs-site guide and map, non-writing checker,
+optional preview guidance, ignored site output, and the absence of active GitHub Pages,
+publication, analytics, or Demo-mode requirements.
+
 Run:
 
 ```bash

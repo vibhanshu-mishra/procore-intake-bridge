@@ -16,6 +16,9 @@ placeholder evidence-ref tooling. It does not automate or weaken live execution 
 Phase E4 adds advisory release-readiness checklists, sanitized local drafts, and maintainer review
 guidance. No release, tag, package, image, publication, or deployment is created.
 
+Phase E5 adds a local-only documentation-site config, journey navigation map, safety checker, and
+optional preview guidance. It does not build, publish, host, deploy, or enable GitHub Pages.
+
 Phase D5, Real Sandbox-to-Pilot Flow, is implemented as a local placeholder-only workflow.
 Actual private pilot execution remains future, separately authorized work.
 

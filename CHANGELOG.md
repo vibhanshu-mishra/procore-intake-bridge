@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- E5 adds a local-only MkDocs navigation foundation, user-journey documentation map, offline
+  checker, optional preview guidance, and generated-site safety rules. It does not build,
+  publish, host, deploy, or enable GitHub Pages.
+
 - E4 adds public-safe release-readiness checklists, advisory status reporting, placeholder release
   notes, ignored local artifacts, and manual maintainer-review guidance. It publishes nothing.
 

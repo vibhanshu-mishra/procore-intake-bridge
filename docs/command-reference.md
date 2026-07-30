@@ -6,6 +6,8 @@ approval.
 
 Prefer a guided sequence? See the [Demo walkthrough](walkthrough-demo.md),
 [Sandbox walkthrough](walkthrough-sandbox.md), or [Pilot walkthrough](walkthrough-pilot.md).
+For documentation navigation and optional local preview guidance, see the
+[docs-site guide](docs-site.md).
 
 ## Friendly commands
 
@@ -71,5 +73,15 @@ deployment are not onboarding commands and are never run by friendly targets.
 
 Release commands create no tags, releases, packages, images, publication, or deployment. See
 [Release readiness](release-readiness.md).
+
+Documentation commands are also local-only:
+
+| Command | Purpose |
+|---|---|
+| `make docs-site-check` | Validate navigation targets and docs-site safety without building. |
+| `make docs-preview-instructions` | Print optional local preview guidance. |
+| `make docs-map` | Point to the user-journey navigation map. |
+
+They do not build, publish, deploy, or enable GitHub Pages. MkDocs is optional.
 
 Best next command for a new user: `make start`.

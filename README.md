@@ -44,6 +44,10 @@ Continue with the **[guided walkthroughs](docs/walkthrough-index.md)**. The
 [Demo walkthrough](docs/walkthrough-demo.md) is the default next document; Sandbox and Pilot
 walkthroughs are optional private paths.
 
+The [local documentation-site guide](docs/docs-site.md) and
+[navigation map](docs/docs-navigation.md) organize the same Markdown by user journey. MkDocs is
+optional, and this repository does not publish or deploy a docs site.
+
 Sandbox operators should use the offline
 [smoke execution guide](docs/sandbox-smoke-ux.md) and
 [evidence-reference guide](docs/sandbox-smoke-evidence.md). The real read-only smoke command

@@ -90,5 +90,8 @@ no secret values, private file contents, raw environment values, or absolute pat
 Use [the command reference](docs/command-reference.md) when you need a deeper command.
 For a command-by-command journey, continue to the
 [guided walkthroughs](docs/walkthrough-index.md).
+The optional [documentation-site guide](docs/docs-site.md) and
+[navigation map](docs/docs-navigation.md) provide local-only navigation; MkDocs is not required
+for Demo Mode and the repository publishes no docs site.
 Maintainers can later consult [release readiness](docs/release-readiness.md); this is never part
 of first-run Demo, Sandbox, or Pilot execution.

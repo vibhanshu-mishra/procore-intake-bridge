@@ -41,6 +41,10 @@ REQUIRED_DOCS = {
     "docs/release-readiness.md",
     "docs/release-checklist.md",
     "docs/release-notes-template.md",
+    "docs/docs-site.md",
+    "docs/docs-navigation.md",
+    "docs/quickstart-site.md",
+    "mkdocs.yml",
 }
 REQUIRED_SCRIPTS = {
     "scripts/doctor.py",
@@ -61,6 +65,8 @@ REQUIRED_SCRIPTS = {
     "scripts/generate_release_readiness_artifacts.py",
     "scripts/print_release_checklist.py",
     "scripts/print_release_notes_draft.py",
+    "scripts/check_docs_site.py",
+    "scripts/print_docs_preview_instructions.py",
 }
 REQUIRED_EXAMPLES = {
     "examples/demo-flow.md",
@@ -93,6 +99,9 @@ REQUIRED_TARGETS = {
     "release-readiness",
     "release-notes-draft",
     "release-readiness-artifact-check",
+    "docs-site-check",
+    "docs-preview-instructions",
+    "docs-map",
     "first-run",
     "doctor",
     "setup-demo",
@@ -114,6 +123,11 @@ IGNORED_OUTPUTS = {
     "*.usability-report.md",
     "*.first-run-report.json",
     "*.first-run-report.md",
+    "site/",
+    "docs-site-output/",
+    "mkdocs-site-output/",
+    "*.docs-site-report.json",
+    "*.docs-site-report.md",
 }
 GENERATED_PARTS = {
     "private-workspace",
@@ -124,6 +138,9 @@ GENERATED_PARTS = {
     "pilot-output",
     "smoke-output",
     "support-output",
+    "site",
+    "docs-site-output",
+    "mkdocs-site-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak", ".backup", ".crt", ".csr", ".db", ".docx", ".dump", ".gif",
@@ -221,6 +238,7 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             )
         ),
         "README walkthrough link": "docs/walkthrough-index.md" in readme,
+        "README docs-site link": "docs/docs-site.md" in readme,
     }
     for name, passed in readme_checks.items():
         add(
@@ -368,6 +386,21 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             )
             and "maintainer" in _read(root, "docs/release-checklist.md").casefold()
         ),
+        "QUICKSTART docs-site link": "docs/docs-site.md" in quickstart,
+        "docs index docs-site link": (
+            "docs-site.md" in _read(root, "docs/index.md").casefold()
+        ),
+        "docs site is local-only and unpublished": all(
+            phrase in _read(root, "docs/docs-site.md").casefold()
+            for phrase in ("local-only", "not published", "no github pages automation")
+        ),
+        "MkDocs is optional for Demo Mode": all(
+            phrase in _read(root, "docs/docs-site.md").casefold()
+            for phrase in ("mkdocs is optional", "not required for demo mode")
+        ),
+        "docs do not activate GitHub Pages": (
+            "mkdocs gh-deploy" not in docs and "github pages is enabled" not in docs
+        ),
     }
     for name, passed in guidance_checks.items():
         add("PASS" if passed else "FAIL", name, "documented" if passed else "guidance is missing")
@@ -384,6 +417,8 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 ".usability-report.md",
                 ".first-run-report.json",
                 ".first-run-report.md",
+                ".docs-site-report.json",
+                ".docs-site-report.md",
             )
         ):
             add(

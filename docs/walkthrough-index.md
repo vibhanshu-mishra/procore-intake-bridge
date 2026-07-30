@@ -27,3 +27,6 @@ Procore, connect externally, read private evidence, approve a pilot, or deploy.
 After documentation and implementation work is complete, maintainers may separately use the
 [release-readiness checklist](release-readiness.md). It is not a user walkthrough and publishes
 nothing.
+
+See the [documentation navigation map](docs-navigation.md) for how these walkthroughs fit the
+local-only docs-site structure. No hosted site or MkDocs installation is required.

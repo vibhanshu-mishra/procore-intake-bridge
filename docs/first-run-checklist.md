@@ -20,3 +20,5 @@ Best next command: `make start`. For command details, see the
 [command reference](command-reference.md).
 
 Release readiness is a later maintainer workflow, not a first-run step.
+The [docs-site guide](docs-site.md) is optional local navigation. MkDocs is not needed for the
+first run or Demo Mode, and no documentation site is published.

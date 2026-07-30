@@ -17,6 +17,10 @@ allowlisted, bounded, sanitized, and attachment-download-free by default.
 E4 only inspects public repository posture and writes optional ignored drafts. It creates no
 release, tag, package, image, publication, or deployment and never records final approval.
 
+E5 adds navigation metadata and non-writing docs checks only. It does not build or publish a
+site, enable GitHub Pages, add analytics or tracking, deploy hosting, or make MkDocs a Demo-mode
+requirement. Generated site output and reports are ignored and must not be committed.
+
 Mode transitions are local decisions: Pilot can only become ready for private review. No
 transition approves production, calls Procore automatically, or exposes private data.
 

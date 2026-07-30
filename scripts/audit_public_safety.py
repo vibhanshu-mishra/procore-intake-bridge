@@ -10,6 +10,7 @@ TEXT_SUFFIXES = {
     ".cfg",
     ".example",
     ".ini",
+    ".js",
     ".json",
     ".md",
     ".py",
@@ -61,6 +62,9 @@ PRIVATE_PATH_PARTS = {
     "package-output",
     "dist-output",
     "build-output",
+    "site",
+    "docs-site-output",
+    "mkdocs-site-output",
     "tls-output",
     "cert-output",
     "dns-output",
@@ -147,6 +151,11 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if path.suffix.casefold() == ".js" and re.search(
+        r"(?i)(?:https?://|google-analytics|googletagmanager|segment\.com|mixpanel)",
+        text,
+    ):
+        issues.append(SafetyIssue(path, "external analytics or tracking JavaScript"))
     for match in SECRET_ASSIGNMENT.finditer(text):
         if not _safe_value(match.group(2)):
             issues.append(SafetyIssue(path, f"non-placeholder {match.group(1).casefold()}"))
@@ -255,6 +264,20 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
         ):
             issues.append(SafetyIssue(path, "tracked sandbox smoke transcript or report"))
             continue
+        if path.name.endswith((".docs-site-report.json", ".docs-site-report.md")):
+            issues.append(SafetyIssue(path, "tracked generated docs-site report"))
+            continue
+        if path.name == "mkdocs.yml":
+            try:
+                config = path.read_text(encoding="utf-8")
+            except UnicodeDecodeError:
+                config = ""
+            if re.search(
+                r"(?im)^\s*(?:site_url|google_analytics|analytics|extra_javascript)\s*:",
+                config,
+            ):
+                issues.append(SafetyIssue(path, "docs config contains hosting or tracking config"))
+                continue
         if path.name.endswith(
             (
                 ".release-readiness-report.json",

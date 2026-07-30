@@ -8,6 +8,10 @@ For the complete guided journeys, use the [walkthrough index](walkthrough-index.
 [Demo](walkthrough-demo.md), [Sandbox](walkthrough-sandbox.md), and
 [Pilot](walkthrough-pilot.md).
 
+For the optional local documentation navigation layer, read the
+[docs-site guide](docs-site.md) and [documentation map](docs-navigation.md). It is not published
+by this repository, and Demo Mode does not require MkDocs.
+
 For future maintainer-only publication preparation, see [Release readiness](release-readiness.md),
 [Release checklist](release-checklist.md), and
 [Release notes template](release-notes-template.md). These publish nothing.
