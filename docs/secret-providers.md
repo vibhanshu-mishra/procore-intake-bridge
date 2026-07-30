@@ -1,5 +1,9 @@
 # Secret providers
 
+Demo Mode requires no Procore credentials. Sandbox and Pilot use private refs; values must never
+be committed or printed. What to run next: `make secret-provider-check`, then
+`make secret-refs-check`.
+
 Secret-provider readiness is a Pilot preflight milestone in the
 [sandbox-to-pilot flow](sandbox-to-pilot-flow.md).
 

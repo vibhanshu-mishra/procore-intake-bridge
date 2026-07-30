@@ -1,5 +1,8 @@
 # Demo mode quickstart
 
+Demo Mode is the default safe path. It requires no Procore credentials, secrets, external
+services, private workspace, or deployment. What to run next: `make setup-demo`, then `make demo`.
+
 After the fixture-only demo, continue with the private, no-live-call
 [sandbox onboarding flow](sandbox-onboarding.md).
 

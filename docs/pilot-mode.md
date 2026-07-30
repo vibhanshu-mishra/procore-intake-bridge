@@ -1,5 +1,10 @@
 # Pilot mode
 
+Pilot Mode is private and operator-controlled. It requires a private workspace, evidence refs,
+review/expiry records, approval, deployment/rollback planning, and database, secret, storage, and
+diagnostic readiness. What to run next: `make pilot-check`, then `make init-private-workspace`
+only when authorized. Keep launch on hold.
+
 Use [pilot preflight](pilot-preflight.md) to prepare for private review. It does not approve a
 pilot, inspect real evidence, deploy infrastructure, or call external services.
 

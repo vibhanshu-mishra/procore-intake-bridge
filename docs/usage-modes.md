@@ -1,5 +1,9 @@
 # Three usage modes
 
+Demo Mode is the default safe path, uses synthetic examples only, and requires no Procore
+credentials. Sandbox Mode and Pilot Mode are private/operator-controlled and use private
+configuration outside Git. What to run next: `make modes`, then `make doctor`.
+
 For the ordered transition and local checks, see [Demo → Sandbox → Pilot](sandbox-to-pilot-flow.md).
 
 Procore Intake Bridge has three explicit modes. Start with `make modes` and `make doctor`;

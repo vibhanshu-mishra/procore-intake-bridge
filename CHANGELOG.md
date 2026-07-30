@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- E1 adds a public usability audit, five-minute quickstart, command reference, first-run
+  checklist, troubleshooting guide, friendly Make targets, mode/doctor output polish, navigation
+  cleanup, and expanded generated-output safety rules. All checks remain offline and fixture-safe.
+
 - D5 adds a placeholder-only, local sandbox-to-pilot flow, readiness CLIs, private-workspace
   scaffolds, ignored artifacts, diagnostics posture, and explicit launch hold.
 

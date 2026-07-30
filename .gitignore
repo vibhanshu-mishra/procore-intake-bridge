@@ -88,6 +88,12 @@ build/
 htmlcov/
 mode-output/
 quickstart-output/
+first-run-output/
+usability-output/
+*.usability-report.json
+*.usability-report.md
+*.first-run-report.json
+*.first-run-report.md
 doctor-output/
 *.mode-report.json
 *.mode-report.md

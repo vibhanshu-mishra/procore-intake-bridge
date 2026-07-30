@@ -1,5 +1,13 @@
 # Documentation
 
+Start with the [five-minute quickstart](../QUICKSTART.md). Demo Mode is the default safe path and
+requires no Procore credentials. Sandbox Mode and Pilot Mode are private/operator-controlled.
+
+- [First-run checklist](first-run-checklist.md)
+- [Command reference](command-reference.md)
+- [Troubleshooting](troubleshooting.md)
+- [Public usability audit](public-usability-audit.md)
+
 - [Demo → Sandbox → Pilot](sandbox-to-pilot-flow.md)
 - [Sandbox onboarding](sandbox-onboarding.md)
 - [Pilot preflight](pilot-preflight.md)
@@ -65,3 +73,6 @@ affiliated with or endorsed by Procore Technologies and carries no production gu
 - [Pilot mode](pilot-mode.md)
 - [Private workspace bootstrap](private-workspace-bootstrap.md)
 - [Secret providers](secret-providers.md)
+
+Real credentials, customer data, evidence, approvals, generated output, and private workspace
+files must not be committed. What to run next: `make first-run`.

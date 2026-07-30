@@ -1,18 +1,38 @@
 # Procore Intake Bridge
 
-## Choose a usage mode
+## Start here: choose a usage mode
 
-The repository supports three safe paths: a credential-free local **demo**, privately configured
-read-only **sandbox** readiness, and controlled private **pilot** preparation. Run `make modes`,
-then `make doctor`. For the fastest local start, see
-[Demo mode quickstart](docs/quickstart-demo.md); the complete boundaries are in
-[Three usage modes](docs/usage-modes.md), [Sandbox mode](docs/sandbox-mode.md), and
-[Pilot mode](docs/pilot-mode.md).
+The repository supports three safe paths:
 
-Sandbox and Pilot users can initialize the C5 ignored placeholder workspace with
-`make init-private-workspace`, validate it with `make validate-private-workspace`, and confirm
-Git isolation with `make private-workspace-git-safety`. See
-[Private workspace bootstrap](docs/private-workspace-bootstrap.md). Demo needs no workspace.
+- **Demo Mode** is the default safe path. It uses local synthetic fixtures and requires no Procore
+  credentials, secrets, external database, storage setup, deployment, or private workspace.
+- **Sandbox Mode** is private and operator-controlled. It requires private DMSA refs, allowed
+  company/project scope, and admin authentication. Its friendly check never runs live smoke.
+- **Pilot Mode** is private and operator-controlled. It requires a private workspace, evidence
+  refs, review/expiry records, approval, deployment/rollback planning, PostgreSQL, secret/storage
+  readiness, diagnostics, and an explicit launch hold.
+
+For a new clone, follow the **[five-minute quick start](QUICKSTART.md)**:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e ".[dev]"
+make first-run
+make setup-demo
+make demo
+```
+
+The mode guides are [Three usage modes](docs/usage-modes.md),
+[Demo Mode](docs/quickstart-demo.md), [Sandbox Mode](docs/sandbox-mode.md), and
+[Pilot Mode](docs/pilot-mode.md). Operational setup is documented in
+[Private workspace](docs/private-workspace-bootstrap.md), [Secret providers](docs/secret-providers.md),
+[Storage providers](docs/storage-providers.md), [Database providers](docs/database-providers.md),
+and [Deployment recipes](docs/deployment-recipes.md).
+
+Real credentials, customer data, IDs, names, contacts, domains, evidence, approvals, logs,
+reports, binaries, backups, generated output, and private workspace files **must not be
+committed**. Run `make safety-check` before committing.
 
 ## Demo → Sandbox → Pilot
 

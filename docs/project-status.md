@@ -1,5 +1,9 @@
 # Project status
 
+Phase E1 audits public end-to-end usability: command discovery, first-run guidance, navigation,
+troubleshooting, and safety. It adds no live integration or deployment. What to run next:
+new users run `make first-run`; contributors run `make quality`.
+
 Phase D5, Real Sandbox-to-Pilot Flow, is implemented as a local placeholder-only workflow.
 Actual private pilot execution remains future, separately authorized work.
 

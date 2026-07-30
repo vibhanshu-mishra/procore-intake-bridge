@@ -1,6 +1,26 @@
-.PHONY: test lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check storage-provider-template storage-provider-check storage-refs-check local-storage-provider-check migration-status migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check webhook-verification-check customer-template customer-profile-check customer-artifact-check diagnostics support-bundle support-bundle-check pilot-template pilot-readiness-check pilot-artifact-check evidence-template evidence-manifest-check evidence-workspace-check evidence-review-template evidence-review-check evidence-expiry-check evidence-review-artifact-check pilot-approval-template pilot-approval-check pilot-approval-safety-check pilot-approval-artifact-check modes doctor setup-demo check-local demo demo-sync sandbox-check pilot-check mode-report private-workspace-template init-private-workspace validate-private-workspace private-workspace-git-safety private-workspace-check secret-provider-template secret-provider-check secret-refs-check file-secret-provider-check quality
+.PHONY: help first-run public-usability-audit safety-check test lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check storage-provider-template storage-provider-check storage-refs-check local-storage-provider-check migration-status migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check webhook-verification-check customer-template customer-profile-check customer-artifact-check diagnostics support-bundle support-bundle-check pilot-template pilot-readiness-check pilot-artifact-check evidence-template evidence-manifest-check evidence-workspace-check evidence-review-template evidence-review-check evidence-expiry-check evidence-review-artifact-check pilot-approval-template pilot-approval-check pilot-approval-safety-check pilot-approval-artifact-check modes doctor setup-demo check-local demo demo-sync sandbox-check pilot-check mode-report private-workspace-template init-private-workspace validate-private-workspace private-workspace-git-safety private-workspace-check secret-provider-template secret-provider-check secret-refs-check file-secret-provider-check quality
 
 PYTHON ?= .venv/bin/python
+
+help:
+	@echo "Procore Intake Bridge — safe local commands"
+	@echo "  make first-run              Check this clone and show the next safe command"
+	@echo "  make setup-demo / demo      Set up and run the fixture-only Demo Mode"
+	@echo "  make modes / doctor         Compare modes or diagnose readiness"
+	@echo "  make sandbox-check          Offline Sandbox readiness; never runs live smoke"
+	@echo "  make pilot-check            Validate fake pilot examples; never approves a pilot"
+	@echo "  make init-private-workspace Create ignored private placeholder scaffolds"
+	@echo "  make safety-check           Run public usability, data, and route safety audits"
+	@echo "  make quality                Run all offline developer checks and tests"
+	@echo "See QUICKSTART.md and docs/command-reference.md for details."
+
+first-run: doctor check-local modes
+	@echo "First run complete. What to run next: make setup-demo"
+
+public-usability-audit:
+	$(PYTHON) scripts/audit_public_usability.py
+
+safety-check: public-usability-audit safety-audit route-audit
 
 .PHONY: database-template database-check migration-plan backup-restore-plan database-connectivity-check
 .PHONY: deployment-template deployment-check deployment-safety-check deployment-artifact-check https-webhook-checklist
@@ -233,5 +253,5 @@ secret-refs-check:
 file-secret-provider-check:
 	$(PYTHON) scripts/test_file_secret_provider.py
 
-quality: lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check storage-provider-template storage-provider-check storage-refs-check database-template database-check migration-plan backup-restore-plan deployment-template deployment-check deployment-safety-check https-webhook-checklist migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check customer-template customer-profile-check diagnostics pilot-template pilot-readiness-check evidence-template evidence-manifest-check evidence-review-template evidence-review-check evidence-expiry-check pilot-approval-template pilot-approval-check pilot-approval-safety-check modes doctor check-local private-workspace-template private-workspace-git-safety secret-provider-check secret-provider-template secret-refs-check sandbox-to-pilot-plan sandbox-pilot-template sandbox-onboarding-check pilot-preflight test
+quality: lint compile pip-check public-usability-audit safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check storage-provider-template storage-provider-check storage-refs-check database-template database-check migration-plan backup-restore-plan deployment-template deployment-check deployment-safety-check https-webhook-checklist migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check customer-template customer-profile-check diagnostics pilot-template pilot-readiness-check evidence-template evidence-manifest-check evidence-review-template evidence-review-check evidence-expiry-check pilot-approval-template pilot-approval-check pilot-approval-safety-check modes doctor check-local private-workspace-template private-workspace-git-safety secret-provider-check secret-provider-template secret-refs-check sandbox-to-pilot-plan sandbox-pilot-template sandbox-onboarding-check pilot-preflight test
 	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict

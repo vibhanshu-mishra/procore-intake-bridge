@@ -1,5 +1,9 @@
 # Database providers
 
+Demo Mode uses local SQLite. Pilot expects a private PostgreSQL ref, but routine checks do not
+resolve it or connect externally. What to run next: `make database-check`, then the isolated
+`make migration-safety-check`.
+
 PostgreSQL, backup, rollback, and migration planning feed
 [pilot preflight](pilot-preflight.md); the flow never connects or migrates automatically.
 

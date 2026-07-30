@@ -1,5 +1,9 @@
 # Operations runbook
 
+Start with [QUICKSTART](../QUICKSTART.md). Demo is the safe default; Sandbox/Pilot require private,
+operator-controlled configuration. What to run next: `make doctor`. Before committing, run
+`make safety-check`.
+
 Use the [Demo → Sandbox → Pilot order](sandbox-to-pilot-flow.md) before any separately authorized
 private pilot execution.
 

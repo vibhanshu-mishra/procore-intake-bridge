@@ -1,5 +1,9 @@
 # Deployment recipes
 
+Recipes are placeholder-only planning inputs. They do not deploy, provision, change DNS/TLS, or
+register webhooks. What to run next: `make deployment-check`, then
+`make deployment-safety-check`.
+
 Recipe validation is one local milestone in [pilot preflight](pilot-preflight.md), not a
 deployment action.
 

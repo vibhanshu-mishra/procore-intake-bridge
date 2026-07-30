@@ -1,5 +1,9 @@
 # Demo → Sandbox → Pilot
 
+Demo is the default safe path. Sandbox and Pilot are private/operator-controlled, and all real
+credentials, evidence, approvals, and outputs stay outside Git. What to run next:
+`make sandbox-to-pilot-plan`.
+
 D5 connects the repository's existing readiness tools into one public-safe order of operations.
 The flow is local evaluation only: it makes no automatic Procore, secret-manager, storage,
 database, DNS, TLS, cloud, webhook-registration, migration, or deployment calls.

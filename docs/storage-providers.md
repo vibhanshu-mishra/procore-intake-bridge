@@ -1,5 +1,8 @@
 # Storage providers
 
+Demo Mode needs no storage setup. Sandbox/Pilot storage is private and operator-controlled.
+What to run next: `make storage-provider-check`; it makes no external storage call.
+
 Storage-provider readiness is a Pilot preflight milestone in the
 [sandbox-to-pilot flow](sandbox-to-pilot-flow.md).
 
