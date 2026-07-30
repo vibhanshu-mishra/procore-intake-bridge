@@ -19,3 +19,6 @@ remains on hold until that independent review is complete.
 
 A separately reviewed private F2 read-validation reference may support Sandbox access posture.
 This preflight reads only the reference, never the sanitized report or raw RFI/Submittal data.
+
+F3 supplies a placeholder mapping into preflight. Missing, expired, or unreviewed refs remain
+review findings; their presence never makes Pilot readiness pass automatically.

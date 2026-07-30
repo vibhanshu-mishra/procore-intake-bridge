@@ -46,6 +46,8 @@ REQUIRED_DOCS = {
     "docs/quickstart-site.md",
     "docs/sandbox-read-validation.md",
     "docs/sandbox-read-evidence.md",
+    "docs/sandbox-evidence-linkage.md",
+    "docs/sandbox-evidence-to-pilot.md",
     "mkdocs.yml",
 }
 REQUIRED_SCRIPTS = {
@@ -73,6 +75,10 @@ REQUIRED_SCRIPTS = {
     "scripts/check_sandbox_read_preflight.py",
     "scripts/print_sandbox_read_evidence_template.py",
     "scripts/run_sandbox_read_validation.py",
+    "scripts/print_sandbox_evidence_linkage_template.py",
+    "scripts/check_sandbox_evidence_linkage.py",
+    "scripts/generate_sandbox_evidence_linkage_artifacts.py",
+    "scripts/print_sandbox_evidence_mapping.py",
 }
 REQUIRED_EXAMPLES = {
     "examples/demo-flow.md",
@@ -84,6 +90,8 @@ REQUIRED_EXAMPLES = {
     "examples/walkthrough-output/demo_expected_output.md",
     "examples/walkthrough-output/sandbox_expected_output.md",
     "examples/walkthrough-output/pilot_expected_output.md",
+    "examples/sandbox-evidence-linkage/example_sandbox_evidence_profile.json",
+    "examples/sandbox-evidence-linkage/example_evidence_manifest_patch.md",
 }
 REQUIRED_TARGETS = {
     "help",
@@ -112,6 +120,10 @@ REQUIRED_TARGETS = {
     "sandbox-read-preflight",
     "sandbox-read-evidence-template",
     "sandbox-read-validation",
+    "sandbox-evidence-template",
+    "sandbox-evidence-check",
+    "sandbox-evidence-mapping",
+    "sandbox-evidence-artifact-check",
     "first-run",
     "doctor",
     "setup-demo",
@@ -147,6 +159,15 @@ IGNORED_OUTPUTS = {
     "*.sandbox-read-evidence.md",
     "*.read-validation-report.json",
     "*.read-validation-report.md",
+    "sandbox-evidence-output/",
+    "sandbox-evidence-linkage-output/",
+    "evidence-linkage-output/",
+    "*.sandbox-evidence-link.json",
+    "*.sandbox-evidence-link.md",
+    "*.sandbox-evidence-summary.json",
+    "*.sandbox-evidence-summary.md",
+    "*.sandbox-evidence-manifest.json",
+    "*.sandbox-evidence-manifest.md",
 }
 GENERATED_PARTS = {
     "private-workspace",
@@ -163,6 +184,9 @@ GENERATED_PARTS = {
     "sandbox-read-output",
     "sandbox-validation-output",
     "read-validation-output",
+    "sandbox-evidence-output",
+    "sandbox-evidence-linkage-output",
+    "evidence-linkage-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak", ".backup", ".crt", ".csr", ".db", ".docx", ".dump", ".gif",
@@ -457,6 +481,26 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 prepare_sandbox_header,
             )
         ),
+        "Sandbox evidence linkage is reference-only": all(
+            phrase in _read(root, "docs/sandbox-evidence-linkage.md").casefold()
+            for phrase in (
+                "opaque references",
+                "does not read source report contents by default",
+                "does not prove",
+                "human evidence review",
+            )
+        ),
+        "Sandbox evidence linkage maps without approval": all(
+            phrase in _read(root, "docs/sandbox-evidence-to-pilot.md").casefold()
+            for phrase in (
+                "c1 private evidence manifest",
+                "c2 review and expiry",
+                "b9 pilot readiness",
+                "c3 pilot approval packet",
+                "d5 sandbox-to-pilot flow",
+                "does not mean a pilot is approved",
+            )
+        ),
     }
     for name, passed in guidance_checks.items():
         add("PASS" if passed else "FAIL", name, "documented" if passed else "guidance is missing")
@@ -481,6 +525,12 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 ".sandbox-read-evidence.md",
                 ".read-validation-report.json",
                 ".read-validation-report.md",
+                ".sandbox-evidence-link.json",
+                ".sandbox-evidence-link.md",
+                ".sandbox-evidence-summary.json",
+                ".sandbox-evidence-summary.md",
+                ".sandbox-evidence-manifest.json",
+                ".sandbox-evidence-manifest.md",
             )
         ):
             add(

@@ -26,6 +26,10 @@ unless enablement, exact confirmation, Sandbox target, DMSA refs, and allowed sc
 bounded RFIs/Submittals only, has no write/webhook/attachment methods, stores no raw payloads, and
 reports only sanitized counts, statuses, and one-way hashes.
 
+F3 consumes placeholder refs only. It blocks raw reports, records, IDs, contacts, domains, URLs,
+paths, secrets, attachment data, and approval claims. It makes no Procore/external call and never
+changes readiness or approval automatically.
+
 Mode transitions are local decisions: Pilot can only become ready for private review. No
 transition approves production, calls Procore automatically, or exposes private data.
 

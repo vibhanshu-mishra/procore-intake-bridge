@@ -22,6 +22,9 @@ optional preview guidance. It does not build, publish, host, deploy, or enable G
 Phase F2 adds separately gated bounded Sandbox RFI/Submittal list/detail validation plus offline
 planning and private evidence-reference guidance. No live call runs automatically.
 
+Phase F3 adds placeholder-only Sandbox evidence linkage into C1/C2/B9/C3/D5. It reads no private
+reports, runs no validation, and grants no approval.
+
 Phase D5, Real Sandbox-to-Pilot Flow, is implemented as a local placeholder-only workflow.
 Actual private pilot execution remains future, separately authorized work.
 

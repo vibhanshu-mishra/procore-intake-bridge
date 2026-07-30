@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- F3 adds placeholder-only Sandbox evidence linkage, C1/C2/B9/C3/D5 mapping templates, local
+  validators, ignored artifacts, and private-report safety rules. It reads no reports and grants
+  no Pilot approval.
+
 - F2 adds offline Sandbox read-validation planning, a separately gated bounded RFI/Submittal live
   command, sanitized count/hash-only reporting, private evidence refs, and fail-closed safety
   checks. Live calls remain absent from quality and default workflows.

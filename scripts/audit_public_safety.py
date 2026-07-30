@@ -89,6 +89,9 @@ PRIVATE_PATH_PARTS = {
     "sandbox-read-output",
     "sandbox-validation-output",
     "read-validation-output",
+    "sandbox-evidence-output",
+    "sandbox-evidence-linkage-output",
+    "evidence-linkage-output",
     "support-output",
     "sandbox-output",
     "sandbox-pilot-output",
@@ -280,6 +283,18 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             (".smoke.txt", ".smoke.md", ".smoke.transcript", ".sandbox-smoke.json")
         ):
             issues.append(SafetyIssue(path, "tracked sandbox smoke transcript or report"))
+            continue
+        if path.name.endswith(
+            (
+                ".sandbox-evidence-link.json",
+                ".sandbox-evidence-link.md",
+                ".sandbox-evidence-summary.json",
+                ".sandbox-evidence-summary.md",
+                ".sandbox-evidence-manifest.json",
+                ".sandbox-evidence-manifest.md",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated sandbox evidence-linkage output"))
             continue
         if path.name.endswith(
             (

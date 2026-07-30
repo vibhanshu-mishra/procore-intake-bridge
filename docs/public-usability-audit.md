@@ -25,6 +25,9 @@ F2 verifies the Sandbox read-validation/evidence docs, offline planning commands
 target, placeholder examples, private-report boundary, and absence of live validation from
 quality, prepare-sandbox, walkthrough execution, release checks, and docs checks.
 
+F3 verifies linkage docs, fake profiles, local-only commands, Pilot mappings, ignored artifacts,
+and explicit language that reports remain private and linkage does not approve a Pilot.
+
 Run:
 
 ```bash

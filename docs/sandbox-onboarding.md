@@ -22,3 +22,6 @@ F2 planning remains offline as well. Run `make sandbox-read-plan` and
 `make sandbox-read-preflight`; do not treat `make sandbox-read-validation` as onboarding. The
 live command requires separate authorization, exact confirmation, private credential refs, and
 allowed scope. Keep its sanitized result and [evidence ref](sandbox-read-evidence.md) private.
+
+Sandbox onboarding does not run F3 automatically. Link privately reviewed opaque refs later with
+`make sandbox-evidence-check`; this does not change Pilot readiness or approval.

@@ -17,3 +17,6 @@ attachment filenames.
 
 Do not copy live stdout, API errors, screenshots, payloads, or generated report files into this
 repository. A reference supports later private human review; it does not approve a pilot.
+
+After private review, F3 can map this opaque ref alongside the smoke ref without reading source
+contents. See [Sandbox evidence to Pilot](sandbox-evidence-to-pilot.md).

@@ -92,3 +92,6 @@ unapproved until private evidence, review, expiry, rollback, and approval work i
 
 B9 may consume the status of a privately reviewed F2 evidence ref, not its report contents. A
 passing Sandbox read validation is access evidence only and never pilot or production approval.
+
+F3 provides reference mapping only. B9 evaluates it with all other gates and human-review status;
+refs do not make the gate pass automatically.

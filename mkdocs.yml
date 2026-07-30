@@ -22,6 +22,8 @@ nav:
       - Sandbox Smoke Evidence: sandbox-smoke-evidence.md
       - Sandbox Read Validation: sandbox-read-validation.md
       - Sandbox Read Evidence: sandbox-read-evidence.md
+      - Sandbox Evidence Linkage: sandbox-evidence-linkage.md
+      - Sandbox Evidence to Pilot: sandbox-evidence-to-pilot.md
   - Pilot Mode:
       - Pilot Mode: pilot-mode.md
       - Pilot Preflight: pilot-preflight.md

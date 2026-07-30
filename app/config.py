@@ -551,6 +551,48 @@ class Settings(BaseSettings):
         default="rfis,submittals",
         validation_alias="PROCORE_INTAKE_SANDBOX_READ_VALIDATION_ALLOWED_TOOLS",
     )
+    sandbox_evidence_linkage_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SANDBOX_EVIDENCE_LINKAGE_ENABLED",
+    )
+    sandbox_evidence_linkage_output_root: Path = Field(
+        default=Path("./sandbox-evidence-output"),
+        validation_alias="PROCORE_INTAKE_SANDBOX_EVIDENCE_LINKAGE_OUTPUT_ROOT",
+    )
+    sandbox_evidence_linkage_require_placeholders: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SANDBOX_EVIDENCE_LINKAGE_REQUIRE_PLACEHOLDERS",
+    )
+    sandbox_evidence_linkage_allow_real_ids: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SANDBOX_EVIDENCE_LINKAGE_ALLOW_REAL_IDS",
+    )
+    sandbox_evidence_linkage_allow_real_identities: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SANDBOX_EVIDENCE_LINKAGE_ALLOW_REAL_IDENTITIES",
+    )
+    sandbox_evidence_linkage_allow_real_domains: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SANDBOX_EVIDENCE_LINKAGE_ALLOW_REAL_DOMAINS",
+    )
+    sandbox_evidence_linkage_allow_report_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SANDBOX_EVIDENCE_LINKAGE_ALLOW_REPORT_CONTENTS",
+    )
+    sandbox_evidence_linkage_allow_absolute_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SANDBOX_EVIDENCE_LINKAGE_ALLOW_ABSOLUTE_PATHS",
+    )
+    sandbox_evidence_linkage_max_refs: int = Field(
+        default=20,
+        ge=1,
+        le=20,
+        validation_alias="PROCORE_INTAKE_SANDBOX_EVIDENCE_LINKAGE_MAX_REFS",
+    )
+    sandbox_evidence_linkage_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SANDBOX_EVIDENCE_LINKAGE_FAIL_CLOSED",
+    )
     customer_deployment_pattern_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_CUSTOMER_DEPLOYMENT_PATTERN_ENABLED",

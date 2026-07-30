@@ -1,0 +1,15 @@
+# Example evidence manifest patch
+
+- Sandbox smoke: `SANDBOX_SMOKE_REF_PLACEHOLDER`
+- Sandbox read validation: `SANDBOX_READ_VALIDATION_REF_PLACEHOLDER`
+- Permission review: `SANDBOX_PERMISSION_REVIEW_REF_PLACEHOLDER`
+- Webhook review: `SANDBOX_WEBHOOK_REVIEW_REF_PLACEHOLDER`
+- Scope review: `SANDBOX_SCOPE_REVIEW_REF_PLACEHOLDER`
+- Operator review: `SANDBOX_OPERATOR_REVIEW_REF_PLACEHOLDER`
+- Reviewer: `SANDBOX_EVIDENCE_REVIEWER_PLACEHOLDER`
+- Expiry: `SANDBOX_EVIDENCE_EXPIRY_PLACEHOLDER`
+- Renewal: `SANDBOX_EVIDENCE_RENEWAL_PLACEHOLDER`
+- Pilot readiness: `PILOT_READINESS_MAPPING_PLACEHOLDER`
+- Pilot approval: `PILOT_APPROVAL_MAPPING_PLACEHOLDER`
+
+Placeholder mapping only. No report contents, private paths, or approval are included.

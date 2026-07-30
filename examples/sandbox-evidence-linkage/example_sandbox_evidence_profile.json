@@ -1,0 +1,62 @@
+{
+  "profile_name": "example-sandbox-evidence-linkage",
+  "evidence_refs": [
+    {
+      "evidence_type": "sandbox_smoke",
+      "evidence_ref": "SANDBOX_SMOKE_REF_PLACEHOLDER",
+      "status": "accepted_placeholder",
+      "review_required": true,
+      "report_contents_included": false
+    },
+    {
+      "evidence_type": "sandbox_read_validation",
+      "evidence_ref": "SANDBOX_READ_VALIDATION_REF_PLACEHOLDER",
+      "status": "accepted_placeholder",
+      "review_required": true,
+      "report_contents_included": false
+    },
+    {
+      "evidence_type": "sandbox_permissions_review",
+      "evidence_ref": "SANDBOX_PERMISSION_REVIEW_REF_PLACEHOLDER",
+      "status": "needs_review",
+      "review_required": true,
+      "report_contents_included": false
+    },
+    {
+      "evidence_type": "sandbox_webhook_review",
+      "evidence_ref": "SANDBOX_WEBHOOK_REVIEW_REF_PLACEHOLDER",
+      "status": "needs_review",
+      "review_required": true,
+      "report_contents_included": false
+    },
+    {
+      "evidence_type": "sandbox_scope_review",
+      "evidence_ref": "SANDBOX_SCOPE_REVIEW_REF_PLACEHOLDER",
+      "status": "needs_review",
+      "review_required": true,
+      "report_contents_included": false
+    },
+    {
+      "evidence_type": "sandbox_operator_review",
+      "evidence_ref": "SANDBOX_OPERATOR_REVIEW_REF_PLACEHOLDER",
+      "status": "needs_review",
+      "review_required": true,
+      "report_contents_included": false
+    }
+  ],
+  "sandbox_smoke_ref": "SANDBOX_SMOKE_REF_PLACEHOLDER",
+  "sandbox_read_validation_ref": "SANDBOX_READ_VALIDATION_REF_PLACEHOLDER",
+  "permission_review_ref": "SANDBOX_PERMISSION_REVIEW_REF_PLACEHOLDER",
+  "webhook_review_ref": "SANDBOX_WEBHOOK_REVIEW_REF_PLACEHOLDER",
+  "scope_review_ref": "SANDBOX_SCOPE_REVIEW_REF_PLACEHOLDER",
+  "operator_review_ref": "SANDBOX_OPERATOR_REVIEW_REF_PLACEHOLDER",
+  "reviewer_placeholder": "SANDBOX_EVIDENCE_REVIEWER_PLACEHOLDER",
+  "expiry_placeholder": "SANDBOX_EVIDENCE_EXPIRY_PLACEHOLDER",
+  "renewal_placeholder": "SANDBOX_EVIDENCE_RENEWAL_PLACEHOLDER",
+  "known_limitations": [
+    "EXAMPLE_LIMITATION_PLACEHOLDER: review and renewal remain required."
+  ],
+  "notes": [
+    "Fake placeholder refs only; evidence linkage does not approve a pilot."
+  ]
+}

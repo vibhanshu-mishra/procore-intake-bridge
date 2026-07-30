@@ -63,3 +63,7 @@ It never scaffolds a URL, hostname, credential, dump, backup, log, or absolute p
 
 D4 adds a `deployment/` folder with recipe, HTTPS, ingress, cutover, backup, rollback, and operator
 placeholders. Real domains, certificates, infrastructure IDs, logs, and state remain private.
+
+F3 adds `evidence/sandbox-evidence-linkage.private.json` with opaque smoke/read-validation,
+reviewer, expiry, and renewal placeholders only. It contains no source report contents and does
+not change Pilot readiness or approval.

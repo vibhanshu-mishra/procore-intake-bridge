@@ -82,3 +82,6 @@ Real reviewer identities, evidence, timestamps, decisions, and renewal records s
 
 An F2 Sandbox read-validation reference can be reviewed and expired like other opaque C1 refs.
 C2 never ingests the report, raw RFI/Submittal records, identifiers, or API errors.
+
+F3 linkage does not bypass C2. Human review, expiry, renewal, and limitation handling still apply
+to every smoke or read-validation reference.

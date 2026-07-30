@@ -76,3 +76,6 @@ not copy, inspect, or validate real evidence contents.
 F2 Sandbox read validation contributes only an opaque private reference such as
 `SANDBOX_READ_VALIDATION_REF_PLACEHOLDER`. Counts, hashes, reports, API errors, and raw records
 remain in the approved private system and are never copied into C1 metadata.
+
+F3 adds `evidence/sandbox-evidence-linkage.private.json` to the ignored workspace. It contains
+opaque placeholders only and never copies source report contents.

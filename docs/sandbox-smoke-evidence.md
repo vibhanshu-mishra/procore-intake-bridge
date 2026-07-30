@@ -31,3 +31,6 @@ sanitized, current, scoped correctly, and reviewed by an authorized human.
 Keep B1 smoke evidence distinct from the F2
 [Sandbox read-validation evidence reference](sandbox-read-evidence.md). Both remain private and
 neither contains or replaces the underlying report.
+
+F3 can place both opaque refs into a placeholder linkage profile. It never reads either report;
+see [Sandbox evidence linkage](sandbox-evidence-linkage.md).

@@ -97,4 +97,15 @@ The live command requires exact confirmation and private DMSA/allowlist configur
 no Procore writes, registers no webhooks, downloads no attachments by default, and stores no raw
 payloads. See [Sandbox read validation](sandbox-read-validation.md).
 
+## Sandbox evidence linkage
+
+| Command | Purpose |
+|---|---|
+| `make sandbox-evidence-template` | Print a placeholder-only linkage profile. |
+| `make sandbox-evidence-check` | Validate the fake example without reading reports. |
+| `make sandbox-evidence-mapping` | Print C1/C2/B9/C3/D5 placeholder mappings. |
+| `make sandbox-evidence-artifact-check` | Generate and clean temporary safe artifacts. |
+
+All are local-only: no Procore calls, private evidence reads, secret resolution, or approval.
+
 Best next command for a new user: `make start`.

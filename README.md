@@ -57,6 +57,10 @@ F2 adds an independent [Sandbox read-validation guide](docs/sandbox-read-validat
 [private evidence-reference guide](docs/sandbox-read-evidence.md). Its plan, preflight, and
 template are offline; the live RFI/Submittal command remains separately enabled and confirmed.
 
+F3 [links opaque Sandbox evidence refs](docs/sandbox-evidence-linkage.md) into private Pilot
+planning without reading reports or granting approval. See the
+[Sandbox-to-Pilot evidence map](docs/sandbox-evidence-to-pilot.md).
+
 Maintainers preparing a future public release should use the
 [release-readiness guide](docs/release-readiness.md). It creates no tag, release, package, image,
 publication, or deployment; final approval remains manual.

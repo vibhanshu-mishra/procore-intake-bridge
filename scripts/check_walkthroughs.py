@@ -136,6 +136,17 @@ def check_walkthroughs(root: Path = ROOT) -> list[WalkthroughFinding]:
                 "stores no raw payloads",
             )
         ),
+        "Sandbox evidence linkage commands": all(
+            command in sandbox
+            for command in (
+                "make sandbox-evidence-template",
+                "make sandbox-evidence-check",
+                "make sandbox-evidence-mapping",
+            )
+        ),
+        "Sandbox evidence linkage stays reference-only": (
+            "read no reports" in sandbox and "do not approve a pilot" in sandbox
+        ),
         "Pilot friendly flow": all(
             command in pilot
             for command in ("make start", "make init-private-workspace", "make prepare-pilot")
@@ -147,6 +158,10 @@ def check_walkthroughs(root: Path = ROOT) -> list[WalkthroughFinding]:
         "Pilot private smoke evidence ref": "sandbox_smoke_ref_placeholder" in pilot,
         "Pilot private read-validation evidence ref": (
             "sandbox_read_validation_ref_placeholder" in pilot
+        ),
+        "Pilot evidence linkage mapping": (
+            "make sandbox-evidence-mapping" in pilot
+            and "human review and expiry" in pilot
         ),
     }
     for check, passed in content_checks.items():

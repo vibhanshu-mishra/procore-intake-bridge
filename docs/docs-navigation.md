@@ -15,7 +15,9 @@ Use this reading order; later sections are needed only for the selected journey.
 - **Sandbox:** [Sandbox mode](sandbox-mode.md) → [Sandbox onboarding](sandbox-onboarding.md) →
   [Sandbox walkthrough](walkthrough-sandbox.md) → [Sandbox smoke UX](sandbox-smoke-ux.md) →
   [Sandbox read validation](sandbox-read-validation.md) →
-  [Sandbox read evidence](sandbox-read-evidence.md)
+  [Sandbox read evidence](sandbox-read-evidence.md) →
+  [Sandbox evidence linkage](sandbox-evidence-linkage.md) →
+  [Sandbox evidence to Pilot](sandbox-evidence-to-pilot.md)
 - **Pilot:** [Pilot mode](pilot-mode.md) → [Pilot preflight](pilot-preflight.md) →
   [Pilot walkthrough](walkthrough-pilot.md) → [Pilot readiness](pilot-readiness-gate.md)
 

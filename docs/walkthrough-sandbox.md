@@ -69,6 +69,10 @@ writes nothing to Procore, registers no webhooks, downloads no attachments by de
 stores no raw payloads. See [Sandbox read validation](sandbox-read-validation.md) and keep only the private
 [evidence reference](sandbox-read-evidence.md).
 
+After a separately authorized private run and human review, use F3 only to model opaque refs:
+`make sandbox-evidence-template`, `make sandbox-evidence-check`, and
+`make sandbox-evidence-mapping`. These commands read no reports and do not approve a Pilot.
+
 ## Common problems
 
 - Missing refs: configure reference names privately; never put values in public files.

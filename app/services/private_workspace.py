@@ -302,6 +302,12 @@ def build_private_workspace_manifest(
             pilot,
         ),
         _spec(
+            "evidence/sandbox-evidence-linkage.private.json",
+            PrivateWorkspaceSection.EVIDENCE,
+            "Sandbox evidence placeholder refs for Pilot mapping.",
+            both,
+        ),
+        _spec(
             "evidence-review/evidence-review.private.json",
             PrivateWorkspaceSection.EVIDENCE_REVIEW,
             "Review and expiry placeholders.",
@@ -574,6 +580,27 @@ def render_private_workspace_file(
             "- No database URL, hostname, credentials, dump, or contents are included.\n"
         )
     if spec.template_kind == "json":
+        if spec.relative_path == "evidence/sandbox-evidence-linkage.private.json":
+            return (
+                json.dumps(
+                    {
+                        "sandbox_smoke_ref": "SANDBOX_SMOKE_REF_PLACEHOLDER",
+                        "sandbox_read_validation_ref": (
+                            "SANDBOX_READ_VALIDATION_REF_PLACEHOLDER"
+                        ),
+                        "reviewer_placeholder": (
+                            "SANDBOX_EVIDENCE_REVIEWER_PLACEHOLDER"
+                        ),
+                        "expiry_placeholder": "SANDBOX_EVIDENCE_EXPIRY_PLACEHOLDER",
+                        "renewal_placeholder": "SANDBOX_EVIDENCE_RENEWAL_PLACEHOLDER",
+                        "report_contents_included": False,
+                        "pilot_approved": False,
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+                + "\n"
+            )
         if spec.relative_path == "storage/storage-map.private.json":
             return (
                 json.dumps(

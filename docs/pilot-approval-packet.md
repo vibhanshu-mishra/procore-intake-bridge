@@ -89,3 +89,6 @@ authorization. C3 implements none of those capabilities.
 
 C3 may point to a privately reviewed F2 read-validation evidence ref. It must never embed the
 report, counts, hashes, raw records, API errors, scope identifiers, or reviewer identity.
+
+F3's approval mapping has `approval_granted=false`. C3 remains a separate private review workflow
+and never converts evidence presence into approval.

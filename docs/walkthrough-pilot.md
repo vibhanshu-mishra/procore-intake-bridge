@@ -41,6 +41,8 @@ read no real evidence contents, execute no production migration, and create no a
    report content remains outside Git.
    A private `SANDBOX_READ_VALIDATION_REF_PLACEHOLDER` may separately represent reviewed F2
    RFI/Submittal read-validation evidence; never copy its report contents.
+   F3 maps these opaque refs through C1/C2/B9/C3/D5 using
+   `make sandbox-evidence-mapping`; the mapping remains subject to human review and expiry.
 8. **Review and expiry:** record private review status, expiry, renewal, and limitations.
 9. **Readiness gate:** review the local `GO`, `NO_GO`, `NEEDS_REVIEW`, or `BLOCKED` planning
    result. A public example result has no approval meaning.

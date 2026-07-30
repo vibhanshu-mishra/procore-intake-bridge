@@ -38,6 +38,8 @@ Use `make sandbox-smoke-explain` and `make sandbox-smoke-preflight` for offline 
 command calls Procore.
 F2 planning is also offline: use `make sandbox-read-plan` and `make sandbox-read-preflight`.
 The live `make sandbox-read-validation` command is never a quickstart/default step.
+Later, `make sandbox-evidence-check` validates fake opaque-reference linkage only. It reads no
+private reports and does not approve a Pilot.
 
 ### I want to prepare a controlled pilot — Pilot Mode
 

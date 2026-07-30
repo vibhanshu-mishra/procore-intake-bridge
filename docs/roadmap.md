@@ -7,6 +7,8 @@ work remains separately scoped.
 Phase F1 adds offline sandbox smoke execution guidance and private evidence-ref planning. Future
 F2 adds manually gated, bounded RFI/Submittal Sandbox read validation. Future live expansion,
 attachment validation, or pilot execution remains separately scoped.
+F3 adds the offline opaque-reference bridge into Pilot evidence workflows. Real evidence review
+and Pilot execution remain private, manual, and separately authorized.
 
 Phase E4 adds public-safe release preparation for maintainer review only. Phase E5 adds the
 local-only documentation-site foundation and validation. Actual documentation hosting and any

@@ -30,6 +30,8 @@ REQUIRED_NAV_DOCS = {
     "walkthrough-pilot.md",
     "sandbox-read-validation.md",
     "sandbox-read-evidence.md",
+    "sandbox-evidence-linkage.md",
+    "sandbox-evidence-to-pilot.md",
     "sandbox-to-pilot-flow.md",
     "release-readiness.md",
     "release-checklist.md",

@@ -1,4 +1,4 @@
-.PHONY: help start commands next try-demo prepare-sandbox prepare-pilot walkthroughs walkthroughs-check demo-walkthrough sandbox-walkthrough pilot-walkthrough sandbox-smoke-explain sandbox-smoke-preflight sandbox-smoke-evidence-template sandbox-read-plan sandbox-read-preflight sandbox-read-evidence-template sandbox-read-validation release-checklist release-readiness release-notes-draft release-readiness-artifact-check docs-site-check docs-preview-instructions docs-map first-run public-usability-audit safety-check test lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check storage-provider-template storage-provider-check storage-refs-check local-storage-provider-check migration-status migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check webhook-verification-check customer-template customer-profile-check customer-artifact-check diagnostics support-bundle support-bundle-check pilot-template pilot-readiness-check pilot-artifact-check evidence-template evidence-manifest-check evidence-workspace-check evidence-review-template evidence-review-check evidence-expiry-check evidence-review-artifact-check pilot-approval-template pilot-approval-check pilot-approval-safety-check pilot-approval-artifact-check modes doctor setup-demo check-local demo demo-sync sandbox-check pilot-check mode-report private-workspace-template init-private-workspace validate-private-workspace private-workspace-git-safety private-workspace-check secret-provider-template secret-provider-check secret-refs-check file-secret-provider-check quality
+.PHONY: help start commands next try-demo prepare-sandbox prepare-pilot walkthroughs walkthroughs-check demo-walkthrough sandbox-walkthrough pilot-walkthrough sandbox-smoke-explain sandbox-smoke-preflight sandbox-smoke-evidence-template sandbox-read-plan sandbox-read-preflight sandbox-read-evidence-template sandbox-read-validation sandbox-evidence-template sandbox-evidence-check sandbox-evidence-mapping sandbox-evidence-artifact-check release-checklist release-readiness release-notes-draft release-readiness-artifact-check docs-site-check docs-preview-instructions docs-map first-run public-usability-audit safety-check test lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check storage-provider-template storage-provider-check storage-refs-check local-storage-provider-check migration-status migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check webhook-verification-check customer-template customer-profile-check customer-artifact-check diagnostics support-bundle support-bundle-check pilot-template pilot-readiness-check pilot-artifact-check evidence-template evidence-manifest-check evidence-workspace-check evidence-review-template evidence-review-check evidence-expiry-check evidence-review-artifact-check pilot-approval-template pilot-approval-check pilot-approval-safety-check pilot-approval-artifact-check modes doctor setup-demo check-local demo demo-sync sandbox-check pilot-check mode-report private-workspace-template init-private-workspace validate-private-workspace private-workspace-git-safety private-workspace-check secret-provider-template secret-provider-check secret-refs-check file-secret-provider-check quality
 
 PYTHON ?= .venv/bin/python
 
@@ -15,6 +15,7 @@ help:
 	@echo "  make sandbox-smoke-explain  Explain the separate manual live check"
 	@echo "  make sandbox-read-plan      Offline bounded read-validation plan"
 	@echo "  make sandbox-read-validation Manually gated live Sandbox reads"
+	@echo "  make sandbox-evidence-check  Validate placeholder-only Sandbox evidence refs"
 	@echo "SAFETY AND DEVELOPMENT"
 	@echo "  make safety-check           Public usability, data, and route audits"
 	@echo "  make docs-site-check        Validate local docs navigation; publishes nothing"
@@ -87,6 +88,18 @@ sandbox-read-evidence-template:
 
 sandbox-read-validation:
 	$(PYTHON) scripts/run_sandbox_read_validation.py
+
+sandbox-evidence-template:
+	$(PYTHON) scripts/print_sandbox_evidence_linkage_template.py
+
+sandbox-evidence-check:
+	$(PYTHON) scripts/check_sandbox_evidence_linkage.py examples/sandbox-evidence-linkage/example_sandbox_evidence_profile.json
+
+sandbox-evidence-mapping:
+	$(PYTHON) scripts/print_sandbox_evidence_mapping.py
+
+sandbox-evidence-artifact-check:
+	$(PYTHON) scripts/generate_sandbox_evidence_linkage_artifacts.py examples/sandbox-evidence-linkage/example_sandbox_evidence_profile.json --temporary
 
 release-checklist:
 	$(PYTHON) scripts/print_release_checklist.py
@@ -359,5 +372,5 @@ secret-refs-check:
 file-secret-provider-check:
 	$(PYTHON) scripts/test_file_secret_provider.py
 
-quality: lint compile pip-check public-usability-audit docs-site-check docs-preview-instructions walkthroughs-check sandbox-smoke-preflight sandbox-smoke-explain sandbox-smoke-evidence-template sandbox-read-plan sandbox-read-preflight sandbox-read-evidence-template release-readiness release-checklist release-notes-draft safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check storage-provider-template storage-provider-check storage-refs-check database-template database-check migration-plan backup-restore-plan deployment-template deployment-check deployment-safety-check https-webhook-checklist migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check customer-template customer-profile-check diagnostics pilot-template pilot-readiness-check evidence-template evidence-manifest-check evidence-review-template evidence-review-check evidence-expiry-check pilot-approval-template pilot-approval-check pilot-approval-safety-check modes doctor check-local private-workspace-template private-workspace-git-safety secret-provider-check secret-provider-template secret-refs-check sandbox-to-pilot-plan sandbox-pilot-template sandbox-onboarding-check pilot-preflight test
+quality: lint compile pip-check public-usability-audit docs-site-check docs-preview-instructions walkthroughs-check sandbox-smoke-preflight sandbox-smoke-explain sandbox-smoke-evidence-template sandbox-read-plan sandbox-read-preflight sandbox-read-evidence-template sandbox-evidence-template sandbox-evidence-check sandbox-evidence-mapping release-readiness release-checklist release-notes-draft safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check storage-provider-template storage-provider-check storage-refs-check database-template database-check migration-plan backup-restore-plan deployment-template deployment-check deployment-safety-check https-webhook-checklist migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check customer-template customer-profile-check diagnostics pilot-template pilot-readiness-check evidence-template evidence-manifest-check evidence-review-template evidence-review-check evidence-expiry-check pilot-approval-template pilot-approval-check pilot-approval-safety-check modes doctor check-local private-workspace-template private-workspace-git-safety secret-provider-check secret-provider-template secret-refs-check sandbox-to-pilot-plan sandbox-pilot-template sandbox-onboarding-check pilot-preflight test
 	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict
