@@ -28,3 +28,6 @@ Passing I2 is not production approval, security certification, compliance certif
 approval, Pilot approval, or proof that a deployment’s private authorization policy is correct.
 Authorized reviewers must still assess real identities, secrets, environment configuration,
 network exposure, runtime enforcement, provider permissions, evidence, and risk privately.
+
+I3 reviews the webhook-signature and local replay classifications in more detail without changing
+their runtime behavior. See the [webhook hardening review](webhook-replay-signature-hardening.md).

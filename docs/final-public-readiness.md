@@ -39,3 +39,7 @@ production, or replace a private security review.
 Phase I2 adds the offline auth/permission boundary audit to maintainer review. A ready result
 means the existing public, guarded, webhook, local-only, and manually gated surfaces were mapped;
 it is not live permission verification, security certification, or production approval.
+
+Phase I3 adds offline webhook hardening findings to maintainer review. `needs_review` is expected
+while freshness, runtime signature enforcement, and replay authorization remain private
+decisions; it is not a failure, certification, or approval.

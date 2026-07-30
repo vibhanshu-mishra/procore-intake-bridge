@@ -27,3 +27,6 @@ analysis while preserving these boundaries.
 I2 applies the [Auth / Permission Boundary Audit](auth-permission-boundary-audit.md) to the route
 and command surfaces named here. It uses existing guard structure only and adds no login, SSO,
 OAuth, RBAC, account, cookie, or session capability.
+
+I3 deepens the webhook-ingress and event-queue scenarios through an
+[offline hardening review](webhook-replay-signature-hardening.md).

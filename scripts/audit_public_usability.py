@@ -71,6 +71,9 @@ REQUIRED_DOCS = {
     "docs/auth-permission-boundary-audit.md",
     "docs/auth-boundary-map.md",
     "docs/permission-boundary-checklist.md",
+    "docs/webhook-replay-signature-hardening.md",
+    "docs/webhook-signature-boundary.md",
+    "docs/webhook-replay-checklist.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -116,6 +119,10 @@ REQUIRED_SCRIPTS = {
     "scripts/print_auth_boundary_map.py",
     "scripts/print_permission_boundary_checklist.py",
     "scripts/generate_auth_boundary_audit_artifacts.py",
+    "scripts/run_webhook_security_review.py",
+    "scripts/print_webhook_signature_boundary.py",
+    "scripts/print_webhook_replay_checklist.py",
+    "scripts/generate_webhook_security_review_artifacts.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -228,6 +235,10 @@ REQUIRED_EXAMPLES = {
     "examples/auth-boundary-audit/example_auth_boundary_map.md",
     "examples/auth-boundary-audit/example_permission_boundary_checklist.md",
     "examples/auth-boundary-audit/example_route_permission_matrix.csv",
+    "examples/webhook-security-review/README.md",
+    "examples/webhook-security-review/example_webhook_signature_boundary.md",
+    "examples/webhook-security-review/example_webhook_replay_checklist.md",
+    "examples/webhook-security-review/example_webhook_fixture_matrix.csv",
 }
 REQUIRED_TARGETS = {
     "review-workspace-summary",
@@ -255,6 +266,10 @@ REQUIRED_TARGETS = {
     "auth-boundary-map",
     "permission-boundary-checklist",
     "auth-boundary-artifact-check",
+    "webhook-security-review",
+    "webhook-signature-boundary",
+    "webhook-replay-checklist",
+    "webhook-security-artifact-check",
     "help",
     "start",
     "commands",
@@ -444,6 +459,15 @@ IGNORED_OUTPUTS = {
     "*.auth-boundary-map.md",
     "*.permission-boundary-checklist.md",
     "*.route-permission-matrix.csv",
+    "webhook-security-review-output/",
+    "webhook-hardening-output/",
+    "webhook-replay-review-output/",
+    "webhook-signature-review-output/",
+    "*.webhook-security-review-report.json",
+    "*.webhook-security-review-report.md",
+    "*.webhook-signature-boundary.md",
+    "*.webhook-replay-checklist.md",
+    "*.webhook-fixture-matrix.csv",
 }
 GENERATED_PARTS = {
     "private-workspace",
@@ -493,6 +517,10 @@ GENERATED_PARTS = {
     "permission-boundary-output",
     "auth-review-output",
     "permission-review-output",
+    "webhook-security-review-output",
+    "webhook-hardening-output",
+    "webhook-replay-review-output",
+    "webhook-signature-review-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak",
@@ -822,6 +850,23 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         "I2 artifact generation excluded from quality": (
             "auth-boundary-artifact-check" not in quality_header
         ),
+        "I3 webhook review is offline and non-registering": all(
+            phrase in _read(root, "docs/webhook-replay-signature-hardening.md").casefold()
+            for phrase in (
+                "offline webhook security review",
+                "no live webhook replay",
+                "no webhook registration",
+                "no procore call",
+                "no external call",
+            )
+        ),
+        "I3 webhook review disclaims certification and approval": all(
+            phrase in _read(root, "docs/webhook-replay-signature-hardening.md").casefold()
+            for phrase in ("not production approval", "security certification", "pilot approval")
+        ),
+        "I3 artifact generation excluded from quality": (
+            "webhook-security-artifact-check" not in quality_header
+        ),
         "H3 workspace is read-only and local": all(
             phrase in _read(root, "docs/intake-review-workspace.md").casefold()
             for phrase in ("read-only", "local intake records only", "no procore")
@@ -1113,6 +1158,11 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 ".auth-boundary-map.md",
                 ".permission-boundary-checklist.md",
                 ".route-permission-matrix.csv",
+                ".webhook-security-review-report.json",
+                ".webhook-security-review-report.md",
+                ".webhook-signature-boundary.md",
+                ".webhook-replay-checklist.md",
+                ".webhook-fixture-matrix.csv",
             )
         ):
             add(

@@ -18,6 +18,11 @@ LOCAL_LIFECYCLE_POST_PATHS = {
     "/review/intake/{record_id}/lifecycle",
     "/review/api/intake/{record_id}/lifecycle",
 }
+WEBHOOK_SIGNATURE_POST_PATHS = {
+    "/webhooks/procore",
+    "/webhooks/procore/dry-run",
+}
+WEBHOOK_REPLAY_POST_PATHS = {"/webhook-events/{webhook_event_id}/replay"}
 REQUIRED_TRIAGE_GET_PATHS = {
     "/review/triage",
     "/review/api/triage",
@@ -64,9 +69,7 @@ def application_routes() -> list[APIRoute]:
             continue
         original_router = getattr(candidate, "original_router", None)
         if original_router is not None:
-            routes.extend(
-                route for route in original_router.routes if isinstance(route, APIRoute)
-            )
+            routes.extend(route for route in original_router.routes if isinstance(route, APIRoute))
     return routes
 
 
@@ -80,30 +83,45 @@ def audit_routes() -> list[RouteIssue]:
 
     issues: list[RouteIssue] = []
     routes = application_routes()
-    available_gets = {
-        route.path for route in routes if "GET" in (route.methods or set())
-    }
+    available_gets = {route.path for route in routes if "GET" in (route.methods or set())}
+    available_posts = {route.path for route in routes if "POST" in (route.methods or set())}
+    for missing in sorted(WEBHOOK_SIGNATURE_POST_PATHS - available_posts):
+        issues.append(
+            RouteIssue(missing, "POST", "required signature-bound webhook route is missing")
+        )
+    for missing in sorted(WEBHOOK_REPLAY_POST_PATHS - available_posts):
+        issues.append(
+            RouteIssue(missing, "POST", "required local replay boundary route is missing")
+        )
     for missing in sorted(REQUIRED_TRIAGE_GET_PATHS - available_gets):
         issues.append(RouteIssue(missing, "GET", "required triage route is missing"))
     for missing in sorted(REQUIRED_ATTACHMENT_REVIEW_GET_PATHS - available_gets):
-        issues.append(
-            RouteIssue(missing, "GET", "required attachment review route is missing")
-        )
+        issues.append(RouteIssue(missing, "GET", "required attachment review route is missing"))
     for missing in sorted(REQUIRED_PRODUCT_DASHBOARD_GET_PATHS - available_gets):
-        issues.append(
-            RouteIssue(missing, "GET", "required product dashboard route is missing")
-        )
+        issues.append(RouteIssue(missing, "GET", "required product dashboard route is missing"))
     for route in routes:
         methods = route.methods or set()
         for method in sorted(methods - {"HEAD", "OPTIONS"}):
             classified = classify_route_auth_boundary(route)
+            if route.path in WEBHOOK_SIGNATURE_POST_PATHS and (
+                classified.route_class is not AuthBoundaryRouteClass.WEBHOOK_SIGNATURE_REQUIRED
+                or classified.protection_type
+                is not AuthBoundaryProtectionType.WEBHOOK_SIGNATURE_REQUIRED
+                or classified.method_risk
+                is not AuthBoundaryMethodRisk.WEBHOOK_POST_SIGNATURE_REQUIRED
+            ):
+                issues.append(
+                    RouteIssue(
+                        route.path,
+                        method,
+                        "webhook receiver is not classified at the signature boundary",
+                    )
+                )
             if (
                 classified.route_class is AuthBoundaryRouteClass.UNKNOWN
                 or classified.protection_type is AuthBoundaryProtectionType.UNKNOWN
             ):
-                issues.append(
-                    RouteIssue(route.path, method, "route has an unknown auth boundary")
-                )
+                issues.append(RouteIssue(route.path, method, "route has an unknown auth boundary"))
             if classified.method_risk is AuthBoundaryMethodRisk.UNSAFE_MUTATION:
                 issues.append(
                     RouteIssue(route.path, method, "route has an unsafe mutation boundary")
@@ -145,18 +163,11 @@ def audit_routes() -> list[RouteIssue]:
             if (
                 route.path.startswith("/review")
                 and method != "GET"
-                and not (
-                    method == "POST"
-                    and route.path in LOCAL_LIFECYCLE_POST_PATHS
-                )
+                and not (method == "POST" and route.path in LOCAL_LIFECYCLE_POST_PATHS)
             ):
-                issues.append(
-                    RouteIssue(route.path, method, "review routes must be GET-only")
-                )
+                issues.append(RouteIssue(route.path, method, "review routes must be GET-only"))
             if route.path.startswith("/deployment") and method != "GET":
-                issues.append(
-                    RouteIssue(route.path, method, "deployment routes must be GET-only")
-                )
+                issues.append(RouteIssue(route.path, method, "deployment routes must be GET-only"))
             if method in {"DELETE", "PUT"}:
                 issues.append(RouteIssue(route.path, method, "destructive method is not allowed"))
             if method == "PATCH" and route.path not in LOCAL_PATCH_PATHS:

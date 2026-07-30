@@ -15,3 +15,6 @@ Use `make permission-boundary-checklist` for the generated offline checklist.
 This checklist performs no live permission check and grants no approval or certification. It
 does not add an authentication provider, SSO, OAuth, login, user account, RBAC, session, or
 cookie implementation.
+
+Use the I3 [webhook replay checklist](webhook-replay-checklist.md) for signature, freshness,
+deduplication, replay, and logging follow-up.

@@ -14,3 +14,6 @@ unknown class and records the expected protection and method risk.
 The map inspects code structure only. It performs no live permission check and adds no SSO,
 OAuth, login, RBAC, account, cookie, or session capability. See the
 [full I2 audit](auth-permission-boundary-audit.md).
+
+I3 records the signature receiver and replay-route gaps in the
+[webhook hardening review](webhook-replay-signature-hardening.md).

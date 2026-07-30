@@ -98,3 +98,8 @@ performed after H1. It adds no runtime or live capability.
   protection audit.
 - [Auth Boundary Map](auth-boundary-map.md): route classes, protection types, and method risks.
 - [Permission Boundary Checklist](permission-boundary-checklist.md): offline maintainer checks.
+- [Webhook Replay and Signature Hardening](webhook-replay-signature-hardening.md): offline
+  signature, freshness, deduplication, replay, and redaction review.
+- [Webhook Signature Boundary](webhook-signature-boundary.md): exact-request-byte and digest
+  comparison expectations.
+- [Webhook Replay Checklist](webhook-replay-checklist.md): private hardening follow-up.

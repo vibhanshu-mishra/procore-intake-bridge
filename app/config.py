@@ -681,6 +681,75 @@ class Settings(BaseSettings):
         le=1000,
         validation_alias="PROCORE_INTAKE_AUTH_BOUNDARY_AUDIT_MAX_FINDINGS",
     )
+    webhook_security_review_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_WEBHOOK_SECURITY_REVIEW_ENABLED"
+    )
+    webhook_security_review_output_root: Path = Field(
+        default=Path("./webhook-security-review-output"),
+        validation_alias="PROCORE_INTAKE_WEBHOOK_SECURITY_REVIEW_OUTPUT_ROOT",
+    )
+    webhook_security_review_require_placeholders: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_SECURITY_REVIEW_REQUIRE_PLACEHOLDERS",
+    )
+    webhook_security_review_require_signature_verification: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_SECURITY_REVIEW_REQUIRE_SIGNATURE_VERIFICATION",
+    )
+    webhook_security_review_require_constant_time_compare: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_SECURITY_REVIEW_REQUIRE_CONSTANT_TIME_COMPARE",
+    )
+    webhook_security_review_require_replay_boundary: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_SECURITY_REVIEW_REQUIRE_REPLAY_BOUNDARY",
+    )
+    webhook_security_review_require_deduplication: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_SECURITY_REVIEW_REQUIRE_DEDUPLICATION",
+    )
+    webhook_security_review_require_redacted_failures: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_SECURITY_REVIEW_REQUIRE_REDACTED_FAILURES",
+    )
+    webhook_security_review_require_no_header_logging: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_SECURITY_REVIEW_REQUIRE_NO_HEADER_LOGGING",
+    )
+    webhook_security_review_require_no_live_replay: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_SECURITY_REVIEW_REQUIRE_NO_LIVE_REPLAY",
+    )
+    webhook_security_review_allow_real_identities: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_SECURITY_REVIEW_ALLOW_REAL_IDENTITIES",
+    )
+    webhook_security_review_allow_real_domains: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_SECURITY_REVIEW_ALLOW_REAL_DOMAINS",
+    )
+    webhook_security_review_allow_real_urls: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_SECURITY_REVIEW_ALLOW_REAL_URLS",
+    )
+    webhook_security_review_allow_report_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_SECURITY_REVIEW_ALLOW_REPORT_CONTENTS",
+    )
+    webhook_security_review_allow_private_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_SECURITY_REVIEW_ALLOW_PRIVATE_PATHS",
+    )
+    webhook_security_review_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_SECURITY_REVIEW_FAIL_CLOSED",
+    )
+    webhook_security_review_max_findings: int = Field(
+        default=300,
+        ge=1,
+        le=1000,
+        validation_alias="PROCORE_INTAKE_WEBHOOK_SECURITY_REVIEW_MAX_FINDINGS",
+    )
     intake_review_workspace_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_ENABLED",

@@ -66,3 +66,6 @@ private review.
 
 Also run `make auth-boundary-audit`. It adds no login or identity provider and does not prove
 runtime permissions; private deployment authorization review remains a separate manual gate.
+
+Run `make webhook-security-review` and retain its needs-review items for private follow-up. It
+performs no replay or registration and does not approve production webhook use.

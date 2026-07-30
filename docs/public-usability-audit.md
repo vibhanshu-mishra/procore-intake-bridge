@@ -108,3 +108,6 @@ offline/no-certification/no-authorization language.
 
 I2 coverage verifies auth-boundary docs, scripts, placeholder examples, commands, ignore
 patterns, offline-only behavior, and the absence of new auth-provider or approval claims.
+
+I3 coverage verifies webhook-hardening docs, scripts, fake fixtures, commands, ignore patterns,
+no-live-replay/registration language, and the absence of certification or approval claims.

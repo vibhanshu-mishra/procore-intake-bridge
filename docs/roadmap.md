@@ -68,3 +68,8 @@ work may deepen offline analysis without live scanners or approval claims.
 
 Auth / Permission Boundary Audit maps existing route and command protections offline. It adds no
 authentication provider, live permission integration, external call, certification, or approval.
+
+## I3 — completed
+
+Webhook Replay and Signature Hardening Review documents existing local/demo controls and private
+hardening gaps without live replay, registration, runtime behavior changes, or approval claims.

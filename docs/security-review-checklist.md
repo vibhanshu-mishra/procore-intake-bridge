@@ -12,3 +12,6 @@ This checklist is offline and calls no scanner, Procore API, external service, o
 
 The I2 [permission boundary checklist](permission-boundary-checklist.md) adds route and command
 guard review without a live permission check.
+
+The I3 [webhook replay checklist](webhook-replay-checklist.md) records freshness, deduplication,
+replay authorization, redaction, and fake-fixture follow-up.

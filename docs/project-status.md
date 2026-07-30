@@ -95,3 +95,6 @@ Phase I1 Security Threat Model is complete as an offline, placeholder-safe revie
 
 Phase I2 Auth / Permission Boundary Audit is complete as an offline mapping of existing public,
 admin-guarded, webhook-signature, local-only, and manually gated surfaces.
+
+Phase I3 Webhook Replay and Signature Hardening Review is complete as an offline fake-fixture
+review with explicit needs-review findings for freshness, replay access, and runtime enforcement.

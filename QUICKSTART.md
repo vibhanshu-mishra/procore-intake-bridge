@@ -204,3 +204,6 @@ certification or production authorization.
 Run `make auth-boundary-audit` to inspect existing route and command protections offline. The
 [I2 audit](docs/auth-permission-boundary-audit.md) adds no auth provider and performs no live
 permission or external check.
+
+Run `make webhook-security-review` for I3’s offline fake-fixture hardening review. It performs no
+live webhook replay, webhook registration, Procore call, or external call.

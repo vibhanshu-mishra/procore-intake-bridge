@@ -285,6 +285,15 @@ permission-review-output/
 *.auth-boundary-map.md
 *.permission-boundary-checklist.md
 *.route-permission-matrix.csv
+webhook-security-review-output/
+webhook-hardening-output/
+webhook-replay-review-output/
+webhook-signature-review-output/
+*.webhook-security-review-report.json
+*.webhook-security-review-report.md
+*.webhook-signature-boundary.md
+*.webhook-replay-checklist.md
+*.webhook-fixture-matrix.csv
 review-export-output/
 intake-export-output/
 lifecycle-export-output/

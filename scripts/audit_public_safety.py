@@ -119,6 +119,10 @@ PRIVATE_PATH_PARTS = {
     "permission-boundary-output",
     "auth-review-output",
     "permission-review-output",
+    "webhook-security-review-output",
+    "webhook-hardening-output",
+    "webhook-replay-review-output",
+    "webhook-signature-review-output",
     "sandbox-output",
     "sandbox-pilot-output",
     "pilot-flow-output",
@@ -250,6 +254,12 @@ SECURITY_REVIEW_CLAIM = re.compile(
     r"(?i)\b(?:security certified|compliance certified|security complete|"
     r"approved for production|production[- ]ready|(?:soc ?2|iso ?27001|hipaa) certified)\b"
 )
+WEBHOOK_LIVE_MATERIAL = re.compile(
+    r"(?i)(?:live[_ -]?(?:webhook[_ -]?)?(?:headers?|payloads?|signatures?)|"
+    r"shared[_ -]?webhook[_ -]?secret|raw[_ -]?request[_ -]?body|replay[_ -]?log|"
+    r"webhook[_ -]?registration[_ -]?(?:output|result))\s*[:=]\s*[\"']?"
+    r"(?!false\b|none\b|placeholder\b|fake\b|synthetic\b)[^\"'\s]+"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -259,6 +269,29 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if "webhook-security" in path.as_posix() or "webhook_security" in path.as_posix():
+        for line in text.splitlines():
+            if (
+                SECURITY_REVIEW_CLAIM.search(line)
+                and "tests" not in path.parts
+                and "services" not in path.parts
+                and not re.search(
+                    r"(?i)\b(?:no|not|never|does not|is not|must not)\b", line
+                )
+            ):
+                issues.append(
+                    SafetyIssue(path, "webhook security review implies certification or approval")
+                )
+                break
+            if (
+                WEBHOOK_LIVE_MATERIAL.search(line)
+                and "tests" not in path.parts
+                and "services" not in path.parts
+                and "schemas" not in path.parts
+                and not _safe_value(line)
+            ):
+                issues.append(SafetyIssue(path, "webhook review contains live security material"))
+                break
     if any(
         marker in path.as_posix()
         for marker in ("auth-boundary", "auth_boundary", "permission-boundary")
@@ -711,6 +744,26 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             )
         ):
             issues.append(SafetyIssue(path, "tracked generated auth-boundary output"))
+            continue
+        if any(
+            part
+            in {
+                "webhook-security-review-output",
+                "webhook-hardening-output",
+                "webhook-replay-review-output",
+                "webhook-signature-review-output",
+            }
+            for part in path.parts
+        ) or path.name.endswith(
+            (
+                ".webhook-security-review-report.json",
+                ".webhook-security-review-report.md",
+                ".webhook-signature-boundary.md",
+                ".webhook-replay-checklist.md",
+                ".webhook-fixture-matrix.csv",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated webhook security-review output"))
             continue
         if path.name.endswith(
             (

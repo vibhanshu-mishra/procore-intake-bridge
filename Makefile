@@ -2,7 +2,7 @@
 
 PYTHON ?= .venv/bin/python
 
-.PHONY: security-threat-model security-boundary-map security-review-checklist security-threat-model-artifact-check auth-boundary-audit auth-boundary-map permission-boundary-checklist auth-boundary-artifact-check demo-product-tour demo-product-check demo-evaluation-checklist demo-product-artifact-check product-dashboard-overview product-dashboard-check review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check operator-export-check operator-export-summary operator-export-artifact-check
+.PHONY: security-threat-model security-boundary-map security-review-checklist security-threat-model-artifact-check auth-boundary-audit auth-boundary-map permission-boundary-checklist auth-boundary-artifact-check webhook-security-review webhook-signature-boundary webhook-replay-checklist webhook-security-artifact-check demo-product-tour demo-product-check demo-evaluation-checklist demo-product-artifact-check product-dashboard-overview product-dashboard-check review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check operator-export-check operator-export-summary operator-export-artifact-check
 
 help:
 	@echo "START HERE"
@@ -23,6 +23,9 @@ help:
 	@echo "  make auth-boundary-audit      Offline auth/permission boundary audit"
 	@echo "  make auth-boundary-map        Print offline route protection map"
 	@echo "  make permission-boundary-checklist Print offline permission checklist"
+	@echo "  make webhook-security-review Offline webhook hardening review"
+	@echo "  make webhook-signature-boundary Print signature expectations"
+	@echo "  make webhook-replay-checklist Print replay/deduplication checklist"
 	@echo "  make product-dashboard-overview Sanitized local product cockpit summary"
 	@echo "  make product-dashboard-check Validate the read-only product cockpit"
 	@echo "  make review-workspace-summary Read-only local intake summary"
@@ -202,6 +205,18 @@ permission-boundary-checklist:
 
 auth-boundary-artifact-check:
 	$(PYTHON) scripts/generate_auth_boundary_audit_artifacts.py --temporary
+
+webhook-security-review:
+	$(PYTHON) scripts/run_webhook_security_review.py
+
+webhook-signature-boundary:
+	$(PYTHON) scripts/print_webhook_signature_boundary.py
+
+webhook-replay-checklist:
+	$(PYTHON) scripts/print_webhook_replay_checklist.py
+
+webhook-security-artifact-check:
+	$(PYTHON) scripts/generate_webhook_security_review_artifacts.py --temporary
 
 demo-product-tour:
 	$(PYTHON) scripts/print_demo_product_tour.py
@@ -582,4 +597,5 @@ quality: product-dashboard-check product-dashboard-overview
 quality: demo-product-check demo-product-tour demo-evaluation-checklist
 quality: security-threat-model security-boundary-map security-review-checklist
 quality: auth-boundary-audit auth-boundary-map permission-boundary-checklist
+quality: webhook-security-review webhook-signature-boundary webhook-replay-checklist
 	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict

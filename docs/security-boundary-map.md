@@ -9,3 +9,6 @@ included. The map is review input only, not certification or production authoriz
 
 See the I2 [auth boundary map](auth-boundary-map.md) for the route-class, protection-type, and
 method-risk projection.
+
+See the I3 [webhook signature boundary](webhook-signature-boundary.md) for exact-request-byte,
+digest-comparison, secret, queue, and replay expectations.

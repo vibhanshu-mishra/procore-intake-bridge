@@ -556,3 +556,7 @@ Phase I2 adds an [offline Auth / Permission Boundary Audit](docs/auth-permission
 Run `make auth-boundary-audit`, `make auth-boundary-map`, and
 `make permission-boundary-checklist`. I2 adds no login, SSO, OAuth, RBAC, account, cookie, or
 session system and performs no live permission check.
+
+Phase I3 adds an [offline Webhook Replay and Signature Hardening Review](docs/webhook-replay-signature-hardening.md).
+It uses fake fixtures only, performs no live replay or registration, and records signature,
+deduplication, replay, and redaction expectations without a Procore or external call.

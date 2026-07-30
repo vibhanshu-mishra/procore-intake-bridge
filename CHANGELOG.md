@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Phase I3 adds an offline webhook replay/signature hardening review, public-safe artifacts,
+  fixture matrix, documentation, audits, and regression coverage without live replay or
+  registration.
+
 - Phase I2 adds an offline auth/permission boundary audit, route protection map, checklist,
   sanitized CSV artifact, audit integration, documentation, examples, and regression coverage.
 

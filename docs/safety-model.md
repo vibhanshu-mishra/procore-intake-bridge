@@ -233,3 +233,7 @@ does not establish production security, certification, compliance, launch, or Pi
 I2 adds an [offline auth/permission boundary audit](auth-permission-boundary-audit.md). It checks
 existing admin guards, webhook signature boundaries, local mutations, public status routes, and
 manual CLI gates without adding an auth provider or performing a live permission check.
+
+I3 adds an [offline webhook hardening review](webhook-replay-signature-hardening.md) for HMAC,
+exact request bytes, constant-time comparison, deduplication, local replay, redaction, and fake
+fixtures. It performs no live replay or registration.

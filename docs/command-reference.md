@@ -248,3 +248,13 @@ These commands run no live scanner/external call and claim no certification or a
 
 These commands inspect local code structure only. They add no auth provider and perform no live
 permission, Procore, database, cloud, deployment, or external check.
+
+## Offline webhook security review
+
+- `make webhook-security-review`
+- `make webhook-signature-boundary`
+- `make webhook-replay-checklist`
+- `make webhook-security-artifact-check` (temporary and cleaned)
+
+These commands use local code and fake fixtures only. They perform no live replay, webhook
+registration, Procore call, endpoint call, database write, or external operation.

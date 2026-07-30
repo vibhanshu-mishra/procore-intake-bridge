@@ -145,3 +145,7 @@ Use the [Auth / Permission Boundary Audit](auth-permission-boundary-audit.md),
 [auth map](auth-boundary-map.md), and
 [permission checklist](permission-boundary-checklist.md) to review existing route and command
 protections without adding an auth provider or performing live permission checks.
+
+Use the [Webhook Replay and Signature Hardening Review](webhook-replay-signature-hardening.md),
+[signature boundary](webhook-signature-boundary.md), and
+[replay checklist](webhook-replay-checklist.md) for offline fake-fixture review.

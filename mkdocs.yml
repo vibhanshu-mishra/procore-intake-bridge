@@ -29,6 +29,9 @@ nav:
       - Auth / Permission Boundary Audit: auth-permission-boundary-audit.md
       - Auth Boundary Map: auth-boundary-map.md
       - Permission Boundary Checklist: permission-boundary-checklist.md
+      - Webhook Replay and Signature Hardening: webhook-replay-signature-hardening.md
+      - Webhook Signature Boundary: webhook-signature-boundary.md
+      - Webhook Replay Checklist: webhook-replay-checklist.md
   - Sandbox Mode:
       - Sandbox Mode: sandbox-mode.md
       - Sandbox Onboarding: sandbox-onboarding.md
