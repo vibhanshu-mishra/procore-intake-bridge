@@ -53,6 +53,10 @@ Sandbox operators should use the offline
 [evidence-reference guide](docs/sandbox-smoke-evidence.md). The real read-only smoke command
 remains separate, manual, and gated.
 
+F2 adds an independent [Sandbox read-validation guide](docs/sandbox-read-validation.md) and
+[private evidence-reference guide](docs/sandbox-read-evidence.md). Its plan, preflight, and
+template are offline; the live RFI/Submittal command remains separately enabled and confirmed.
+
 Maintainers preparing a future public release should use the
 [release-readiness guide](docs/release-readiness.md). It creates no tag, release, package, image,
 publication, or deployment; final approval remains manual.

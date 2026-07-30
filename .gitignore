@@ -10,6 +10,15 @@ downloads/
 logs/
 *.log
 smoke-output/
+sandbox-read-output/
+sandbox-validation-output/
+read-validation-output/
+*.sandbox-read-report.json
+*.sandbox-read-report.md
+*.sandbox-read-evidence.json
+*.sandbox-read-evidence.md
+*.read-validation-report.json
+*.read-validation-report.md
 sandbox-output/
 *.smoke.json
 *.smoke.log

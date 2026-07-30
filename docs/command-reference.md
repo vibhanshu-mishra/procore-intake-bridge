@@ -84,4 +84,17 @@ Documentation commands are also local-only:
 
 They do not build, publish, deploy, or enable GitHub Pages. MkDocs is optional.
 
+## Sandbox read validation
+
+| Command | Safety boundary |
+|---|---|
+| `make sandbox-read-plan` | Offline bounded RFI/Submittal plan; no credentials or calls. |
+| `make sandbox-read-preflight` | Offline gate posture; no private reads or calls. |
+| `make sandbox-read-evidence-template` | Offline placeholder reference only. |
+| `make sandbox-read-validation` | Separate manually gated live Sandbox reads; never a default. |
+
+The live command requires exact confirmation and private DMSA/allowlist configuration. It makes
+no Procore writes, registers no webhooks, downloads no attachments by default, and stores no raw
+payloads. See [Sandbox read validation](sandbox-read-validation.md).
+
 Best next command for a new user: `make start`.

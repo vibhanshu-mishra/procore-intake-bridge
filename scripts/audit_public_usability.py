@@ -44,6 +44,8 @@ REQUIRED_DOCS = {
     "docs/docs-site.md",
     "docs/docs-navigation.md",
     "docs/quickstart-site.md",
+    "docs/sandbox-read-validation.md",
+    "docs/sandbox-read-evidence.md",
     "mkdocs.yml",
 }
 REQUIRED_SCRIPTS = {
@@ -67,6 +69,10 @@ REQUIRED_SCRIPTS = {
     "scripts/print_release_notes_draft.py",
     "scripts/check_docs_site.py",
     "scripts/print_docs_preview_instructions.py",
+    "scripts/print_sandbox_read_plan.py",
+    "scripts/check_sandbox_read_preflight.py",
+    "scripts/print_sandbox_read_evidence_template.py",
+    "scripts/run_sandbox_read_validation.py",
 }
 REQUIRED_EXAMPLES = {
     "examples/demo-flow.md",
@@ -102,6 +108,10 @@ REQUIRED_TARGETS = {
     "docs-site-check",
     "docs-preview-instructions",
     "docs-map",
+    "sandbox-read-plan",
+    "sandbox-read-preflight",
+    "sandbox-read-evidence-template",
+    "sandbox-read-validation",
     "first-run",
     "doctor",
     "setup-demo",
@@ -128,6 +138,15 @@ IGNORED_OUTPUTS = {
     "mkdocs-site-output/",
     "*.docs-site-report.json",
     "*.docs-site-report.md",
+    "sandbox-read-output/",
+    "sandbox-validation-output/",
+    "read-validation-output/",
+    "*.sandbox-read-report.json",
+    "*.sandbox-read-report.md",
+    "*.sandbox-read-evidence.json",
+    "*.sandbox-read-evidence.md",
+    "*.read-validation-report.json",
+    "*.read-validation-report.md",
 }
 GENERATED_PARTS = {
     "private-workspace",
@@ -141,6 +160,9 @@ GENERATED_PARTS = {
     "site",
     "docs-site-output",
     "mkdocs-site-output",
+    "sandbox-read-output",
+    "sandbox-validation-output",
+    "read-validation-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak", ".backup", ".crt", ".csr", ".db", ".docx", ".dump", ".gif",
@@ -277,6 +299,14 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         for path in REQUIRED_DOCS
         if (root / path).is_file()
     )
+    quality_header = next(
+        (line for line in makefile.splitlines() if line.startswith("quality:")),
+        "",
+    )
+    prepare_sandbox_header = next(
+        (line for line in makefile.splitlines() if line.startswith("prepare-sandbox:")),
+        "",
+    )
     guidance_checks = {
         "docs include next-command guidance": "what to run next" in docs,
         "doctor is documented": "make doctor" in docs,
@@ -401,6 +431,32 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         "docs do not activate GitHub Pages": (
             "mkdocs gh-deploy" not in docs and "github pages is enabled" not in docs
         ),
+        "Sandbox read validation is manually gated": all(
+            phrase in _read(root, "docs/sandbox-read-validation.md").casefold()
+            for phrase in (
+                "separately gated",
+                "exactly equals",
+                "never automatic",
+                "never part of quality",
+            )
+        ),
+        "Sandbox read validation is read-only and private": all(
+            phrase in _read(root, "docs/sandbox-read-validation.md").casefold()
+            for phrase in (
+                "does not write to procore",
+                "register webhooks",
+                "download attachments by default",
+                "store raw payloads",
+                "stay private",
+            )
+        ),
+        "Sandbox read live target excluded from defaults": all(
+            "sandbox-read-validation" not in section
+            for section in (
+                quality_header,
+                prepare_sandbox_header,
+            )
+        ),
     }
     for name, passed in guidance_checks.items():
         add("PASS" if passed else "FAIL", name, "documented" if passed else "guidance is missing")
@@ -419,6 +475,12 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 ".first-run-report.md",
                 ".docs-site-report.json",
                 ".docs-site-report.md",
+                ".sandbox-read-report.json",
+                ".sandbox-read-report.md",
+                ".sandbox-read-evidence.json",
+                ".sandbox-read-evidence.md",
+                ".read-validation-report.json",
+                ".read-validation-report.md",
             )
         ):
             add(

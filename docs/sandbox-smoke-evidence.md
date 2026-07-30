@@ -27,3 +27,7 @@ prove approval or production readiness.
 
 Before using a ref, privately verify the run was authorized, sandbox-only, read-only, bounded,
 sanitized, current, scoped correctly, and reviewed by an authorized human.
+
+Keep B1 smoke evidence distinct from the F2
+[Sandbox read-validation evidence reference](sandbox-read-evidence.md). Both remain private and
+neither contains or replaces the underlying report.

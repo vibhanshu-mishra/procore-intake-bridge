@@ -17,3 +17,8 @@ The result may remain `sandbox_needs_configuration`; it reports missing items wi
 or printing private values. Webhook posture is reviewed without registration. The B1 smoke test
 is a later, separately authorized and manually gated action—this check never calls Procore or
 runs that harness automatically. Record only its reference privately.
+
+F2 planning remains offline as well. Run `make sandbox-read-plan` and
+`make sandbox-read-preflight`; do not treat `make sandbox-read-validation` as onboarding. The
+live command requires separate authorization, exact confirmation, private credential refs, and
+allowed scope. Keep its sanitized result and [evidence ref](sandbox-read-evidence.md) private.

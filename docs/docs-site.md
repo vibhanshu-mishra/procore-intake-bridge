@@ -46,3 +46,6 @@ Private customer data, credentials, contacts, IDs, domains, evidence, reports, p
 certificates, keys, and generated output must stay outside documentation and Git.
 
 Any future hosting or publication remains separately scoped, manually reviewed work.
+
+The Sandbox navigation includes F2 read validation and evidence guidance. Documentation checks
+never invoke the live command; they validate Markdown and navigation only.

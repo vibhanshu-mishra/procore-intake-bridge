@@ -28,6 +28,8 @@ REQUIRED_NAV_DOCS = {
     "walkthrough-demo.md",
     "walkthrough-sandbox.md",
     "walkthrough-pilot.md",
+    "sandbox-read-validation.md",
+    "sandbox-read-evidence.md",
     "sandbox-to-pilot-flow.md",
     "release-readiness.md",
     "release-checklist.md",

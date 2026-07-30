@@ -1,0 +1,17 @@
+{
+  "validation_ref": "SANDBOX_READ_VALIDATION_REF_PLACEHOLDER",
+  "run_label": "SANDBOX_READ_RUN_LABEL_PLACEHOLDER",
+  "scope_ref": "SANDBOX_SCOPE_REF_PLACEHOLDER",
+  "selected_tools": [
+    "rfis",
+    "submittals"
+  ],
+  "max_projects": 3,
+  "max_items_per_tool": 5,
+  "max_pages": 2,
+  "include_details": true,
+  "include_attachments": false,
+  "store_raw": false,
+  "read_only": true,
+  "external_calls_from_plan": false
+}

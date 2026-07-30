@@ -1,0 +1,13 @@
+{
+  "validation_ref": "SANDBOX_READ_VALIDATION_REF_PLACEHOLDER",
+  "run_label": "SANDBOX_READ_RUN_LABEL_PLACEHOLDER",
+  "scope_ref": "SANDBOX_SCOPE_REF_PLACEHOLDER",
+  "rfi_access_status": "SANDBOX_RFI_ACCESS_STATUS_PLACEHOLDER",
+  "submittal_access_status": "SANDBOX_SUBMITTAL_ACCESS_STATUS_PLACEHOLDER",
+  "pagination_status": "SANDBOX_PAGINATION_STATUS_PLACEHOLDER",
+  "date_filter_status": "SANDBOX_DATE_FILTER_STATUS_PLACEHOLDER",
+  "reviewer_placeholder": "SANDBOX_REVIEWER_PLACEHOLDER",
+  "expiry_placeholder": "SANDBOX_EXPIRY_PLACEHOLDER",
+  "report_contents_included": false,
+  "private_only": true
+}

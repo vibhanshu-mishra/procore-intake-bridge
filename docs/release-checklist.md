@@ -10,6 +10,7 @@ release.
 - [ ] Confirm public examples and fixtures are fake or placeholder-only.
 - [ ] Review README, QUICKSTART, command reference, walkthroughs, and internal links.
 - [ ] Review Sandbox/Pilot boundaries and confirm no live/default behavior changed.
+- [ ] Confirm F2 live Sandbox read validation remains separately gated and absent from quality.
 - [ ] Review known limitations and the explicit not-production-ready language.
 - [ ] Review CHANGELOG’s Unreleased section.
 - [ ] Review `pyproject.toml` version and packaging metadata without building a package.

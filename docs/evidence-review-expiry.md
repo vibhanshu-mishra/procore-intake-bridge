@@ -79,3 +79,6 @@ never copies review artifacts, reviewer identities, or signoff records into the 
 
 The ignored C5 workspace includes placeholder-only evidence review and expiry metadata files.
 Real reviewer identities, evidence, timestamps, decisions, and renewal records stay private.
+
+An F2 Sandbox read-validation reference can be reviewed and expired like other opaque C1 refs.
+C2 never ingests the report, raw RFI/Submittal records, identifiers, or API errors.

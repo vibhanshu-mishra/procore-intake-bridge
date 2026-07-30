@@ -86,3 +86,6 @@ evidence into GitHub.
 Future work may add separately authorized private reviewer authentication, access control,
 approval history, legally reviewed risk handling, notifications, retention, and real pilot
 authorization. C3 implements none of those capabilities.
+
+C3 may point to a privately reviewed F2 read-validation evidence ref. It must never embed the
+report, counts, hashes, raw records, API errors, scope identifiers, or reviewer identity.

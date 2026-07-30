@@ -479,6 +479,78 @@ class Settings(BaseSettings):
         default=None,
         validation_alias="PROCORE_INTAKE_SANDBOX_SMOKE_COMPANY_ID",
     )
+    sandbox_read_validation_enabled: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SANDBOX_READ_VALIDATION_ENABLED",
+    )
+    sandbox_read_validation_confirmation: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_SANDBOX_READ_VALIDATION_CONFIRMATION",
+    )
+    sandbox_read_validation_require_sandbox: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SANDBOX_READ_VALIDATION_REQUIRE_SANDBOX",
+    )
+    sandbox_read_validation_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SANDBOX_READ_VALIDATION_FAIL_CLOSED",
+    )
+    sandbox_read_validation_max_projects: int = Field(
+        default=3,
+        ge=1,
+        le=3,
+        validation_alias="PROCORE_INTAKE_SANDBOX_READ_VALIDATION_MAX_PROJECTS",
+    )
+    sandbox_read_validation_max_items_per_tool: int = Field(
+        default=5,
+        ge=1,
+        le=5,
+        validation_alias="PROCORE_INTAKE_SANDBOX_READ_VALIDATION_MAX_ITEMS_PER_TOOL",
+    )
+    sandbox_read_validation_max_pages: int = Field(
+        default=2,
+        ge=1,
+        le=2,
+        validation_alias="PROCORE_INTAKE_SANDBOX_READ_VALIDATION_MAX_PAGES",
+    )
+    sandbox_read_validation_timeout_seconds: int = Field(
+        default=20,
+        ge=1,
+        le=20,
+        validation_alias="PROCORE_INTAKE_SANDBOX_READ_VALIDATION_TIMEOUT_SECONDS",
+    )
+    sandbox_read_validation_include_details: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SANDBOX_READ_VALIDATION_INCLUDE_DETAILS",
+    )
+    sandbox_read_validation_include_attachments: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SANDBOX_READ_VALIDATION_INCLUDE_ATTACHMENTS",
+    )
+    sandbox_read_validation_store_raw: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SANDBOX_READ_VALIDATION_STORE_RAW",
+    )
+    sandbox_read_validation_output_root: Path = Field(
+        default=Path("./sandbox-read-output"),
+        validation_alias="PROCORE_INTAKE_SANDBOX_READ_VALIDATION_OUTPUT_ROOT",
+    )
+    sandbox_read_validation_require_allowed_scope: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SANDBOX_READ_VALIDATION_REQUIRE_ALLOWED_SCOPE",
+    )
+    sandbox_read_validation_mask_ids: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SANDBOX_READ_VALIDATION_MASK_IDS",
+    )
+    sandbox_read_validation_hash_ids: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SANDBOX_READ_VALIDATION_HASH_IDS",
+    )
+    sandbox_read_validation_allowed_tools: str = Field(
+        default="rfis,submittals",
+        validation_alias="PROCORE_INTAKE_SANDBOX_READ_VALIDATION_ALLOWED_TOOLS",
+    )
     customer_deployment_pattern_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_CUSTOMER_DEPLOYMENT_PATTERN_ENABLED",

@@ -5,7 +5,8 @@ Phase E3 completes guided Demo/Sandbox/Pilot walkthroughs and safe illustrative 
 work remains separately scoped.
 
 Phase F1 adds offline sandbox smoke execution guidance and private evidence-ref planning. Future
-F2 work remains separately scoped.
+F2 adds manually gated, bounded RFI/Submittal Sandbox read validation. Future live expansion,
+attachment validation, or pilot execution remains separately scoped.
 
 Phase E4 adds public-safe release preparation for maintainer review only. Phase E5 adds the
 local-only documentation-site foundation and validation. Actual documentation hosting and any

@@ -115,6 +115,27 @@ def check_walkthroughs(root: Path = ROOT) -> list[WalkthroughFinding]:
                 "make sandbox-smoke-evidence-template",
             )
         ),
+        "Sandbox read-validation offline commands": all(
+            command in sandbox
+            for command in (
+                "make sandbox-read-plan",
+                "make sandbox-read-preflight",
+                "make sandbox-read-evidence-template",
+            )
+        ),
+        "Sandbox read validation is not a default step": (
+            "make sandbox-read-validation" in sandbox
+            and "do not run it as part of this walkthrough" in sandbox
+        ),
+        "Sandbox read validation safety": all(
+            phrase in sandbox
+            for phrase in (
+                "writes nothing to procore",
+                "registers no webhooks",
+                "downloads no attachments by default",
+                "stores no raw payloads",
+            )
+        ),
         "Pilot friendly flow": all(
             command in pilot
             for command in ("make start", "make init-private-workspace", "make prepare-pilot")
@@ -124,6 +145,9 @@ def check_walkthroughs(root: Path = ROOT) -> list[WalkthroughFinding]:
         ),
         "Pilot no-real-approval boundary": "does not approve a real pilot" in pilot,
         "Pilot private smoke evidence ref": "sandbox_smoke_ref_placeholder" in pilot,
+        "Pilot private read-validation evidence ref": (
+            "sandbox_read_validation_ref_placeholder" in pilot
+        ),
     }
     for check, passed in content_checks.items():
         add("PASS" if passed else "FAIL", check, "documented" if passed else "guidance missing")

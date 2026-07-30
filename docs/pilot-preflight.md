@@ -16,3 +16,6 @@ It reads no real private evidence, connects to no service or external database, 
 deploys nothing, and grants no approval. `pilot_ready_for_private_review` means only that
 authorized reviewers may examine the real private materials outside this repository. Launch
 remains on hold until that independent review is complete.
+
+A separately reviewed private F2 read-validation reference may support Sandbox access posture.
+This preflight reads only the reference, never the sanitized report or raw RFI/Submittal data.

@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- F2 adds offline Sandbox read-validation planning, a separately gated bounded RFI/Submittal live
+  command, sanitized count/hash-only reporting, private evidence refs, and fail-closed safety
+  checks. Live calls remain absent from quality and default workflows.
+
 - E5 adds a local-only MkDocs navigation foundation, user-journey documentation map, offline
   checker, optional preview guidance, and generated-site safety rules. It does not build,
   publish, host, deploy, or enable GitHub Pages.

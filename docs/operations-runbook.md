@@ -147,6 +147,11 @@ For Sandbox smoke, run the offline explain/preflight commands first. The actual 
 requires separate authorization and every manual gate. Keep sanitized output and evidence refs
 private; do not register webhooks or download attachments.
 
+For F2 use `make sandbox-read-plan`, `make sandbox-read-preflight`, and
+`make sandbox-read-evidence-template` offline. The separate live command must be explicitly
+authorized and exactly confirmed. It is bounded to RFI/Submittal reads, performs no writes or
+webhook registration, downloads no attachments by default, and keeps sanitized results private.
+
 For a future public release review, run `make release-readiness` only after quality and safety
 checks. Review generated drafts privately and manually. This workflow does not tag, package,
 publish, or deploy.

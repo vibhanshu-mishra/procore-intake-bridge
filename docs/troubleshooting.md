@@ -64,6 +64,11 @@ and operator-controlled. Never use public example IDs or credentials for a real 
 Run `make sandbox-smoke-preflight` to distinguish normal missing private configuration from an
 unsafe control setting. It makes no live call.
 
+For F2, `make sandbox-read-preflight` similarly reports missing enablement, exact confirmation,
+Sandbox target, DMSA profile, and allowed scope without resolving credentials or calling Procore.
+Permission denied and not found outcomes from an authorized live run are sanitized review
+findings; empty RFI/Submittal lists are informative and not automatic failure.
+
 ## Pilot preflight is not ready
 
 `make prepare-pilot` uses fake examples and must not approve a pilot or read private evidence.

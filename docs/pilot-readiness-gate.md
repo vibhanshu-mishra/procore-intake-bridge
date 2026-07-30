@@ -89,3 +89,6 @@ readiness artifact or converts `GO` into real pilot approval.
 
 Use `make doctor` to reach the pilot readiness tools from the three-mode workflow. Pilot remains
 unapproved until private evidence, review, expiry, rollback, and approval work is completed.
+
+B9 may consume the status of a privately reviewed F2 evidence ref, not its report contents. A
+passing Sandbox read validation is access evidence only and never pilot or production approval.

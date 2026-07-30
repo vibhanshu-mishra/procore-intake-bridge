@@ -20,6 +20,8 @@ nav:
       - Sandbox Onboarding: sandbox-onboarding.md
       - Sandbox Smoke UX: sandbox-smoke-ux.md
       - Sandbox Smoke Evidence: sandbox-smoke-evidence.md
+      - Sandbox Read Validation: sandbox-read-validation.md
+      - Sandbox Read Evidence: sandbox-read-evidence.md
   - Pilot Mode:
       - Pilot Mode: pilot-mode.md
       - Pilot Preflight: pilot-preflight.md

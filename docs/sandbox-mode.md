@@ -38,3 +38,7 @@ the reference or connecting.
 
 Local Sandbox needs no hosted recipe. Before hosting Sandbox, validate a D4 recipe and review HTTPS
 and public ingress when webhooks are planned. The repository does not provision the environment.
+
+For F2, run the offline `make sandbox-read-plan`, `make sandbox-read-preflight`, and
+`make sandbox-read-evidence-template` commands. The separate live validation is manual and checks
+bounded RFI/Submittal reads only; see [Sandbox read validation](sandbox-read-validation.md).

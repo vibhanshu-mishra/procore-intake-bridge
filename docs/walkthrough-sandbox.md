@@ -39,6 +39,9 @@ make prepare-sandbox
 make sandbox-smoke-explain
 make sandbox-smoke-preflight
 make sandbox-smoke-evidence-template
+make sandbox-read-plan
+make sandbox-read-preflight
+make sandbox-read-evidence-template
 python scripts/check_secret_provider.py
 python scripts/check_attachment_storage.py
 python scripts/check_sandbox_onboarding.py examples/sandbox-pilot-flow/example_sandbox_flow.json
@@ -59,6 +62,12 @@ authorization. Read [Sandbox smoke tests](sandbox-smoke-tests.md) later.
 Sanitized live output, if separately authorized, stays private. Record only a private evidence
 reference using the [smoke evidence guide](sandbox-smoke-evidence.md); never commit report
 contents.
+
+F2's separate `make sandbox-read-validation` command checks bounded RFI/Submittal list and detail
+reads only after exact private confirmation. Do not run it as part of this walkthrough. It
+writes nothing to Procore, registers no webhooks, downloads no attachments by default, and
+stores no raw payloads. See [Sandbox read validation](sandbox-read-validation.md) and keep only the private
+[evidence reference](sandbox-read-evidence.md).
 
 ## Common problems
 

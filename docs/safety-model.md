@@ -21,6 +21,11 @@ E5 adds navigation metadata and non-writing docs checks only. It does not build 
 site, enable GitHub Pages, add analytics or tracking, deploy hosting, or make MkDocs a Demo-mode
 requirement. Generated site output and reports are ignored and must not be committed.
 
+F2's plan, preflight, and evidence template are offline. Its separate live command fails closed
+unless enablement, exact confirmation, Sandbox target, DMSA refs, and allowed scope pass. It reads
+bounded RFIs/Submittals only, has no write/webhook/attachment methods, stores no raw payloads, and
+reports only sanitized counts, statuses, and one-way hashes.
+
 Mode transitions are local decisions: Pilot can only become ready for private review. No
 transition approves production, calls Procore automatically, or exposes private data.
 

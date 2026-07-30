@@ -13,7 +13,9 @@ Use this reading order; later sections are needed only for the selected journey.
 
 - **Demo:** [Demo quickstart](quickstart-demo.md) → [Demo walkthrough](walkthrough-demo.md)
 - **Sandbox:** [Sandbox mode](sandbox-mode.md) → [Sandbox onboarding](sandbox-onboarding.md) →
-  [Sandbox walkthrough](walkthrough-sandbox.md) → [Sandbox smoke UX](sandbox-smoke-ux.md)
+  [Sandbox walkthrough](walkthrough-sandbox.md) → [Sandbox smoke UX](sandbox-smoke-ux.md) →
+  [Sandbox read validation](sandbox-read-validation.md) →
+  [Sandbox read evidence](sandbox-read-evidence.md)
 - **Pilot:** [Pilot mode](pilot-mode.md) → [Pilot preflight](pilot-preflight.md) →
   [Pilot walkthrough](walkthrough-pilot.md) → [Pilot readiness](pilot-readiness-gate.md)
 

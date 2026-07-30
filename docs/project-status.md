@@ -19,6 +19,9 @@ guidance. No release, tag, package, image, publication, or deployment is created
 Phase E5 adds a local-only documentation-site config, journey navigation map, safety checker, and
 optional preview guidance. It does not build, publish, host, deploy, or enable GitHub Pages.
 
+Phase F2 adds separately gated bounded Sandbox RFI/Submittal list/detail validation plus offline
+planning and private evidence-reference guidance. No live call runs automatically.
+
 Phase D5, Real Sandbox-to-Pilot Flow, is implemented as a local placeholder-only workflow.
 Actual private pilot execution remains future, separately authorized work.
 

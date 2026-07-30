@@ -86,6 +86,9 @@ PRIVATE_PATH_PARTS = {
     "pilot-approval-packets",
     "storage",
     "smoke-output",
+    "sandbox-read-output",
+    "sandbox-validation-output",
+    "read-validation-output",
     "support-output",
     "sandbox-output",
     "sandbox-pilot-output",
@@ -156,6 +159,20 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
         text,
     ):
         issues.append(SafetyIssue(path, "external analytics or tracking JavaScript"))
+    if "examples/sandbox-read-validation" in path.as_posix():
+        if re.search(
+            r"(?i)[\"']?(?:company|project|rfi|submittal)[_-]?id[\"']?\s*:\s*[0-9]{4,}",
+            text,
+        ):
+            issues.append(SafetyIssue(path, "sandbox read example contains a raw identifier"))
+        if re.search(
+            r"(?i)[\"']?(?:subject|title|description|vendor|attachment_filename|"
+            r"raw_payload|response_body)[\"']?\s*:",
+            text,
+        ):
+            issues.append(SafetyIssue(path, "sandbox read example contains response-like content"))
+        if CUSTOMER_EMAIL.search(text) or CUSTOMER_URL.search(text):
+            issues.append(SafetyIssue(path, "sandbox read example contains a contact or URL"))
     for match in SECRET_ASSIGNMENT.finditer(text):
         if not _safe_value(match.group(2)):
             issues.append(SafetyIssue(path, f"non-placeholder {match.group(1).casefold()}"))
@@ -263,6 +280,18 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             (".smoke.txt", ".smoke.md", ".smoke.transcript", ".sandbox-smoke.json")
         ):
             issues.append(SafetyIssue(path, "tracked sandbox smoke transcript or report"))
+            continue
+        if path.name.endswith(
+            (
+                ".sandbox-read-report.json",
+                ".sandbox-read-report.md",
+                ".sandbox-read-evidence.json",
+                ".sandbox-read-evidence.md",
+                ".read-validation-report.json",
+                ".read-validation-report.md",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated sandbox read-validation output"))
             continue
         if path.name.endswith((".docs-site-report.json", ".docs-site-report.md")):
             issues.append(SafetyIssue(path, "tracked generated docs-site report"))

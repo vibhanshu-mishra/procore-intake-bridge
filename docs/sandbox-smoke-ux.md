@@ -54,3 +54,7 @@ later review. Never copy report contents into Git.
 
 See [Sandbox smoke evidence](sandbox-smoke-evidence.md) and the
 [Sandbox walkthrough](walkthrough-sandbox.md).
+
+F2 is a separate, more detailed RFI/Submittal read-validation path; it does not replace or weaken
+this smoke UX. See [Sandbox read validation](sandbox-read-validation.md). Neither live command is
+run by quality, prepare-sandbox, walkthroughs, release checks, or docs checks.

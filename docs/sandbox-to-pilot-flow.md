@@ -27,6 +27,8 @@ database, DNS, TLS, cloud, webhook-registration, migration, or deployment calls.
 4. **Manual smoke:** after separate authorization, use the B1 manually gated harness. D5 never
    runs it. Store only `SANDBOX_SMOKE_REF_PLACEHOLDER`-shaped metadata in public profiles and the
    actual result reference privately.
+   F2 read validation is also separate and manual. Store only a private
+   `SANDBOX_READ_VALIDATION_REF_PLACEHOLDER`-shaped reference, never raw RFI/Submittal results.
 5. **Pilot preflight:** validate D1 secrets, D2 storage, D3 PostgreSQL/migration planning, D4
    deployment/HTTPS/backup/rollback, B7 customer deployment, B8 diagnostics, B9 readiness, C1
    evidence metadata, C2 review/expiry, and C3 approval-packet preparation.

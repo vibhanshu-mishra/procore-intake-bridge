@@ -72,3 +72,7 @@ workspace artifacts never belong in an approval packet.
 
 C5 can bootstrap the ignored evidence-reference placeholder within `private-workspace/`; it does
 not copy, inspect, or validate real evidence contents.
+
+F2 Sandbox read validation contributes only an opaque private reference such as
+`SANDBOX_READ_VALIDATION_REF_PLACEHOLDER`. Counts, hashes, reports, API errors, and raw records
+remain in the approved private system and are never copied into C1 metadata.

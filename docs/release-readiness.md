@@ -39,3 +39,7 @@ Any future tag or publication remains a separate manual action outside E4.
 Review the [docs-site guide](docs-site.md) and [navigation map](docs-navigation.md) as part of
 documentation completeness. E5 validates only a local navigation foundation; it does not publish
 or deploy documentation.
+
+Confirm F2's live `sandbox-read-validation` target remains absent from quality, onboarding,
+walkthrough execution, release, and docs checks. Only its offline plan/preflight/template belong
+in quality.

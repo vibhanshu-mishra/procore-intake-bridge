@@ -21,6 +21,10 @@ E5 verifies the local-only MkDocs navigation config, docs-site guide and map, no
 optional preview guidance, ignored site output, and the absence of active GitHub Pages,
 publication, analytics, or Demo-mode requirements.
 
+F2 verifies the Sandbox read-validation/evidence docs, offline planning commands, separate live
+target, placeholder examples, private-report boundary, and absence of live validation from
+quality, prepare-sandbox, walkthrough execution, release checks, and docs checks.
+
 Run:
 
 ```bash
