@@ -105,3 +105,7 @@ runbook posture, and confirms external provisioning is disabled.
 G4 templates do not establish hardening or production readiness. Operators must privately review
 identity, networking, HTTPS, ingress, secrets, storage, database, capacity, observability,
 recovery, and rollback. No provider value belongs in the public profile.
+
+G5 planning likewise does not establish ingress hardening or production setup. Signature
+verification depends on a private secret reference, while DNS/TLS, proxy headers, rate controls,
+queue operations, monitoring, disable, and rollback require independent private review.

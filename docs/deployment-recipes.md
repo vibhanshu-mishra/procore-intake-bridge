@@ -37,3 +37,7 @@ G4 adds [hosted deployment templates](hosted-deployment-templates.md) as a more 
 placeholder-only extension of D4 recipes. Platform names describe conceptual shapes, not active
 provider configuration. No cloud API, registry, DNS, TLS, image, resource, or deployment action is
 performed.
+
+G5 adds reference-only HTTPS webhook ingress planning. Deployment recipes carry private DNS, TLS,
+reverse-proxy, ingress, signature-secret, queue, disable, and rollback references; public checks
+neither validate an endpoint nor register a webhook.

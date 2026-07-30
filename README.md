@@ -472,3 +472,11 @@ manually gated, and sanitized. See
 They make no cloud calls and perform no deployment. Real domains, registry values, provider IDs,
 credentials, and private settings must remain outside Git. See
 [Hosted deployment templates](docs/hosted-deployment-templates.md).
+
+## HTTPS webhook planning
+
+`make https-webhook-check`, `make https-webhook-matrix`, and
+`make webhook-disable-plan` provide placeholder-only ingress, TLS/DNS, signature, queue, disable,
+rollback, and evidence planning. They make no DNS, TLS, ACME, public URL, Procore, or webhook
+registration call. See
+[HTTPS webhook production planning](docs/https-webhook-production-planning.md).

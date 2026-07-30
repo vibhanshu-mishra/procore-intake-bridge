@@ -65,6 +65,10 @@ PRIVATE_PATH_PARTS = {
     "hosted-deploy-output",
     "platform-deployment-output",
     "container-deployment-output",
+    "https-webhook-output",
+    "webhook-ingress-output",
+    "tls-planning-output",
+    "dns-planning-output",
     "deployment-output",
     "deploy-output",
     "release-output",
@@ -198,6 +202,23 @@ PRODUCTION_APPROVAL_CLAIM = re.compile(
     r"(?i)\b(?:production[- ]ready|approved for production|pilot approved|"
     r"production approved|security complete)\b"
 )
+DNS_RECORD_VALUE = re.compile(
+    r"(?i)(?:\b(?:A|AAAA|CNAME|TXT|MX|CAA|NS)\s+[a-z0-9.-]+\s+\S+|"
+    r"\b(?:\d{1,3}\.){3}\d{1,3}\b)"
+)
+CSR_OR_ACME = re.compile(
+    r"(?i)(?:-----BEGIN CERTIFICATE REQUEST-----|"
+    r"acme[-_ ]challenge\s*[:=]\s*\S+|_acme-challenge\.[a-z0-9.-]+)"
+)
+WEBHOOK_PRIVATE_MATERIAL = re.compile(
+    r"(?i)(?:webhook[_ -]?id\s*[:=]\s*\d{4,}|"
+    r"(?:raw[_ -]?)?(?:payload|headers|response_body)\s*[:=]|"
+    r"webhook[_ -]?report[_ -]?contents?\s*[:=])"
+)
+WEBHOOK_SETUP_CLAIM = re.compile(
+    r"(?i)\b(?:webhook|production) setup (?:is )?complete\b|"
+    r"\bwebhook (?:was )?registered\b"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -237,6 +258,28 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
                 continue
             if CUSTOMER_URL.search(line):
                 issues.append(SafetyIssue(path, "hosted template contains a provider URL"))
+                break
+    if "examples/https-webhook-planning" in path.as_posix():
+        for line in text.splitlines():
+            if _safe_value(line):
+                continue
+            if CUSTOMER_URL.search(line):
+                issues.append(SafetyIssue(path, "webhook planning example contains a real URL"))
+                break
+            if DNS_RECORD_VALUE.search(line):
+                issues.append(SafetyIssue(path, "webhook planning example contains a DNS record"))
+                break
+            if CSR_OR_ACME.search(line):
+                issues.append(SafetyIssue(path, "webhook planning example contains CSR/ACME data"))
+                break
+            if WEBHOOK_PRIVATE_MATERIAL.search(line):
+                issues.append(SafetyIssue(path, "webhook planning example contains private data"))
+                break
+            if (
+                WEBHOOK_SETUP_CLAIM.search(line)
+                and not re.search(r"(?i)\b(?:no|not|never)\b", line)
+            ):
+                issues.append(SafetyIssue(path, "webhook planning example claims live setup"))
                 break
             if HOSTED_REGISTRY_REF.search(line):
                 issues.append(SafetyIssue(path, "hosted template contains a registry reference"))
@@ -403,6 +446,20 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             )
         ):
             issues.append(SafetyIssue(path, "tracked hosted deployment output"))
+            continue
+        if path.name.endswith(
+            (
+                ".https-webhook-report.json",
+                ".https-webhook-report.md",
+                ".webhook-ingress-plan.md",
+                ".tls-plan.md",
+                ".dns-plan.md",
+                ".webhook-disable-plan.md",
+                ".webhook-rollback-plan.md",
+                ".webhook-evidence-ref.md",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked HTTPS/webhook planning output"))
             continue
         if path.suffix.casefold() == ".tf" or path.name in {
             "Pulumi.yaml",

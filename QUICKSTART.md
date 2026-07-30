@@ -114,3 +114,7 @@ disabled by default; planning commands run no migration and inspect no backup or
 Hosted platform templates are optional conceptual aids for private Sandbox/Pilot preparation.
 They are placeholder-only, are not deployment automation, make no cloud calls, and do not replace
 private HTTPS, provider, production, or release review.
+
+HTTPS webhook planning is optional and offline. The local expected receiver path does not prove
+public reachability. Real HTTPS, ingress, DNS/TLS, signature secrets, registration, evidence, and
+production review remain private and manual.

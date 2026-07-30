@@ -13,3 +13,6 @@ All examples are synthetic, local, and fixture/mock-only.
 - [`onboarding/`](onboarding/): fake GC/Owner packet output examples containing placeholders only.
 
 No live Procore credentials, private identifiers, signed URLs, or network access are required.
+
+The `https-webhook-planning/` examples contain only public-safe planning references. They perform
+no DNS/TLS/ACME check, public URL verification, certificate generation, or webhook registration.

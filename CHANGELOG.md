@@ -102,3 +102,7 @@ No release tag or package publication is claimed.
 - Added Phase G4 hosted deployment template packs for nine common platform styles, with
   placeholder-only snippets, offline validation, contained local artifacts, documentation, and
   public safety checks. No cloud resource, image, release, or deployment is created.
+
+- Added Phase G5 HTTPS/webhook production setup planning with placeholder-only profiles, offline
+  validation, ingress/TLS/DNS/disable/rollback plans, contained artifacts, docs, and safety checks.
+  No public endpoint is verified and no webhook is registered.

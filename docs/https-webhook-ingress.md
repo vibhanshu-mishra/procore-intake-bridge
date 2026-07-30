@@ -14,3 +14,7 @@ logs, examples, or Git. Use placeholder references such as `TLS_CERT_REF_PLACEHO
 G4 does not configure public ingress, DNS, TLS, or webhooks. Every hosted profile carries HTTPS
 and webhook-ingress placeholders that must be completed and reviewed privately before any manual
 deployment.
+
+G5 expands this into [production planning](https-webhook-production-planning.md). The expected
+local path is not public-reachability evidence. No DNS/TLS/ACME check, certificate generation,
+public URL verification, or webhook registration is performed.

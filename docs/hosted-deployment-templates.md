@@ -27,3 +27,7 @@ scaling, logging, and monitoring.
 Fill real values only in an approved private workspace outside Git. HTTPS and webhook ingress
 still require private setup. Production security, availability, recovery, capacity, provider
 configuration, and release/deployment decisions require independent review.
+
+For webhook-compatible hosting, continue to
+[HTTPS webhook production planning](https-webhook-production-planning.md). G4 compatibility
+remains conceptual; G5 performs no live reachability, DNS, TLS, or registration check.

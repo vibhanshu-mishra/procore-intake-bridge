@@ -91,3 +91,7 @@ PostgreSQL extra only in the private runtime that needs it.
 If hosted-template validation is blocked, replace any URL, domain, image or registry reference,
 cloud/infrastructure ID, secret-like value, absolute path, or production-approval claim with an
 explicit placeholder. The checker never contacts the provider to diagnose configuration.
+
+If HTTPS/webhook planning is blocked, replace URL/domain/DNS/certificate/CSR/ACME/secret/ID
+material with placeholders and restore the expected local path. The offline checker cannot
+diagnose reachability, certificate validity, DNS propagation, or remote registration.

@@ -54,6 +54,9 @@ nav:
       - Container Platform Hosting: container-platform-hosting.md
       - Cloud Platform Hosting: cloud-platform-hosting.md
       - HTTPS and Webhook Ingress: https-webhook-ingress.md
+      - HTTPS Webhook Production Planning: https-webhook-production-planning.md
+      - Webhook Ingress Planning: webhook-ingress-planning.md
+      - TLS and DNS Planning: tls-dns-planning.md
       - Backup and Restore: backup-restore-plan.md
       - Deployment Backup and Rollback: deployment-backup-rollback.md
   - Operations:
@@ -61,6 +64,7 @@ nav:
       - Operator Diagnostics: operator-diagnostics.md
       - Deployment Hardening: deployment-hardening.md
       - Webhook Verification: webhook-production-verification.md
+      - Webhook Disable and Rollback: webhook-disable-rollback.md
       - Database Migrations: database-migrations.md
       - PostgreSQL Migration Runbook: postgres-migration-runbook.md
       - PostgreSQL Backup and Restore Drills: postgres-backup-restore-drills.md

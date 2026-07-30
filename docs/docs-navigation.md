@@ -16,6 +16,12 @@ by [Docker VPS](docker-vps-hosting.md), [managed PaaS](managed-paas-hosting.md),
 [generic container platforms](container-platform-hosting.md), and
 [cloud platform styles](cloud-platform-hosting.md). All are conceptual and non-deploying.
 
+Webhook production preparation continues through
+[HTTPS webhook planning](https-webhook-production-planning.md),
+[ingress planning](webhook-ingress-planning.md), [TLS/DNS planning](tls-dns-planning.md), and
+[disable/rollback planning](webhook-disable-rollback.md). None performs a live check or
+registration.
+
 Use this reading order; later sections are needed only for the selected journey.
 
 ## 1. Start here

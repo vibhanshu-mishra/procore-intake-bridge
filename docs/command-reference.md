@@ -137,3 +137,13 @@ The two live commands are excluded from quality, preparation, release, and docs 
 - `make hosted-deployment-artifact-check` — generate and remove temporary local artifacts.
 
 These commands never deploy, contact a cloud or registry, build or push an image, or publish.
+
+## HTTPS webhook planning commands
+
+- `make https-webhook-template` — print the placeholder profile.
+- `make https-webhook-check` — validate planning references offline.
+- `make https-webhook-matrix` — compare conceptual ingress styles.
+- `make webhook-disable-plan` — print the required disable checklist.
+- `make https-webhook-artifact-check` — generate and remove temporary planning artifacts.
+
+None calls DNS, TLS, ACME, a public URL, Procore, or webhook registration.

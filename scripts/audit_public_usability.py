@@ -46,6 +46,10 @@ REQUIRED_DOCS = {
     "docs/managed-paas-hosting.md",
     "docs/container-platform-hosting.md",
     "docs/cloud-platform-hosting.md",
+    "docs/https-webhook-production-planning.md",
+    "docs/webhook-ingress-planning.md",
+    "docs/tls-dns-planning.md",
+    "docs/webhook-disable-rollback.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -112,6 +116,11 @@ REQUIRED_SCRIPTS = {
     "scripts/check_hosted_deployment_template.py",
     "scripts/generate_hosted_deployment_artifacts.py",
     "scripts/print_hosted_deployment_matrix.py",
+    "scripts/print_https_webhook_template.py",
+    "scripts/check_https_webhook_plan.py",
+    "scripts/generate_https_webhook_artifacts.py",
+    "scripts/print_webhook_ingress_matrix.py",
+    "scripts/print_webhook_disable_plan.py",
 }
 REQUIRED_EXAMPLES = {
     "examples/demo-flow.md",
@@ -147,6 +156,10 @@ REQUIRED_EXAMPLES = {
     "examples/hosted-deployment-templates/aws_ecs_style.example.json",
     "examples/hosted-deployment-templates/azure_container_apps_style.example.json",
     "examples/hosted-deployment-templates/gcp_cloud_run_style.example.json",
+    "examples/https-webhook-planning/README.md",
+    "examples/https-webhook-planning/example_https_webhook_profile.json",
+    "examples/https-webhook-planning/example_webhook_evidence_ref.md",
+    "examples/https-webhook-planning/example_reverse_proxy_notes.md",
 }
 REQUIRED_TARGETS = {
     "help",
@@ -206,6 +219,11 @@ REQUIRED_TARGETS = {
     "hosted-deployment-check",
     "hosted-deployment-matrix",
     "hosted-deployment-artifact-check",
+    "https-webhook-template",
+    "https-webhook-check",
+    "https-webhook-matrix",
+    "webhook-disable-plan",
+    "https-webhook-artifact-check",
 }
 IGNORED_OUTPUTS = {
     "private-workspace/",
@@ -266,6 +284,18 @@ IGNORED_OUTPUTS = {
     "*.container-deployment-plan.md",
     "*.hosting-checklist.md",
     "*.hosting-runbook.md",
+    "https-webhook-output/",
+    "webhook-ingress-output/",
+    "tls-planning-output/",
+    "dns-planning-output/",
+    "*.https-webhook-report.json",
+    "*.https-webhook-report.md",
+    "*.webhook-ingress-plan.md",
+    "*.tls-plan.md",
+    "*.dns-plan.md",
+    "*.webhook-disable-plan.md",
+    "*.webhook-rollback-plan.md",
+    "*.webhook-evidence-ref.md",
 }
 GENERATED_PARTS = {
     "private-workspace",
@@ -295,6 +325,10 @@ GENERATED_PARTS = {
     "hosted-deploy-output",
     "platform-deployment-output",
     "container-deployment-output",
+    "https-webhook-output",
+    "webhook-ingress-output",
+    "tls-planning-output",
+    "dns-planning-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak", ".backup", ".crt", ".csr", ".db", ".docx", ".dump", ".gif",
@@ -529,6 +563,28 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         ),
         "hosted artifact generation excluded from quality": (
             "hosted-deployment-artifact-check" not in quality_header
+        ),
+        "HTTPS webhook planning makes no live calls": all(
+            phrase in _read(root, "docs/https-webhook-production-planning.md").casefold()
+            for phrase in (
+                "no dns",
+                "acme",
+                "public url",
+                "procore",
+                "registration call",
+                "generates no certificate",
+            )
+        ),
+        "HTTPS webhook examples and evidence remain private": all(
+            phrase in _read(root, "docs/https-webhook-production-planning.md").casefold()
+            for phrase in ("outside git", "evidence", "private", "not proof")
+        ),
+        "HTTPS webhook disable and rollback are required": (
+            "required before pilot"
+            in _read(root, "docs/webhook-disable-rollback.md").casefold()
+        ),
+        "HTTPS webhook artifact generation excluded from quality": (
+            "https-webhook-artifact-check" not in quality_header
         ),
         "beginner docs steer to friendly targets": all(
             command in docs

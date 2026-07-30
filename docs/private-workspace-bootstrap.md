@@ -78,3 +78,7 @@ not change Pilot readiness or approval.
 Store G3 database URL, maintenance-window, managed-backup, restore-drill, rollback, and
 migration-status references only in this ignored private workspace. Do not copy URLs, hosts,
 database names, usernames, logs, dump names, backup names, or contents into public artifacts.
+
+Store real G5 DNS/TLS, proxy, ingress, signature-secret, event-queue, replay, disable, rollback,
+monitoring, and evidence references only in the ignored private workspace. Never copy their
+contents into public profiles or artifacts.

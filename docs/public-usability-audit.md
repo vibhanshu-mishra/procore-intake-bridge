@@ -59,3 +59,7 @@ gated live checks, no migration execution in the plan, and no dump inspection in
 G4 checks require five hosted-template docs, four offline scripts and Make targets, nine example
 profiles, placeholder-only conceptual snippets, ignored outputs, navigation links, and explicit
 language that no deployment automation or cloud call occurs.
+
+G5 checks require four planning docs, five scripts and Make targets, placeholder-only examples,
+ignored outputs, navigation links, no DNS/TLS/ACME/public URL/Procore calls, no registration, no
+certificate generation, private evidence refs, and a required disable/rollback boundary.

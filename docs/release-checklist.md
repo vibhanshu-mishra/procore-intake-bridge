@@ -26,3 +26,6 @@ databases, backups, packages, archives, build output, or release-readiness outpu
 - [ ] Confirm hosted profiles and snippets remain placeholder-only.
 - [ ] Confirm no provider IDs, registry references, domains, secrets, or generated output are tracked.
 - [ ] Confirm release and deployment remain manual and outside this repository.
+- [ ] Confirm HTTPS/webhook profiles remain placeholder-only.
+- [ ] Confirm no URL, domain, DNS record, certificate/key/CSR, ACME value, secret, webhook ID, or report is tracked.
+- [ ] Confirm no public verification or webhook registration occurred.

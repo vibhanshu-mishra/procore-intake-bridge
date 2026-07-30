@@ -123,3 +123,7 @@ inspect no backup or dump.
 G4 Hosted Deployment Template Pack is implemented with nine conceptual platform profiles,
 placeholder-only snippets, offline validation, temporary artifact checks, and public safety
 guards. It includes no cloud calls, provisioning, image push, publication, or deployment.
+
+G5 HTTPS/Webhook Production Setup Planning is implemented with placeholder profiles, offline
+validation, ingress/TLS/DNS/disable/rollback renderers, temporary artifacts, private evidence
+references, and public safety guards. It performs no public verification or registration.

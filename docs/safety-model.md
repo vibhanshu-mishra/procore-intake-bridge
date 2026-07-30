@@ -171,3 +171,7 @@ G4 rejects real URLs, domains, registry/image references, secrets, certificates,
 infrastructure IDs, absolute paths, logs/backups, contact details, and production-approval claims.
 Generated output is ignored and contained. No GitHub Actions, Terraform, Pulumi, Kubernetes, or
 Helm deployment mechanism is introduced.
+
+G5 blocks URLs, domains, DNS records, certificate/key/CSR/ACME contents, secrets, signed URLs,
+cloud credentials, database URLs, infrastructure IDs, paths, contacts, webhook payload/report
+contents, webhook IDs, and completion/approval claims. All operation-attempt flags remain false.

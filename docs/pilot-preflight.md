@@ -30,3 +30,7 @@ gated and their success is not Pilot approval.
 Selecting a G4 platform style does not satisfy deployment readiness. Preflight must retain
 needs-configuration status until private infrastructure, image provenance, HTTPS, providers,
 health, scale, monitoring, backup, rollback, and authorization are independently reviewed.
+
+Webhook preflight remains blocked until private evidence covers HTTPS ingress, DNS/TLS,
+signature verification, queue/replay posture, and disable/rollback planning. Placeholder presence
+and the expected local path are not proof of public setup.

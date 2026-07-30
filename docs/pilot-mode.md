@@ -47,3 +47,7 @@ manually gated steps and do not approve the Pilot or a production database.
 Hosted platform profiles are planning aids only. A Pilot still requires private provider values,
 HTTPS and ingress setup, database/storage/secret configuration, recovery evidence, production
 review, and a separate manual deployment decision.
+
+A Pilot that plans real webhooks requires privately reviewed HTTPS/public ingress, DNS/TLS,
+signature-secret, queue/replay, monitoring, disable, rollback, and evidence references. G5 never
+registers a webhook and never grants Pilot approval.

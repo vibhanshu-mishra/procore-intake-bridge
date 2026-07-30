@@ -47,3 +47,7 @@ in quality.
 
 Passing G4 template checks does not release or deploy anything. Publication, image creation,
 provider setup, and deployment remain separate manual decisions after private production review.
+
+G5 checks do not register webhooks, verify public URLs, issue certificates, or complete production
+setup. Release review must confirm that real webhook data and evidence remain private and that
+deployment and registration decisions remain manual.

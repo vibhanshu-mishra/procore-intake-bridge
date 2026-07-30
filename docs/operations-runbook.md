@@ -176,3 +176,7 @@ docs checks.
 G4 hosted-template commands are offline and non-deploying. Keep generated artifacts under ignored
 roots or use the temporary artifact check. Never copy provider IDs, registry references, domains,
 credentials, deployment logs, or real environment values into the public repository.
+
+G5 commands are planning-only. Use temporary artifact checks or ignored roots, and keep domains,
+URLs, DNS records, certificates, keys, CSRs, ACME output, secrets, webhook identifiers, reports,
+and evidence outside Git. Registration and disable/rollback execution remain separate approvals.

@@ -1,0 +1,20 @@
+{
+  "profile_name": "example-https-webhook-planning",
+  "environment_label": "ENVIRONMENT_LABEL_PLACEHOLDER",
+  "expected_webhook_path": "/webhooks/procore",
+  "public_url_placeholder": "PUBLIC_URL_PLACEHOLDER",
+  "allowed_host_placeholder": "ALLOWED_HOST_PLACEHOLDER",
+  "dns_plan_ref_placeholder": "DNS_PLAN_REF_PLACEHOLDER",
+  "tls_plan_ref_placeholder": "TLS_PLAN_REF_PLACEHOLDER",
+  "webhook_secret_ref_placeholder": "WEBHOOK_SECRET_REF_PLACEHOLDER",
+  "reverse_proxy_ref_placeholder": "REVERSE_PROXY_REF_PLACEHOLDER",
+  "ingress_platform_ref_placeholder": "INGRESS_PLATFORM_REF_PLACEHOLDER",
+  "event_queue_ref_placeholder": "EVENT_QUEUE_REF_PLACEHOLDER",
+  "replay_plan_ref_placeholder": "REPLAY_PLAN_REF_PLACEHOLDER",
+  "disable_plan_ref_placeholder": "WEBHOOK_DISABLE_PLAN_REF_PLACEHOLDER",
+  "rollback_plan_ref_placeholder": "WEBHOOK_ROLLBACK_PLAN_REF_PLACEHOLDER",
+  "monitoring_ref_placeholder": "MONITORING_REF_PLACEHOLDER",
+  "evidence_ref_placeholder": "WEBHOOK_EVIDENCE_REF_PLACEHOLDER",
+  "known_limitations": ["KNOWN_LIMITATION_PLACEHOLDER"],
+  "notes": ["PLANNING_ONLY_PLACEHOLDER"]
+}

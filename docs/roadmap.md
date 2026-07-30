@@ -111,3 +111,7 @@ operator responsibilities outside this repository.
 G4 completes a public-safe hosted template pack for common container and cloud platform styles.
 Actual infrastructure selection, provider configuration, production review, release, and
 deployment remain future private operator work rather than repository automation.
+
+G5 completes planning support for future private HTTPS webhook ingress. Real DNS/TLS setup,
+certificate lifecycle, public reachability testing, webhook registration, production review, and
+Pilot authorization remain private operator work.

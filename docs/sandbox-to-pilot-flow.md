@@ -45,3 +45,9 @@ Real identifiers, people, emails, phone numbers, domains, URLs, credentials, dat
 infrastructure identifiers, evidence, reports, logs, certificates, approvals, and downloaded
 files must remain private. Future work is the separately authorized execution of an actual
 controlled pilot; D5 neither performs nor approves that work.
+
+## G5 webhook planning
+
+The flow may reference the G5 plan, disable/rollback plan, and private evidence reference. G5
+reads no evidence contents, verifies no public endpoint, registers no webhook, and does not change
+the Pilot decision.

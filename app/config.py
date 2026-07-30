@@ -1433,6 +1433,82 @@ class Settings(BaseSettings):
         default=True,
         validation_alias="PROCORE_INTAKE_HOSTED_DEPLOYMENT_FAIL_CLOSED",
     )
+    https_webhook_planning_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_HTTPS_WEBHOOK_PLANNING_ENABLED",
+    )
+    https_webhook_planning_output_root: Path = Field(
+        default=Path("./https-webhook-output"),
+        validation_alias="PROCORE_INTAKE_HTTPS_WEBHOOK_PLANNING_OUTPUT_ROOT",
+    )
+    https_webhook_require_placeholders: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_HTTPS_WEBHOOK_REQUIRE_PLACEHOLDERS",
+    )
+    https_webhook_allow_real_domains: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_HTTPS_WEBHOOK_ALLOW_REAL_DOMAINS",
+    )
+    https_webhook_allow_real_urls: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_HTTPS_WEBHOOK_ALLOW_REAL_URLS",
+    )
+    https_webhook_allow_cert_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_HTTPS_WEBHOOK_ALLOW_CERT_CONTENTS",
+    )
+    https_webhook_allow_dns_records: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_HTTPS_WEBHOOK_ALLOW_DNS_RECORDS",
+    )
+    https_webhook_allow_absolute_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_HTTPS_WEBHOOK_ALLOW_ABSOLUTE_PATHS",
+    )
+    https_webhook_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_HTTPS_WEBHOOK_FAIL_CLOSED",
+    )
+    https_webhook_expected_path: str = Field(
+        default="/webhooks/procore",
+        validation_alias="PROCORE_INTAKE_HTTPS_WEBHOOK_EXPECTED_PATH",
+    )
+    https_webhook_require_https: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_HTTPS_WEBHOOK_REQUIRE_HTTPS",
+    )
+    https_webhook_require_public_ingress: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_HTTPS_WEBHOOK_REQUIRE_PUBLIC_INGRESS",
+    )
+    https_webhook_require_tls_plan: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_HTTPS_WEBHOOK_REQUIRE_TLS_PLAN",
+    )
+    https_webhook_require_dns_plan: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_HTTPS_WEBHOOK_REQUIRE_DNS_PLAN",
+    )
+    https_webhook_require_signature_secret_ref: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_HTTPS_WEBHOOK_REQUIRE_SIGNATURE_SECRET_REF",
+    )
+    https_webhook_require_replay_plan: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_HTTPS_WEBHOOK_REQUIRE_REPLAY_PLAN",
+    )
+    https_webhook_require_disable_plan: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_HTTPS_WEBHOOK_REQUIRE_DISABLE_PLAN",
+    )
+    https_webhook_require_rollback_plan: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_HTTPS_WEBHOOK_REQUIRE_ROLLBACK_PLAN",
+    )
+    https_webhook_require_event_queue: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_HTTPS_WEBHOOK_REQUIRE_EVENT_QUEUE",
+    )
     deployment_recipe_output_root: Path = Field(
         default=Path("./deployment-output"),
         validation_alias="PROCORE_INTAKE_DEPLOYMENT_RECIPE_OUTPUT_ROOT",
