@@ -1,0 +1,11 @@
+{% extends "review/base.html" %}
+{% block content %}
+<h2>Workspace summary</h2>
+<div class="grid">
+  <div class="card">Status<strong>{{ summary.status.value }}</strong></div>
+  <div class="card">Local records<strong>{{ summary.total_records }}</strong></div>
+  <div class="card">RFIs<strong>{{ summary.rfi_records }}</strong></div>
+  <div class="card">Submittals<strong>{{ summary.submittal_records }}</strong></div>
+</div>
+<p>{{ summary.message }}</p>
+{% endblock %}

@@ -11,6 +11,7 @@ from app.routers import (
     deployment,
     event_queue,
     health,
+    intake_review_workspace,
     onboarding,
     polling,
     sync,
@@ -40,7 +41,7 @@ app = FastAPI(
 async def admin_security_headers(request, call_next):
     response = await call_next(request)
     settings = get_settings()
-    protected_path = request.url.path.startswith("/admin") or (
+    protected_path = request.url.path.startswith(("/admin", "/review")) or (
         request.url.path.startswith("/deployment")
         and settings.admin_auth_protect_deployment_routes
     )
@@ -61,3 +62,4 @@ app.include_router(event_queue.router)
 app.include_router(attachments.router)
 app.include_router(onboarding.router)
 app.include_router(admin.router)
+app.include_router(intake_review_workspace.router)

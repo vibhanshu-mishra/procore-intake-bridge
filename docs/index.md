@@ -20,6 +20,9 @@ For the current public handoff, use [Final public readiness](final-public-readin
 [final checklist](final-readiness-checklist.md), and the
 [H2 maintainer cleanup note](maintainer-review-fix-pack.md).
 
+For a product-facing Demo view, use the [Intake Review Workspace](intake-review-workspace.md).
+It reviews sanitized local records only and performs no Procore write or lifecycle transition.
+
 - [First-run checklist](first-run-checklist.md)
 - [Command reference](command-reference.md)
 - [Troubleshooting](troubleshooting.md)

@@ -57,6 +57,7 @@ REQUIRED_DOCS = {
     "docs/public-repository-handoff.md",
     "docs/final-readiness-checklist.md",
     "docs/maintainer-review-fix-pack.md",
+    "docs/intake-review-workspace.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -79,6 +80,8 @@ REQUIRED_DOCS = {
     "mkdocs.yml",
 }
 REQUIRED_SCRIPTS = {
+    "scripts/check_intake_review_workspace.py",
+    "scripts/print_intake_review_workspace_summary.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -183,6 +186,8 @@ REQUIRED_EXAMPLES = {
     "examples/final-public-readiness/example_public_repo_checklist.md",
 }
 REQUIRED_TARGETS = {
+    "review-workspace-summary",
+    "review-workspace-check",
     "help",
     "start",
     "commands",
@@ -678,6 +683,22 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         ),
         "final readiness artifact generation excluded from quality": (
             "final-readiness-artifact-check" not in quality_header
+        ),
+        "H3 workspace is read-only and local": all(
+            phrase in _read(root, "docs/intake-review-workspace.md").casefold()
+            for phrase in ("read-only", "local intake records only", "no procore")
+        ),
+        "H3 workspace has no lifecycle transitions": (
+            "does not add lifecycle transitions"
+            in _read(root, "docs/intake-review-workspace.md").casefold()
+        ),
+        "H3 workspace excludes raw payloads and attachment contents": all(
+            phrase in _read(root, "docs/intake-review-workspace.md").casefold()
+            for phrase in ("raw procore payloads", "attachment contents")
+        ),
+        "H3 checks are included in quality": all(
+            target in makefile
+            for target in ("quality: review-workspace-check review-workspace-summary",)
         ),
         "beginner docs steer to friendly targets": all(
             command in docs

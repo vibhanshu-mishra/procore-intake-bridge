@@ -127,3 +127,12 @@ or pilot approval and requires private human review.
 Maintainers can run `make final-readiness` after `make quality`, `make safety-check`,
 `make docs-site-check`, and `make release-readiness`. H1 performs no live operation and is not
 release, production, or pilot approval. Private values and real reports stay outside Git.
+
+## Review fake intake records
+
+After `make try-demo`, open `/review` or run `make review-workspace-summary`. The Demo command
+remains a safe dry run, so an empty workspace is expected until fake fixture persistence is
+explicitly requested. The
+[Intake Review Workspace](docs/intake-review-workspace.md) reads only the local database. It makes
+no Procore call or write, exposes no raw payload or attachment content, and adds no lifecycle
+transition.

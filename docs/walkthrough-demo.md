@@ -1,5 +1,10 @@
 # Demo walkthrough
 
+After explicitly persisting fake fixture intake, open `/review` or run
+`make review-workspace-summary` to inspect the local RFI/Submittal records. `make try-demo`
+remains a dry run. The H3 workspace is GET-only: it reads no attachment contents,
+exposes no raw payloads, and performs no Procore write or lifecycle transition.
+
 ## Who this is for
 
 Use this path if you just cloned the repository or want to understand it without a Procore

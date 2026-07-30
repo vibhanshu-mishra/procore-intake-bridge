@@ -1,5 +1,10 @@
 # Operations runbook
 
+For local intake visibility, use `/review`, `make review-workspace-summary`, or
+`make review-workspace-check`. These H3 surfaces query the local database without mutation and
+make no Procore/external call. They expose masked/hashed source context and manifest counts only,
+never raw payloads, private paths, source URLs, or attachment contents.
+
 Run offline `make cloud-storage-check` before selecting a cloud provider. List, delete, and
 overwrite are separate default-off gates; G2 has no presigned URLs. Readiness is not production
 security approval.

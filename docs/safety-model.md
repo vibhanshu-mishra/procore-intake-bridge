@@ -1,5 +1,10 @@
 # Safety model
 
+The H3 Intake Review Workspace is GET-only and local-database-only. Its response validator blocks
+raw payload keys, source URLs, signed URLs, private paths, storage keys, secrets, and raw source
+IDs. Attachment bytes are never downloaded or read. Priority signals are informational and do
+not create lifecycle state, approvals, compliance determinations, or Procore updates.
+
 Cloud storage operations require independent selection, provider-enable, allow, network,
 confirmation, configuration, and dependency gates. Diagnostics expose no contents, provider
 resource names, object keys, credentials, signed URLs, or paths.

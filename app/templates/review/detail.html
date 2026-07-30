@@ -1,0 +1,17 @@
+{% extends "review/base.html" %}
+{% block content %}
+<h2>{{ record.tool.value | upper }} {{ record.display_number }}</h2>
+<div class="card">
+  <p><strong>Title:</strong> {{ record.title }}</p>
+  <p><strong>Source status:</strong> {{ record.source_status }}</p>
+  <p><strong>Received:</strong> {{ record.received_at or "Not recorded" }}</p>
+  <p><strong>Updated:</strong> {{ record.updated_at }}</p>
+  <p><strong>Manifest entries:</strong> {{ record.attachment_summary.manifest_count if record.attachment_summary else "Summary disabled" }}</p>
+  <p><strong>Source reference hashes:</strong>
+    {% if record.source_context %}{{ record.source_context.project_id_hash }}, {{ record.source_context.item_id_hash }}{% else %}Context disabled{% endif %}
+  </p>
+</div>
+<h3>Priority signals</h3>
+<ul>{% for signal in record.priority_signals %}<li>{{ signal.label }}</li>{% endfor %}</ul>
+<p>This view is informational only; no review status, approval, assignment, comment, or Procore update is performed.</p>
+{% endblock %}

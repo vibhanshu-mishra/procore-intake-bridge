@@ -507,3 +507,12 @@ production, or pilot approval; private values and real reports stay outside Git.
 Maintainers reviewing the post-H1 cleanup can read the
 [H2 maintainer review fix pack](docs/maintainer-review-fix-pack.md). H2 changes documentation,
 command clarity, and regression coverage only; it adds no runtime or live behavior.
+
+## Intake Review Workspace
+
+Phase H3 adds a [read-only local review workspace](docs/intake-review-workspace.md). Run
+`make try-demo`, then open `/review` or run `make review-workspace-summary`; the safe Demo remains
+a dry run until fixture persistence is explicitly requested. The workspace displays sanitized
+local RFI/Submittal records, manifest summaries, source context, and priority signals. It exposes
+no raw payloads, source URLs, private paths, raw source IDs, or attachment contents and performs
+no Procore writes or lifecycle transitions.

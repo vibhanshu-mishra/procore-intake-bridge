@@ -61,6 +61,7 @@ REQUIRED_NAV_DOCS = {
     "public-repository-handoff.md",
     "final-readiness-checklist.md",
     "maintainer-review-fix-pack.md",
+    "intake-review-workspace.md",
     "release-readiness.md",
     "release-checklist.md",
     "release-notes-template.md",

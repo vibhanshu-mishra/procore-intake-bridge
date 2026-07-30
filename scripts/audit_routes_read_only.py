@@ -47,6 +47,10 @@ def audit_routes() -> list[RouteIssue]:
             lowered = route.path.casefold()
             if route.path.startswith("/admin") and method != "GET":
                 issues.append(RouteIssue(route.path, method, "admin routes must be GET-only"))
+            if route.path.startswith("/review") and method != "GET":
+                issues.append(
+                    RouteIssue(route.path, method, "review routes must be GET-only")
+                )
             if route.path.startswith("/deployment") and method != "GET":
                 issues.append(
                     RouteIssue(route.path, method, "deployment routes must be GET-only")

@@ -123,3 +123,12 @@ No release tag or package publication is claimed.
 - Cleaned stale phase/roadmap language, maintainer command discovery, and G6/H1 example links.
 - Strengthened final-readiness ignore coverage and concept-based regression tests.
 - Added no product feature, route, external integration, deployment, release, or live operation.
+
+## Phase H3
+
+- Added a GET-only Intake Review Workspace for sanitized local RFI/Submittal records.
+- Added bounded pagination, deterministic sorting, masked/hashed source context, attachment
+  manifest summaries, and informational priority signals.
+- Added local, empty-database-safe CLI/Make checks plus documentation, audits, and tests.
+- Added no Procore call or write, lifecycle transition, assignment, comment, approval,
+  notification, attachment-content read, or external integration.

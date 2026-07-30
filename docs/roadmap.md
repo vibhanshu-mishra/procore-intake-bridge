@@ -1,7 +1,7 @@
 # Roadmap
 
-Phases A1–H1 are implemented in the public repository. H2 is the current bounded cleanup pass and
-does not add runtime behavior.
+Phases A1–H3 are implemented in the public repository. H3 provides read-only local intake review;
+H4 may add a separately designed lifecycle/status flow later.
 
 ## Completed public phases
 
@@ -18,6 +18,13 @@ does not add runtime behavior.
 - **G:** production-shaped optional provider implementations, PostgreSQL operations guidance,
   hosted templates, HTTPS/webhook planning, and hosted pilot rehearsal.
 - **H1:** final public repository readiness audit and maintainer handoff.
+- **H2:** maintainer review cleanup.
+- **H3:** local Intake Review Workspace with no mutation or Procore write.
+
+## Next separately scoped phase
+
+H4 may introduce lifecycle/status flow. H3 deliberately has no review status, assignment,
+comment, approval, notification, or transition behavior.
 
 ## Work that remains private or separately scoped
 

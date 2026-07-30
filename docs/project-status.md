@@ -1,8 +1,8 @@
 # Project status
 
-The public repository has completed phases A1–H1. Phase H2 is a bounded maintainer-review cleanup
-of documentation, command discovery, examples, audits, and regression coverage; it adds no product
-or live-operation capability.
+The public repository has completed phases A1–H2. Phase H3 adds a public-safe, read-only Intake
+Review Workspace for sanitized local RFI/Submittal records. It adds no Procore write, lifecycle
+transition, approval, assignment, comment, notification, or external call.
 
 ## Current public posture
 
@@ -36,6 +36,8 @@ or live-operation capability.
 - **G1–G6:** optional cloud secret/storage adapters, PostgreSQL operations polish, hosted
   templates, HTTPS/webhook planning, and the hosted pilot dry-run pack.
 - **H1:** final public repository readiness inspection and maintainer handoff.
+- **H2:** maintainer-review documentation, command-discovery, and audit cleanup.
+- **H3:** GET-only local intake review, safe source/manifest context, and priority signals.
 
 ## Known limitations
 

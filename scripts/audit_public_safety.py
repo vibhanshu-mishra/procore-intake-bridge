@@ -250,6 +250,20 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if (
+        "intake_review_workspace" in path.as_posix()
+        and path.parts
+        and path.parts[0] in {"docs", "examples", "tests"}
+    ):
+        unsafe_workspace_literal = re.compile(
+            r"(?i)(?:https?://(?!unsafe\.invalid)|/Users/(?!example/)|"
+            r"(?:raw_payload_json|source_url|storage_path|storage_key)\s*[:=]\s*"
+            r"[\"'][^\"']+[\"'])"
+        )
+        for line in text.splitlines():
+            if not _safe_value(line) and unsafe_workspace_literal.search(line):
+                issues.append(SafetyIssue(path, "workspace fixture contains exposed private data"))
+                break
     if path.suffix.casefold() == ".js" and re.search(
         r"(?i)(?:https?://|google-analytics|googletagmanager|segment\.com|mixpanel)",
         text,

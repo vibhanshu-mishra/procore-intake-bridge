@@ -19,6 +19,14 @@ For documentation navigation and optional local preview guidance, see the
 
 ## Friendly commands
 
+### Intake Review Workspace
+
+- `make review-workspace-summary` prints a sanitized summary of local intake records.
+- `make review-workspace-check` validates bounded, read-only workspace behavior.
+
+Both are empty-database safe and make no Procore or external call. Run `make try-demo` first for
+fake records, then open `/review`. No lifecycle transition or mutation command exists in H3.
+
 | Difficulty | Command | Purpose | Writes | Procore | External | Private config | Demo-safe |
 |---|---|---|---:|---:|---:|---:|---:|
 | Beginner | `make help` | Show grouped primary commands. | No | No | No | No | Yes |

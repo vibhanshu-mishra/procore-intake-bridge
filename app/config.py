@@ -507,6 +507,61 @@ class Settings(BaseSettings):
         le=100,
         validation_alias="PROCORE_INTAKE_ADMIN_PAGE_SIZE",
     )
+    intake_review_workspace_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_ENABLED",
+    )
+    intake_review_workspace_page_size: int = Field(
+        default=25,
+        ge=1,
+        le=100,
+        validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_PAGE_SIZE",
+    )
+    intake_review_workspace_max_page_size: int = Field(
+        default=100,
+        ge=1,
+        le=100,
+        validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_MAX_PAGE_SIZE",
+    )
+    intake_review_workspace_default_sort: Literal[
+        "received_at_desc",
+        "received_at_asc",
+        "updated_at_desc",
+        "updated_at_asc",
+        "tool_asc",
+        "tool_desc",
+    ] = Field(
+        default="received_at_desc",
+        validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_DEFAULT_SORT",
+    )
+    intake_review_workspace_include_attachment_summary: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_INCLUDE_ATTACHMENT_SUMMARY",
+    )
+    intake_review_workspace_include_source_context: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_INCLUDE_SOURCE_CONTEXT",
+    )
+    intake_review_workspace_mask_source_ids: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_MASK_SOURCE_IDS",
+    )
+    intake_review_workspace_hash_source_ids: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_HASH_SOURCE_IDS",
+    )
+    intake_review_workspace_expose_raw_payloads: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_EXPOSE_RAW_PAYLOADS",
+    )
+    intake_review_workspace_expose_private_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_EXPOSE_PRIVATE_PATHS",
+    )
+    intake_review_workspace_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_FAIL_CLOSED",
+    )
     sandbox_smoke_enabled: bool = Field(
         default=False,
         validation_alias="PROCORE_INTAKE_SANDBOX_SMOKE_ENABLED",

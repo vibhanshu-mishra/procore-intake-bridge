@@ -34,6 +34,7 @@ Use this reading order; later sections are needed only for the selected journey.
 ## 2. Choose a journey
 
 - **Demo:** [Demo quickstart](quickstart-demo.md) → [Demo walkthrough](walkthrough-demo.md)
+  → [Intake Review Workspace](intake-review-workspace.md)
 - **Sandbox:** [Sandbox mode](sandbox-mode.md) → [Sandbox onboarding](sandbox-onboarding.md) →
   [Sandbox walkthrough](walkthrough-sandbox.md) → [Sandbox smoke UX](sandbox-smoke-ux.md) →
   [Sandbox read validation](sandbox-read-validation.md) →

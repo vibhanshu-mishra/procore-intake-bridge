@@ -1,5 +1,9 @@
 # Pilot mode
 
+The H3 Intake Review Workspace is read-only and does not approve a Pilot. Pilot records,
+identifiers, and evidence remain private and gated; raw payloads and attachment contents are not
+exposed. No assignment, comment, approval, lifecycle transition, or Procore write is available.
+
 Pilot storage selection is a private operator decision. Cloud storage readiness does not approve
 production security or a pilot, and default preflight checks perform no cloud object operations.
 

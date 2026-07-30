@@ -1,5 +1,9 @@
 # Sandbox walkthrough
 
+The Intake Review Workspace may display already-stored local records, but Sandbox configuration
+and data remain private and gated. H3 makes no Procore call or write, exposes no raw payloads or
+attachment contents, and provides no lifecycle transition.
+
 ## Who this is for
 
 Use this optional path only when you have authorized Procore sandbox/DMSA access. Finish the
