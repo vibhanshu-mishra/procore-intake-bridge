@@ -56,3 +56,7 @@ registers a webhook and never grants Pilot approval.
 The G6 hosted pilot dry run maps opaque G1–G5, evidence, readiness, rollback, and operations
 references without reading private report contents or performing live operations. It is not a
 launch or pilot approval. Keep real work private/manual and require human review.
+## H1 boundary
+
+Final public readiness happens before private Pilot work. It performs no live operation and grants
+no release, production, or pilot approval. Private values and real reports stay outside Git.

@@ -58,6 +58,9 @@ nav:
       - Hosted Pilot Dry Run: hosted-pilot-dry-run.md
       - Pilot Operations Rehearsal: pilot-operations-rehearsal.md
       - Hosted Pilot Evidence Map: hosted-pilot-evidence-map.md
+      - Final Public Readiness: final-public-readiness.md
+      - Public Repository Handoff: public-repository-handoff.md
+      - Final Readiness Checklist: final-readiness-checklist.md
       - Webhook Ingress Planning: webhook-ingress-planning.md
       - TLS and DNS Planning: tls-dns-planning.md
       - Backup and Restore: backup-restore-plan.md

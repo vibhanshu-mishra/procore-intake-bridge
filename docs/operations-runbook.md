@@ -185,3 +185,8 @@ and evidence outside Git. Registration and disable/rollback execution remain sep
 Use G6 only to rehearse placeholder-reference coverage across plans, evidence, rollback,
 monitoring, diagnostics, and support. It reads no private report contents, performs no live
 operation, and grants no launch or pilot approval. Real operations remain private and manual.
+## Final public readiness
+
+H1 verifies public documentation and operational boundaries only. It performs no live operation,
+reads no private report, and grants no release, production, or pilot approval. Private values and
+real operations stay outside Git.

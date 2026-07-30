@@ -51,3 +51,8 @@ provider setup, and deployment remain separate manual decisions after private pr
 G5 checks do not register webhooks, verify public URLs, issue certificates, or complete production
 setup. Release review must confirm that real webhook data and evidence remain private and that
 deployment and registration decisions remain manual.
+## Final public readiness
+
+Run `make final-readiness` as an additional offline maintainer aid. Its result is not release,
+production, or pilot approval. It performs no live operation and reads no private report; private
+values remain outside Git.

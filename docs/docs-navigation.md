@@ -66,3 +66,9 @@ Start with [Hosted pilot dry run](hosted-pilot-dry-run.md), then use
 [Pilot operations rehearsal](pilot-operations-rehearsal.md) and the
 [Hosted pilot evidence map](hosted-pilot-evidence-map.md). These reference-only guides perform no
 live operation and do not grant launch or pilot approval.
+## Final repository review
+
+Use [Final public readiness](final-public-readiness.md), the
+[Public repository handoff](public-repository-handoff.md), and the
+[Final readiness checklist](final-readiness-checklist.md). These guides make no live calls and
+grant no release, production, or pilot approval.

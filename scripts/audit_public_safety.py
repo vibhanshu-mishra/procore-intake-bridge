@@ -73,6 +73,10 @@ PRIVATE_PATH_PARTS = {
     "pilot-dry-run-output",
     "operations-dry-run-output",
     "launch-rehearsal-output",
+    "final-readiness-output",
+    "public-readiness-output",
+    "repo-readiness-output",
+    "maintainer-handoff-output",
     "deployment-output",
     "deploy-output",
     "release-output",
@@ -233,6 +237,10 @@ DRY_RUN_APPROVAL_CLAIM = re.compile(
     r"(?i)\b(?:approved for (?:launch|pilot|production)|pilot (?:is )?approved|"
     r"launch (?:is )?approved|production[- ]ready|ready for production)\b"
 )
+FINAL_READINESS_APPROVAL_CLAIM = re.compile(
+    r"(?i)\b(?:approved for (?:release|production|launch|pilot)|"
+    r"(?:release|production|launch|pilot) (?:is )?approved|production[- ]ready)\b"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -293,6 +301,29 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
             ):
                 issues.append(
                     SafetyIssue(path, "hosted pilot dry-run example contains private data")
+                )
+                break
+    if "examples/final-public-readiness" in path.as_posix():
+        for line in text.splitlines():
+            if _safe_value(line):
+                continue
+            if (
+                CUSTOMER_URL.search(line)
+                or CUSTOMER_EMAIL.search(line)
+                or ABSOLUTE_LOCAL_PATH.search(line)
+                or CLOUD_RESOURCE_ID.search(line)
+                or DRY_RUN_PRIVATE_CONTENT.search(line)
+            ):
+                issues.append(
+                    SafetyIssue(path, "final readiness example contains private data")
+                )
+                break
+            if (
+                FINAL_READINESS_APPROVAL_CLAIM.search(line)
+                and not re.search(r"(?i)\b(?:no|not|never|neither)\b", line)
+            ):
+                issues.append(
+                    SafetyIssue(path, "final readiness example claims public approval")
                 )
                 break
             if DRY_RUN_PRIVATE_CONTENT.search(line):
@@ -486,6 +517,19 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             )
         ):
             issues.append(SafetyIssue(path, "tracked hosted deployment output"))
+            continue
+        if path.name.endswith(
+            (
+                ".final-readiness-report.json",
+                ".final-readiness-report.md",
+                ".public-readiness-report.json",
+                ".public-readiness-report.md",
+                ".maintainer-handoff.md",
+                ".public-repo-checklist.md",
+                ".final-audit-summary.md",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked final public readiness output"))
             continue
         if path.name.endswith(
             (

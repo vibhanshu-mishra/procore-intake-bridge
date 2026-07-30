@@ -123,3 +123,7 @@ The hosted pilot dry run combines G1–G5 and pilot-workflow placeholder referen
 linked report contents. Run `make hosted-pilot-dry-run-check` or
 `make hosted-pilot-dry-run-matrix`; neither performs a live operation. The result is not a launch
 or pilot approval and requires private human review.
+
+Maintainers can run `make final-readiness` after `make quality`, `make safety-check`,
+`make docs-site-check`, and `make release-readiness`. H1 performs no live operation and is not
+release, production, or pilot approval. Private values and real reports stay outside Git.

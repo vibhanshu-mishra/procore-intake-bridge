@@ -53,6 +53,9 @@ REQUIRED_DOCS = {
     "docs/hosted-pilot-dry-run.md",
     "docs/pilot-operations-rehearsal.md",
     "docs/hosted-pilot-evidence-map.md",
+    "docs/final-public-readiness.md",
+    "docs/public-repository-handoff.md",
+    "docs/final-readiness-checklist.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -124,6 +127,10 @@ REQUIRED_SCRIPTS = {
     "scripts/generate_https_webhook_artifacts.py",
     "scripts/print_webhook_ingress_matrix.py",
     "scripts/print_webhook_disable_plan.py",
+    "scripts/run_final_public_readiness_audit.py",
+    "scripts/print_final_public_readiness_checklist.py",
+    "scripts/generate_final_public_readiness_artifacts.py",
+    "scripts/print_public_repo_handoff_summary.py",
     "scripts/print_hosted_pilot_dry_run_template.py",
     "scripts/check_hosted_pilot_dry_run.py",
     "scripts/generate_hosted_pilot_dry_run_artifacts.py",
@@ -170,6 +177,9 @@ REQUIRED_EXAMPLES = {
     "examples/hosted-pilot-dry-run/README.md",
     "examples/hosted-pilot-dry-run/example_hosted_pilot_dry_run_profile.json",
     "examples/hosted-pilot-dry-run/example_pilot_dry_run_evidence_map.md",
+    "examples/final-public-readiness/README.md",
+    "examples/final-public-readiness/example_final_readiness_summary.md",
+    "examples/final-public-readiness/example_public_repo_checklist.md",
 }
 REQUIRED_TARGETS = {
     "help",
@@ -238,6 +248,10 @@ REQUIRED_TARGETS = {
     "hosted-pilot-dry-run-check",
     "hosted-pilot-dry-run-matrix",
     "hosted-pilot-dry-run-artifact-check",
+    "final-readiness",
+    "final-readiness-checklist",
+    "public-handoff-summary",
+    "final-readiness-artifact-check",
 }
 IGNORED_OUTPUTS = {
     "private-workspace/",
@@ -314,6 +328,17 @@ IGNORED_OUTPUTS = {
     "*.pilot-dry-run-runbook.md",
     "*.pilot-dry-run-evidence-map.md",
     "*.pilot-dry-run-blockers.md",
+    "final-readiness-output/",
+    "public-readiness-output/",
+    "repo-readiness-output/",
+    "maintainer-handoff-output/",
+    "*.final-readiness-report.json",
+    "*.final-readiness-report.md",
+    "*.public-readiness-report.json",
+    "*.public-readiness-report.md",
+    "*.maintainer-handoff.md",
+    "*.public-repo-checklist.md",
+    "*.final-audit-summary.md",
     "*.webhook-ingress-plan.md",
     "*.tls-plan.md",
     "*.dns-plan.md",
@@ -354,6 +379,10 @@ GENERATED_PARTS = {
     "pilot-dry-run-output",
     "operations-dry-run-output",
     "launch-rehearsal-output",
+    "final-readiness-output",
+    "public-readiness-output",
+    "repo-readiness-output",
+    "maintainer-handoff-output",
     "webhook-ingress-output",
     "tls-planning-output",
     "dns-planning-output",
@@ -628,6 +657,26 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         ),
         "hosted pilot artifact generation excluded from quality": (
             "hosted-pilot-dry-run-artifact-check" not in quality_header
+        ),
+        "final readiness is maintainer review only": all(
+            phrase in _read(root, "docs/final-public-readiness.md").casefold()
+            for phrase in (
+                "maintainer-review aid",
+                "not release approval",
+                "not production approval",
+                "not pilot approval",
+            )
+        ),
+        "final readiness performs no live operations": (
+            "no live operation"
+            in _read(root, "docs/final-public-readiness.md").casefold()
+        ),
+        "final readiness keeps private values outside Git": all(
+            phrase in _read(root, "docs/final-public-readiness.md").casefold()
+            for phrase in ("private values", "real reports", "outside git")
+        ),
+        "final readiness artifact generation excluded from quality": (
+            "final-readiness-artifact-check" not in quality_header
         ),
         "beginner docs steer to friendly targets": all(
             command in docs

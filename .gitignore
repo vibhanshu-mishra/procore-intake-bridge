@@ -209,6 +209,17 @@ launch-rehearsal-output/
 *.pilot-dry-run-runbook.md
 *.pilot-dry-run-evidence-map.md
 *.pilot-dry-run-blockers.md
+final-readiness-output/
+public-readiness-output/
+repo-readiness-output/
+maintainer-handoff-output/
+*.final-readiness-report.json
+*.final-readiness-report.md
+*.public-readiness-report.json
+*.public-readiness-report.md
+*.maintainer-handoff.md
+*.public-repo-checklist.md
+*.final-audit-summary.md
 *.hosted-deployment-report.json
 *.hosted-deployment-report.md
 *.hosted-deployment-plan.md

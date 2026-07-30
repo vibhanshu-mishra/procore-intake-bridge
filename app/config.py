@@ -1555,6 +1555,52 @@ class Settings(BaseSettings):
         le=200,
         validation_alias="PROCORE_INTAKE_HOSTED_PILOT_DRY_RUN_MAX_REFS",
     )
+    final_public_readiness_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_FINAL_PUBLIC_READINESS_ENABLED",
+    )
+    final_public_readiness_output_root: Path = Field(
+        default=Path("./final-readiness-output"),
+        validation_alias="PROCORE_INTAKE_FINAL_PUBLIC_READINESS_OUTPUT_ROOT",
+    )
+    final_public_readiness_require_placeholders: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_FINAL_PUBLIC_READINESS_REQUIRE_PLACEHOLDERS",
+    )
+    final_public_readiness_allow_real_identities: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_FINAL_PUBLIC_READINESS_ALLOW_REAL_IDENTITIES",
+    )
+    final_public_readiness_allow_real_domains: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_FINAL_PUBLIC_READINESS_ALLOW_REAL_DOMAINS",
+    )
+    final_public_readiness_allow_real_urls: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_FINAL_PUBLIC_READINESS_ALLOW_REAL_URLS",
+    )
+    final_public_readiness_allow_real_infra_ids: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_FINAL_PUBLIC_READINESS_ALLOW_REAL_INFRA_IDS",
+    )
+    final_public_readiness_allow_report_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_FINAL_PUBLIC_READINESS_ALLOW_REPORT_CONTENTS",
+    )
+    final_public_readiness_allow_absolute_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_FINAL_PUBLIC_READINESS_ALLOW_ABSOLUTE_PATHS",
+    )
+    final_public_readiness_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_FINAL_PUBLIC_READINESS_FAIL_CLOSED",
+    )
+    final_public_readiness_max_findings: int = Field(
+        default=250,
+        ge=1,
+        le=1000,
+        validation_alias="PROCORE_INTAKE_FINAL_PUBLIC_READINESS_MAX_FINDINGS",
+    )
     deployment_recipe_output_root: Path = Field(
         default=Path("./deployment-output"),
         validation_alias="PROCORE_INTAKE_DEPLOYMENT_RECIPE_OUTPUT_ROOT",

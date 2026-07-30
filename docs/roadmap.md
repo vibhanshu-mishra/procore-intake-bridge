@@ -119,3 +119,7 @@ Pilot authorization remain private operator work.
 
 G6 connects G1–G5 and pilot-operations placeholder references for offline human review. It is not
 a launch, pilot approval, deployment, or live check and does not read private report contents.
+## H1 — Final public repository readiness audit
+
+H1 checks the public repository offline before maintainer review. It makes no live calls and grants
+no release, production, or pilot approval. Real operational work remains private.

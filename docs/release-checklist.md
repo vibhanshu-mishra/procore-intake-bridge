@@ -29,3 +29,6 @@ databases, backups, packages, archives, build output, or release-readiness outpu
 - [ ] Confirm HTTPS/webhook profiles remain placeholder-only.
 - [ ] Confirm no URL, domain, DNS record, certificate/key/CSR, ACME value, secret, webhook ID, or report is tracked.
 - [ ] Confirm no public verification or webhook registration occurred.
+- [ ] Run `make final-readiness` and review all warnings.
+- [ ] Confirm H1 is treated as review input, not release, production, or pilot approval.
+- [ ] Confirm no live operation occurred and private values and real reports remain outside Git.

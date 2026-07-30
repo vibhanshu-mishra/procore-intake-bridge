@@ -157,3 +157,13 @@ None calls DNS, TLS, ACME, a public URL, Procore, or webhook registration.
 
 These commands perform no live operation or deployment and read no private report contents. Their
 output is not a launch or pilot approval; private human review remains required.
+
+## Final public readiness commands
+
+- `make final-readiness` — inspect all 23 public readiness categories offline.
+- `make final-readiness-checklist` — print the maintainer checklist.
+- `make public-handoff-summary` — print the public/private handoff boundary.
+- `make final-readiness-artifact-check` — generate and clean temporary artifacts.
+
+These commands make no live calls or private report reads. H1 is not release, production, or pilot
+approval; private values and real reports stay outside Git.

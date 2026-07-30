@@ -39,3 +39,7 @@ and the expected local path are not proof of public setup.
 `make hosted-pilot-dry-run-check` checks placeholder references only. It reads no private report
 contents, performs no live operation, and grants neither launch nor pilot approval. Human review
 remains a separate private gate.
+## Final public review first
+
+Run H1 before deciding whether to begin private Pilot preparation. It reads no real report,
+performs no live operation, and is not release, production, or pilot approval.

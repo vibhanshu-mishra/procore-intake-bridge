@@ -180,3 +180,7 @@ contents, webhook IDs, and completion/approval claims. All operation-attempt fla
 G6 accepts placeholder refs only, reads no private report contents, and performs no live
 operations. Generated output is ignored. Dry-run success is not launch or pilot approval and must
 be followed by private human review.
+## Final readiness boundary
+
+H1 inspects public files and command separation only. No live operation occurs; private values and
+real reports stay outside Git. A passing audit is not release, production, or pilot approval.

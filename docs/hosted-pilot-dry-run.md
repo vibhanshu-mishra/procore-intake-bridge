@@ -31,3 +31,7 @@ any separately authorized launch process.
 
 These inputs prove only that placeholder references are structurally present. They do not prove
 that linked plans are correct, that private evidence exists, or that a hosted pilot is ready.
+## H1 handoff
+
+Final public readiness checks that this dry-run boundary is documented and discoverable. H1 does
+not open private reports or run operations and is not release, production, or pilot approval.

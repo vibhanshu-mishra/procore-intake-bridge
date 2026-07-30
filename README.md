@@ -492,3 +492,14 @@ make hosted-pilot-dry-run-check
 make hosted-pilot-dry-run-matrix
 make hosted-pilot-dry-run-artifact-check
 ```
+
+Phase H1 adds a final offline public-repository audit for maintainer review:
+
+```bash
+make final-readiness
+make final-readiness-checklist
+make public-handoff-summary
+```
+
+It performs no live operation and reads no private report. Final readiness is not release,
+production, or pilot approval; private values and real reports stay outside Git.

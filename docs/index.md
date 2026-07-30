@@ -102,3 +102,8 @@ affiliated with or endorsed by Procore Technologies and carries no production gu
 
 Real credentials, customer data, evidence, approvals, generated output, and private workspace
 files must not be committed. Best next command: `make start`.
+## Final maintainer review
+
+See [Final public readiness](final-public-readiness.md) before deciding the next private step.
+The audit performs no live operation, keeps private values and real reports outside Git, and is not
+release, production, or pilot approval.

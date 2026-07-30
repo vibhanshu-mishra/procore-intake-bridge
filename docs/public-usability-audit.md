@@ -68,3 +68,8 @@ certificate generation, private evidence refs, and a required disable/rollback b
 The audit requires hosted pilot dry-run docs, scripts, examples, Make targets, ignored outputs,
 and explicit language that refs only are checked, no live operation occurs, and no launch or pilot
 approval is granted.
+## H1 coverage
+
+The public usability audit requires final readiness docs, scripts, examples, Make targets, and
+clear language that H1 performs no live operation, keeps private values outside Git, and grants no
+release, production, or pilot approval.
