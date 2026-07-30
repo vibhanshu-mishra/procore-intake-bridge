@@ -46,3 +46,5 @@ fields and does not turn lifecycle labels into approval, compliance, or Procore 
 
 H8 shows the aggregate local lifecycle distribution without adding a mutation. Lifecycle labels
 do not indicate authorization, compliance, or external system status.
+
+H9 evaluates these local labels without representing production or Pilot authorization.

@@ -41,3 +41,5 @@ Its priority description remains deterministic local sorting only.
 
 H8 links to triage and summarizes its buckets as a deterministic local sorting helper only.
 It does not assign work, notify people, or change records.
+
+H9 includes triage only as a fake-data local sorting walkthrough step.

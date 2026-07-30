@@ -63,6 +63,8 @@ REQUIRED_DOCS = {
     "docs/attachment-review-manifest-ux.md",
     "docs/operator-export-pack.md",
     "docs/product-dashboard.md",
+    "docs/demo-product-walkthrough.md",
+    "docs/demo-evaluation-checklist.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -96,6 +98,10 @@ REQUIRED_SCRIPTS = {
     "scripts/check_operator_export_pack.py",
     "scripts/print_operator_export_summary.py",
     "scripts/generate_operator_export_pack.py",
+    "scripts/print_demo_product_tour.py",
+    "scripts/check_demo_product_walkthrough.py",
+    "scripts/print_demo_evaluation_checklist.py",
+    "scripts/generate_demo_product_walkthrough_artifacts.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -198,6 +204,9 @@ REQUIRED_EXAMPLES = {
     "examples/final-public-readiness/README.md",
     "examples/final-public-readiness/example_final_readiness_summary.md",
     "examples/final-public-readiness/example_public_repo_checklist.md",
+    "examples/demo-product-walkthrough/README.md",
+    "examples/demo-product-walkthrough/demo_product_tour.example.md",
+    "examples/demo-product-walkthrough/demo_evaluation_checklist.example.md",
 }
 REQUIRED_TARGETS = {
     "review-workspace-summary",
@@ -213,6 +222,10 @@ REQUIRED_TARGETS = {
     "operator-export-artifact-check",
     "product-dashboard-overview",
     "product-dashboard-check",
+    "demo-product-tour",
+    "demo-product-check",
+    "demo-evaluation-checklist",
+    "demo-product-artifact-check",
     "help",
     "start",
     "commands",
@@ -285,6 +298,14 @@ REQUIRED_TARGETS = {
     "final-readiness-artifact-check",
 }
 IGNORED_OUTPUTS = {
+    "demo-walkthrough-output/",
+    "demo-product-output/",
+    "demo-tour-output/",
+    "demo-evaluation-output/",
+    "*.demo-walkthrough-report.json",
+    "*.demo-walkthrough-report.md",
+    "*.demo-product-tour.md",
+    "*.demo-evaluation-checklist.md",
     "private-workspace/",
     "quickstart-output/",
     "first-run-output/",
@@ -419,9 +440,29 @@ GENERATED_PARTS = {
     "dns-planning-output",
 }
 UNSAFE_SUFFIXES = {
-    ".bak", ".backup", ".crt", ".csr", ".db", ".docx", ".dump", ".gif",
-    ".jpeg", ".jpg", ".key", ".log", ".p12", ".pdf", ".pem", ".pfx", ".png",
-    ".sql", ".sqlite", ".sqlite3", ".webp", ".xlsx", ".zip",
+    ".bak",
+    ".backup",
+    ".crt",
+    ".csr",
+    ".db",
+    ".docx",
+    ".dump",
+    ".gif",
+    ".jpeg",
+    ".jpg",
+    ".key",
+    ".log",
+    ".p12",
+    ".pdf",
+    ".pem",
+    ".pfx",
+    ".png",
+    ".sql",
+    ".sqlite",
+    ".sqlite3",
+    ".webp",
+    ".xlsx",
+    ".zip",
 }
 UNSAFE_TEXT = re.compile(
     r"(?i)(?:"
@@ -453,11 +494,7 @@ def _tracked_files(root: Path) -> list[str]:
     )
     if result.returncode:
         return []
-    return [
-        item.decode("utf-8", errors="replace")
-        for item in result.stdout.split(b"\0")
-        if item
-    ]
+    return [item.decode("utf-8", errors="replace") for item in result.stdout.split(b"\0") if item]
 
 
 def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list[Finding]:
@@ -549,9 +586,7 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         )
 
     docs = "\n".join(
-        _read(root, path).casefold()
-        for path in REQUIRED_DOCS
-        if (root / path).is_file()
+        _read(root, path).casefold() for path in REQUIRED_DOCS if (root / path).is_file()
     )
     quality_header = next(
         (line for line in makefile.splitlines() if line.startswith("quality:")),
@@ -606,20 +641,17 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             for term in ("optional", "disabled by default", "local provider first")
         ),
         "cloud storage checks are offline": (
-            "never contact cloud"
-            in _read(root, "docs/cloud-storage-providers.md").casefold()
+            "never contact cloud" in _read(root, "docs/cloud-storage-providers.md").casefold()
         ),
         "cloud storage excludes presigned URLs": (
-            "no presigned url"
-            in _read(root, "docs/cloud-storage-providers.md").casefold()
+            "no presigned url" in _read(root, "docs/cloud-storage-providers.md").casefold()
         ),
         "Postgres runtime checks are offline by default": all(
             phrase in _read(root, "docs/postgres-runtime-operations.md").casefold()
             for phrase in ("does not resolve", "connect", "disabled by")
         ),
         "Postgres live checks are manually gated": (
-            "manually gated"
-            in _read(root, "docs/postgres-runtime-operations.md").casefold()
+            "manually gated" in _read(root, "docs/postgres-runtime-operations.md").casefold()
         ),
         "Postgres migration plan executes nothing": (
             "does not resolve a database secret"
@@ -668,8 +700,7 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             for phrase in ("outside git", "evidence", "private", "not proof")
         ),
         "HTTPS webhook disable and rollback are required": (
-            "required before pilot"
-            in _read(root, "docs/webhook-disable-rollback.md").casefold()
+            "required before pilot" in _read(root, "docs/webhook-disable-rollback.md").casefold()
         ),
         "HTTPS webhook artifact generation excluded from quality": (
             "https-webhook-artifact-check" not in quality_header
@@ -679,8 +710,7 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             for phrase in ("not a launch", "not pilot approval", "human")
         ),
         "hosted pilot dry run performs no live operations": (
-            "no live operation"
-            in _read(root, "docs/hosted-pilot-dry-run.md").casefold()
+            "no live operation" in _read(root, "docs/hosted-pilot-dry-run.md").casefold()
         ),
         "hosted pilot dry run reads refs only": all(
             phrase in _read(root, "docs/hosted-pilot-dry-run.md").casefold()
@@ -699,8 +729,7 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             )
         ),
         "final readiness performs no live operations": (
-            "no live operation"
-            in _read(root, "docs/final-public-readiness.md").casefold()
+            "no live operation" in _read(root, "docs/final-public-readiness.md").casefold()
         ),
         "final readiness keeps private values outside Git": all(
             phrase in _read(root, "docs/final-public-readiness.md").casefold()
@@ -812,6 +841,23 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         "H8 non-writing checks are included in quality": (
             "quality: product-dashboard-check product-dashboard-overview" in makefile
         ),
+        "H9 walkthrough is fake-data-only and offline": all(
+            phrase in _read(root, "docs/demo-product-walkthrough.md").casefold()
+            for phrase in ("fake data", "no procore call", "no live", "private report")
+        ),
+        "H9 walkthrough disclaims external decisions": all(
+            phrase in _read(root, "docs/demo-product-walkthrough.md").casefold()
+            for phrase in (
+                "production readiness",
+                "pilot authorization",
+                "compliance",
+                "customer reporting",
+            )
+        ),
+        "H9 non-writing checks are included in quality": (
+            "quality: demo-product-check demo-product-tour demo-evaluation-checklist" in makefile
+            and "demo-product-artifact-check" not in quality_header
+        ),
         "beginner docs steer to friendly targets": all(
             command in docs
             for command in (
@@ -822,8 +868,7 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             )
         ),
         "live smoke is not a beginner default": (
-            "make start" in quickstart
-            and "run_sandbox_dmsa_smoke.py" not in quickstart
+            "make start" in quickstart and "run_sandbox_dmsa_smoke.py" not in quickstart
         ),
         "deployment is not a beginner default": (
             "make start" in quickstart and "make deployment-check" not in quickstart
@@ -863,18 +908,15 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             and "launch hold" in _read(root, "docs/walkthrough-pilot.md").casefold()
         ),
         "prepare-sandbox remains offline": (
-            "offline planning"
-            in _read(root, "docs/sandbox-smoke-ux.md").casefold()
+            "offline planning" in _read(root, "docs/sandbox-smoke-ux.md").casefold()
             and "never invokes the live command"
             in _read(root, "docs/sandbox-smoke-ux.md").casefold()
         ),
         "live smoke remains manually gated": (
-            "manual live read-only execution"
-            in _read(root, "docs/sandbox-smoke-ux.md").casefold()
+            "manual live read-only execution" in _read(root, "docs/sandbox-smoke-ux.md").casefold()
         ),
         "smoke evidence refs remain private": (
-            "outside git"
-            in _read(root, "docs/sandbox-smoke-evidence.md").casefold()
+            "outside git" in _read(root, "docs/sandbox-smoke-evidence.md").casefold()
             and "report nor its contents"
             in _read(root, "docs/sandbox-smoke-evidence.md").casefold()
         ),
@@ -894,9 +936,7 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             and "maintainer" in _read(root, "docs/release-checklist.md").casefold()
         ),
         "QUICKSTART docs-site link": "docs/docs-site.md" in quickstart,
-        "docs index docs-site link": (
-            "docs-site.md" in _read(root, "docs/index.md").casefold()
-        ),
+        "docs index docs-site link": ("docs-site.md" in _read(root, "docs/index.md").casefold()),
         "docs site is local-only and unpublished": all(
             phrase in _read(root, "docs/docs-site.md").casefold()
             for phrase in ("local-only", "not published", "no github pages automation")
@@ -1003,19 +1043,24 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             "README.md",
             "QUICKSTART.md",
         }
-        if public_content and candidate.is_file() and candidate.suffix.casefold() in {
-            "",
-            ".cfg",
-            ".env",
-            ".example",
-            ".ini",
-            ".json",
-            ".md",
-            ".toml",
-            ".txt",
-            ".yaml",
-            ".yml",
-        }:
+        if (
+            public_content
+            and candidate.is_file()
+            and candidate.suffix.casefold()
+            in {
+                "",
+                ".cfg",
+                ".env",
+                ".example",
+                ".ini",
+                ".json",
+                ".md",
+                ".toml",
+                ".txt",
+                ".yaml",
+                ".yml",
+            }
+        ):
             try:
                 if UNSAFE_TEXT.search(candidate.read_text(encoding="utf-8")):
                     add(
@@ -1043,8 +1088,7 @@ def main() -> int:
     args = parser.parse_args()
     findings = audit_repository(args.root.resolve())
     counts = {
-        level: sum(item.level == level for item in findings)
-        for level in ("PASS", "WARN", "FAIL")
+        level: sum(item.level == level for item in findings) for level in ("PASS", "WARN", "FAIL")
     }
     print("Public usability audit")
     print("======================")

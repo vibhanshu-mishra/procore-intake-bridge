@@ -219,3 +219,13 @@ No command reads attachment files or calls Procore, storage providers, or extern
 
 Neither command calls Procore or external services, reads attachment files, generates exports,
 or mutates persistent state.
+
+## Demo product walkthrough
+
+- `make demo-product-tour` prints the fake-data-only product journey.
+- `make demo-product-check` validates all ten offline H9 groups.
+- `make demo-evaluation-checklist` prints the maintainer checklist.
+- `make demo-product-artifact-check` writes and removes temporary sanitized artifacts.
+
+The first three commands are non-writing quality checks. None runs live Sandbox validation,
+calls Procore or an external service, reads private reports, deploys, or releases.

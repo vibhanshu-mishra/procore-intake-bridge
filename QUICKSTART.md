@@ -185,3 +185,14 @@ make product-dashboard-overview
 The [Product Dashboard](docs/product-dashboard.md) is read-oriented and local database only.
 It makes no Procore writes or calls, offers no export downloads, and reads no attachment files.
 Demo Mode may use fake local data; Sandbox and Pilot use remains private and gated.
+
+## Evaluate the complete Demo product journey
+
+```bash
+make demo-product-check
+make demo-product-tour
+make demo-evaluation-checklist
+```
+
+See the [Demo Product Walkthrough](docs/demo-product-walkthrough.md). H9 uses fake data only,
+makes no live or external call, and stops at the private Sandbox/Pilot boundary.

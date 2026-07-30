@@ -67,3 +67,5 @@ H7 can include bounded, sanitized workspace rows in the
 
 The H8 [Product Dashboard](product-dashboard.md) links here and displays aggregate intake counts.
 It remains local and read-oriented; the review workspace links back to `/dashboard`.
+
+This workspace is the intake-review step in the H9 fake-data-only Demo tour.

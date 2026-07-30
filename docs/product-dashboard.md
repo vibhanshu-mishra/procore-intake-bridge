@@ -32,3 +32,5 @@ evidence stay outside the public repository. Dashboard readiness is preparation 
 release, production, or pilot authorization. It is not a compliance determination, customer
 report, or external system status.
 
+H9 uses this dashboard as the starting cockpit for the
+[Demo Product Walkthrough](demo-product-walkthrough.md).

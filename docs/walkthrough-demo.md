@@ -86,3 +86,7 @@ only when an ignored local artifact is wanted.
 
 After the fake local Demo, open `/dashboard` or run `make product-dashboard-overview`. The
 dashboard is local database only and makes no Procore call.
+
+For the cohesive H9 evaluation, run `make demo-product-check`, `make demo-product-tour`, and
+`make demo-evaluation-checklist`. The [full product tour](demo-product-walkthrough.md) uses fake
+data only and performs no live operation, deployment, release, or private report read.

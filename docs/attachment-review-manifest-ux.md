@@ -36,3 +36,5 @@ manifest metadata only and still performs no file or storage access.
 
 H8 reports metadata-only manifest counts and links to attachment review. It exposes no filename,
 path, storage key, URL, or content and never opens an attachment file.
+
+H9 evaluates this metadata-only surface without reading or serving a file.

@@ -541,3 +541,8 @@ Phase H8 adds a [local read-oriented Product Dashboard](docs/product-dashboard.m
 attachment file access, export downloads, or new mutations. Run `make product-dashboard-check`
 or `make product-dashboard-overview`; dashboard readiness is not release, production, or pilot
 authorization.
+
+Phase H9 adds a [fake-data-only Demo Product Walkthrough](docs/demo-product-walkthrough.md).
+Run `make demo-product-check`, `make demo-product-tour`, and
+`make demo-evaluation-checklist` to evaluate the public product journey without Procore,
+external calls, live validation, deployment, release, or private report access.

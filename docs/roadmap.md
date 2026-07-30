@@ -53,3 +53,8 @@ behavior, secret redaction, generated-output isolation, and manually confirmed l
 
 Admin Dashboard Product Polish connects the existing H3–H7 surfaces through a local,
 read-oriented cockpit. It adds no Procore capability, export download, or attachment serving.
+
+## H9 — completed
+
+The Demo Product Walkthrough Pack connects clone-to-dashboard evaluation using fake data only.
+Private Sandbox and Pilot work remains a later, gated boundary.

@@ -10,12 +10,17 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 WALKTHROUGHS = {
+    "docs/demo-product-walkthrough.md",
+    "docs/demo-evaluation-checklist.md",
     "docs/walkthrough-index.md",
     "docs/walkthrough-demo.md",
     "docs/walkthrough-sandbox.md",
     "docs/walkthrough-pilot.md",
 }
 EXPECTED_OUTPUTS = {
+    "examples/demo-product-walkthrough/README.md",
+    "examples/demo-product-walkthrough/demo_product_tour.example.md",
+    "examples/demo-product-walkthrough/demo_evaluation_checklist.example.md",
     "examples/walkthrough-output/README.md",
     "examples/walkthrough-output/demo_expected_output.md",
     "examples/walkthrough-output/sandbox_expected_output.md",
@@ -91,6 +96,18 @@ def check_walkthroughs(root: Path = ROOT) -> list[WalkthroughFinding]:
     sandbox = _read(root, "docs/walkthrough-sandbox.md").casefold()
     pilot = _read(root, "docs/walkthrough-pilot.md").casefold()
     content_checks = {
+        "H9 Demo product commands": all(
+            command in demo
+            for command in (
+                "make demo-product-check",
+                "make demo-product-tour",
+                "make demo-evaluation-checklist",
+            )
+        ),
+        "H9 fake-data-only boundary": all(
+            phrase in _read(root, "docs/demo-product-walkthrough.md").casefold()
+            for phrase in ("fake data", "no procore call", "no live", "private")
+        ),
         "Demo friendly flow": all(
             command in demo
             for command in ("make start", "make try-demo", "make doctor", "make commands")
@@ -160,8 +177,7 @@ def check_walkthroughs(root: Path = ROOT) -> list[WalkthroughFinding]:
             "sandbox_read_validation_ref_placeholder" in pilot
         ),
         "Pilot evidence linkage mapping": (
-            "make sandbox-evidence-mapping" in pilot
-            and "human review and expiry" in pilot
+            "make sandbox-evidence-mapping" in pilot and "human review and expiry" in pilot
         ),
     }
     for check, passed in content_checks.items():
@@ -170,8 +186,7 @@ def check_walkthroughs(root: Path = ROOT) -> list[WalkthroughFinding]:
     walkthrough_text = "\n".join(_read(root, relative).casefold() for relative in WALKTHROUGHS)
     unsafe_defaults = {
         "live smoke is not a default step": (
-            "make try-demo" in demo
-            and "do not run it as part of this walkthrough" in sandbox
+            "make try-demo" in demo and "do not run it as part of this walkthrough" in sandbox
         ),
         "deployment is not a default step": (
             "does not" in pilot and "deploy" in pilot and "launch hold" in pilot
@@ -212,8 +227,7 @@ def check_walkthroughs(root: Path = ROOT) -> list[WalkthroughFinding]:
 def main() -> int:
     findings = check_walkthroughs()
     counts = {
-        level: sum(item.level == level for item in findings)
-        for level in ("PASS", "WARN", "FAIL")
+        level: sum(item.level == level for item in findings) for level in ("PASS", "WARN", "FAIL")
     }
     print("Walkthrough verification")
     print("========================")

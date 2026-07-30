@@ -222,3 +222,7 @@ H8 is aggregate, local, and read-oriented. Raw payloads, URLs, private paths, st
 filenames, contents, secrets, and raw source identifiers are blocked. Dashboard readiness is not
 release, production, or pilot authorization and is not a compliance determination or customer
 report.
+
+H9 reads public repository guidance and route metadata only. It makes no live call, database
+write, deployment, release, or private report read. Optional outputs are ignored and
+fail-closed; Demo completion grants no external authorization or certification.

@@ -1,0 +1,11 @@
+# Demo Evaluation Checklist
+
+- [ ] `DEMO_PRODUCT_TOUR_PLACEHOLDER`
+- [ ] `DEMO_REVIEW_WORKSPACE_PLACEHOLDER`
+- [ ] `DEMO_LIFECYCLE_FLOW_PLACEHOLDER`
+- [ ] `DEMO_TRIAGE_QUEUE_PLACEHOLDER`
+- [ ] `DEMO_ATTACHMENT_REVIEW_PLACEHOLDER`
+- [ ] `DEMO_EXPORT_PACK_PLACEHOLDER`
+- [ ] `DEMO_NEXT_PRIVATE_STEP_PLACEHOLDER`
+
+This placeholder checklist uses fake data only and grants no external authorization.

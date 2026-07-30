@@ -546,6 +546,40 @@ class Settings(BaseSettings):
     product_dashboard_fail_closed: bool = Field(
         default=True, validation_alias="PROCORE_INTAKE_PRODUCT_DASHBOARD_FAIL_CLOSED"
     )
+    demo_walkthrough_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DEMO_WALKTHROUGH_ENABLED"
+    )
+    demo_walkthrough_output_root: Path = Field(
+        default=Path("./demo-walkthrough-output"),
+        validation_alias="PROCORE_INTAKE_DEMO_WALKTHROUGH_OUTPUT_ROOT",
+    )
+    demo_walkthrough_require_fake_data: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_DEMO_WALKTHROUGH_REQUIRE_FAKE_DATA",
+    )
+    demo_walkthrough_allow_real_identities: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_DEMO_WALKTHROUGH_ALLOW_REAL_IDENTITIES",
+    )
+    demo_walkthrough_allow_real_domains: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_DEMO_WALKTHROUGH_ALLOW_REAL_DOMAINS",
+    )
+    demo_walkthrough_allow_real_urls: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_DEMO_WALKTHROUGH_ALLOW_REAL_URLS",
+    )
+    demo_walkthrough_allow_report_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_DEMO_WALKTHROUGH_ALLOW_REPORT_CONTENTS",
+    )
+    demo_walkthrough_allow_private_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_DEMO_WALKTHROUGH_ALLOW_PRIVATE_PATHS",
+    )
+    demo_walkthrough_fail_closed: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DEMO_WALKTHROUGH_FAIL_CLOSED"
+    )
     intake_review_workspace_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_ENABLED",

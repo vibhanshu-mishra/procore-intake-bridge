@@ -99,3 +99,6 @@ summary-claim safety.
 The audit checks Product Dashboard documentation, scripts, Make targets, GET-only routes, docs
 navigation, local/read-oriented wording, and the absence of export-download or file-serving
 behavior.
+
+H9 coverage checks walkthrough/checklist docs, examples, commands, ignore rules, fake-data-only
+language, no-live boundaries, and decision disclaimers.

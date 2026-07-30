@@ -2,7 +2,7 @@
 
 PYTHON ?= .venv/bin/python
 
-.PHONY: product-dashboard-overview product-dashboard-check review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check operator-export-check operator-export-summary operator-export-artifact-check
+.PHONY: demo-product-tour demo-product-check demo-evaluation-checklist demo-product-artifact-check product-dashboard-overview product-dashboard-check review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check operator-export-check operator-export-summary operator-export-artifact-check
 
 help:
 	@echo "START HERE"
@@ -14,6 +14,9 @@ help:
 	@echo "  make prepare-sandbox        Offline private Sandbox preparation"
 	@echo "  make prepare-pilot          Offline private Pilot preparation"
 	@echo "  make walkthroughs           Guided Demo, Sandbox, and Pilot docs"
+	@echo "  make demo-product-tour      Fake-data-only product evaluation tour"
+	@echo "  make demo-product-check     Validate the offline Demo walkthrough pack"
+	@echo "  make demo-evaluation-checklist Print the Demo maintainer checklist"
 	@echo "  make product-dashboard-overview Sanitized local product cockpit summary"
 	@echo "  make product-dashboard-check Validate the read-only product cockpit"
 	@echo "  make review-workspace-summary Read-only local intake summary"
@@ -169,6 +172,18 @@ public-usability-audit:
 	$(PYTHON) scripts/audit_public_usability.py
 
 safety-check: public-usability-audit safety-audit route-audit
+
+demo-product-tour:
+	$(PYTHON) scripts/print_demo_product_tour.py
+
+demo-product-check:
+	$(PYTHON) scripts/check_demo_product_walkthrough.py
+
+demo-evaluation-checklist:
+	$(PYTHON) scripts/print_demo_evaluation_checklist.py
+
+demo-product-artifact-check:
+	$(PYTHON) scripts/generate_demo_product_walkthrough_artifacts.py --temporary
 
 product-dashboard-overview:
 	$(PYTHON) scripts/print_product_dashboard_overview.py
@@ -534,4 +549,5 @@ quality: operator-triage-check operator-triage-summary
 quality: attachment-review-check attachment-review-summary
 quality: operator-export-check operator-export-summary
 quality: product-dashboard-check product-dashboard-overview
+quality: demo-product-check demo-product-tour demo-evaluation-checklist
 	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict

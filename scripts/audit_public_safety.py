@@ -250,6 +250,21 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if "demo-product" in path.as_posix() or "demo_product" in path.as_posix():
+        unsafe_demo_claim = re.compile(
+            r"(?i)\b(?:demo|walkthrough)\b.*\b(?:production[- ]ready|"
+            r"pilot approved|release approved|compliance certified|"
+            r"official customer report|approval granted)\b"
+        )
+        for line in text.splitlines():
+            if (
+                unsafe_demo_claim.search(line)
+                and "tests" not in path.parts
+                and "services" not in path.parts
+                and not re.search(r"(?i)\b(?:no|not|never|does not|is not)\b", line)
+            ):
+                issues.append(SafetyIssue(path, "Demo walkthrough implies an external decision"))
+                break
     if "product-dashboard" in path.as_posix() or "product_dashboard" in path.as_posix():
         unsafe_dashboard_claim = re.compile(
             r"(?i)\b(?:dashboard|readiness)\b.*\b(?:production[- ]ready|"
@@ -261,13 +276,9 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
                 unsafe_dashboard_claim.search(line)
                 and "tests" not in path.parts
                 and "services" not in path.parts
-                and not re.search(
-                    r"(?i)\b(?:no|not|never|does not|is not)\b", line
-                )
+                and not re.search(r"(?i)\b(?:no|not|never|does not|is not)\b", line)
             ):
-                issues.append(
-                    SafetyIssue(path, "product dashboard implies an external decision")
-                )
+                issues.append(SafetyIssue(path, "product dashboard implies an external decision"))
                 break
     if "operator-export" in path.as_posix() or "operator_export" in path.as_posix():
         unsafe_export_claim = re.compile(
@@ -279,14 +290,11 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
                 unsafe_export_claim.search(line)
                 and (
                     not (
-                        "tests" in path.parts
-                        or ("app" in path.parts and "services" in path.parts)
+                        "tests" in path.parts or ("app" in path.parts and "services" in path.parts)
                     )
                     or "assert" in line
                 )
-                and not re.search(
-                    r"(?i)\b(?:no|not|never|isn't|is not|does not|must not)\b", line
-                )
+                and not re.search(r"(?i)\b(?:no|not|never|isn't|is not|does not|must not)\b", line)
                 and not _safe_value(line)
             ):
                 issues.append(
@@ -323,9 +331,7 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
         for line in text.splitlines():
             if (
                 triage_claim.search(line)
-                and not re.search(
-                    r"(?i)\b(?:no|not|never|does not|do not|isn't|is not)\b", line
-                )
+                and not re.search(r"(?i)\b(?:no|not|never|does not|do not|isn't|is not)\b", line)
                 and not _safe_value(line)
             ):
                 issues.append(
@@ -425,26 +431,20 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
                 or CLOUD_RESOURCE_ID.search(line)
                 or DRY_RUN_PRIVATE_CONTENT.search(line)
             ):
-                issues.append(
-                    SafetyIssue(path, "final readiness example contains private data")
-                )
+                issues.append(SafetyIssue(path, "final readiness example contains private data"))
                 break
-            if (
-                FINAL_READINESS_APPROVAL_CLAIM.search(line)
-                and not re.search(r"(?i)\b(?:no|not|never|neither)\b", line)
+            if FINAL_READINESS_APPROVAL_CLAIM.search(line) and not re.search(
+                r"(?i)\b(?:no|not|never|neither)\b", line
             ):
-                issues.append(
-                    SafetyIssue(path, "final readiness example claims public approval")
-                )
+                issues.append(SafetyIssue(path, "final readiness example claims public approval"))
                 break
             if DRY_RUN_PRIVATE_CONTENT.search(line):
                 issues.append(
                     SafetyIssue(path, "hosted pilot dry-run example contains report contents")
                 )
                 break
-            if (
-                DRY_RUN_APPROVAL_CLAIM.search(line)
-                and not re.search(r"(?i)\b(?:no|not|never|neither)\b", line)
+            if DRY_RUN_APPROVAL_CLAIM.search(line) and not re.search(
+                r"(?i)\b(?:no|not|never|neither)\b", line
             ):
                 issues.append(SafetyIssue(path, "hosted pilot dry-run example claims approval"))
                 break
@@ -457,9 +457,8 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
             if WEBHOOK_PRIVATE_MATERIAL.search(line):
                 issues.append(SafetyIssue(path, "webhook planning example contains private data"))
                 break
-            if (
-                WEBHOOK_SETUP_CLAIM.search(line)
-                and not re.search(r"(?i)\b(?:no|not|never)\b", line)
+            if WEBHOOK_SETUP_CLAIM.search(line) and not re.search(
+                r"(?i)\b(?:no|not|never)\b", line
             ):
                 issues.append(SafetyIssue(path, "webhook planning example claims live setup"))
                 break
@@ -469,9 +468,8 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
             if HOSTED_PLATFORM_ID.search(line):
                 issues.append(SafetyIssue(path, "hosted template contains a platform identifier"))
                 break
-            if (
-                PRODUCTION_APPROVAL_CLAIM.search(line)
-                and not re.search(r"(?i)\b(?:no|not|never|neither)\b", line)
+            if PRODUCTION_APPROVAL_CLAIM.search(line) and not re.search(
+                r"(?i)\b(?:no|not|never|neither)\b", line
             ):
                 issues.append(SafetyIssue(path, "hosted template contains an approval claim"))
                 break
@@ -614,6 +612,25 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             continue
         if path.name.endswith((".smoke.json", ".smoke.log")):
             issues.append(SafetyIssue(path, "tracked sandbox smoke output"))
+            continue
+        if any(
+            part
+            in {
+                "demo-walkthrough-output",
+                "demo-product-output",
+                "demo-tour-output",
+                "demo-evaluation-output",
+            }
+            for part in path.parts
+        ) or path.name.endswith(
+            (
+                ".demo-walkthrough-report.json",
+                ".demo-walkthrough-report.md",
+                ".demo-product-tour.md",
+                ".demo-evaluation-checklist.md",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated Demo walkthrough output"))
             continue
         if path.name.endswith(
             (

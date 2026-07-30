@@ -39,3 +39,5 @@ presented as an official external report.
 
 H8 lists export commands only. It adds no generated-file link, public download, file-serving
 route, or artifact generation.
+
+H9 uses `make operator-export-check`; the Demo tour itself generates no export artifact.

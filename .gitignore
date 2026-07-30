@@ -259,6 +259,14 @@ infra-output/
 *.release-readiness-report.json
 *.release-readiness-report.md
 operator-export-output/
+demo-walkthrough-output/
+demo-product-output/
+demo-tour-output/
+demo-evaluation-output/
+*.demo-walkthrough-report.json
+*.demo-walkthrough-report.md
+*.demo-product-tour.md
+*.demo-evaluation-checklist.md
 review-export-output/
 intake-export-output/
 lifecycle-export-output/

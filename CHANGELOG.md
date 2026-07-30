@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Phase H9 adds a fake-data-only Demo Product Walkthrough Pack, offline evaluator, optional
+  ignored artifacts, examples, documentation, audits, and tests. It adds no route, integration,
+  live validation, deployment, release, private-report access, or external decision claim.
+
 - Phase G2 adds optional S3, Azure Blob, and GCS adapters, fail-closed operation gates, offline
   readiness commands, placeholder examples, audits, and mocked tests.
 

@@ -133,3 +133,7 @@ summaries without adding a public export route.
 The [Product Dashboard](product-dashboard.md) connects the existing local review, lifecycle,
 triage, attachment metadata, and command-only export guidance. It is read-oriented and makes no
 Procore writes or calls.
+
+The [Demo Product Walkthrough](demo-product-walkthrough.md) and
+[evaluation checklist](demo-evaluation-checklist.md) connect the complete fake-data-only public
+journey without live operations.

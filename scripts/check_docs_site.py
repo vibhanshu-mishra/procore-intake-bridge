@@ -67,6 +67,8 @@ REQUIRED_NAV_DOCS = {
     "attachment-review-manifest-ux.md",
     "operator-export-pack.md",
     "product-dashboard.md",
+    "demo-product-walkthrough.md",
+    "demo-evaluation-checklist.md",
     "release-readiness.md",
     "release-checklist.md",
     "release-notes-template.md",

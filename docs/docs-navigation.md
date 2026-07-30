@@ -87,3 +87,6 @@ performed after H1. It adds no runtime or live capability.
 
 - [Product Dashboard](product-dashboard.md): local product cockpit, safe cards, navigation, and
   Demo/Sandbox/Pilot boundary guidance.
+
+- [Demo Product Walkthrough](demo-product-walkthrough.md): complete fake-data product tour.
+- [Demo Evaluation Checklist](demo-evaluation-checklist.md): maintainer evaluation boundaries.
