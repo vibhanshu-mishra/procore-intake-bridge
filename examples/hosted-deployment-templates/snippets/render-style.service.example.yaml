@@ -1,0 +1,4 @@
+# Conceptual Render-style shape; not valid provider deployment automation.
+service_template: RENDER_SERVICE_PLACEHOLDER
+image_ref: CONTAINER_IMAGE_PLACEHOLDER
+public_url_ref: PUBLIC_URL_PLACEHOLDER

@@ -464,3 +464,11 @@ SQLite remains the Demo default. For private Sandbox/Pilot PostgreSQL planning, 
 a database. Live connectivity and migration-status commands are separate, disabled by default,
 manually gated, and sanitized. See
 [PostgreSQL runtime operations](docs/postgres-runtime-operations.md).
+
+## Hosted deployment templates
+
+`make hosted-deployment-template`, `make hosted-deployment-check`, and
+`make hosted-deployment-matrix` provide placeholder-only planning for common hosted environments.
+They make no cloud calls and perform no deployment. Real domains, registry values, provider IDs,
+credentials, and private settings must remain outside Git. See
+[Hosted deployment templates](docs/hosted-deployment-templates.md).

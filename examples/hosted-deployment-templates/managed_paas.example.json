@@ -1,0 +1,18 @@
+{
+  "profile_name": "example-managed-paas-hosted-template",
+  "platform": "managed_paas",
+  "environment_label": "ENVIRONMENT_LABEL_PLACEHOLDER",
+  "container_image_placeholder": "CONTAINER_IMAGE_PLACEHOLDER",
+  "registry_ref_placeholder": "REGISTRY_REF_PLACEHOLDER",
+  "public_url_placeholder": "PUBLIC_URL_PLACEHOLDER",
+  "database_url_ref_placeholder": "DATABASE_URL_REF_PLACEHOLDER",
+  "admin_token_ref_placeholder": "ADMIN_TOKEN_REF_PLACEHOLDER",
+  "webhook_secret_ref_placeholder": "WEBHOOK_SECRET_REF_PLACEHOLDER",
+  "secret_provider_placeholder": "SECRET_PROVIDER_REF_PLACEHOLDER",
+  "storage_provider_placeholder": "STORAGE_PROVIDER_REF_PLACEHOLDER",
+  "postgres_runtime_placeholder": "POSTGRES_RUNTIME_REF_PLACEHOLDER",
+  "backup_plan_placeholder": "BACKUP_PLAN_REF_PLACEHOLDER",
+  "rollback_plan_placeholder": "ROLLBACK_PLAN_REF_PLACEHOLDER",
+  "tls_https_placeholder": "TLS_HTTPS_REF_PLACEHOLDER",
+  "webhook_ingress_placeholder": "WEBHOOK_INGRESS_REF_PLACEHOLDER"
+}

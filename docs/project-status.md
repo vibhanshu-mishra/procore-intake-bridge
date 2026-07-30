@@ -119,3 +119,7 @@ G3 PostgreSQL Runtime Operations Polish is implemented with optional drivers, of
 runbook summaries, placeholder examples, private evidence-reference guidance, and two separate
 manually gated live checks. Defaults make no external database contact, run no migration, and
 inspect no backup or dump.
+
+G4 Hosted Deployment Template Pack is implemented with nine conceptual platform profiles,
+placeholder-only snippets, offline validation, temporary artifact checks, and public safety
+guards. It includes no cloud calls, provisioning, image push, publication, or deployment.

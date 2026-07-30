@@ -166,3 +166,8 @@ G3 applies the same boundary to PostgreSQL. Offline reports contain booleans and
 settings only. Live helpers gate before secret resolution, sanitize errors, store no raw logs, and
 exclude URLs, hosts, database names, usernames, query text, dump/backup material, and private
 paths. No live database target participates in default automation.
+
+G4 rejects real URLs, domains, registry/image references, secrets, certificates, cloud and
+infrastructure IDs, absolute paths, logs/backups, contact details, and production-approval claims.
+Generated output is ignored and contained. No GitHub Actions, Terraform, Pulumi, Kubernetes, or
+Helm deployment mechanism is introduced.

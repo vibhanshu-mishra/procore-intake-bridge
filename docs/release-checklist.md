@@ -21,3 +21,8 @@ release.
 
 Never commit credentials, customer data, evidence, approvals, reports, logs, screenshots,
 databases, backups, packages, archives, build output, or release-readiness output.
+# Hosted template review
+
+- [ ] Confirm hosted profiles and snippets remain placeholder-only.
+- [ ] Confirm no provider IDs, registry references, domains, secrets, or generated output are tracked.
+- [ ] Confirm release and deployment remain manual and outside this repository.

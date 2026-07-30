@@ -128,3 +128,12 @@ Best next command for a new user: `make start`.
 - `make postgres-migration-status-check` — manually gated status-only check; refuses by default.
 
 The two live commands are excluded from quality, preparation, release, and docs checks.
+
+## Hosted deployment template commands
+
+- `make hosted-deployment-template` — print a Docker VPS placeholder profile.
+- `make hosted-deployment-check` — validate the example profile offline.
+- `make hosted-deployment-matrix` — compare nine conceptual platform styles.
+- `make hosted-deployment-artifact-check` — generate and remove temporary local artifacts.
+
+These commands never deploy, contact a cloud or registry, build or push an image, or publish.

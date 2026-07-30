@@ -183,6 +183,17 @@ restore-drill-output/
 *.pgdump
 deployment-output/
 deploy-output/
+hosted-deployment-output/
+hosted-deploy-output/
+platform-deployment-output/
+container-deployment-output/
+*.hosted-deployment-report.json
+*.hosted-deployment-report.md
+*.hosted-deployment-plan.md
+*.platform-deployment-plan.md
+*.container-deployment-plan.md
+*.hosting-checklist.md
+*.hosting-runbook.md
 release-output/
 release-readiness-output/
 package-output/

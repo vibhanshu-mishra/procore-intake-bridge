@@ -172,3 +172,7 @@ For G3, the runtime/template/migration-plan/backup-restore-plan commands are off
 connectivity and migration-status targets are intentionally separate, manually gated, and
 disabled by default. Never add those live targets to quality, doctor, preparation, release, or
 docs checks.
+
+G4 hosted-template commands are offline and non-deploying. Keep generated artifacts under ignored
+roots or use the temporary artifact check. Never copy provider IDs, registry references, domains,
+credentials, deployment logs, or real environment values into the public repository.

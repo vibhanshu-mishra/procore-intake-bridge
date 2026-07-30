@@ -32,3 +32,8 @@ Kubernetes, Helm, GitHub Actions, DNS automation, certificate issuance, or cloud
 G3 runtime planning consumes the private database, maintenance-window, backup, restore-drill, and
 rollback references anticipated by D4. It adds no provisioning or deployment automation, and its
 offline pool summary is not validation of a hosted database.
+
+G4 adds [hosted deployment templates](hosted-deployment-templates.md) as a more detailed,
+placeholder-only extension of D4 recipes. Platform names describe conceptual shapes, not active
+provider configuration. No cloud API, registry, DNS, TLS, image, resource, or deployment action is
+performed.

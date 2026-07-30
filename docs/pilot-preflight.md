@@ -26,3 +26,7 @@ review findings; their presence never makes Pilot readiness pass automatically.
 PostgreSQL runtime, maintenance-window, managed-backup, restore-drill, and rollback references are
 private preflight evidence. G3 offline checks do not resolve them; live status checks are manually
 gated and their success is not Pilot approval.
+
+Selecting a G4 platform style does not satisfy deployment readiness. Preflight must retain
+needs-configuration status until private infrastructure, image provenance, HTTPS, providers,
+health, scale, monitoring, backup, rollback, and authorization are independently reviewed.

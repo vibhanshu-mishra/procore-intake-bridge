@@ -43,3 +43,7 @@ or deploy documentation.
 Confirm F2's live `sandbox-read-validation` target remains absent from quality, onboarding,
 walkthrough execution, release, and docs checks. Only its offline plan/preflight/template belong
 in quality.
+# Hosted deployment templates
+
+Passing G4 template checks does not release or deploy anything. Publication, image creation,
+provider setup, and deployment remain separate manual decisions after private production review.

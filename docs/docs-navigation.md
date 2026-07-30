@@ -11,6 +11,11 @@ PostgreSQL guidance continues from [readiness](postgres-readiness.md) to
 [migration operations](postgres-migration-runbook.md), and
 [backup/restore drills](postgres-backup-restore-drills.md).
 
+Hosted planning starts at [hosted deployment templates](hosted-deployment-templates.md), followed
+by [Docker VPS](docker-vps-hosting.md), [managed PaaS](managed-paas-hosting.md),
+[generic container platforms](container-platform-hosting.md), and
+[cloud platform styles](cloud-platform-hosting.md). All are conceptual and non-deploying.
+
 Use this reading order; later sections are needed only for the selected journey.
 
 ## 1. Start here

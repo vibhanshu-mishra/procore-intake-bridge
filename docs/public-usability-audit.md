@@ -55,3 +55,7 @@ next: `make safety-check`, then `make quality`.
 G3 checks require the four PostgreSQL runtime docs, six commands, six Make targets,
 placeholder-only examples, ignored operation outputs, explicit no-connect defaults, manually
 gated live checks, no migration execution in the plan, and no dump inspection in recovery plans.
+
+G4 checks require five hosted-template docs, four offline scripts and Make targets, nine example
+profiles, placeholder-only conceptual snippets, ignored outputs, navigation links, and explicit
+language that no deployment automation or cloud call occurs.

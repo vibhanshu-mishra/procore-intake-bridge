@@ -1,0 +1,4 @@
+# Conceptual Fly.io-style shape; not ready to run.
+app_ref = "FLY_APP_REF_PLACEHOLDER"
+image_ref = "CONTAINER_IMAGE_PLACEHOLDER"
+tls_ref = "TLS_HTTPS_REF_PLACEHOLDER"

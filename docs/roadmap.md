@@ -107,3 +107,7 @@ G3 completes public runtime-operations polish: optional PostgreSQL drivers, fail
 status gates, pool guidance, and offline migration/backup/restore planning. Real production
 operation, approval, migration execution, backup execution, and restore execution remain private
 operator responsibilities outside this repository.
+
+G4 completes a public-safe hosted template pack for common container and cloud platform styles.
+Actual infrastructure selection, provider configuration, production review, release, and
+deployment remain future private operator work rather than repository automation.

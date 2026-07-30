@@ -61,6 +61,10 @@ PRIVATE_PATH_PARTS = {
     "migration-execution-output",
     "backup-verification-output",
     "restore-drill-output",
+    "hosted-deployment-output",
+    "hosted-deploy-output",
+    "platform-deployment-output",
+    "container-deployment-output",
     "deployment-output",
     "deploy-output",
     "release-output",
@@ -180,6 +184,20 @@ CLOUD_STORAGE_CONTENT = re.compile(
     r"""(?ix)["']?(?:object_contents?|file_contents?|attachment_contents?|
     object_key|blob_name)["']?\s*:\s*["']([^"' \r\n][^"'\r\n]*)["']"""
 )
+HOSTED_REGISTRY_REF = re.compile(
+    r"(?i)(?:\b[a-z0-9.-]+/[a-z0-9._/-]+:[a-z0-9._-]+\b|"
+    r"\b[a-z0-9._-]+:(?:latest|v?\d[\w.-]*)\b)"
+)
+HOSTED_PLATFORM_ID = re.compile(
+    r"(?i)(?:\barn:aws[a-z-]*:\S+|\b\d{12}\b|/subscriptions/[0-9a-f-]{20,}|"
+    r"\bprojects/[a-z0-9-]{6,}\b|"
+    r"\b(?:account|subscription|tenant|project|resource|service|cluster|task|app)"
+    r"[_-]?id\s*[:=]\s*[a-z0-9-]{6,})"
+)
+PRODUCTION_APPROVAL_CLAIM = re.compile(
+    r"(?i)\b(?:production[- ]ready|approved for production|pilot approved|"
+    r"production approved|security complete)\b"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -212,6 +230,25 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
                 issues.append(
                     SafetyIssue(path, "PostgreSQL example contains non-placeholder runtime data")
                 )
+                break
+    if "examples/hosted-deployment-templates" in path.as_posix():
+        for line in text.splitlines():
+            if _safe_value(line):
+                continue
+            if CUSTOMER_URL.search(line):
+                issues.append(SafetyIssue(path, "hosted template contains a provider URL"))
+                break
+            if HOSTED_REGISTRY_REF.search(line):
+                issues.append(SafetyIssue(path, "hosted template contains a registry reference"))
+                break
+            if HOSTED_PLATFORM_ID.search(line):
+                issues.append(SafetyIssue(path, "hosted template contains a platform identifier"))
+                break
+            if (
+                PRODUCTION_APPROVAL_CLAIM.search(line)
+                and not re.search(r"(?i)\b(?:no|not|never|neither)\b", line)
+            ):
+                issues.append(SafetyIssue(path, "hosted template contains an approval claim"))
                 break
     for line in text.splitlines():
         if (
@@ -329,6 +366,9 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
     for path in paths:
         if path.name in SKIP_NAMES or not path.is_file():
             continue
+        if path.parts[:2] == (".github", "workflows"):
+            issues.append(SafetyIssue(path, "tracked GitHub Actions automation"))
+            continue
         if path.suffix.casefold() in {".db", ".sqlite", ".sqlite3"}:
             issues.append(SafetyIssue(path, "tracked local database file"))
             continue
@@ -349,6 +389,27 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             continue
         if path.name.endswith((".smoke.json", ".smoke.log")):
             issues.append(SafetyIssue(path, "tracked sandbox smoke output"))
+            continue
+        if path.name.endswith(
+            (
+                ".hosted-deployment-report.json",
+                ".hosted-deployment-report.md",
+                ".hosted-deployment-plan.md",
+                ".platform-deployment-plan.md",
+                ".container-deployment-plan.md",
+                ".hosting-checklist.md",
+                ".hosting-runbook.md",
+                ".deployment-log",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked hosted deployment output"))
+            continue
+        if path.suffix.casefold() == ".tf" or path.name in {
+            "Pulumi.yaml",
+            "Pulumi.yml",
+            "Chart.yaml",
+        }:
+            issues.append(SafetyIssue(path, "tracked deployment automation"))
             continue
         if path.name.endswith((".migration-log", ".restore-log", ".backup-log")):
             issues.append(SafetyIssue(path, "tracked PostgreSQL operation log"))

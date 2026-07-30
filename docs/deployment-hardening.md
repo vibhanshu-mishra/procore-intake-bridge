@@ -101,3 +101,7 @@ migration, backup, and rollback posture without connecting or executing migratio
 
 D4 readiness reports the selected recipe target, validator availability, required HTTPS/ingress and
 runbook posture, and confirms external provisioning is disabled.
+
+G4 templates do not establish hardening or production readiness. Operators must privately review
+identity, networking, HTTPS, ingress, secrets, storage, database, capacity, observability,
+recovery, and rollback. No provider value belongs in the public profile.

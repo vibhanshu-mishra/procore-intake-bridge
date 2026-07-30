@@ -48,6 +48,11 @@ nav:
       - PostgreSQL Runtime Operations: postgres-runtime-operations.md
       - PostgreSQL Connection Pooling: postgres-connection-pooling.md
       - Deployment Recipes: deployment-recipes.md
+      - Hosted Deployment Templates: hosted-deployment-templates.md
+      - Docker VPS Hosting: docker-vps-hosting.md
+      - Managed PaaS Hosting: managed-paas-hosting.md
+      - Container Platform Hosting: container-platform-hosting.md
+      - Cloud Platform Hosting: cloud-platform-hosting.md
       - HTTPS and Webhook Ingress: https-webhook-ingress.md
       - Backup and Restore: backup-restore-plan.md
       - Deployment Backup and Rollback: deployment-backup-rollback.md

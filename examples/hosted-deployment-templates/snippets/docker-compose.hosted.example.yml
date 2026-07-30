@@ -1,0 +1,7 @@
+# Conceptual private-adaptation snippet; not ready to deploy.
+services:
+  app:
+    image: CONTAINER_IMAGE_PLACEHOLDER
+    environment:
+      DATABASE_URL_REF: DATABASE_URL_REF_PLACEHOLDER
+      ADMIN_TOKEN_REF: ADMIN_TOKEN_REF_PLACEHOLDER

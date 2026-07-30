@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+"""Validate a hosted deployment profile offline with sanitized output."""
+
+import argparse
+from pathlib import Path
+
+from app.config import get_settings
+from app.schemas.hosted_deployment_templates import HostedDeploymentTemplateProfile
+from app.services.hosted_deployment_templates import build_hosted_deployment_report
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("profile", type=Path)
+    args = parser.parse_args()
+    try:
+        profile = HostedDeploymentTemplateProfile.model_validate_json(
+            args.profile.read_text(encoding="utf-8")
+        )
+        report = build_hosted_deployment_report(profile, get_settings())
+    except Exception:
+        print("Hosted deployment template validation blocked; details were suppressed.")
+        return 2
+    print(report.model_dump_json(indent=2))
+    return 2 if report.status == "blocked" else 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

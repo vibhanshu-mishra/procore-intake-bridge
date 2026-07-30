@@ -1,0 +1,4 @@
+# Conceptual Cloud Run-style shape; contains no project or service IDs.
+cloud_run_ref: GCP_CLOUD_RUN_REF_PLACEHOLDER
+image_ref: CONTAINER_IMAGE_PLACEHOLDER
+secret_provider_ref: SECRET_PROVIDER_REF_PLACEHOLDER

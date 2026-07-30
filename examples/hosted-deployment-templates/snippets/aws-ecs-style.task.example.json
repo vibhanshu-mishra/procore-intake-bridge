@@ -1,0 +1,6 @@
+{
+  "template_notice": "CONCEPTUAL_PRIVATE_ADAPTATION_PLACEHOLDER",
+  "task_ref": "AWS_TASK_REF_PLACEHOLDER",
+  "image_ref": "CONTAINER_IMAGE_PLACEHOLDER",
+  "secret_provider_ref": "SECRET_PROVIDER_REF_PLACEHOLDER"
+}

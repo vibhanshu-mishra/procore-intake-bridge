@@ -1397,6 +1397,42 @@ class Settings(BaseSettings):
     deployment_recipes_enabled: bool = Field(
         default=True, validation_alias="PROCORE_INTAKE_DEPLOYMENT_RECIPES_ENABLED"
     )
+    hosted_deployment_templates_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_HOSTED_DEPLOYMENT_TEMPLATES_ENABLED",
+    )
+    hosted_deployment_output_root: Path = Field(
+        default=Path("./hosted-deployment-output"),
+        validation_alias="PROCORE_INTAKE_HOSTED_DEPLOYMENT_OUTPUT_ROOT",
+    )
+    hosted_deployment_require_placeholders: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_HOSTED_DEPLOYMENT_REQUIRE_PLACEHOLDERS",
+    )
+    hosted_deployment_allow_real_domains: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_HOSTED_DEPLOYMENT_ALLOW_REAL_DOMAINS",
+    )
+    hosted_deployment_allow_real_infra_ids: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_HOSTED_DEPLOYMENT_ALLOW_REAL_INFRA_IDS",
+    )
+    hosted_deployment_allow_real_registry_refs: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_HOSTED_DEPLOYMENT_ALLOW_REAL_REGISTRY_REFS",
+    )
+    hosted_deployment_allow_real_cloud_ids: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_HOSTED_DEPLOYMENT_ALLOW_REAL_CLOUD_IDS",
+    )
+    hosted_deployment_allow_absolute_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_HOSTED_DEPLOYMENT_ALLOW_ABSOLUTE_PATHS",
+    )
+    hosted_deployment_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_HOSTED_DEPLOYMENT_FAIL_CLOSED",
+    )
     deployment_recipe_output_root: Path = Field(
         default=Path("./deployment-output"),
         validation_alias="PROCORE_INTAKE_DEPLOYMENT_RECIPE_OUTPUT_ROOT",

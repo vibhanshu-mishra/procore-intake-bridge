@@ -43,3 +43,7 @@ backup/rollback runbooks, and operator runbook. These artifacts are not deployme
 For a private PostgreSQL Pilot, review the G3 runtime posture and pool guidance. The default
 commands do not connect externally. Live connectivity and migration-status checks remain separate,
 manually gated steps and do not approve the Pilot or a production database.
+
+Hosted platform profiles are planning aids only. A Pilot still requires private provider values,
+HTTPS and ingress setup, database/storage/secret configuration, recovery evidence, production
+review, and a separate manual deployment decision.

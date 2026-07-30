@@ -98,3 +98,7 @@ No release tag or package publication is claimed.
 - Added Phase G3 PostgreSQL runtime operations polish: optional driver extras, offline pool and
   operational planning, placeholder examples, sanitized reports, and separate disabled-by-default
   connectivity and migration-status checks. No migration, backup, or restore is automated.
+
+- Added Phase G4 hosted deployment template packs for nine common platform styles, with
+  placeholder-only snippets, offline validation, contained local artifacts, documentation, and
+  public safety checks. No cloud resource, image, release, or deployment is created.

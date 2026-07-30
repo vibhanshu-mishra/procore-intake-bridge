@@ -1,0 +1,4 @@
+# Conceptual Azure Container Apps-style shape; contains no subscription or resource IDs.
+container_app_ref: AZURE_CONTAINER_APP_REF_PLACEHOLDER
+image_ref: CONTAINER_IMAGE_PLACEHOLDER
+secret_provider_ref: SECRET_PROVIDER_REF_PLACEHOLDER

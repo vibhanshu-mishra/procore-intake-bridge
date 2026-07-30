@@ -7,3 +7,9 @@ or delete backups.
 Private operators must define recovery objectives, retention, restore verification, rollback
 triggers, ownership, communications, and post-rollback checks. Backup files, dump paths, logs,
 infrastructure state, and decisions stay outside the public repository.
+
+# G4 hosted-template boundary
+
+Hosted profiles reference backup and rollback placeholders only. They do not invoke provider
+backup features, inspect archives, restore data, or perform rollback. Evidence and provider
+configuration remain private.

@@ -110,3 +110,7 @@ of first-run Demo, Sandbox, or Pilot execution.
 PostgreSQL is optional for private Sandbox/Pilot hosting; SQLite remains the Demo default.
 `make postgres-runtime-check` is offline. Live database checks are separate, manually gated, and
 disabled by default; planning commands run no migration and inspect no backup or dump.
+
+Hosted platform templates are optional conceptual aids for private Sandbox/Pilot preparation.
+They are placeholder-only, are not deployment automation, make no cloud calls, and do not replace
+private HTTPS, provider, production, or release review.

@@ -41,6 +41,11 @@ REQUIRED_DOCS = {
     "docs/postgres-connection-pooling.md",
     "docs/postgres-migration-runbook.md",
     "docs/postgres-backup-restore-drills.md",
+    "docs/hosted-deployment-templates.md",
+    "docs/docker-vps-hosting.md",
+    "docs/managed-paas-hosting.md",
+    "docs/container-platform-hosting.md",
+    "docs/cloud-platform-hosting.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -103,6 +108,10 @@ REQUIRED_SCRIPTS = {
     "scripts/plan_postgres_backup_restore_drill.py",
     "scripts/run_postgres_connectivity_check.py",
     "scripts/run_postgres_migration_status_check.py",
+    "scripts/print_hosted_deployment_template.py",
+    "scripts/check_hosted_deployment_template.py",
+    "scripts/generate_hosted_deployment_artifacts.py",
+    "scripts/print_hosted_deployment_matrix.py",
 }
 REQUIRED_EXAMPLES = {
     "examples/demo-flow.md",
@@ -128,6 +137,16 @@ REQUIRED_EXAMPLES = {
     "examples/postgres-runtime/postgres_runtime_refs.example.json",
     "examples/postgres-runtime/postgres_migration_plan.example.md",
     "examples/postgres-runtime/postgres_backup_restore_plan.example.md",
+    "examples/hosted-deployment-templates/README.md",
+    "examples/hosted-deployment-templates/docker_vps.example.json",
+    "examples/hosted-deployment-templates/managed_paas.example.json",
+    "examples/hosted-deployment-templates/render_style.example.json",
+    "examples/hosted-deployment-templates/railway_style.example.json",
+    "examples/hosted-deployment-templates/fly_style.example.json",
+    "examples/hosted-deployment-templates/generic_container_host.example.json",
+    "examples/hosted-deployment-templates/aws_ecs_style.example.json",
+    "examples/hosted-deployment-templates/azure_container_apps_style.example.json",
+    "examples/hosted-deployment-templates/gcp_cloud_run_style.example.json",
 }
 REQUIRED_TARGETS = {
     "help",
@@ -183,6 +202,10 @@ REQUIRED_TARGETS = {
     "postgres-backup-restore-plan",
     "postgres-connectivity-check",
     "postgres-migration-status-check",
+    "hosted-deployment-template",
+    "hosted-deployment-check",
+    "hosted-deployment-matrix",
+    "hosted-deployment-artifact-check",
 }
 IGNORED_OUTPUTS = {
     "private-workspace/",
@@ -232,6 +255,17 @@ IGNORED_OUTPUTS = {
     "*.migration-log",
     "*.restore-log",
     "*.backup-log",
+    "hosted-deployment-output/",
+    "hosted-deploy-output/",
+    "platform-deployment-output/",
+    "container-deployment-output/",
+    "*.hosted-deployment-report.json",
+    "*.hosted-deployment-report.md",
+    "*.hosted-deployment-plan.md",
+    "*.platform-deployment-plan.md",
+    "*.container-deployment-plan.md",
+    "*.hosting-checklist.md",
+    "*.hosting-runbook.md",
 }
 GENERATED_PARTS = {
     "private-workspace",
@@ -257,6 +291,10 @@ GENERATED_PARTS = {
     "migration-execution-output",
     "backup-verification-output",
     "restore-drill-output",
+    "hosted-deployment-output",
+    "hosted-deploy-output",
+    "platform-deployment-output",
+    "container-deployment-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak", ".backup", ".crt", ".csr", ".db", ".docx", ".dump", ".gif",
@@ -475,6 +513,22 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         "Postgres live targets excluded from quality": all(
             target not in quality_header
             for target in ("postgres-connectivity-check", "postgres-migration-status-check")
+        ),
+        "hosted templates are non-deploying placeholders": all(
+            phrase in _read(root, "docs/hosted-deployment-templates.md").casefold()
+            for phrase in (
+                "placeholder-only",
+                "not deployment automation",
+                "no cloud",
+                "outside git",
+            )
+        ),
+        "hosted templates exclude active infrastructure automation": all(
+            phrase in _read(root, "docs/hosted-deployment-templates.md").casefold()
+            for phrase in ("no github actions", "terraform", "kubernetes", "helm")
+        ),
+        "hosted artifact generation excluded from quality": (
+            "hosted-deployment-artifact-check" not in quality_header
         ),
         "beginner docs steer to friendly targets": all(
             command in docs

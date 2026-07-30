@@ -43,6 +43,11 @@ live Procore access is disabled by default, and the project performs no Procore 
 - [PostgreSQL connection pooling](postgres-connection-pooling.md)
 - [PostgreSQL migration runbook](postgres-migration-runbook.md)
 - [PostgreSQL backup and restore drills](postgres-backup-restore-drills.md)
+- [Hosted deployment templates](hosted-deployment-templates.md)
+- [Docker VPS hosting](docker-vps-hosting.md)
+- [Managed PaaS hosting](managed-paas-hosting.md)
+- [Container platform hosting](container-platform-hosting.md)
+- [Cloud platform hosting](cloud-platform-hosting.md)
 - [Migration execution plan](migration-execution-plan.md)
 - [Backup and restore plan](backup-restore-plan.md)
 
