@@ -10,6 +10,9 @@ script and target. It adds no external integration or deployment behavior.
 Phase E3 adds guided Demo, Sandbox, and Pilot tutorials, illustrative placeholder output, and an
 offline walkthrough verifier. It adds no runtime feature or live action.
 
+Phase F1 improves the existing sandbox smoke operator UX with offline preflight, explanation, and
+placeholder evidence-ref tooling. It does not automate or weaken live execution gates.
+
 Phase D5, Real Sandbox-to-Pilot Flow, is implemented as a local placeholder-only workflow.
 Actual private pilot execution remains future, separately authorized work.
 

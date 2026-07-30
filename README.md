@@ -44,6 +44,11 @@ Continue with the **[guided walkthroughs](docs/walkthrough-index.md)**. The
 [Demo walkthrough](docs/walkthrough-demo.md) is the default next document; Sandbox and Pilot
 walkthroughs are optional private paths.
 
+Sandbox operators should use the offline
+[smoke execution guide](docs/sandbox-smoke-ux.md) and
+[evidence-reference guide](docs/sandbox-smoke-evidence.md). The real read-only smoke command
+remains separate, manual, and gated.
+
 The mode guides are [Three usage modes](docs/usage-modes.md),
 [Demo Mode](docs/quickstart-demo.md), [Sandbox Mode](docs/sandbox-mode.md), and
 [Pilot Mode](docs/pilot-mode.md). Operational setup is documented in

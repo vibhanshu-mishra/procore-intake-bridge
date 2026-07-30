@@ -247,6 +247,11 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             issues.append(SafetyIssue(path, "tracked sandbox smoke output"))
             continue
         if path.name.endswith(
+            (".smoke.txt", ".smoke.md", ".smoke.transcript", ".sandbox-smoke.json")
+        ):
+            issues.append(SafetyIssue(path, "tracked sandbox smoke transcript or report"))
+            continue
+        if path.name.endswith(
             (
                 ".mode-report.json",
                 ".mode-report.md",

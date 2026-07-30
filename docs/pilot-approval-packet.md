@@ -1,5 +1,8 @@
 # Private pilot approval packet
 
+The packet references private sandbox smoke evidence; it never embeds report contents. The smoke
+probe is read-only evidence for human review, not approval by itself.
+
 The packet remains private and is referenced by [pilot preflight](pilot-preflight.md). A public
 flow profile never contains real approval contents or a real approval decision.
 

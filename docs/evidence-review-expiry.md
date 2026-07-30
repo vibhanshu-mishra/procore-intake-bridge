@@ -1,5 +1,8 @@
 # Evidence review and expiry
 
+A private sandbox smoke ref requires authorized review, scope validation, status, and expiry.
+Review records never copy the smoke report or raw Procore response into Git.
+
 Phase C2 adds a local-only review, expiry, and renewal workflow for the placeholder evidence refs
 defined by C1. It performs no Procore calls, external calls, evidence collection, notifications,
 reviewer contact, approval, deployment, or production enablement.

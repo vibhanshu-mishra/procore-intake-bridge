@@ -1,5 +1,9 @@
 # Pilot preflight
 
+Sandbox smoke readiness means a reviewed private evidence ref—not report contents—is available.
+The live check remains manual, gated, read-only, and outside this preflight. Use
+[Sandbox smoke evidence](sandbox-smoke-evidence.md).
+
 Pilot preflight assembles local readiness signals for the private workspace, secret and storage
 providers, PostgreSQL and migration planning, deployment recipe, diagnostics, evidence manifest
 and review, approval packet, rollback, backup, and incident response:

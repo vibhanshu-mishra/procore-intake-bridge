@@ -61,6 +61,8 @@ connect externally. See [Database providers](database-providers.md).
 `make prepare-sandbox` intentionally checks only offline onboarding posture and does not run live
 smoke. A live sandbox probe remains separately gated, manually confirmed, allowlisted, read-only,
 and operator-controlled. Never use public example IDs or credentials for a real run.
+Run `make sandbox-smoke-preflight` to distinguish normal missing private configuration from an
+unsafe control setting. It makes no live call.
 
 ## Pilot preflight is not ready
 

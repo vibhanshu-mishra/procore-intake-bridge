@@ -1,5 +1,8 @@
 # Pilot readiness gate
 
+The sandbox smoke gate consumes a private, reviewed evidence ref and status. A placeholder or
+passing read probe is not pilot approval or production readiness.
+
 D5 consumes this gate as part of [pilot preflight](pilot-preflight.md); neither check grants
 approval.
 

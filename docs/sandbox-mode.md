@@ -7,6 +7,10 @@ finish Demo Mode, then run `make prepare-sandbox`. This never runs live smoke.
 Follow the [Sandbox walkthrough](walkthrough-sandbox.md) for private inputs, safe checks, and the
 boundary around the separately gated live smoke path.
 
+`make prepare-sandbox` and `make sandbox-smoke-preflight` are offline. The real smoke command is
+manual, gated, read-only, makes no Procore writes, registers no webhooks, and downloads no
+attachments by default. See [Sandbox smoke UX](sandbox-smoke-ux.md).
+
 Use the [D5 sandbox onboarding checklist](sandbox-onboarding.md). Readiness checks do not run the
 manually gated smoke harness or make automatic live Procore calls.
 

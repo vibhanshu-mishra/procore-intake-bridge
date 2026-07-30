@@ -1,5 +1,9 @@
 # Private pilot evidence
 
+Sandbox smoke evidence is represented by a private ref created after a separately authorized
+manual read-only run. The public manifest contains placeholders only and never smoke report
+contents. See [Sandbox smoke evidence](sandbox-smoke-evidence.md).
+
 Phase C1 defines a local, metadata-only pattern for organizing private pilot evidence outside this
 public repository. It provides strict schemas, a fake manifest, offline validation, and a local
 workspace scaffold. It performs no Procore calls, external calls, uploads, evidence collection,

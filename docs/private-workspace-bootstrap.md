@@ -7,6 +7,9 @@ next: `make init-private-workspace`, then `make private-workspace-check`. Demo d
 Beginners should reach this step through `make prepare-sandbox` or `make prepare-pilot`; the
 workspace is never required by `make start` or `make try-demo`.
 
+Store only a private sandbox smoke evidence ref in the workspace flow/evidence metadata. Never
+copy sanitized report contents, raw responses, real IDs, or output paths into Git.
+
 D5 adds `flow/` placeholder files for sandbox readiness, pilot readiness, the ordered plan,
 preflight, and mandatory launch hold. See [the guided flow](sandbox-to-pilot-flow.md).
 

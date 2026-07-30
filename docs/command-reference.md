@@ -24,6 +24,9 @@ Prefer a guided sequence? See the [Demo walkthrough](walkthrough-demo.md),
 | Intermediate | `make quality` | Run the complete offline developer suite. | Temporary | No | No | No | Yes |
 | Beginner | `make walkthroughs` | List all guided walkthrough documents. | No | No | No | No | Yes |
 | Beginner | `make walkthroughs-check` | Verify walkthrough safety and links. | No | No | No | No | Yes |
+| Intermediate | `make sandbox-smoke-explain` | Explain the separate manual read-only smoke command. | No | No | No | No | Yes |
+| Intermediate | `make sandbox-smoke-preflight` | Check sanitized configuration posture offline. | No | No | No | Yes | Yes |
+| Intermediate | `make sandbox-smoke-evidence-template` | Print placeholder-only private evidence-ref metadata. | No | No | No | No | Yes |
 
 `make prepare-sandbox` never runs live smoke or resolves secret values.
 `make prepare-pilot` never reads real evidence, approves a pilot, connects externally, or deploys.
@@ -55,6 +58,9 @@ Prefer a guided sequence? See the [Demo walkthrough](walkthrough-demo.md),
 calls, requires private configuration and explicit gates, and is not safe for first run. It is
 never invoked by `make start`, `make try-demo`, `make prepare-sandbox`, or `make prepare-pilot`.
 Read [the sandbox smoke guide](sandbox-smoke-tests.md) before considering it.
+For the operator-facing boundary and evidence workflow, see
+[Sandbox smoke UX](sandbox-smoke-ux.md) and
+[Sandbox smoke evidence](sandbox-smoke-evidence.md).
 
 Database connectivity, production migrations, webhook registration, cloud/DNS/TLS operations, and
 deployment are not onboarding commands and are never run by friendly targets.

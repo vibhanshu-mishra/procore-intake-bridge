@@ -107,6 +107,14 @@ def check_walkthroughs(root: Path = ROOT) -> list[WalkthroughFinding]:
         "Sandbox no-live default": (
             "run live smoke by default" in sandbox and "does not" in sandbox
         ),
+        "Sandbox smoke UX commands": all(
+            command in sandbox
+            for command in (
+                "make sandbox-smoke-explain",
+                "make sandbox-smoke-preflight",
+                "make sandbox-smoke-evidence-template",
+            )
+        ),
         "Pilot friendly flow": all(
             command in pilot
             for command in ("make start", "make init-private-workspace", "make prepare-pilot")
@@ -115,6 +123,7 @@ def check_walkthroughs(root: Path = ROOT) -> list[WalkthroughFinding]:
             term in pilot for term in ("private workspace", "evidence", "approval")
         ),
         "Pilot no-real-approval boundary": "does not approve a real pilot" in pilot,
+        "Pilot private smoke evidence ref": "sandbox_smoke_ref_placeholder" in pilot,
     }
     for check, passed in content_checks.items():
         add("PASS" if passed else "FAIL", check, "documented" if passed else "guidance missing")

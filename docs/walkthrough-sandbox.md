@@ -36,6 +36,9 @@ make private-workspace-git-safety
 
 ```bash
 make prepare-sandbox
+make sandbox-smoke-explain
+make sandbox-smoke-preflight
+make sandbox-smoke-evidence-template
 python scripts/check_secret_provider.py
 python scripts/check_attachment_storage.py
 python scripts/check_sandbox_onboarding.py examples/sandbox-pilot-flow/example_sandbox_flow.json
@@ -53,6 +56,9 @@ The only live Procore smoke path is the separately documented, manually gated
 `scripts/run_sandbox_dmsa_smoke.py` command. Do not run it as part of this walkthrough. It requires
 private configuration, allowlists, live-mode gates, an exact confirmation, and explicit operator
 authorization. Read [Sandbox smoke tests](sandbox-smoke-tests.md) later.
+Sanitized live output, if separately authorized, stays private. Record only a private evidence
+reference using the [smoke evidence guide](sandbox-smoke-evidence.md); never commit report
+contents.
 
 ## Common problems
 

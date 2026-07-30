@@ -36,6 +36,8 @@ REQUIRED_DOCS = {
     "docs/walkthrough-demo.md",
     "docs/walkthrough-sandbox.md",
     "docs/walkthrough-pilot.md",
+    "docs/sandbox-smoke-ux.md",
+    "docs/sandbox-smoke-evidence.md",
 }
 REQUIRED_SCRIPTS = {
     "scripts/doctor.py",
@@ -49,6 +51,9 @@ REQUIRED_SCRIPTS = {
     "scripts/print_next_steps.py",
     "scripts/onboarding_summary.py",
     "scripts/check_walkthroughs.py",
+    "scripts/check_sandbox_smoke_preflight.py",
+    "scripts/explain_sandbox_smoke.py",
+    "scripts/print_sandbox_smoke_evidence_template.py",
 }
 REQUIRED_EXAMPLES = {
     "examples/demo-flow.md",
@@ -74,6 +79,9 @@ REQUIRED_TARGETS = {
     "demo-walkthrough",
     "sandbox-walkthrough",
     "pilot-walkthrough",
+    "sandbox-smoke-explain",
+    "sandbox-smoke-preflight",
+    "sandbox-smoke-evidence-template",
     "first-run",
     "doctor",
     "setup-demo",
@@ -317,6 +325,26 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             "do not run it as part of this walkthrough"
             in _read(root, "docs/walkthrough-sandbox.md").casefold()
             and "launch hold" in _read(root, "docs/walkthrough-pilot.md").casefold()
+        ),
+        "prepare-sandbox remains offline": (
+            "offline planning"
+            in _read(root, "docs/sandbox-smoke-ux.md").casefold()
+            and "never invokes the live command"
+            in _read(root, "docs/sandbox-smoke-ux.md").casefold()
+        ),
+        "live smoke remains manually gated": (
+            "manual live read-only execution"
+            in _read(root, "docs/sandbox-smoke-ux.md").casefold()
+        ),
+        "smoke evidence refs remain private": (
+            "outside git"
+            in _read(root, "docs/sandbox-smoke-evidence.md").casefold()
+            and "report nor its contents"
+            in _read(root, "docs/sandbox-smoke-evidence.md").casefold()
+        ),
+        "live smoke absent from first-run defaults": (
+            "run_sandbox_dmsa_smoke.py" not in quickstart
+            and "run_sandbox_dmsa_smoke.py" not in _read(root, "docs/walkthrough-demo.md")
         ),
     }
     for name, passed in guidance_checks.items():

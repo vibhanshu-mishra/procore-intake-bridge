@@ -34,6 +34,8 @@ make prepare-sandbox
 
 This is an offline, operator-controlled readiness check. It does not run the separately gated live
 sandbox smoke harness. What to run next: follow the private checklist in the Sandbox guide.
+Use `make sandbox-smoke-explain` and `make sandbox-smoke-preflight` for offline guidance; neither
+command calls Procore.
 
 ### I want to prepare a controlled pilot — Pilot Mode
 

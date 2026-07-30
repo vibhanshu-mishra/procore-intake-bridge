@@ -37,6 +37,8 @@ read no real evidence contents, execute no production migration, and create no a
 6. **Diagnostics:** review sanitized diagnostics and support-bundle posture. Keep any actual
    support bundle private and ignored.
 7. **Evidence manifest:** record refs only; never copy evidence contents into Git.
+   A private `SANDBOX_SMOKE_REF_PLACEHOLDER` represents reviewed sandbox smoke evidence; the
+   report content remains outside Git.
 8. **Review and expiry:** record private review status, expiry, renewal, and limitations.
 9. **Readiness gate:** review the local `GO`, `NO_GO`, `NEEDS_REVIEW`, or `BLOCKED` planning
    result. A public example result has no approval meaning.

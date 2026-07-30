@@ -7,6 +7,10 @@ credentials, evidence, approvals, and outputs stay outside Git. What to run next
 The [guided walkthroughs](walkthrough-index.md) explain the same progression for a new user
 without changing the established safety gates.
 
+The Sandbox milestone stores only a private smoke evidence ref after a separately authorized,
+manually gated read-only run. C1/C2 review that ref, B9 consumes its status, C3 references it in
+the private approval packet, and D5 keeps launch on hold.
+
 D5 connects the repository's existing readiness tools into one public-safe order of operations.
 The flow is local evaluation only: it makes no automatic Procore, secret-manager, storage,
 database, DNS, TLS, cloud, webhook-registration, migration, or deployment calls.

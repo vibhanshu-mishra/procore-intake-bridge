@@ -11,6 +11,9 @@ to live smoke or deployment.
 E3 verifies the linked Demo/Sandbox/Pilot walkthroughs, placeholder-only expected output, friendly
 command order, internal links, and no-live/no-deploy defaults. Run `make walkthroughs-check`.
 
+F1 verifies sandbox smoke UX/evidence docs, offline preflight/explanation/template commands, and
+the continued separation of the manually gated live runner.
+
 Run:
 
 ```bash

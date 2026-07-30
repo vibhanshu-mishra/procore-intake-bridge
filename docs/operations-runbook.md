@@ -143,3 +143,6 @@ necessary placeholders, then run `make validate-private-workspace` and
 Before Sandbox or Pilot authentication, run `make secret-provider-template`,
 `make secret-refs-check`, and `make secret-provider-check`. Use
 `make file-secret-provider-check` only for its temporary fake local self-test.
+For Sandbox smoke, run the offline explain/preflight commands first. The actual live command
+requires separate authorization and every manual gate. Keep sanitized output and evidence refs
+private; do not register webhooks or download attachments.

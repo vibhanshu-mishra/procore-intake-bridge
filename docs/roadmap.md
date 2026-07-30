@@ -4,6 +4,9 @@ Phase E1 completed the public usability audit. Phase E2 consolidated command and
 Phase E3 completes guided Demo/Sandbox/Pilot walkthroughs and safe illustrative output. Further
 work remains separately scoped.
 
+Phase F1 adds offline sandbox smoke execution guidance and private evidence-ref planning. Future
+F2 work remains separately scoped.
+
 Phase D5 is complete: the repository guides Demo → Sandbox → Pilot readiness without live calls
 or approval. Separately authorized private pilot execution remains future work.
 

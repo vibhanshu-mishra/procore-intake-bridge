@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- F1 adds offline sandbox smoke preflight, command explanation, placeholder evidence-ref tooling,
+  clearer manual-run refusals, and documentation for the private evidence lifecycle. Live smoke
+  remains separate and manually gated.
+
 - E3 adds guided Demo, Sandbox, and Pilot walkthroughs, short placeholder-only expected output,
   local walkthrough Make targets, navigation updates, and an offline safety/link verifier.
 

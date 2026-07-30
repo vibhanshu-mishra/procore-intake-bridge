@@ -10,6 +10,10 @@ Friendly onboarding commands are local-only. `make prepare-sandbox` does not run
 Walkthrough examples are hand-written placeholder summaries, never captured logs, screenshots,
 private paths, evidence, or generated reports. `make walkthroughs-check` enforces this boundary.
 
+F1 never invokes live smoke automatically. Its preflight resolves no credentials and makes no
+external calls. The separate live runner remains sandbox-only, read-only, manually confirmed,
+allowlisted, bounded, sanitized, and attachment-download-free by default.
+
 Mode transitions are local decisions: Pilot can only become ready for private review. No
 transition approves production, calls Procore automatically, or exposes private data.
 

@@ -25,7 +25,20 @@ def main() -> int:
     args = parser.parse_args()
     settings = get_settings()
     if not settings.sandbox_smoke_enabled:
-        print("Sandbox smoke blocked: the manual smoke flag is disabled.")
+        print(
+            "Sandbox smoke blocked: the manual enablement gate is disabled. "
+            "This read-only live command is never run by quality, doctor, "
+            "prepare-sandbox, walkthroughs, or default targets."
+        )
+        return 2
+    if (
+        settings.sandbox_smoke_require_confirmation
+        and args.confirm != settings.sandbox_smoke_confirmation_phrase
+    ):
+        print(
+            "Sandbox smoke blocked: the exact read-only sandbox confirmation "
+            "phrase is missing or incorrect. No live call was attempted."
+        )
         return 2
     if args.max_records is not None:
         if not 1 <= args.max_records <= MAX_SANDBOX_SMOKE_RECORDS:
@@ -48,6 +61,7 @@ def main() -> int:
         except SandboxSmokeBlockedError as exc:
             print(str(exc))
             return 2
+    print("Sanitized read-only sandbox smoke summary:")
     print(report.model_dump_json(indent=2))
     if settings.sandbox_smoke_write_report and not args.no_write_report:
         path = write_sandbox_smoke_report(
