@@ -8,6 +8,10 @@ For the complete guided journeys, use the [walkthrough index](walkthrough-index.
 [Demo](walkthrough-demo.md), [Sandbox](walkthrough-sandbox.md), and
 [Pilot](walkthrough-pilot.md).
 
+For future maintainer-only publication preparation, see [Release readiness](release-readiness.md),
+[Release checklist](release-checklist.md), and
+[Release notes template](release-notes-template.md). These publish nothing.
+
 - [First-run checklist](first-run-checklist.md)
 - [Command reference](command-reference.md)
 - [Troubleshooting](troubleshooting.md)

@@ -23,3 +23,7 @@ make demo-walkthrough
 
 All friendly walkthrough targets are local-only. They print command sequences; they do not call
 Procore, connect externally, read private evidence, approve a pilot, or deploy.
+
+After documentation and implementation work is complete, maintainers may separately use the
+[release-readiness checklist](release-readiness.md). It is not a user walkthrough and publishes
+nothing.

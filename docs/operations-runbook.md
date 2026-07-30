@@ -146,3 +146,7 @@ Before Sandbox or Pilot authentication, run `make secret-provider-template`,
 For Sandbox smoke, run the offline explain/preflight commands first. The actual live command
 requires separate authorization and every manual gate. Keep sanitized output and evidence refs
 private; do not register webhooks or download attachments.
+
+For a future public release review, run `make release-readiness` only after quality and safety
+checks. Review generated drafts privately and manually. This workflow does not tag, package,
+publish, or deploy.

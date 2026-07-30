@@ -150,6 +150,10 @@ restore-output/
 deployment-output/
 deploy-output/
 release-output/
+release-readiness-output/
+package-output/
+dist-output/
+build-output/
 tls-output/
 cert-output/
 dns-output/
@@ -171,6 +175,11 @@ infra-output/
 *.pfx
 *.tfstate
 *.tfvars
+*.release-readiness-report.json
+*.release-readiness-report.md
+*.release-notes-draft.md
+*.release-blockers.md
+*.maintainer-review-checklist.md
 sandbox-pilot-output/
 pilot-flow-output/
 flow-output/

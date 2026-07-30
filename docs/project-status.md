@@ -13,6 +13,9 @@ offline walkthrough verifier. It adds no runtime feature or live action.
 Phase F1 improves the existing sandbox smoke operator UX with offline preflight, explanation, and
 placeholder evidence-ref tooling. It does not automate or weaken live execution gates.
 
+Phase E4 adds advisory release-readiness checklists, sanitized local drafts, and maintainer review
+guidance. No release, tag, package, image, publication, or deployment is created.
+
 Phase D5, Real Sandbox-to-Pilot Flow, is implemented as a local placeholder-only workflow.
 Actual private pilot execution remains future, separately authorized work.
 

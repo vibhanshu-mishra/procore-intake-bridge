@@ -38,6 +38,9 @@ REQUIRED_DOCS = {
     "docs/walkthrough-pilot.md",
     "docs/sandbox-smoke-ux.md",
     "docs/sandbox-smoke-evidence.md",
+    "docs/release-readiness.md",
+    "docs/release-checklist.md",
+    "docs/release-notes-template.md",
 }
 REQUIRED_SCRIPTS = {
     "scripts/doctor.py",
@@ -54,6 +57,10 @@ REQUIRED_SCRIPTS = {
     "scripts/check_sandbox_smoke_preflight.py",
     "scripts/explain_sandbox_smoke.py",
     "scripts/print_sandbox_smoke_evidence_template.py",
+    "scripts/check_release_readiness.py",
+    "scripts/generate_release_readiness_artifacts.py",
+    "scripts/print_release_checklist.py",
+    "scripts/print_release_notes_draft.py",
 }
 REQUIRED_EXAMPLES = {
     "examples/demo-flow.md",
@@ -82,6 +89,10 @@ REQUIRED_TARGETS = {
     "sandbox-smoke-explain",
     "sandbox-smoke-preflight",
     "sandbox-smoke-evidence-template",
+    "release-checklist",
+    "release-readiness",
+    "release-notes-draft",
+    "release-readiness-artifact-check",
     "first-run",
     "doctor",
     "setup-demo",
@@ -345,6 +356,17 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         "live smoke absent from first-run defaults": (
             "run_sandbox_dmsa_smoke.py" not in quickstart
             and "run_sandbox_dmsa_smoke.py" not in _read(root, "docs/walkthrough-demo.md")
+        ),
+        "release readiness does not publish": all(
+            phrase in _read(root, "docs/release-readiness.md").casefold()
+            for phrase in ("does not publish", "create a release or tag", "build a package")
+        ),
+        "release readiness requires maintainer review": (
+            all(
+                term in _read(root, "docs/release-readiness.md").casefold()
+                for term in ("not final", "release approval")
+            )
+            and "maintainer" in _read(root, "docs/release-checklist.md").casefold()
         ),
     }
     for name, passed in guidance_checks.items():

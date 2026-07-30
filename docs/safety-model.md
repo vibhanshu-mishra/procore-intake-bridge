@@ -14,6 +14,9 @@ F1 never invokes live smoke automatically. Its preflight resolves no credentials
 external calls. The separate live runner remains sandbox-only, read-only, manually confirmed,
 allowlisted, bounded, sanitized, and attachment-download-free by default.
 
+E4 only inspects public repository posture and writes optional ignored drafts. It creates no
+release, tag, package, image, publication, or deployment and never records final approval.
+
 Mode transitions are local decisions: Pilot can only become ready for private review. No
 transition approves production, calls Procore automatically, or exposes private data.
 

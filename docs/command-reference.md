@@ -27,6 +27,10 @@ Prefer a guided sequence? See the [Demo walkthrough](walkthrough-demo.md),
 | Intermediate | `make sandbox-smoke-explain` | Explain the separate manual read-only smoke command. | No | No | No | No | Yes |
 | Intermediate | `make sandbox-smoke-preflight` | Check sanitized configuration posture offline. | No | No | No | Yes | Yes |
 | Intermediate | `make sandbox-smoke-evidence-template` | Print placeholder-only private evidence-ref metadata. | No | No | No | No | Yes |
+| Advanced | `make release-checklist` | Print the future-release maintainer checklist. | No | No | No | No | Yes |
+| Advanced | `make release-readiness` | Run local advisory release checks. | No | No | No | No | Yes |
+| Advanced | `make release-notes-draft` | Print draft public notes without publishing. | No | No | No | No | Yes |
+| Advanced | `make release-readiness-artifact-check` | Generate and remove disposable sanitized drafts. | Temporary | No | No | No | Yes |
 
 `make prepare-sandbox` never runs live smoke or resolves secret values.
 `make prepare-pilot` never reads real evidence, approves a pilot, connects externally, or deploys.
@@ -64,5 +68,8 @@ For the operator-facing boundary and evidence workflow, see
 
 Database connectivity, production migrations, webhook registration, cloud/DNS/TLS operations, and
 deployment are not onboarding commands and are never run by friendly targets.
+
+Release commands create no tags, releases, packages, images, publication, or deployment. See
+[Release readiness](release-readiness.md).
 
 Best next command for a new user: `make start`.

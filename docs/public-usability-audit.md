@@ -14,6 +14,9 @@ command order, internal links, and no-live/no-deploy defaults. Run `make walkthr
 F1 verifies sandbox smoke UX/evidence docs, offline preflight/explanation/template commands, and
 the continued separation of the manually gated live runner.
 
+E4 verifies release-readiness docs and local advisory commands, plus explicit language that
+publication and final maintainer approval remain manual.
+
 Run:
 
 ```bash

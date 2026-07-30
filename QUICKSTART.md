@@ -90,3 +90,5 @@ no secret values, private file contents, raw environment values, or absolute pat
 Use [the command reference](docs/command-reference.md) when you need a deeper command.
 For a command-by-command journey, continue to the
 [guided walkthroughs](docs/walkthrough-index.md).
+Maintainers can later consult [release readiness](docs/release-readiness.md); this is never part
+of first-run Demo, Sandbox, or Pilot execution.

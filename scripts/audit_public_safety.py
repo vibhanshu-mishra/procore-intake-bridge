@@ -57,6 +57,10 @@ PRIVATE_PATH_PARTS = {
     "deployment-output",
     "deploy-output",
     "release-output",
+    "release-readiness-output",
+    "package-output",
+    "dist-output",
+    "build-output",
     "tls-output",
     "cert-output",
     "dns-output",
@@ -250,6 +254,20 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             (".smoke.txt", ".smoke.md", ".smoke.transcript", ".sandbox-smoke.json")
         ):
             issues.append(SafetyIssue(path, "tracked sandbox smoke transcript or report"))
+            continue
+        if path.name.endswith(
+            (
+                ".release-readiness-report.json",
+                ".release-readiness-report.md",
+                ".release-notes-draft.md",
+                ".release-blockers.md",
+                ".maintainer-review-checklist.md",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated release-readiness output"))
+            continue
+        if path.suffix.casefold() in {".whl", ".gz", ".tgz"}:
+            issues.append(SafetyIssue(path, "tracked package or release archive"))
             continue
         if path.name.endswith(
             (

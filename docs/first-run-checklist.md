@@ -18,3 +18,5 @@ Demo Mode is the default safe starting point and requires no Procore credentials
 
 Best next command: `make start`. For command details, see the
 [command reference](command-reference.md).
+
+Release readiness is a later maintainer workflow, not a first-run step.

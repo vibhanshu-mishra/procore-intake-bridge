@@ -49,6 +49,10 @@ Sandbox operators should use the offline
 [evidence-reference guide](docs/sandbox-smoke-evidence.md). The real read-only smoke command
 remains separate, manual, and gated.
 
+Maintainers preparing a future public release should use the
+[release-readiness guide](docs/release-readiness.md). It creates no tag, release, package, image,
+publication, or deployment; final approval remains manual.
+
 The mode guides are [Three usage modes](docs/usage-modes.md),
 [Demo Mode](docs/quickstart-demo.md), [Sandbox Mode](docs/sandbox-mode.md), and
 [Pilot Mode](docs/pilot-mode.md). Operational setup is documented in

@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- E4 adds public-safe release-readiness checklists, advisory status reporting, placeholder release
+  notes, ignored local artifacts, and manual maintainer-review guidance. It publishes nothing.
+
 - F1 adds offline sandbox smoke preflight, command explanation, placeholder evidence-ref tooling,
   clearer manual-run refusals, and documentation for the private evidence lifecycle. Live smoke
   remains separate and manually gated.
