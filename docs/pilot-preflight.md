@@ -34,3 +34,8 @@ health, scale, monitoring, backup, rollback, and authorization are independently
 Webhook preflight remains blocked until private evidence covers HTTPS ingress, DNS/TLS,
 signature verification, queue/replay posture, and disable/rollback planning. Placeholder presence
 and the expected local path are not proof of public setup.
+## G6 reference rehearsal
+
+`make hosted-pilot-dry-run-check` checks placeholder references only. It reads no private report
+contents, performs no live operation, and grants neither launch nor pilot approval. Human review
+remains a separate private gate.

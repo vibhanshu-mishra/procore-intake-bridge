@@ -30,3 +30,7 @@ make postgres-backup-restore-plan
 
 Keep maintenance-window, backup, restore-drill, rollback, and migration-status evidence references
 in the private workspace.
+## G6 handoff
+
+G6 links a placeholder PostgreSQL runtime plan reference without connecting, migrating, backing
+up, restoring, or reading reports. The dry run is not launch or pilot approval.

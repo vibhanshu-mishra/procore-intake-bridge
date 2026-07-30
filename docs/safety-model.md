@@ -175,3 +175,8 @@ Helm deployment mechanism is introduced.
 G5 blocks URLs, domains, DNS records, certificate/key/CSR/ACME contents, secrets, signed URLs,
 cloud credentials, database URLs, infrastructure IDs, paths, contacts, webhook payload/report
 contents, webhook IDs, and completion/approval claims. All operation-attempt flags remain false.
+## Hosted pilot dry-run boundary
+
+G6 accepts placeholder refs only, reads no private report contents, and performs no live
+operations. Generated output is ignored. Dry-run success is not launch or pilot approval and must
+be followed by private human review.

@@ -36,3 +36,7 @@ make cloud-secret-explain
 
 See the provider-specific pages for configuration-reference rules. The exact confirmation phrase
 is documented in `.env.example`; leave it empty for all default workflows.
+## G6 handoff
+
+G6 links a placeholder secret-provider plan reference without resolving secrets or calling a
+provider. The offline dry run reads no private report contents and is not launch or pilot approval.

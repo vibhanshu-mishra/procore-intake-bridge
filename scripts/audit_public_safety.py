@@ -69,6 +69,10 @@ PRIVATE_PATH_PARTS = {
     "webhook-ingress-output",
     "tls-planning-output",
     "dns-planning-output",
+    "hosted-pilot-dry-run-output",
+    "pilot-dry-run-output",
+    "operations-dry-run-output",
+    "launch-rehearsal-output",
     "deployment-output",
     "deploy-output",
     "release-output",
@@ -219,6 +223,16 @@ WEBHOOK_SETUP_CLAIM = re.compile(
     r"(?i)\b(?:webhook|production) setup (?:is )?complete\b|"
     r"\bwebhook (?:was )?registered\b"
 )
+DRY_RUN_PRIVATE_CONTENT = re.compile(
+    r"(?i)(?:raw[_ -]?(?:private )?(?:report|evidence|result|payload)|"
+    r"(?:report|evidence|support bundle)[_ -]?contents?\s*[:=]|"
+    r'"(?:status_code|response_body|deployment_id|live_results?)"\s*:|'
+    r"(?:deployment|migration|restore|backup) (?:log|result|output)\s*[:=])"
+)
+DRY_RUN_APPROVAL_CLAIM = re.compile(
+    r"(?i)\b(?:approved for (?:launch|pilot|production)|pilot (?:is )?approved|"
+    r"launch (?:is )?approved|production[- ]ready|ready for production)\b"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -265,6 +279,32 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
                 continue
             if CUSTOMER_URL.search(line):
                 issues.append(SafetyIssue(path, "webhook planning example contains a real URL"))
+                break
+    if "examples/hosted-pilot-dry-run" in path.as_posix():
+        for line in text.splitlines():
+            if _safe_value(line):
+                continue
+            if (
+                CUSTOMER_URL.search(line)
+                or CUSTOMER_EMAIL.search(line)
+                or ABSOLUTE_LOCAL_PATH.search(line)
+                or CLOUD_RESOURCE_ID.search(line)
+                or HOSTED_REGISTRY_REF.search(line)
+            ):
+                issues.append(
+                    SafetyIssue(path, "hosted pilot dry-run example contains private data")
+                )
+                break
+            if DRY_RUN_PRIVATE_CONTENT.search(line):
+                issues.append(
+                    SafetyIssue(path, "hosted pilot dry-run example contains report contents")
+                )
+                break
+            if (
+                DRY_RUN_APPROVAL_CLAIM.search(line)
+                and not re.search(r"(?i)\b(?:no|not|never|neither)\b", line)
+            ):
+                issues.append(SafetyIssue(path, "hosted pilot dry-run example claims approval"))
                 break
             if DNS_RECORD_VALUE.search(line):
                 issues.append(SafetyIssue(path, "webhook planning example contains a DNS record"))
@@ -446,6 +486,18 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             )
         ):
             issues.append(SafetyIssue(path, "tracked hosted deployment output"))
+            continue
+        if path.name.endswith(
+            (
+                ".hosted-pilot-dry-run-report.json",
+                ".hosted-pilot-dry-run-report.md",
+                ".pilot-dry-run-checklist.md",
+                ".pilot-dry-run-runbook.md",
+                ".pilot-dry-run-evidence-map.md",
+                ".pilot-dry-run-blockers.md",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked hosted pilot dry-run output"))
             continue
         if path.name.endswith(
             (

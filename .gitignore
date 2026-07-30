@@ -199,6 +199,16 @@ dns-planning-output/
 *.webhook-disable-plan.md
 *.webhook-rollback-plan.md
 *.webhook-evidence-ref.md
+hosted-pilot-dry-run-output/
+pilot-dry-run-output/
+operations-dry-run-output/
+launch-rehearsal-output/
+*.hosted-pilot-dry-run-report.json
+*.hosted-pilot-dry-run-report.md
+*.pilot-dry-run-checklist.md
+*.pilot-dry-run-runbook.md
+*.pilot-dry-run-evidence-map.md
+*.pilot-dry-run-blockers.md
 *.hosted-deployment-report.json
 *.hosted-deployment-report.md
 *.hosted-deployment-plan.md

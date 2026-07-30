@@ -118,3 +118,8 @@ private HTTPS, provider, production, or release review.
 HTTPS webhook planning is optional and offline. The local expected receiver path does not prove
 public reachability. Real HTTPS, ingress, DNS/TLS, signature secrets, registration, evidence, and
 production review remain private and manual.
+
+The hosted pilot dry run combines G1–G5 and pilot-workflow placeholder references without reading
+linked report contents. Run `make hosted-pilot-dry-run-check` or
+`make hosted-pilot-dry-run-matrix`; neither performs a live operation. The result is not a launch
+or pilot approval and requires private human review.

@@ -147,3 +147,13 @@ These commands never deploy, contact a cloud or registry, build or push an image
 - `make https-webhook-artifact-check` — generate and remove temporary planning artifacts.
 
 None calls DNS, TLS, ACME, a public URL, Procore, or webhook registration.
+
+## Hosted pilot operations dry-run commands
+
+- `make hosted-pilot-dry-run-template` — print the placeholder-only profile.
+- `make hosted-pilot-dry-run-check` — validate opaque references without opening linked content.
+- `make hosted-pilot-dry-run-matrix` — show how G1–G5 and pilot operations fit together.
+- `make hosted-pilot-dry-run-artifact-check` — generate and clean temporary safe artifacts.
+
+These commands perform no live operation or deployment and read no private report contents. Their
+output is not a launch or pilot approval; private human review remains required.

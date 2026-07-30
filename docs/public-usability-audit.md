@@ -63,3 +63,8 @@ language that no deployment automation or cloud call occurs.
 G5 checks require four planning docs, five scripts and Make targets, placeholder-only examples,
 ignored outputs, navigation links, no DNS/TLS/ACME/public URL/Procore calls, no registration, no
 certificate generation, private evidence refs, and a required disable/rollback boundary.
+## G6 coverage
+
+The audit requires hosted pilot dry-run docs, scripts, examples, Make targets, ignored outputs,
+and explicit language that refs only are checked, no live operation occurs, and no launch or pilot
+approval is granted.

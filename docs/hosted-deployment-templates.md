@@ -31,3 +31,7 @@ configuration, and release/deployment decisions require independent review.
 For webhook-compatible hosting, continue to
 [HTTPS webhook production planning](https-webhook-production-planning.md). G4 compatibility
 remains conceptual; G5 performs no live reachability, DNS, TLS, or registration check.
+## G6 handoff
+
+G6 may reference this hosted plan by an opaque placeholder. It does not deploy, inspect private
+outputs, or turn a dry run into launch or pilot approval; private human review is still required.

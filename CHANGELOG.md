@@ -106,3 +106,9 @@ No release tag or package publication is claimed.
 - Added Phase G5 HTTPS/webhook production setup planning with placeholder-only profiles, offline
   validation, ingress/TLS/DNS/disable/rollback plans, contained artifacts, docs, and safety checks.
   No public endpoint is verified and no webhook is registered.
+## Phase G6
+
+- Added a public-safe hosted pilot operations dry-run pack with placeholder-only schemas,
+  validation, artifact rendering, examples, commands, documentation, and audits.
+- The pack performs no live operation, reads no private report contents, and does not represent
+  launch or pilot approval.

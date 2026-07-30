@@ -27,3 +27,8 @@ outside Git.
 Signature readiness depends on a private webhook-secret reference; no value is resolved.
 Event-queue, replay, monitoring, disable, and rollback plans require private review before Pilot
 use. Passing this planning check is neither production setup completion nor Pilot approval.
+## G6 handoff
+
+The hosted pilot dry run accepts an opaque HTTPS/webhook plan reference only. It performs no
+DNS/TLS, webhook, Procore, or other live operation, reads no report contents, and does not approve
+a launch or pilot.

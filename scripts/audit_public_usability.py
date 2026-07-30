@@ -50,6 +50,9 @@ REQUIRED_DOCS = {
     "docs/webhook-ingress-planning.md",
     "docs/tls-dns-planning.md",
     "docs/webhook-disable-rollback.md",
+    "docs/hosted-pilot-dry-run.md",
+    "docs/pilot-operations-rehearsal.md",
+    "docs/hosted-pilot-evidence-map.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -121,6 +124,10 @@ REQUIRED_SCRIPTS = {
     "scripts/generate_https_webhook_artifacts.py",
     "scripts/print_webhook_ingress_matrix.py",
     "scripts/print_webhook_disable_plan.py",
+    "scripts/print_hosted_pilot_dry_run_template.py",
+    "scripts/check_hosted_pilot_dry_run.py",
+    "scripts/generate_hosted_pilot_dry_run_artifacts.py",
+    "scripts/print_hosted_pilot_dry_run_matrix.py",
 }
 REQUIRED_EXAMPLES = {
     "examples/demo-flow.md",
@@ -160,6 +167,9 @@ REQUIRED_EXAMPLES = {
     "examples/https-webhook-planning/example_https_webhook_profile.json",
     "examples/https-webhook-planning/example_webhook_evidence_ref.md",
     "examples/https-webhook-planning/example_reverse_proxy_notes.md",
+    "examples/hosted-pilot-dry-run/README.md",
+    "examples/hosted-pilot-dry-run/example_hosted_pilot_dry_run_profile.json",
+    "examples/hosted-pilot-dry-run/example_pilot_dry_run_evidence_map.md",
 }
 REQUIRED_TARGETS = {
     "help",
@@ -224,6 +234,10 @@ REQUIRED_TARGETS = {
     "https-webhook-matrix",
     "webhook-disable-plan",
     "https-webhook-artifact-check",
+    "hosted-pilot-dry-run-template",
+    "hosted-pilot-dry-run-check",
+    "hosted-pilot-dry-run-matrix",
+    "hosted-pilot-dry-run-artifact-check",
 }
 IGNORED_OUTPUTS = {
     "private-workspace/",
@@ -290,6 +304,16 @@ IGNORED_OUTPUTS = {
     "dns-planning-output/",
     "*.https-webhook-report.json",
     "*.https-webhook-report.md",
+    "hosted-pilot-dry-run-output/",
+    "pilot-dry-run-output/",
+    "operations-dry-run-output/",
+    "launch-rehearsal-output/",
+    "*.hosted-pilot-dry-run-report.json",
+    "*.hosted-pilot-dry-run-report.md",
+    "*.pilot-dry-run-checklist.md",
+    "*.pilot-dry-run-runbook.md",
+    "*.pilot-dry-run-evidence-map.md",
+    "*.pilot-dry-run-blockers.md",
     "*.webhook-ingress-plan.md",
     "*.tls-plan.md",
     "*.dns-plan.md",
@@ -326,6 +350,10 @@ GENERATED_PARTS = {
     "platform-deployment-output",
     "container-deployment-output",
     "https-webhook-output",
+    "hosted-pilot-dry-run-output",
+    "pilot-dry-run-output",
+    "operations-dry-run-output",
+    "launch-rehearsal-output",
     "webhook-ingress-output",
     "tls-planning-output",
     "dns-planning-output",
@@ -585,6 +613,21 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         ),
         "HTTPS webhook artifact generation excluded from quality": (
             "https-webhook-artifact-check" not in quality_header
+        ),
+        "hosted pilot dry run is not approval or launch": all(
+            phrase in _read(root, "docs/hosted-pilot-dry-run.md").casefold()
+            for phrase in ("not a launch", "not pilot approval", "human")
+        ),
+        "hosted pilot dry run performs no live operations": (
+            "no live operation"
+            in _read(root, "docs/hosted-pilot-dry-run.md").casefold()
+        ),
+        "hosted pilot dry run reads refs only": all(
+            phrase in _read(root, "docs/hosted-pilot-dry-run.md").casefold()
+            for phrase in ("placeholder reference", "does not read private reports")
+        ),
+        "hosted pilot artifact generation excluded from quality": (
+            "hosted-pilot-dry-run-artifact-check" not in quality_header
         ),
         "beginner docs steer to friendly targets": all(
             command in docs

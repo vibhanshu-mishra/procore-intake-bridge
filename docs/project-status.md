@@ -127,3 +127,7 @@ guards. It includes no cloud calls, provisioning, image push, publication, or de
 G5 HTTPS/Webhook Production Setup Planning is implemented with placeholder profiles, offline
 validation, ingress/TLS/DNS/disable/rollback renderers, temporary artifacts, private evidence
 references, and public safety guards. It performs no public verification or registration.
+## Phase G6
+
+The hosted pilot operations dry-run pack is a public-safe, reference-only rehearsal. It performs
+no live operations, reads no private report contents, and makes no launch or pilot approval claim.

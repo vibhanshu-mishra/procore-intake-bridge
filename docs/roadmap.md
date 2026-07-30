@@ -115,3 +115,7 @@ deployment remain future private operator work rather than repository automation
 G5 completes planning support for future private HTTPS webhook ingress. Real DNS/TLS setup,
 certificate lifecycle, public reachability testing, webhook registration, production review, and
 Pilot authorization remain private operator work.
+## G6 — Hosted pilot operations dry run pack
+
+G6 connects G1–G5 and pilot-operations placeholder references for offline human review. It is not
+a launch, pilot approval, deployment, or live check and does not read private report contents.

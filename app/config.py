@@ -1509,6 +1509,52 @@ class Settings(BaseSettings):
         default=True,
         validation_alias="PROCORE_INTAKE_HTTPS_WEBHOOK_REQUIRE_EVENT_QUEUE",
     )
+    hosted_pilot_dry_run_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_HOSTED_PILOT_DRY_RUN_ENABLED",
+    )
+    hosted_pilot_dry_run_output_root: Path = Field(
+        default=Path("./hosted-pilot-dry-run-output"),
+        validation_alias="PROCORE_INTAKE_HOSTED_PILOT_DRY_RUN_OUTPUT_ROOT",
+    )
+    hosted_pilot_dry_run_require_placeholders: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_HOSTED_PILOT_DRY_RUN_REQUIRE_PLACEHOLDERS",
+    )
+    hosted_pilot_dry_run_allow_real_identities: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_HOSTED_PILOT_DRY_RUN_ALLOW_REAL_IDENTITIES",
+    )
+    hosted_pilot_dry_run_allow_real_domains: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_HOSTED_PILOT_DRY_RUN_ALLOW_REAL_DOMAINS",
+    )
+    hosted_pilot_dry_run_allow_real_urls: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_HOSTED_PILOT_DRY_RUN_ALLOW_REAL_URLS",
+    )
+    hosted_pilot_dry_run_allow_real_infra_ids: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_HOSTED_PILOT_DRY_RUN_ALLOW_REAL_INFRA_IDS",
+    )
+    hosted_pilot_dry_run_allow_report_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_HOSTED_PILOT_DRY_RUN_ALLOW_REPORT_CONTENTS",
+    )
+    hosted_pilot_dry_run_allow_absolute_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_HOSTED_PILOT_DRY_RUN_ALLOW_ABSOLUTE_PATHS",
+    )
+    hosted_pilot_dry_run_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_HOSTED_PILOT_DRY_RUN_FAIL_CLOSED",
+    )
+    hosted_pilot_dry_run_max_refs: int = Field(
+        default=50,
+        ge=1,
+        le=200,
+        validation_alias="PROCORE_INTAKE_HOSTED_PILOT_DRY_RUN_MAX_REFS",
+    )
     deployment_recipe_output_root: Path = Field(
         default=Path("./deployment-output"),
         validation_alias="PROCORE_INTAKE_DEPLOYMENT_RECIPE_OUTPUT_ROOT",

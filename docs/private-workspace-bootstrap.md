@@ -82,3 +82,8 @@ database names, usernames, logs, dump names, backup names, or contents into publ
 Store real G5 DNS/TLS, proxy, ingress, signature-secret, event-queue, replay, disable, rollback,
 monitoring, and evidence references only in the ignored private workspace. Never copy their
 contents into public profiles or artifacts.
+## G6 outputs
+
+Generated hosted-pilot dry-run artifacts are ignored and contain placeholders only. Store real
+references and report contents privately; G6 does not read them or perform live operations.
+A dry run is not launch or pilot approval and still needs human review.

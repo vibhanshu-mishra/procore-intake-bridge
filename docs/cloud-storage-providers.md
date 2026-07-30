@@ -35,3 +35,7 @@ make cloud-storage-explain
 
 The exact confirmation phrase is documented in `.env.example`; leave it empty in default
 workflows.
+## G6 handoff
+
+G6 links a placeholder storage plan reference without reading objects or calling a provider. The
+offline dry run reads no private report contents and is not launch or pilot approval.

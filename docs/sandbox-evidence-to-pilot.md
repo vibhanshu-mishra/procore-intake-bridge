@@ -19,3 +19,8 @@ in the approved private evidence system outside Git.
 
 Every reference requires human review and remains subject to expiry and renewal. A complete
 mapping does not mean a Pilot is approved, secure, deployed, or ready to launch.
+## Hosted rehearsal boundary
+
+G6 brings planning and evidence labels into one public-safe map. It reads refs only, performs no
+live operation, and requires private human review. Dry-run completion is not launch or pilot
+approval.

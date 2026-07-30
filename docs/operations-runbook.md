@@ -180,3 +180,8 @@ credentials, deployment logs, or real environment values into the public reposit
 G5 commands are planning-only. Use temporary artifact checks or ignored roots, and keep domains,
 URLs, DNS records, certificates, keys, CSRs, ACME output, secrets, webhook identifiers, reports,
 and evidence outside Git. Registration and disable/rollback execution remain separate approvals.
+## Hosted pilot dry run
+
+Use G6 only to rehearse placeholder-reference coverage across plans, evidence, rollback,
+monitoring, diagnostics, and support. It reads no private report contents, performs no live
+operation, and grants no launch or pilot approval. Real operations remain private and manual.

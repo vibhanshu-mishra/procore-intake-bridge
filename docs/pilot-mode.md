@@ -51,3 +51,8 @@ review, and a separate manual deployment decision.
 A Pilot that plans real webhooks requires privately reviewed HTTPS/public ingress, DNS/TLS,
 signature-secret, queue/replay, monitoring, disable, rollback, and evidence references. G5 never
 registers a webhook and never grants Pilot approval.
+## Hosted operations rehearsal
+
+The G6 hosted pilot dry run maps opaque G1–G5, evidence, readiness, rollback, and operations
+references without reading private report contents or performing live operations. It is not a
+launch or pilot approval. Keep real work private/manual and require human review.

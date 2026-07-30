@@ -27,3 +27,7 @@ grant, or record Pilot approval. Human evidence review, expiry, renewal, readine
 approval review, and launch hold remain separate.
 
 See [Sandbox evidence to Pilot](sandbox-evidence-to-pilot.md) for the C1/C2/B9/C3/D5 mapping.
+## G6 handoff
+
+The hosted pilot dry run links the opaque Sandbox evidence reference only. It does not open the
+evidence or reports, perform a live operation, or approve a launch or pilot.

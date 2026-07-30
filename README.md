@@ -480,3 +480,15 @@ credentials, and private settings must remain outside Git. See
 rollback, and evidence planning. They make no DNS, TLS, ACME, public URL, Procore, or webhook
 registration call. See
 [HTTPS webhook production planning](docs/https-webhook-production-planning.md).
+
+Phase G6 adds a [hosted pilot operations dry run](docs/hosted-pilot-dry-run.md). Its commands
+validate opaque placeholder references only: no private report contents are read and no live
+operation or deployment occurs. A successful dry run is not a launch or pilot approval; separate
+private human review remains required.
+
+```bash
+make hosted-pilot-dry-run-template
+make hosted-pilot-dry-run-check
+make hosted-pilot-dry-run-matrix
+make hosted-pilot-dry-run-artifact-check
+```

@@ -60,3 +60,9 @@ Maintainers may then consult [release readiness](release-readiness.md).
 
 This map is a local documentation aid. It publishes nothing and adds no GitHub Pages or hosting
 automation.
+## Hosted pilot rehearsal
+
+Start with [Hosted pilot dry run](hosted-pilot-dry-run.md), then use
+[Pilot operations rehearsal](pilot-operations-rehearsal.md) and the
+[Hosted pilot evidence map](hosted-pilot-evidence-map.md). These reference-only guides perform no
+live operation and do not grant launch or pilot approval.
