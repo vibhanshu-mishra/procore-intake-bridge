@@ -33,3 +33,6 @@ certification, customer reporting, Procore status, endorsement, or official supp
 
 Sandbox and Pilot begin later in a private workspace. Their credentials, evidence, reports,
 authorization decisions, and manually gated checks stay outside this public Demo journey.
+
+After the Demo tour, `make security-threat-model` provides offline public-safe security review
+input without scanning the environment.

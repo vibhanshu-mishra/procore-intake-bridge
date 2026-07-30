@@ -90,3 +90,5 @@ safe navigation and aggregate visibility without adding product workflows or ext
 
 Phase H9 Demo Product Walkthrough Pack is complete as a fake-data-only, offline maintainer
 evaluation flow across the existing H3–H8 product surfaces.
+
+Phase I1 Security Threat Model is complete as an offline, placeholder-safe review layer.

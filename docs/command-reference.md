@@ -229,3 +229,12 @@ or mutates persistent state.
 
 The first three commands are non-writing quality checks. None runs live Sandbox validation,
 calls Procore or an external service, reads private reports, deploys, or releases.
+
+## Offline security threat model
+
+- `make security-threat-model`
+- `make security-boundary-map`
+- `make security-review-checklist`
+- `make security-threat-model-artifact-check` (temporary and cleaned)
+
+These commands run no live scanner/external call and claim no certification or authorization.

@@ -546,3 +546,8 @@ Phase H9 adds a [fake-data-only Demo Product Walkthrough](docs/demo-product-walk
 Run `make demo-product-check`, `make demo-product-tour`, and
 `make demo-evaluation-checklist` to evaluate the public product journey without Procore,
 external calls, live validation, deployment, release, or private report access.
+
+Phase I1 adds an [offline Security Threat Model](docs/security-threat-model.md). Run
+`make security-threat-model`, `make security-boundary-map`, and
+`make security-review-checklist`; they call no scanner/external system and grant no certification
+or production authorization.

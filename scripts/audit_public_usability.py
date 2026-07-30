@@ -65,6 +65,9 @@ REQUIRED_DOCS = {
     "docs/product-dashboard.md",
     "docs/demo-product-walkthrough.md",
     "docs/demo-evaluation-checklist.md",
+    "docs/security-threat-model.md",
+    "docs/security-boundary-map.md",
+    "docs/security-review-checklist.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -102,6 +105,10 @@ REQUIRED_SCRIPTS = {
     "scripts/check_demo_product_walkthrough.py",
     "scripts/print_demo_evaluation_checklist.py",
     "scripts/generate_demo_product_walkthrough_artifacts.py",
+    "scripts/run_security_threat_model.py",
+    "scripts/print_security_boundary_map.py",
+    "scripts/print_security_review_checklist.py",
+    "scripts/generate_security_threat_model_artifacts.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -207,6 +214,9 @@ REQUIRED_EXAMPLES = {
     "examples/demo-product-walkthrough/README.md",
     "examples/demo-product-walkthrough/demo_product_tour.example.md",
     "examples/demo-product-walkthrough/demo_evaluation_checklist.example.md",
+    "examples/security-threat-model/README.md",
+    "examples/security-threat-model/example_security_boundary_map.md",
+    "examples/security-threat-model/example_security_review_checklist.md",
 }
 REQUIRED_TARGETS = {
     "review-workspace-summary",
@@ -226,6 +236,10 @@ REQUIRED_TARGETS = {
     "demo-product-check",
     "demo-evaluation-checklist",
     "demo-product-artifact-check",
+    "security-threat-model",
+    "security-boundary-map",
+    "security-review-checklist",
+    "security-threat-model-artifact-check",
     "help",
     "start",
     "commands",
@@ -397,6 +411,15 @@ IGNORED_OUTPUTS = {
     "*.webhook-disable-plan.md",
     "*.webhook-rollback-plan.md",
     "*.webhook-evidence-ref.md",
+    "security-threat-model-output/",
+    "threat-model-output/",
+    "security-review-output/",
+    "security-assessment-output/",
+    "*.security-threat-model-report.json",
+    "*.security-threat-model-report.md",
+    "*.threat-model.md",
+    "*.security-boundary-map.md",
+    "*.security-review-checklist.md",
 }
 GENERATED_PARTS = {
     "private-workspace",
@@ -438,6 +461,10 @@ GENERATED_PARTS = {
     "webhook-ingress-output",
     "tls-planning-output",
     "dns-planning-output",
+    "security-threat-model-output",
+    "threat-model-output",
+    "security-review-output",
+    "security-assessment-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak",
@@ -737,6 +764,17 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         ),
         "final readiness artifact generation excluded from quality": (
             "final-readiness-artifact-check" not in quality_header
+        ),
+        "I1 threat model is offline review input": all(
+            phrase in _read(root, "docs/security-threat-model.md").casefold()
+            for phrase in ("offline", "no live", "does not provide", "certification")
+        ),
+        "I1 threat model keeps private material out": all(
+            phrase in _read(root, "docs/security-threat-model.md").casefold()
+            for phrase in ("private", "credentials", "public-safe")
+        ),
+        "I1 artifact generation excluded from quality": (
+            "security-threat-model-artifact-check" not in quality_header
         ),
         "H3 workspace is read-only and local": all(
             phrase in _read(root, "docs/intake-review-workspace.md").casefold()

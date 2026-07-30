@@ -1,0 +1,26 @@
+# Security Threat Model
+
+Phase I1 is an offline, public-safe threat-modeling layer. It inspects local repository files
+only and runs no live security scanner, external call, Procore call, database connection, cloud
+operation, deployment, or release.
+
+It covers spoofing, tampering, repudiation, information disclosure, denial of service, elevation
+of privilege, supply chain, misconfiguration, data retention, public/private separation, and
+live-operation separation across public runtime, local data, admin/review, provider, external
+API, hosted preparation, private review, and generated-output trust boundaries.
+
+Existing controls include offline public/route audits, secret references, metadata-only review,
+ignored outputs, bounded local lifecycle changes, and manual live-operation gates.
+Environment-specific configuration, credentials, evidence, and risk acceptance still require
+private security review.
+
+```bash
+make security-threat-model
+make security-boundary-map
+make security-review-checklist
+```
+
+I1 does not provide production authorization, security or compliance certification, SOC 2, ISO,
+HIPAA, launch authorization, or Pilot authorization. Later I-series work may deepen offline risk
+analysis while preserving these boundaries.
+

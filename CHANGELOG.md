@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Phase I1 adds an offline public-safe security threat model, trust-boundary map, checklist,
+  placeholder examples, audits, and tests. It runs no scanner/external operation and grants no
+  certification or production authorization.
+
 - Phase H9 adds a fake-data-only Demo Product Walkthrough Pack, offline evaluator, optional
   ignored artifacts, examples, documentation, audits, and tests. It adds no route, integration,
   live validation, deployment, release, private-report access, or external decision claim.

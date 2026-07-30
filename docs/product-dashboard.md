@@ -34,3 +34,5 @@ report, or external system status.
 
 H9 uses this dashboard as the starting cockpit for the
 [Demo Product Walkthrough](demo-product-walkthrough.md).
+
+The I1 threat model treats the dashboard as a protected local trust boundary.

@@ -41,3 +41,5 @@ H8 lists export commands only. It adds no generated-file link, public download, 
 route, or artifact generation.
 
 H9 uses `make operator-export-check`; the Demo tour itself generates no export artifact.
+
+I1 models export artifacts as an ignored generated-output trust boundary.

@@ -241,6 +241,10 @@ FINAL_READINESS_APPROVAL_CLAIM = re.compile(
     r"(?i)\b(?:approved for (?:release|production|launch|pilot)|"
     r"(?:release|production|launch|pilot) (?:is )?approved|production[- ]ready)\b"
 )
+SECURITY_REVIEW_CLAIM = re.compile(
+    r"(?i)\b(?:security certified|compliance certified|security complete|"
+    r"approved for production|production[- ]ready|(?:soc ?2|iso ?27001|hipaa) certified)\b"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -250,6 +254,20 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if "security-threat" in path.as_posix() or "security_threat" in path.as_posix():
+        for line in text.splitlines():
+            if (
+                SECURITY_REVIEW_CLAIM.search(line)
+                and "tests" not in path.parts
+                and "services" not in path.parts
+                and not re.search(
+                    r"(?i)\b(?:no|not|never|does not|is not|must not)\b", line
+                )
+            ):
+                issues.append(
+                    SafetyIssue(path, "security threat model implies certification or approval")
+                )
+                break
     if "demo-product" in path.as_posix() or "demo_product" in path.as_posix():
         unsafe_demo_claim = re.compile(
             r"(?i)\b(?:demo|walkthrough)\b.*\b(?:production[- ]ready|"
@@ -631,6 +649,26 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             )
         ):
             issues.append(SafetyIssue(path, "tracked generated Demo walkthrough output"))
+            continue
+        if any(
+            part
+            in {
+                "security-threat-model-output",
+                "threat-model-output",
+                "security-review-output",
+                "security-assessment-output",
+            }
+            for part in path.parts
+        ) or path.name.endswith(
+            (
+                ".security-threat-model-report.json",
+                ".security-threat-model-report.md",
+                ".threat-model.md",
+                ".security-boundary-map.md",
+                ".security-review-checklist.md",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated security threat-model output"))
             continue
         if path.name.endswith(
             (

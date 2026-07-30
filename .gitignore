@@ -267,6 +267,15 @@ demo-evaluation-output/
 *.demo-walkthrough-report.md
 *.demo-product-tour.md
 *.demo-evaluation-checklist.md
+security-threat-model-output/
+threat-model-output/
+security-review-output/
+security-assessment-output/
+*.security-threat-model-report.json
+*.security-threat-model-report.md
+*.threat-model.md
+*.security-boundary-map.md
+*.security-review-checklist.md
 review-export-output/
 intake-export-output/
 lifecycle-export-output/

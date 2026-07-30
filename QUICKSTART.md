@@ -196,3 +196,7 @@ make demo-evaluation-checklist
 
 See the [Demo Product Walkthrough](docs/demo-product-walkthrough.md). H9 uses fake data only,
 makes no live or external call, and stops at the private Sandbox/Pilot boundary.
+
+For offline security review, run `make security-threat-model` and read the
+[Security Threat Model](docs/security-threat-model.md). It performs no live scan and grants no
+certification or production authorization.

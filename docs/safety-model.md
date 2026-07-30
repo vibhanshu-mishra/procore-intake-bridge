@@ -226,3 +226,6 @@ report.
 H9 reads public repository guidance and route metadata only. It makes no live call, database
 write, deployment, release, or private report read. Optional outputs are ignored and
 fail-closed; Demo completion grants no external authorization or certification.
+
+I1 formalizes these controls in an [offline threat model](security-threat-model.md). Passing it
+does not establish production security, certification, compliance, launch, or Pilot authorization.

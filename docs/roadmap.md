@@ -58,3 +58,8 @@ read-oriented cockpit. It adds no Procore capability, export download, or attach
 
 The Demo Product Walkthrough Pack connects clone-to-dashboard evaluation using fake data only.
 Private Sandbox and Pilot work remains a later, gated boundary.
+
+## I1 — completed
+
+Security Threat Model documents public controls and private review boundaries. Later I-series
+work may deepen offline analysis without live scanners or approval claims.

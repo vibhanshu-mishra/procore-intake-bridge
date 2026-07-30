@@ -102,3 +102,6 @@ behavior.
 
 H9 coverage checks walkthrough/checklist docs, examples, commands, ignore rules, fake-data-only
 language, no-live boundaries, and decision disclaimers.
+
+I1 coverage verifies threat-model docs, scripts, examples, commands, ignore patterns, and
+offline/no-certification/no-authorization language.

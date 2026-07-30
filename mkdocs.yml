@@ -23,6 +23,9 @@ nav:
       - Product Dashboard: product-dashboard.md
       - Demo Product Walkthrough: demo-product-walkthrough.md
       - Demo Evaluation Checklist: demo-evaluation-checklist.md
+      - Security Threat Model: security-threat-model.md
+      - Security Boundary Map: security-boundary-map.md
+      - Security Review Checklist: security-review-checklist.md
   - Sandbox Mode:
       - Sandbox Mode: sandbox-mode.md
       - Sandbox Onboarding: sandbox-onboarding.md

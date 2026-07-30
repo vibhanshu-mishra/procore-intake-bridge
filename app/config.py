@@ -580,6 +580,46 @@ class Settings(BaseSettings):
     demo_walkthrough_fail_closed: bool = Field(
         default=True, validation_alias="PROCORE_INTAKE_DEMO_WALKTHROUGH_FAIL_CLOSED"
     )
+    security_threat_model_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_SECURITY_THREAT_MODEL_ENABLED"
+    )
+    security_threat_model_output_root: Path = Field(
+        default=Path("./security-threat-model-output"),
+        validation_alias="PROCORE_INTAKE_SECURITY_THREAT_MODEL_OUTPUT_ROOT",
+    )
+    security_threat_model_require_placeholders: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SECURITY_THREAT_MODEL_REQUIRE_PLACEHOLDERS",
+    )
+    security_threat_model_allow_real_identities: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SECURITY_THREAT_MODEL_ALLOW_REAL_IDENTITIES",
+    )
+    security_threat_model_allow_real_domains: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SECURITY_THREAT_MODEL_ALLOW_REAL_DOMAINS",
+    )
+    security_threat_model_allow_real_urls: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SECURITY_THREAT_MODEL_ALLOW_REAL_URLS",
+    )
+    security_threat_model_allow_report_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SECURITY_THREAT_MODEL_ALLOW_REPORT_CONTENTS",
+    )
+    security_threat_model_allow_private_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SECURITY_THREAT_MODEL_ALLOW_PRIVATE_PATHS",
+    )
+    security_threat_model_fail_closed: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_SECURITY_THREAT_MODEL_FAIL_CLOSED"
+    )
+    security_threat_model_max_findings: int = Field(
+        default=300,
+        ge=1,
+        le=1000,
+        validation_alias="PROCORE_INTAKE_SECURITY_THREAT_MODEL_MAX_FINDINGS",
+    )
     intake_review_workspace_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_ENABLED",

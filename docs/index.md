@@ -137,3 +137,6 @@ Procore writes or calls.
 The [Demo Product Walkthrough](demo-product-walkthrough.md) and
 [evaluation checklist](demo-evaluation-checklist.md) connect the complete fake-data-only public
 journey without live operations.
+
+Use the [Security Threat Model](security-threat-model.md), [boundary map](security-boundary-map.md),
+and [review checklist](security-review-checklist.md) for offline security analysis.

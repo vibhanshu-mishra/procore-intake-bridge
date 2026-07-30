@@ -1,0 +1,12 @@
+# Security Review Checklist
+
+- [ ] Review all public trust boundaries and threat categories.
+- [ ] Confirm live operations remain separate and manually gated.
+- [ ] Confirm secrets, storage, PostgreSQL, and hosted values remain private.
+- [ ] Confirm dashboards and review projections exclude raw/private content.
+- [ ] Confirm generated outputs are ignored.
+- [ ] Record environment-specific findings only in a private workspace.
+- [ ] Preserve the absence of certification and production/Pilot authorization claims.
+
+This checklist is offline and calls no scanner, Procore API, external service, or database.
+

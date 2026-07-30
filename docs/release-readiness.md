@@ -56,3 +56,10 @@ deployment and registration decisions remain manual.
 Run `make final-readiness` as an additional offline maintainer aid. Its result is not release,
 production, or pilot approval. It performs no live operation and reads no private report; private
 values remain outside Git.
+
+## Security review input
+
+Run `make security-threat-model` before a future manual release decision. A ready result means
+the public, placeholder-safe threat-model inputs are complete. It is not a security
+certification, compliance determination, production approval, or substitute for authorized
+private review.

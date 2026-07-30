@@ -90,3 +90,7 @@ performed after H1. It adds no runtime or live capability.
 
 - [Demo Product Walkthrough](demo-product-walkthrough.md): complete fake-data product tour.
 - [Demo Evaluation Checklist](demo-evaluation-checklist.md): maintainer evaluation boundaries.
+
+- [Security Threat Model](security-threat-model.md): offline categories, controls, and gaps.
+- [Security Boundary Map](security-boundary-map.md): public/private trust boundaries.
+- [Security Review Checklist](security-review-checklist.md): private follow-up boundaries.

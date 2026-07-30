@@ -28,3 +28,10 @@ launch decisions.
 4. Run `make release-readiness`.
 5. Run `make final-readiness`.
 6. Review warnings and known limitations before deciding the next private step.
+
+## Security threat model
+
+Phase I1 adds `make security-threat-model`, `make security-boundary-map`, and
+`make security-review-checklist` to the offline maintainer sequence. These commands document
+trust boundaries and public controls; they do not scan a live system, certify security, approve
+production, or replace a private security review.
