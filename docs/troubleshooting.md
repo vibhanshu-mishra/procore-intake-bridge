@@ -82,3 +82,8 @@ findings; empty RFI/Submittal lists are informative and not automatic failure.
 `make prepare-pilot` uses fake examples and must not approve a pilot or read private evidence.
 Resolve private readiness in the ignored workspace, keep launch on hold, and follow
 [Pilot Mode](pilot-mode.md). A passing public check is not production approval.
+
+If a PostgreSQL live check says `refused`, keep it disabled until a private operator has selected
+PostgreSQL, configured a secret-provider reference, reviewed the operation, and intentionally
+enabled every gate. A missing optional driver is reported as `dependency_missing`; install a
+PostgreSQL extra only in the private runtime that needs it.

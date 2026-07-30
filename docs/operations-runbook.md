@@ -167,3 +167,8 @@ approves a Pilot.
 For a future public release review, run `make release-readiness` only after quality and safety
 checks. Review generated drafts privately and manually. This workflow does not tag, package,
 publish, or deploy.
+
+For G3, the runtime/template/migration-plan/backup-restore-plan commands are offline. The
+connectivity and migration-status targets are intentionally separate, manually gated, and
+disabled by default. Never add those live targets to quality, doctor, preparation, release, or
+docs checks.

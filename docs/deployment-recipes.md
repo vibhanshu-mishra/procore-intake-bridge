@@ -28,3 +28,7 @@ Generated artifacts are ignored and contain placeholder references only. Never c
 URLs, secrets, certificates, private keys, infrastructure identifiers, registry values, logs,
 database artifacts, or completed private runbooks. The repository contains no Terraform, Pulumi,
 Kubernetes, Helm, GitHub Actions, DNS automation, certificate issuance, or cloud provisioning.
+
+G3 runtime planning consumes the private database, maintenance-window, backup, restore-drill, and
+rollback references anticipated by D4. It adds no provisioning or deployment automation, and its
+offline pool summary is not validation of a hosted database.

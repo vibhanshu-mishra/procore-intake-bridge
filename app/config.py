@@ -1296,6 +1296,88 @@ class Settings(BaseSettings):
         default=True,
         validation_alias="PROCORE_INTAKE_POSTGRES_REQUIRE_ROLLBACK_PLAN",
     )
+    postgres_runtime_enabled: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_POSTGRES_RUNTIME_ENABLED"
+    )
+    postgres_runtime_confirmation: str = Field(
+        default="", validation_alias="PROCORE_INTAKE_POSTGRES_RUNTIME_CONFIRMATION"
+    )
+    postgres_runtime_fail_closed: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_POSTGRES_RUNTIME_FAIL_CLOSED"
+    )
+    postgres_runtime_timeout_seconds: int = Field(
+        default=20, gt=0, validation_alias="PROCORE_INTAKE_POSTGRES_RUNTIME_TIMEOUT_SECONDS"
+    )
+    postgres_runtime_statement_timeout_seconds: int = Field(
+        default=10,
+        gt=0,
+        validation_alias="PROCORE_INTAKE_POSTGRES_RUNTIME_STATEMENT_TIMEOUT_SECONDS",
+    )
+    postgres_runtime_connectivity_enabled: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_POSTGRES_RUNTIME_CONNECTIVITY_ENABLED",
+    )
+    postgres_runtime_migrations_enabled: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_POSTGRES_RUNTIME_MIGRATIONS_ENABLED",
+    )
+    postgres_runtime_backup_check_enabled: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_POSTGRES_RUNTIME_BACKUP_CHECK_ENABLED",
+    )
+    postgres_runtime_restore_check_enabled: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_POSTGRES_RUNTIME_RESTORE_CHECK_ENABLED",
+    )
+    postgres_pool_size: int = Field(
+        default=5, ge=1, validation_alias="PROCORE_INTAKE_POSTGRES_POOL_SIZE"
+    )
+    postgres_max_overflow: int = Field(
+        default=5, ge=0, validation_alias="PROCORE_INTAKE_POSTGRES_MAX_OVERFLOW"
+    )
+    postgres_pool_timeout_seconds: int = Field(
+        default=30, gt=0, validation_alias="PROCORE_INTAKE_POSTGRES_POOL_TIMEOUT_SECONDS"
+    )
+    postgres_pool_recycle_seconds: int = Field(
+        default=1800, ge=0, validation_alias="PROCORE_INTAKE_POSTGRES_POOL_RECYCLE_SECONDS"
+    )
+    postgres_pool_pre_ping: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_POSTGRES_POOL_PRE_PING"
+    )
+    postgres_require_managed_backup_ref: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_POSTGRES_REQUIRE_MANAGED_BACKUP_REF",
+    )
+    postgres_require_restore_drill_ref: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_POSTGRES_REQUIRE_RESTORE_DRILL_REF",
+    )
+    postgres_require_maintenance_window_ref: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_POSTGRES_REQUIRE_MAINTENANCE_WINDOW_REF",
+    )
+    postgres_require_rollback_ref: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_POSTGRES_REQUIRE_ROLLBACK_REF",
+    )
+    postgres_operation_output_root: Path = Field(
+        default=Path("./postgres-ops-output"),
+        validation_alias="PROCORE_INTAKE_POSTGRES_OPERATION_OUTPUT_ROOT",
+    )
+    postgres_operation_store_raw: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_POSTGRES_OPERATION_STORE_RAW"
+    )
+    postgres_operation_mask_hosts: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_POSTGRES_OPERATION_MASK_HOSTS"
+    )
+    postgres_operation_mask_database_names: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_POSTGRES_OPERATION_MASK_DATABASE_NAMES",
+    )
+    postgres_operation_mask_usernames: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_POSTGRES_OPERATION_MASK_USERNAMES",
+    )
     migration_execution_plan_required: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_MIGRATION_EXECUTION_PLAN_REQUIRED",

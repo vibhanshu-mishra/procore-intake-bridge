@@ -1,0 +1,9 @@
+{
+  "database_url_ref": "DATABASE_URL_REF_PLACEHOLDER",
+  "pool_config_ref": "POSTGRES_POOL_CONFIG_PLACEHOLDER",
+  "maintenance_window_ref": "MAINTENANCE_WINDOW_REF_PLACEHOLDER",
+  "backup_plan_ref": "BACKUP_PLAN_REF_PLACEHOLDER",
+  "restore_drill_ref": "RESTORE_DRILL_REF_PLACEHOLDER",
+  "rollback_plan_ref": "ROLLBACK_PLAN_REF_PLACEHOLDER",
+  "migration_status_ref": "MIGRATION_STATUS_REF_PLACEHOLDER"
+}

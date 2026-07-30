@@ -102,3 +102,8 @@ D3 (PostgreSQL and Migration Execution Readiness) is complete. D4 and D5 remain 
 future work; D3 performs no automatic connection, migration, backup, or restore.
 D4 (Deployment Recipes, HTTPS, Backups, and Rollback) is complete. D5 remains separately scoped
 future work; D4 contains no infrastructure automation.
+
+G3 completes public runtime-operations polish: optional PostgreSQL drivers, fail-closed live
+status gates, pool guidance, and offline migration/backup/restore planning. Real production
+operation, approval, migration execution, backup execution, and restore execution remain private
+operator responsibilities outside this repository.

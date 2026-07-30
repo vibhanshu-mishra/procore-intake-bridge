@@ -455,3 +455,12 @@ make pilot-approval-artifact-check
 ```
 
 See [Private pilot approval packet](docs/pilot-approval-packet.md).
+
+## PostgreSQL runtime operations
+
+SQLite remains the Demo default. For private Sandbox/Pilot PostgreSQL planning, run
+`make postgres-runtime-check`, `make postgres-migration-plan`, and
+`make postgres-backup-restore-plan`. These commands are offline and neither connect nor operate on
+a database. Live connectivity and migration-status commands are separate, disabled by default,
+manually gated, and sanitized. See
+[PostgreSQL runtime operations](docs/postgres-runtime-operations.md).

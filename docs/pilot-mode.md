@@ -39,3 +39,7 @@ and rollback plans completed privately. Readiness does not connect or run migrat
 
 Pilot should also complete a private D4 deployment recipe, cutover checklist, HTTPS/ingress review,
 backup/rollback runbooks, and operator runbook. These artifacts are not deployment automation.
+
+For a private PostgreSQL Pilot, review the G3 runtime posture and pool guidance. The default
+commands do not connect externally. Live connectivity and migration-status checks remain separate,
+manually gated steps and do not approve the Pilot or a production database.

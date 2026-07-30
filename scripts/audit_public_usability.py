@@ -37,6 +37,10 @@ REQUIRED_DOCS = {
     "docs/s3-storage.md",
     "docs/azure-blob-storage.md",
     "docs/gcs-storage.md",
+    "docs/postgres-runtime-operations.md",
+    "docs/postgres-connection-pooling.md",
+    "docs/postgres-migration-runbook.md",
+    "docs/postgres-backup-restore-drills.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -93,6 +97,12 @@ REQUIRED_SCRIPTS = {
     "scripts/check_cloud_storage_provider.py",
     "scripts/print_cloud_storage_provider_template.py",
     "scripts/explain_cloud_storage_operations.py",
+    "scripts/check_postgres_runtime.py",
+    "scripts/print_postgres_runtime_template.py",
+    "scripts/plan_postgres_migration_run.py",
+    "scripts/plan_postgres_backup_restore_drill.py",
+    "scripts/run_postgres_connectivity_check.py",
+    "scripts/run_postgres_migration_status_check.py",
 }
 REQUIRED_EXAMPLES = {
     "examples/demo-flow.md",
@@ -114,6 +124,10 @@ REQUIRED_EXAMPLES = {
     "examples/cloud-storage-providers/s3_storage_refs.example.json",
     "examples/cloud-storage-providers/azure_blob_storage_refs.example.json",
     "examples/cloud-storage-providers/gcs_storage_refs.example.json",
+    "examples/postgres-runtime/README.md",
+    "examples/postgres-runtime/postgres_runtime_refs.example.json",
+    "examples/postgres-runtime/postgres_migration_plan.example.md",
+    "examples/postgres-runtime/postgres_backup_restore_plan.example.md",
 }
 REQUIRED_TARGETS = {
     "help",
@@ -163,6 +177,12 @@ REQUIRED_TARGETS = {
     "cloud-storage-template",
     "cloud-storage-check",
     "cloud-storage-explain",
+    "postgres-runtime-template",
+    "postgres-runtime-check",
+    "postgres-migration-plan",
+    "postgres-backup-restore-plan",
+    "postgres-connectivity-check",
+    "postgres-migration-status-check",
 }
 IGNORED_OUTPUTS = {
     "private-workspace/",
@@ -196,6 +216,22 @@ IGNORED_OUTPUTS = {
     "*.sandbox-evidence-summary.md",
     "*.sandbox-evidence-manifest.json",
     "*.sandbox-evidence-manifest.md",
+    "postgres-ops-output/",
+    "postgres-runtime-output/",
+    "db-ops-output/",
+    "migration-execution-output/",
+    "backup-verification-output/",
+    "restore-drill-output/",
+    "*.postgres-runtime-report.json",
+    "*.postgres-runtime-report.md",
+    "*.postgres-ops-report.json",
+    "*.postgres-ops-report.md",
+    "*.migration-execution-report.json",
+    "*.backup-verification-report.json",
+    "*.restore-drill-report.json",
+    "*.migration-log",
+    "*.restore-log",
+    "*.backup-log",
 }
 GENERATED_PARTS = {
     "private-workspace",
@@ -215,6 +251,12 @@ GENERATED_PARTS = {
     "sandbox-evidence-output",
     "sandbox-evidence-linkage-output",
     "evidence-linkage-output",
+    "postgres-ops-output",
+    "postgres-runtime-output",
+    "db-ops-output",
+    "migration-execution-output",
+    "backup-verification-output",
+    "restore-drill-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak", ".backup", ".crt", ".csr", ".db", ".docx", ".dump", ".gif",
@@ -410,6 +452,29 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         "cloud storage excludes presigned URLs": (
             "no presigned url"
             in _read(root, "docs/cloud-storage-providers.md").casefold()
+        ),
+        "Postgres runtime checks are offline by default": all(
+            phrase in _read(root, "docs/postgres-runtime-operations.md").casefold()
+            for phrase in ("does not resolve", "connect", "disabled by")
+        ),
+        "Postgres live checks are manually gated": (
+            "manually gated"
+            in _read(root, "docs/postgres-runtime-operations.md").casefold()
+        ),
+        "Postgres migration plan executes nothing": (
+            "does not resolve a database secret"
+            in _read(root, "docs/postgres-migration-runbook.md").casefold()
+            and "does not" in _read(root, "docs/postgres-migration-runbook.md").casefold()
+            and "alembic upgrade or downgrade"
+            in _read(root, "docs/postgres-migration-runbook.md").casefold()
+        ),
+        "Postgres recovery plan inspects no dumps": (
+            "inspect dump or backup files"
+            in _read(root, "docs/postgres-backup-restore-drills.md").casefold()
+        ),
+        "Postgres live targets excluded from quality": all(
+            target not in quality_header
+            for target in ("postgres-connectivity-check", "postgres-migration-status-check")
         ),
         "beginner docs steer to friendly targets": all(
             command in docs

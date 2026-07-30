@@ -22,3 +22,7 @@ This preflight reads only the reference, never the sanitized report or raw RFI/S
 
 F3 supplies a placeholder mapping into preflight. Missing, expired, or unreviewed refs remain
 review findings; their presence never makes Pilot readiness pass automatically.
+
+PostgreSQL runtime, maintenance-window, managed-backup, restore-drill, and rollback references are
+private preflight evidence. G3 offline checks do not resolve them; live status checks are manually
+gated and their success is not Pilot approval.

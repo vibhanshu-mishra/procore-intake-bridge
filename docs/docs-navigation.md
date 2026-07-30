@@ -6,6 +6,11 @@ with S3, Azure Blob, and GCS pages under **Providers and Infrastructure**.
 Cloud secret guidance begins at [Optional cloud secret providers](cloud-secret-providers.md), with
 AWS, Azure, and GCP pages under **Providers and Infrastructure**.
 
+PostgreSQL guidance continues from [readiness](postgres-readiness.md) to
+[runtime operations](postgres-runtime-operations.md), [pooling](postgres-connection-pooling.md),
+[migration operations](postgres-migration-runbook.md), and
+[backup/restore drills](postgres-backup-restore-drills.md).
+
 Use this reading order; later sections are needed only for the selected journey.
 
 ## 1. Start here

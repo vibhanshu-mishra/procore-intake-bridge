@@ -45,6 +45,8 @@ nav:
       - GCS Storage: gcs-storage.md
       - Database Providers: database-providers.md
       - PostgreSQL Readiness: postgres-readiness.md
+      - PostgreSQL Runtime Operations: postgres-runtime-operations.md
+      - PostgreSQL Connection Pooling: postgres-connection-pooling.md
       - Deployment Recipes: deployment-recipes.md
       - HTTPS and Webhook Ingress: https-webhook-ingress.md
       - Backup and Restore: backup-restore-plan.md
@@ -55,6 +57,8 @@ nav:
       - Deployment Hardening: deployment-hardening.md
       - Webhook Verification: webhook-production-verification.md
       - Database Migrations: database-migrations.md
+      - PostgreSQL Migration Runbook: postgres-migration-runbook.md
+      - PostgreSQL Backup and Restore Drills: postgres-backup-restore-drills.md
   - Public Safety and Release:
       - Safety Model: safety-model.md
       - Public Usability Audit: public-usability-audit.md

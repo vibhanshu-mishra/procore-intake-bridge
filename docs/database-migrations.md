@@ -55,3 +55,7 @@ profile cannot use SQLite/local database posture; B9 runs no migration or databa
 
 D3 adds `make migration-plan`, an offline execution checklist using command placeholders only.
 The separately gated connectivity probe runs `SELECT 1` and never executes Alembic.
+
+G3 adds an offline [PostgreSQL migration runbook](postgres-migration-runbook.md) and a separate,
+manually gated status-only command. Neither performs upgrade or downgrade. Any future execution
+requires a separate private operator decision and reviewed maintenance/rollback references.

@@ -117,3 +117,14 @@ payloads. See [Sandbox read validation](sandbox-read-validation.md).
 All are local-only: no Procore calls, private evidence reads, secret resolution, or approval.
 
 Best next command for a new user: `make start`.
+
+## PostgreSQL runtime commands
+
+- `make postgres-runtime-template` — placeholder private-reference template.
+- `make postgres-runtime-check` — offline posture and pool summary.
+- `make postgres-migration-plan` — offline checklist; no migration.
+- `make postgres-backup-restore-plan` — offline checklist; no dump inspection.
+- `make postgres-connectivity-check` — manually gated live read-only probe; refuses by default.
+- `make postgres-migration-status-check` — manually gated status-only check; refuses by default.
+
+The two live commands are excluded from quality, preparation, release, and docs checks.

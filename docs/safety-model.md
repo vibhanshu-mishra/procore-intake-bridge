@@ -161,3 +161,8 @@ workspace. Validators read safe text types under the selected root and reject un
 D1's secret boundary permits values only inside explicit provider resolution calls. Every public,
 diagnostic, readiness, and doctor surface uses masked refs and booleans/counts. File resolution is
 root-contained; cloud posture checks make no external calls.
+
+G3 applies the same boundary to PostgreSQL. Offline reports contain booleans and numeric pool
+settings only. Live helpers gate before secret resolution, sanitize errors, store no raw logs, and
+exclude URLs, hosts, database names, usernames, query text, dump/backup material, and private
+paths. No live database target participates in default automation.

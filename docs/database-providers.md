@@ -26,3 +26,8 @@ The separately gated `make database-connectivity-check` is disabled by default. 
 exact confirmation phrase documented in the script, resolves the URL inside the secret-provider
 boundary, uses a bounded connection, and executes `SELECT 1` only. It performs no migration or
 write and suppresses provider exception details.
+
+G3 keeps SQLite as the Demo default and adds offline PostgreSQL runtime posture, connection-pool
+guidance, migration planning, and recovery-drill planning for private Sandbox/Pilot use. Database
+URLs remain secret-provider-managed. Live connectivity and migration-status commands are
+manually gated and disabled by default.

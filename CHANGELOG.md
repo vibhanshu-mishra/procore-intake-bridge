@@ -94,3 +94,7 @@ No release tag or package publication is claimed.
 - Added Phase B6: a disabled-by-default, documentation-gated synthetic webhook production
   verification harness, sanitized reports, readiness checks, fixtures, CLI tools, and
   operator guidance. It performs no Procore calls or webhook registration.
+
+- Added Phase G3 PostgreSQL runtime operations polish: optional driver extras, offline pool and
+  operational planning, placeholder examples, sanitized reports, and separate disabled-by-default
+  connectivity and migration-status checks. No migration, backup, or restore is automated.

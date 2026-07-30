@@ -106,3 +106,7 @@ The optional [documentation-site guide](docs/docs-site.md) and
 for Demo Mode and the repository publishes no docs site.
 Maintainers can later consult [release readiness](docs/release-readiness.md); this is never part
 of first-run Demo, Sandbox, or Pilot execution.
+
+PostgreSQL is optional for private Sandbox/Pilot hosting; SQLite remains the Demo default.
+`make postgres-runtime-check` is offline. Live database checks are separate, manually gated, and
+disabled by default; planning commands run no migration and inspect no backup or dump.

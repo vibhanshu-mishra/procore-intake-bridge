@@ -114,3 +114,8 @@ validation, Git-isolation checks, and no external calls.
 
 D1 Real Secret Provider Adapters is implemented for private environment variables and contained
 local files, with disabled/fail-closed optional cloud contracts and sanitized readiness.
+
+G3 PostgreSQL Runtime Operations Polish is implemented with optional drivers, offline pool and
+runbook summaries, placeholder examples, private evidence-reference guidance, and two separate
+manually gated live checks. Defaults make no external database contact, run no migration, and
+inspect no backup or dump.

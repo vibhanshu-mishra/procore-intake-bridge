@@ -51,3 +51,7 @@ tracked generated artifact, or extending `.gitignore`, then rerun the audit.
 
 This is a public-repository guardrail, not a security certification or pilot approval. What to run
 next: `make safety-check`, then `make quality`.
+
+G3 checks require the four PostgreSQL runtime docs, six commands, six Make targets,
+placeholder-only examples, ignored operation outputs, explicit no-connect defaults, manually
+gated live checks, no migration execution in the plan, and no dump inspection in recovery plans.

@@ -55,6 +55,12 @@ PRIVATE_PATH_PARTS = {
     "db-output",
     "backup-output",
     "restore-output",
+    "postgres-ops-output",
+    "postgres-runtime-output",
+    "db-ops-output",
+    "migration-execution-output",
+    "backup-verification-output",
+    "restore-drill-output",
     "deployment-output",
     "deploy-output",
     "release-output",
@@ -194,6 +200,19 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
                 issues.append(
                     SafetyIssue(path, "cloud storage example contains an object key or contents")
                 )
+    if "examples/postgres-runtime" in path.as_posix():
+        if DATABASE_CREDENTIAL_URL.search(text) or ABSOLUTE_LOCAL_PATH.search(text):
+            issues.append(SafetyIssue(path, "PostgreSQL example contains private database data"))
+        for line in text.splitlines():
+            if re.search(
+                r"(?i)\b(?:database_url|hostname|username|password|backup_filename|"
+                r"dump_filename)\b\s*[:=]",
+                line,
+            ) and not _safe_value(line):
+                issues.append(
+                    SafetyIssue(path, "PostgreSQL example contains non-placeholder runtime data")
+                )
+                break
     for line in text.splitlines():
         if (
             path.suffix.casefold() != ".py"
@@ -330,6 +349,22 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             continue
         if path.name.endswith((".smoke.json", ".smoke.log")):
             issues.append(SafetyIssue(path, "tracked sandbox smoke output"))
+            continue
+        if path.name.endswith((".migration-log", ".restore-log", ".backup-log")):
+            issues.append(SafetyIssue(path, "tracked PostgreSQL operation log"))
+            continue
+        if path.name.endswith(
+            (
+                ".postgres-runtime-report.json",
+                ".postgres-runtime-report.md",
+                ".postgres-ops-report.json",
+                ".postgres-ops-report.md",
+                ".migration-execution-report.json",
+                ".backup-verification-report.json",
+                ".restore-drill-report.json",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated PostgreSQL operation output"))
             continue
         if path.name.endswith(
             (".smoke.txt", ".smoke.md", ".smoke.transcript", ".sandbox-smoke.json")

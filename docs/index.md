@@ -39,6 +39,10 @@ live Procore access is disabled by default, and the project performs no Procore 
 - [Database migrations](database-migrations.md)
 - [Database providers](database-providers.md)
 - [PostgreSQL readiness](postgres-readiness.md)
+- [PostgreSQL runtime operations](postgres-runtime-operations.md)
+- [PostgreSQL connection pooling](postgres-connection-pooling.md)
+- [PostgreSQL migration runbook](postgres-migration-runbook.md)
+- [PostgreSQL backup and restore drills](postgres-backup-restore-drills.md)
 - [Migration execution plan](migration-execution-plan.md)
 - [Backup and restore plan](backup-restore-plan.md)
 

@@ -74,3 +74,7 @@ placeholders. Real domains, certificates, infrastructure IDs, logs, and state re
 F3 adds `evidence/sandbox-evidence-linkage.private.json` with opaque smoke/read-validation,
 reviewer, expiry, and renewal placeholders only. It contains no source report contents and does
 not change Pilot readiness or approval.
+
+Store G3 database URL, maintenance-window, managed-backup, restore-drill, rollback, and
+migration-status references only in this ignored private workspace. Do not copy URLs, hosts,
+database names, usernames, logs, dump names, backup names, or contents into public artifacts.
