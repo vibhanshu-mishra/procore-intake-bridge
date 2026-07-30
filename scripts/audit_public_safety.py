@@ -250,6 +250,23 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if "operator-triage" in path.as_posix() or "operator_triage" in path.as_posix():
+        triage_claim = re.compile(
+            r"(?i)\b(?:triage|priority|queue)\b.*\b(?:approval|compliance|"
+            r"assignment|notification|procore update|write-back)\b"
+        )
+        for line in text.splitlines():
+            if (
+                triage_claim.search(line)
+                and not re.search(
+                    r"(?i)\b(?:no|not|never|does not|do not|isn't|is not)\b", line
+                )
+                and not _safe_value(line)
+            ):
+                issues.append(
+                    SafetyIssue(path, "triage content implies a prohibited external action")
+                )
+                break
     if "intake-lifecycle" in path.as_posix() or "intake_lifecycle" in path.as_posix():
         lifecycle_claim = re.compile(
             r"(?i)\b(?:status|transition|lifecycle)\b.*\b(?:approval|"

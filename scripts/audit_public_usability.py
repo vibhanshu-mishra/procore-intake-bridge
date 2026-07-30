@@ -59,6 +59,7 @@ REQUIRED_DOCS = {
     "docs/maintainer-review-fix-pack.md",
     "docs/intake-review-workspace.md",
     "docs/intake-lifecycle-status-flow.md",
+    "docs/operator-triage-queue.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -85,6 +86,8 @@ REQUIRED_SCRIPTS = {
     "scripts/print_intake_review_workspace_summary.py",
     "scripts/check_intake_lifecycle.py",
     "scripts/print_intake_lifecycle_summary.py",
+    "scripts/check_operator_triage_queue.py",
+    "scripts/print_operator_triage_summary.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -193,6 +196,8 @@ REQUIRED_TARGETS = {
     "review-workspace-check",
     "intake-lifecycle-summary",
     "intake-lifecycle-check",
+    "operator-triage-summary",
+    "operator-triage-check",
     "help",
     "start",
     "commands",
@@ -719,6 +724,17 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         ),
         "H4 checks are included in quality": (
             "quality: intake-lifecycle-check intake-lifecycle-summary" in makefile
+        ),
+        "H5 triage is GET-only local sorting": all(
+            phrase in _read(root, "docs/operator-triage-queue.md").casefold()
+            for phrase in ("get-only", "sorting helper only", "no procore")
+        ),
+        "H5 triage excludes private source and attachment content": all(
+            phrase in _read(root, "docs/operator-triage-queue.md").casefold()
+            for phrase in ("raw payloads", "signed urls", "attachment content")
+        ),
+        "H5 checks are included in quality": (
+            "quality: operator-triage-check operator-triage-summary" in makefile
         ),
         "beginner docs steer to friendly targets": all(
             command in docs

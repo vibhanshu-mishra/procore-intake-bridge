@@ -18,6 +18,11 @@ LOCAL_LIFECYCLE_POST_PATHS = {
     "/review/intake/{record_id}/lifecycle",
     "/review/api/intake/{record_id}/lifecycle",
 }
+REQUIRED_TRIAGE_GET_PATHS = {
+    "/review/triage",
+    "/review/api/triage",
+    "/review/api/triage/summary",
+}
 PROHIBITED_PATH_TERMS = {
     "approve",
     "assign",
@@ -56,7 +61,13 @@ def application_routes() -> list[APIRoute]:
 
 def audit_routes() -> list[RouteIssue]:
     issues: list[RouteIssue] = []
-    for route in application_routes():
+    routes = application_routes()
+    available_gets = {
+        route.path for route in routes if "GET" in (route.methods or set())
+    }
+    for missing in sorted(REQUIRED_TRIAGE_GET_PATHS - available_gets):
+        issues.append(RouteIssue(missing, "GET", "required triage route is missing"))
+    for route in routes:
         methods = route.methods or set()
         for method in sorted(methods - {"HEAD", "OPTIONS"}):
             lowered = route.path.casefold()

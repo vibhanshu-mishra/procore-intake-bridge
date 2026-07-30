@@ -118,3 +118,7 @@ files must not be committed. Best next command: `make start`.
 See [Final public readiness](final-public-readiness.md) before deciding the next private step.
 The audit performs no live operation, keeps private values and real reports outside Git, and is not
 release, production, or pilot approval.
+# Operator triage
+
+The [Operator Triage Queue](operator-triage-queue.md) is a GET-only local projection over
+sanitized intake and lifecycle data. Its score only controls sorting.

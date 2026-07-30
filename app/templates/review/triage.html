@@ -1,0 +1,31 @@
+{% extends "review/base.html" %}
+{% block content %}
+<h2>Operator Triage Queue</h2>
+<p>Read-only local sorting view. Priority values only order this queue.</p>
+<div class="grid">
+  <div class="card">Status<strong>{{ summary.status.value }}</strong></div>
+  <div class="card">Local records<strong>{{ summary.total_records }}</strong></div>
+  {% for bucket in summary.buckets %}
+  <div class="card">{{ bucket.bucket.value | replace("_", " ") | title }}<strong>{{ bucket.count }}</strong></div>
+  {% endfor %}
+</div>
+{% if queue.items %}
+<table>
+  <thead><tr><th>Priority</th><th>Tool</th><th>Record</th><th>Local status</th><th>Signals</th></tr></thead>
+  <tbody>
+  {% for item in queue.items %}
+    <tr>
+      <td>{{ item.priority_score }}</td>
+      <td>{{ item.tool.value }}</td>
+      <td><a href="/review/intake/{{ item.record_id }}">{{ item.display_number }} · {{ item.title }}</a></td>
+      <td>{{ item.lifecycle_status.value | replace("_", " ") }}</td>
+      <td>{% for signal in item.signals %}{{ signal.label }}{% if not loop.last %}; {% endif %}{% endfor %}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>No local records yet. Start with the safe Demo flow; fixture persistence remains explicit.</p>
+{% endif %}
+<p>This view creates no assignments, messages, status changes, or external side effects.</p>
+{% endblock %}

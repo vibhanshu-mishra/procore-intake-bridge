@@ -48,6 +48,11 @@ available in the [command reference](docs/command-reference.md). See the
 [first-run checklist](docs/first-run-checklist.md), [troubleshooting](docs/troubleshooting.md),
 and [usage modes](docs/usage-modes.md).
 
+Phase H5 adds a [GET-only Operator Triage Queue](docs/operator-triage-queue.md) over sanitized H3
+records and local H4 lifecycle state. Its deterministic score is a local sorting helper only. It
+adds no Procore write, lifecycle transition, assignment, comment, approval, compliance decision,
+communication, notification, attachment-content read, or external call.
+
 Continue with the **[guided walkthroughs](docs/walkthrough-index.md)**. The
 [Demo walkthrough](docs/walkthrough-demo.md) is the default next document; Sandbox and Pilot
 walkthroughs are optional private paths.

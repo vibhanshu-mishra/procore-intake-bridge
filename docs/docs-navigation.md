@@ -77,3 +77,5 @@ grant no release, production, or pilot approval.
 
 The [H2 maintainer review fix pack](maintainer-review-fix-pack.md) records the bounded cleanup
 performed after H1. It adds no runtime or live capability.
+- [Operator Triage Queue](operator-triage-queue.md): GET-only local sorting and bucket projection
+  over sanitized H3/H4 data.

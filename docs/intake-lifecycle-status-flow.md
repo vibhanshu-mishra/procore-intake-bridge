@@ -34,3 +34,8 @@ make intake-lifecycle-check
 The reversible `0002_intake_lifecycle` migration creates one current-state table and one event
 history table. Sandbox and Pilot configuration remains private and gated. H5 may add an operator
 triage queue later; H4 adds no queue, assignment, message, or notification integration.
+## H5 triage projection
+
+The [Operator Triage Queue](operator-triage-queue.md) reads H4 state without lazily creating or
+changing it. H5 adds no lifecycle transition; the existing two guarded H4 POST routes remain the
+only review mutations.

@@ -141,3 +141,15 @@ H4 enables audited local status changes from the record detail page. Run
 `make intake-lifecycle-check` or read the
 [lifecycle guide](docs/intake-lifecycle-status-flow.md). A local status does not update Procore
 and is not an approval, compliance determination, assignment, or communication.
+## Inspect the local triage queue
+
+After the Demo flow, open `/review/triage` or run:
+
+```bash
+make operator-triage-check
+make operator-triage-summary
+```
+
+These H5 commands only read sanitized local H3/H4 data. Priority is a sorting helper, and no
+Procore write, lifecycle transition, assignment, comment, approval, notification, or external
+call occurs. See [Operator Triage Queue](docs/operator-triage-queue.md).

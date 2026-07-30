@@ -83,3 +83,6 @@ approval is granted.
 The public usability audit requires final readiness docs, scripts, examples, Make targets, and
 clear language that H1 performs no live operation, keeps private values outside Git, and grants no
 release, production, or pilot approval.
+H5 adds `operator-triage-check` and `operator-triage-summary` to `make quality`. The usability,
+route, documentation, and public-safety audits cover its required files, GET-only routes,
+navigation, local sorting disclaimer, and prohibited-action boundary.

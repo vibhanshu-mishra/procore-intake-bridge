@@ -72,3 +72,7 @@ Never delete or force-add private data blindly.
 
 Stay in Demo with `make doctor`, or read the optional
 [Sandbox walkthrough](walkthrough-sandbox.md) or [Pilot walkthrough](walkthrough-pilot.md).
+## Optional local triage
+
+Open `/review/triage` after loading fake Demo fixtures, or run `make operator-triage-summary`.
+The displayed priority is only deterministic sorting; the GET-only view changes nothing.

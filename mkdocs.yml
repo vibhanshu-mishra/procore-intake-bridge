@@ -17,6 +17,7 @@ nav:
       - Quickstart Demo: quickstart-demo.md
       - Intake Review Workspace: intake-review-workspace.md
       - Intake Lifecycle Status Flow: intake-lifecycle-status-flow.md
+      - Operator Triage Queue: operator-triage-queue.md
   - Sandbox Mode:
       - Sandbox Mode: sandbox-mode.md
       - Sandbox Onboarding: sandbox-onboarding.md

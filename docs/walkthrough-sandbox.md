@@ -92,3 +92,7 @@ After a separately authorized private run and human review, use F3 only to model
 
 Continue private Sandbox review, or move to the [Pilot walkthrough](walkthrough-pilot.md) only
 after authorized sandbox evidence exists. Keep the evidence content private.
+## Optional private triage
+
+The H5 triage view only projects already-local, sanitized records. Sandbox credentials, source
+values, and evidence remain private. Opening it makes no live Procore or external call.

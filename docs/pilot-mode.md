@@ -68,3 +68,7 @@ launch or pilot approval. Keep real work private/manual and require human review
 
 Final public readiness happens before private Pilot work. It performs no live operation and grants
 no release, production, or pilot approval. Private values and real reports stay outside Git.
+## Operator triage boundary
+
+The H5 queue is a read-only local sorting aid and does not grant pilot approval, determine
+compliance, assign work, notify anyone, or satisfy a launch gate. Pilot materials remain private.

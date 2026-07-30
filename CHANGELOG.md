@@ -142,3 +142,11 @@ No release tag or package publication is claimed.
 - Added non-writing CLI/Make checks, documentation, audits, and regression tests.
 - Added no Procore/external call, approval, compliance decision, assignment, comment,
   communication, attachment read, or notification integration.
+
+## Phase H5
+
+- Added a GET-only Operator Triage Queue over sanitized H3 records and local H4 lifecycle state.
+- Added bounded filters, stable sorting, local signal buckets, summary/page JSON, HTML, CLI/Make
+  checks, documentation, audits, and regressions.
+- Priority is a deterministic local sorting helper only. H5 adds no mutation, Procore/external
+  call, assignment, comment, approval, compliance decision, communication, or notification.

@@ -195,3 +195,9 @@ be followed by private human review.
 
 H1 inspects public files and command separation only. No live operation occurs; private values and
 real reports stay outside Git. A passing audit is not release, production, or pilot approval.
+## H5 Operator Triage Queue
+
+H5 reuses H3 sanitization and reads H4 state without creating or changing it. Responses exclude
+raw payloads, source and signed URLs, private paths, attachment contents, and raw source IDs.
+Unsafe exposure configuration fails closed. The queue makes no assignment, comment, approval,
+compliance decision, communication, notification, lifecycle transition, or Procore update.

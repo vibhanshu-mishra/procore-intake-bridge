@@ -201,3 +201,8 @@ operation, and grants no launch or pilot approval. Real operations remain privat
 H1 verifies public documentation and operational boundaries only. It performs no live operation,
 reads no private report, and grants no release, production, or pilot approval. Private values and
 real operations stay outside Git.
+## Operator triage check
+
+Run `make operator-triage-check` for a non-writing, empty-database-safe validation. Open
+`/review/triage` for the guarded GET-only view. Treat priority as sorting only; investigate using
+sanitized local detail and never copy private source data into public artifacts.

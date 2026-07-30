@@ -612,6 +612,76 @@ class Settings(BaseSettings):
     intake_lifecycle_fail_closed: bool = Field(
         default=True, validation_alias="PROCORE_INTAKE_LIFECYCLE_FAIL_CLOSED"
     )
+    triage_queue_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_TRIAGE_QUEUE_ENABLED"
+    )
+    triage_queue_page_size: int = Field(
+        default=25,
+        ge=1,
+        le=100,
+        validation_alias="PROCORE_INTAKE_TRIAGE_QUEUE_PAGE_SIZE",
+    )
+    triage_queue_max_page_size: int = Field(
+        default=100,
+        ge=1,
+        le=100,
+        validation_alias="PROCORE_INTAKE_TRIAGE_QUEUE_MAX_PAGE_SIZE",
+    )
+    triage_queue_default_sort: Literal[
+        "priority_desc",
+        "priority_asc",
+        "received_at_desc",
+        "received_at_asc",
+        "lifecycle_status_asc",
+        "lifecycle_status_desc",
+        "tool_asc",
+        "tool_desc",
+    ] = Field(
+        default="priority_desc",
+        validation_alias="PROCORE_INTAKE_TRIAGE_QUEUE_DEFAULT_SORT",
+    )
+    triage_queue_include_lifecycle: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_TRIAGE_QUEUE_INCLUDE_LIFECYCLE",
+    )
+    triage_queue_include_attachment_signals: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_TRIAGE_QUEUE_INCLUDE_ATTACHMENT_SIGNALS",
+    )
+    triage_queue_include_source_context_signals: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_TRIAGE_QUEUE_INCLUDE_SOURCE_CONTEXT_SIGNALS",
+    )
+    triage_queue_recent_hours: int = Field(
+        default=72,
+        ge=1,
+        validation_alias="PROCORE_INTAKE_TRIAGE_QUEUE_RECENT_HOURS",
+    )
+    triage_queue_older_than_hours: int = Field(
+        default=168,
+        ge=1,
+        validation_alias="PROCORE_INTAKE_TRIAGE_QUEUE_OLDER_THAN_HOURS",
+    )
+    triage_queue_mask_source_ids: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_TRIAGE_QUEUE_MASK_SOURCE_IDS",
+    )
+    triage_queue_hash_source_ids: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_TRIAGE_QUEUE_HASH_SOURCE_IDS",
+    )
+    triage_queue_expose_raw_payloads: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_TRIAGE_QUEUE_EXPOSE_RAW_PAYLOADS",
+    )
+    triage_queue_expose_private_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_TRIAGE_QUEUE_EXPOSE_PRIVATE_PATHS",
+    )
+    triage_queue_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_TRIAGE_QUEUE_FAIL_CLOSED",
+    )
     sandbox_smoke_enabled: bool = Field(
         default=False,
         validation_alias="PROCORE_INTAKE_SANDBOX_SMOKE_ENABLED",

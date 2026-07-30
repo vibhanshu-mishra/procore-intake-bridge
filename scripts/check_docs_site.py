@@ -63,6 +63,7 @@ REQUIRED_NAV_DOCS = {
     "maintainer-review-fix-pack.md",
     "intake-review-workspace.md",
     "intake-lifecycle-status-flow.md",
+    "operator-triage-queue.md",
     "release-readiness.md",
     "release-checklist.md",
     "release-notes-template.md",

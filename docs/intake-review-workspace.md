@@ -53,3 +53,7 @@ A missing local record returns a sanitized `404`. An empty database points opera
 Demo flow. `make try-demo` remains a dry run; intentionally persisting fake fixture intake uses
 the existing `python scripts/run_poll_once.py --execute` flow after a fake local connection and
 sync profile have been prepared.
+## H5 triage projection
+
+The [Operator Triage Queue](operator-triage-queue.md) reuses this workspace's sanitized records
+and safe source/manifest context. It remains GET-only and never reads attachment contents.

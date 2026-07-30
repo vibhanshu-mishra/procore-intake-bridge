@@ -188,3 +188,9 @@ output is not a launch or pilot approval; private human review remains required.
 
 These commands make no live calls or private report reads. H1 is not release, production, or pilot
 approval; private values and real reports stay outside Git.
+## Operator Triage Queue
+
+- `make operator-triage-check` validates the bounded, sanitized, read-only projection.
+- `make operator-triage-summary` prints an empty-database-safe local summary.
+
+Neither command changes persistent state or calls Procore or another external system.
