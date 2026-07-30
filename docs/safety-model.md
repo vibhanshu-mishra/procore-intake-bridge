@@ -229,3 +229,7 @@ fail-closed; Demo completion grants no external authorization or certification.
 
 I1 formalizes these controls in an [offline threat model](security-threat-model.md). Passing it
 does not establish production security, certification, compliance, launch, or Pilot authorization.
+
+I2 adds an [offline auth/permission boundary audit](auth-permission-boundary-audit.md). It checks
+existing admin guards, webhook signature boundaries, local mutations, public status routes, and
+manual CLI gates without adding an auth provider or performing a live permission check.

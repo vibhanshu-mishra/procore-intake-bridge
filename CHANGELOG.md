@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Phase I2 adds an offline auth/permission boundary audit, route protection map, checklist,
+  sanitized CSV artifact, audit integration, documentation, examples, and regression coverage.
+
 - Phase I1 adds an offline public-safe security threat model, trust-boundary map, checklist,
   placeholder examples, audits, and tests. It runs no scanner/external operation and grants no
   certification or production authorization.

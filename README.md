@@ -551,3 +551,8 @@ Phase I1 adds an [offline Security Threat Model](docs/security-threat-model.md).
 `make security-threat-model`, `make security-boundary-map`, and
 `make security-review-checklist`; they call no scanner/external system and grant no certification
 or production authorization.
+
+Phase I2 adds an [offline Auth / Permission Boundary Audit](docs/auth-permission-boundary-audit.md).
+Run `make auth-boundary-audit`, `make auth-boundary-map`, and
+`make permission-boundary-checklist`. I2 adds no login, SSO, OAuth, RBAC, account, cookie, or
+session system and performs no live permission check.

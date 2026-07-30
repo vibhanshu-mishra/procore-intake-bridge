@@ -94,3 +94,7 @@ performed after H1. It adds no runtime or live capability.
 - [Security Threat Model](security-threat-model.md): offline categories, controls, and gaps.
 - [Security Boundary Map](security-boundary-map.md): public/private trust boundaries.
 - [Security Review Checklist](security-review-checklist.md): private follow-up boundaries.
+- [Auth / Permission Boundary Audit](auth-permission-boundary-audit.md): offline route and command
+  protection audit.
+- [Auth Boundary Map](auth-boundary-map.md): route classes, protection types, and method risks.
+- [Permission Boundary Checklist](permission-boundary-checklist.md): offline maintainer checks.

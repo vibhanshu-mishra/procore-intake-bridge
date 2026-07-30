@@ -71,6 +71,13 @@ def application_routes() -> list[APIRoute]:
 
 
 def audit_routes() -> list[RouteIssue]:
+    from app.schemas.auth_boundary_audit import (
+        AuthBoundaryMethodRisk,
+        AuthBoundaryProtectionType,
+        AuthBoundaryRouteClass,
+    )
+    from app.services.auth_boundary_audit import classify_route_auth_boundary
+
     issues: list[RouteIssue] = []
     routes = application_routes()
     available_gets = {
@@ -89,6 +96,18 @@ def audit_routes() -> list[RouteIssue]:
     for route in routes:
         methods = route.methods or set()
         for method in sorted(methods - {"HEAD", "OPTIONS"}):
+            classified = classify_route_auth_boundary(route)
+            if (
+                classified.route_class is AuthBoundaryRouteClass.UNKNOWN
+                or classified.protection_type is AuthBoundaryProtectionType.UNKNOWN
+            ):
+                issues.append(
+                    RouteIssue(route.path, method, "route has an unknown auth boundary")
+                )
+            if classified.method_risk is AuthBoundaryMethodRisk.UNSAFE_MUTATION:
+                issues.append(
+                    RouteIssue(route.path, method, "route has an unsafe mutation boundary")
+                )
             lowered = route.path.casefold()
             if route.path.startswith("/review") and "export" in lowered:
                 issues.append(

@@ -200,3 +200,7 @@ makes no live or external call, and stops at the private Sandbox/Pilot boundary.
 For offline security review, run `make security-threat-model` and read the
 [Security Threat Model](docs/security-threat-model.md). It performs no live scan and grants no
 certification or production authorization.
+
+Run `make auth-boundary-audit` to inspect existing route and command protections offline. The
+[I2 audit](docs/auth-permission-boundary-audit.md) adds no auth provider and performs no live
+permission or external check.

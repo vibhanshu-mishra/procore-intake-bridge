@@ -620,6 +620,67 @@ class Settings(BaseSettings):
         le=1000,
         validation_alias="PROCORE_INTAKE_SECURITY_THREAT_MODEL_MAX_FINDINGS",
     )
+    auth_boundary_audit_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_AUTH_BOUNDARY_AUDIT_ENABLED"
+    )
+    auth_boundary_audit_output_root: Path = Field(
+        default=Path("./auth-boundary-audit-output"),
+        validation_alias="PROCORE_INTAKE_AUTH_BOUNDARY_AUDIT_OUTPUT_ROOT",
+    )
+    auth_boundary_audit_require_placeholders: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_AUTH_BOUNDARY_AUDIT_REQUIRE_PLACEHOLDERS",
+    )
+    auth_boundary_audit_require_admin_protection: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_AUTH_BOUNDARY_AUDIT_REQUIRE_ADMIN_PROTECTION",
+    )
+    auth_boundary_audit_allow_public_health_routes: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_AUTH_BOUNDARY_AUDIT_ALLOW_PUBLIC_HEALTH_ROUTES",
+    )
+    auth_boundary_audit_allow_lifecycle_post_only: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_AUTH_BOUNDARY_AUDIT_ALLOW_LIFECYCLE_POST_ONLY",
+    )
+    auth_boundary_audit_require_webhook_signature: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_AUTH_BOUNDARY_AUDIT_REQUIRE_WEBHOOK_SIGNATURE",
+    )
+    auth_boundary_audit_require_live_command_gates: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_AUTH_BOUNDARY_AUDIT_REQUIRE_LIVE_COMMAND_GATES",
+    )
+    auth_boundary_audit_allow_real_identities: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_AUTH_BOUNDARY_AUDIT_ALLOW_REAL_IDENTITIES",
+    )
+    auth_boundary_audit_allow_real_domains: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_AUTH_BOUNDARY_AUDIT_ALLOW_REAL_DOMAINS",
+    )
+    auth_boundary_audit_allow_real_urls: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_AUTH_BOUNDARY_AUDIT_ALLOW_REAL_URLS",
+    )
+    auth_boundary_audit_allow_report_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_AUTH_BOUNDARY_AUDIT_ALLOW_REPORT_CONTENTS",
+    )
+    auth_boundary_audit_allow_private_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_AUTH_BOUNDARY_AUDIT_ALLOW_PRIVATE_PATHS",
+    )
+    auth_boundary_audit_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_AUTH_BOUNDARY_AUDIT_FAIL_CLOSED",
+    )
+    auth_boundary_audit_max_findings: int = Field(
+        default=300,
+        ge=1,
+        le=1000,
+        validation_alias="PROCORE_INTAKE_AUTH_BOUNDARY_AUDIT_MAX_FINDINGS",
+    )
     intake_review_workspace_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_ENABLED",

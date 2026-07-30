@@ -43,3 +43,6 @@ route, or artifact generation.
 H9 uses `make operator-export-check`; the Demo tour itself generates no export artifact.
 
 I1 models export artifacts as an ignored generated-output trust boundary.
+
+I2 verifies the export pack remains command-only and exposes no public download route. Generated
+artifacts remain ignored and any real review stays private.

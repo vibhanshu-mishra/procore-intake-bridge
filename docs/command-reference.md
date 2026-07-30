@@ -238,3 +238,13 @@ calls Procore or an external service, reads private reports, deploys, or release
 - `make security-threat-model-artifact-check` (temporary and cleaned)
 
 These commands run no live scanner/external call and claim no certification or authorization.
+
+## Offline auth and permission boundary audit
+
+- `make auth-boundary-audit`
+- `make auth-boundary-map`
+- `make permission-boundary-checklist`
+- `make auth-boundary-artifact-check` (temporary and cleaned)
+
+These commands inspect local code structure only. They add no auth provider and perform no live
+permission, Procore, database, cloud, deployment, or external check.

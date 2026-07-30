@@ -115,6 +115,10 @@ PRIVATE_PATH_PARTS = {
     "sandbox-evidence-linkage-output",
     "evidence-linkage-output",
     "support-output",
+    "auth-boundary-audit-output",
+    "permission-boundary-output",
+    "auth-review-output",
+    "permission-review-output",
     "sandbox-output",
     "sandbox-pilot-output",
     "pilot-flow-output",
@@ -136,7 +140,8 @@ class SafetyIssue:
 SECRET_ASSIGNMENT = re.compile(
     r"""(?ix)
     ["']?(access_token|refresh_token|client_secret|webhook_secret|admin_token|
-    app_version_key)["']?\s*[:=]\s*["']([^"'\r\n]+)["']
+    app_version_key|session_secret|cookie_secret|oauth_client_secret|
+    sso_provider_secret)["']?\s*[:=]\s*["']([^"'\r\n]+)["']
     """
 )
 BEARER = re.compile(r"(?i)authorization\s*:\s*bearer\s+([^\s'\"}]+)")
@@ -254,6 +259,23 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if any(
+        marker in path.as_posix()
+        for marker in ("auth-boundary", "auth_boundary", "permission-boundary")
+    ):
+        for line in text.splitlines():
+            if (
+                SECURITY_REVIEW_CLAIM.search(line)
+                and "tests" not in path.parts
+                and "services" not in path.parts
+                and not re.search(
+                    r"(?i)\b(?:no|not|never|does not|is not|must not)\b", line
+                )
+            ):
+                issues.append(
+                    SafetyIssue(path, "auth boundary audit implies certification or approval")
+                )
+                break
     if "security-threat" in path.as_posix() or "security_threat" in path.as_posix():
         for line in text.splitlines():
             if (
@@ -669,6 +691,26 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             )
         ):
             issues.append(SafetyIssue(path, "tracked generated security threat-model output"))
+            continue
+        if any(
+            part
+            in {
+                "auth-boundary-audit-output",
+                "permission-boundary-output",
+                "auth-review-output",
+                "permission-review-output",
+            }
+            for part in path.parts
+        ) or path.name.endswith(
+            (
+                ".auth-boundary-audit-report.json",
+                ".auth-boundary-audit-report.md",
+                ".auth-boundary-map.md",
+                ".permission-boundary-checklist.md",
+                ".route-permission-matrix.csv",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated auth-boundary output"))
             continue
         if path.name.endswith(
             (

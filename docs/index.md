@@ -140,3 +140,8 @@ journey without live operations.
 
 Use the [Security Threat Model](security-threat-model.md), [boundary map](security-boundary-map.md),
 and [review checklist](security-review-checklist.md) for offline security analysis.
+
+Use the [Auth / Permission Boundary Audit](auth-permission-boundary-audit.md),
+[auth map](auth-boundary-map.md), and
+[permission checklist](permission-boundary-checklist.md) to review existing route and command
+protections without adding an auth provider or performing live permission checks.

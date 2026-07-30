@@ -68,6 +68,9 @@ REQUIRED_DOCS = {
     "docs/security-threat-model.md",
     "docs/security-boundary-map.md",
     "docs/security-review-checklist.md",
+    "docs/auth-permission-boundary-audit.md",
+    "docs/auth-boundary-map.md",
+    "docs/permission-boundary-checklist.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -109,6 +112,10 @@ REQUIRED_SCRIPTS = {
     "scripts/print_security_boundary_map.py",
     "scripts/print_security_review_checklist.py",
     "scripts/generate_security_threat_model_artifacts.py",
+    "scripts/run_auth_boundary_audit.py",
+    "scripts/print_auth_boundary_map.py",
+    "scripts/print_permission_boundary_checklist.py",
+    "scripts/generate_auth_boundary_audit_artifacts.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -217,6 +224,10 @@ REQUIRED_EXAMPLES = {
     "examples/security-threat-model/README.md",
     "examples/security-threat-model/example_security_boundary_map.md",
     "examples/security-threat-model/example_security_review_checklist.md",
+    "examples/auth-boundary-audit/README.md",
+    "examples/auth-boundary-audit/example_auth_boundary_map.md",
+    "examples/auth-boundary-audit/example_permission_boundary_checklist.md",
+    "examples/auth-boundary-audit/example_route_permission_matrix.csv",
 }
 REQUIRED_TARGETS = {
     "review-workspace-summary",
@@ -240,6 +251,10 @@ REQUIRED_TARGETS = {
     "security-boundary-map",
     "security-review-checklist",
     "security-threat-model-artifact-check",
+    "auth-boundary-audit",
+    "auth-boundary-map",
+    "permission-boundary-checklist",
+    "auth-boundary-artifact-check",
     "help",
     "start",
     "commands",
@@ -420,6 +435,15 @@ IGNORED_OUTPUTS = {
     "*.threat-model.md",
     "*.security-boundary-map.md",
     "*.security-review-checklist.md",
+    "auth-boundary-audit-output/",
+    "permission-boundary-output/",
+    "auth-review-output/",
+    "permission-review-output/",
+    "*.auth-boundary-audit-report.json",
+    "*.auth-boundary-audit-report.md",
+    "*.auth-boundary-map.md",
+    "*.permission-boundary-checklist.md",
+    "*.route-permission-matrix.csv",
 }
 GENERATED_PARTS = {
     "private-workspace",
@@ -465,6 +489,10 @@ GENERATED_PARTS = {
     "threat-model-output",
     "security-review-output",
     "security-assessment-output",
+    "auth-boundary-audit-output",
+    "permission-boundary-output",
+    "auth-review-output",
+    "permission-review-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak",
@@ -776,6 +804,24 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         "I1 artifact generation excluded from quality": (
             "security-threat-model-artifact-check" not in quality_header
         ),
+        "I2 auth audit is offline and adds no provider": all(
+            phrase in _read(root, "docs/auth-permission-boundary-audit.md").casefold()
+            for phrase in (
+                "offline",
+                "no live permission check",
+                "no authentication provider",
+                "sso",
+                "oauth",
+                "rbac",
+            )
+        ),
+        "I2 auth audit disclaims certification and approval": all(
+            phrase in _read(root, "docs/auth-permission-boundary-audit.md").casefold()
+            for phrase in ("not production approval", "security certification", "pilot approval")
+        ),
+        "I2 artifact generation excluded from quality": (
+            "auth-boundary-artifact-check" not in quality_header
+        ),
         "H3 workspace is read-only and local": all(
             phrase in _read(root, "docs/intake-review-workspace.md").casefold()
             for phrase in ("read-only", "local intake records only", "no procore")
@@ -1062,6 +1108,11 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 ".sandbox-evidence-summary.md",
                 ".sandbox-evidence-manifest.json",
                 ".sandbox-evidence-manifest.md",
+                ".auth-boundary-audit-report.json",
+                ".auth-boundary-audit-report.md",
+                ".auth-boundary-map.md",
+                ".permission-boundary-checklist.md",
+                ".route-permission-matrix.csv",
             )
         ):
             add(

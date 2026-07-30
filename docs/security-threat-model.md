@@ -24,3 +24,6 @@ I1 does not provide production authorization, security or compliance certificati
 HIPAA, launch authorization, or Pilot authorization. Later I-series work may deepen offline risk
 analysis while preserving these boundaries.
 
+I2 applies the [Auth / Permission Boundary Audit](auth-permission-boundary-audit.md) to the route
+and command surfaces named here. It uses existing guard structure only and adds no login, SSO,
+OAuth, RBAC, account, cookie, or session capability.

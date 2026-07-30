@@ -63,3 +63,8 @@ Private Sandbox and Pilot work remains a later, gated boundary.
 
 Security Threat Model documents public controls and private review boundaries. Later I-series
 work may deepen offline analysis without live scanners or approval claims.
+
+## I2 — completed
+
+Auth / Permission Boundary Audit maps existing route and command protections offline. It adds no
+authentication provider, live permission integration, external call, certification, or approval.

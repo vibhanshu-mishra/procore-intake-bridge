@@ -35,3 +35,7 @@ Phase I1 adds `make security-threat-model`, `make security-boundary-map`, and
 `make security-review-checklist` to the offline maintainer sequence. These commands document
 trust boundaries and public controls; they do not scan a live system, certify security, approve
 production, or replace a private security review.
+
+Phase I2 adds the offline auth/permission boundary audit to maintainer review. A ready result
+means the existing public, guarded, webhook, local-only, and manually gated surfaces were mapped;
+it is not live permission verification, security certification, or production approval.

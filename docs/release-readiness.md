@@ -63,3 +63,6 @@ Run `make security-threat-model` before a future manual release decision. A read
 the public, placeholder-safe threat-model inputs are complete. It is not a security
 certification, compliance determination, production approval, or substitute for authorized
 private review.
+
+Also run `make auth-boundary-audit`. It adds no login or identity provider and does not prove
+runtime permissions; private deployment authorization review remains a separate manual gate.

@@ -36,3 +36,6 @@ H9 uses this dashboard as the starting cockpit for the
 [Demo Product Walkthrough](demo-product-walkthrough.md).
 
 The I1 threat model treats the dashboard as a protected local trust boundary.
+
+The I2 audit classifies both dashboard GET routes as protected by the existing admin guard. It
+adds no login system and confirms the dashboard exposes no export download or file-serving route.

@@ -26,6 +26,9 @@ nav:
       - Security Threat Model: security-threat-model.md
       - Security Boundary Map: security-boundary-map.md
       - Security Review Checklist: security-review-checklist.md
+      - Auth / Permission Boundary Audit: auth-permission-boundary-audit.md
+      - Auth Boundary Map: auth-boundary-map.md
+      - Permission Boundary Checklist: permission-boundary-checklist.md
   - Sandbox Mode:
       - Sandbox Mode: sandbox-mode.md
       - Sandbox Onboarding: sandbox-onboarding.md

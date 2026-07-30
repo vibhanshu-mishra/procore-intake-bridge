@@ -2,7 +2,7 @@
 
 PYTHON ?= .venv/bin/python
 
-.PHONY: security-threat-model security-boundary-map security-review-checklist security-threat-model-artifact-check demo-product-tour demo-product-check demo-evaluation-checklist demo-product-artifact-check product-dashboard-overview product-dashboard-check review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check operator-export-check operator-export-summary operator-export-artifact-check
+.PHONY: security-threat-model security-boundary-map security-review-checklist security-threat-model-artifact-check auth-boundary-audit auth-boundary-map permission-boundary-checklist auth-boundary-artifact-check demo-product-tour demo-product-check demo-evaluation-checklist demo-product-artifact-check product-dashboard-overview product-dashboard-check review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check operator-export-check operator-export-summary operator-export-artifact-check
 
 help:
 	@echo "START HERE"
@@ -20,6 +20,9 @@ help:
 	@echo "  make security-threat-model   Offline public-safe threat model"
 	@echo "  make security-boundary-map   Print trust-boundary summary"
 	@echo "  make security-review-checklist Print offline security checklist"
+	@echo "  make auth-boundary-audit      Offline auth/permission boundary audit"
+	@echo "  make auth-boundary-map        Print offline route protection map"
+	@echo "  make permission-boundary-checklist Print offline permission checklist"
 	@echo "  make product-dashboard-overview Sanitized local product cockpit summary"
 	@echo "  make product-dashboard-check Validate the read-only product cockpit"
 	@echo "  make review-workspace-summary Read-only local intake summary"
@@ -187,6 +190,18 @@ security-review-checklist:
 
 security-threat-model-artifact-check:
 	$(PYTHON) scripts/generate_security_threat_model_artifacts.py --temporary
+
+auth-boundary-audit:
+	$(PYTHON) scripts/run_auth_boundary_audit.py
+
+auth-boundary-map:
+	$(PYTHON) scripts/print_auth_boundary_map.py
+
+permission-boundary-checklist:
+	$(PYTHON) scripts/print_permission_boundary_checklist.py
+
+auth-boundary-artifact-check:
+	$(PYTHON) scripts/generate_auth_boundary_audit_artifacts.py --temporary
 
 demo-product-tour:
 	$(PYTHON) scripts/print_demo_product_tour.py
@@ -566,4 +581,5 @@ quality: operator-export-check operator-export-summary
 quality: product-dashboard-check product-dashboard-overview
 quality: demo-product-check demo-product-tour demo-evaluation-checklist
 quality: security-threat-model security-boundary-map security-review-checklist
+quality: auth-boundary-audit auth-boundary-map permission-boundary-checklist
 	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict

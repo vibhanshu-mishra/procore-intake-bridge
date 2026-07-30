@@ -7,3 +7,5 @@ hosted preparation, private review, and generated-output trust boundaries. Run
 No URL, credential, private path, infrastructure identifier, report content, or live result is
 included. The map is review input only, not certification or production authorization.
 
+See the I2 [auth boundary map](auth-boundary-map.md) for the route-class, protection-type, and
+method-risk projection.

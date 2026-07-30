@@ -105,3 +105,6 @@ language, no-live boundaries, and decision disclaimers.
 
 I1 coverage verifies threat-model docs, scripts, examples, commands, ignore patterns, and
 offline/no-certification/no-authorization language.
+
+I2 coverage verifies auth-boundary docs, scripts, placeholder examples, commands, ignore
+patterns, offline-only behavior, and the absence of new auth-provider or approval claims.

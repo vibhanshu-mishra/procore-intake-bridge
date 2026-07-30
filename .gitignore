@@ -276,6 +276,15 @@ security-assessment-output/
 *.threat-model.md
 *.security-boundary-map.md
 *.security-review-checklist.md
+auth-boundary-audit-output/
+permission-boundary-output/
+auth-review-output/
+permission-review-output/
+*.auth-boundary-audit-report.json
+*.auth-boundary-audit-report.md
+*.auth-boundary-map.md
+*.permission-boundary-checklist.md
+*.route-permission-matrix.csv
 review-export-output/
 intake-export-output/
 lifecycle-export-output/
