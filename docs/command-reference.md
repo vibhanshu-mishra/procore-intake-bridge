@@ -1,5 +1,9 @@
 # Command reference
 
+Optional cloud-storage commands are `make cloud-storage-template`,
+`make cloud-storage-check`, and `make cloud-storage-explain`. They perform no object or network
+operation. See [Optional cloud storage providers](cloud-storage-providers.md).
+
 Optional cloud commands are `make cloud-secret-template`, `make cloud-secret-check`, and
 `make cloud-secret-explain`. All three are offline and resolve no values. See
 [Optional cloud secret providers](cloud-secret-providers.md).

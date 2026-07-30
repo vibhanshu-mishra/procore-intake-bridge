@@ -1,5 +1,8 @@
 # Deployment recipes
 
+Recipes may contain storage reference placeholders only. They must not contain provider resource
+names, object keys from live data, signed URLs, credentials, paths, or object contents.
+
 Recipes contain secret references only. Optional cloud SDKs belong in a private runtime extra;
 recipes must not contain credentials, provider resource identifiers, or credential paths.
 

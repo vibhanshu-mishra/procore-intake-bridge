@@ -1,5 +1,8 @@
 # Public usability audit
 
+G2 requires four cloud-storage docs, three offline scripts, placeholder-only examples, Make
+targets, disabled-by-default guidance, and explicit no-presigned-URL guidance.
+
 G1 requires four cloud-provider docs, three offline scripts, placeholder-only examples, Make
 targets, disabled-by-default guidance, and no-cloud-call guidance.
 

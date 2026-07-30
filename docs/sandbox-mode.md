@@ -1,5 +1,8 @@
 # Sandbox mode
 
+Sandbox may use optional cloud storage, but local remains recommended first. Cloud providers and
+network operations are disabled by default; preparation and doctor commands never contact them.
+
 Sandbox may use an optional cloud secret provider, but `env` or `file` is recommended first.
 Cloud providers are disabled and network-blocked by default; preparation and doctor commands do
 not contact them.

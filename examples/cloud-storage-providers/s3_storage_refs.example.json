@@ -1,0 +1,8 @@
+{
+  "provider": "s3",
+  "enabled": false,
+  "region_ref": "S3_REGION_REF_PLACEHOLDER",
+  "bucket_ref": "S3_BUCKET_REF_PLACEHOLDER",
+  "object_prefix": "S3_OBJECT_PREFIX_PLACEHOLDER",
+  "object_contents_included": false
+}

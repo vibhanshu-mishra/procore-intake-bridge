@@ -1,5 +1,9 @@
 # Troubleshooting
 
+`dependency_missing` is expected for cloud storage in the default install. Continue locally or
+install the matching optional extra in the private runtime. Never paste resource names, signed
+URLs, credentials, object keys, or contents into logs or issues.
+
 `dependency_missing` is expected for cloud providers in the default install. Continue with `env`
 or `file`, or install the matching extra in the private runtime. Never paste credentials or
 provider resource identifiers into public logs or issues.

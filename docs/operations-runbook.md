@@ -1,5 +1,9 @@
 # Operations runbook
 
+Run offline `make cloud-storage-check` before selecting a cloud provider. List, delete, and
+overwrite are separate default-off gates; G2 has no presigned URLs. Readiness is not production
+security approval.
+
 Before selecting a cloud secret provider, run offline `make cloud-secret-check`. Missing optional
 dependencies and configuration are reported without resource names or values. Readiness is not
 production security approval.

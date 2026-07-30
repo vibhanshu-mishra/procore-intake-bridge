@@ -7,11 +7,19 @@ TARGETS = [
     Path(".env.example"),
     Path("examples/customer-deployments/example_customer_profile.json"),
     Path("examples/private-workspace/example_workspace_manifest.json"),
+    Path("examples/cloud-storage-providers/s3_storage_refs.example.json"),
+    Path("examples/cloud-storage-providers/azure_blob_storage_refs.example.json"),
+    Path("examples/cloud-storage-providers/gcs_storage_refs.example.json"),
 ]
 UNSAFE = re.compile(
     r"(?i)(https?://\S+[?&](?:signature|signed|token|expires)=|"
-    r"(?:s3|gs|azure)://(?![^\\s]*placeholder)|"
-    r"(?:aws_access_key|secret_access_key|private_key)\\s*[:=])"
+    r"(?:s3|gs|azure)://(?![^\s]*placeholder)|"
+    r"\barn:aws[a-z-]*:s3:|"
+    r"https://[a-z0-9-]+\.blob\.core\.windows\.net|"
+    r"\bprojects/[^/\s]+/(?:buckets|locations)/|"
+    r"BEGIN [A-Z ]*PRIVATE KEY|"
+    r'"(?:private_key|client_email)"\s*:|'
+    r"(?:aws_access_key|secret_access_key|private_key)\s*[:=])"
 )
 
 

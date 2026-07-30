@@ -701,9 +701,9 @@ def check_storage_provider_posture(settings: Settings) -> list[DeploymentFinding
         _finding(
             "storage_provider_posture",
             "info" if readiness.ready else "warning",
-            "D2 storage provider is locally available with sanitized diagnostics."
+            "G2 storage provider is available with sanitized offline diagnostics."
             if readiness.ready
-            else "D2 storage provider is unavailable or needs private configuration.",
+            else "G2 storage provider is unavailable or needs private configuration.",
         )
     ]
 

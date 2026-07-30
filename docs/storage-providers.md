@@ -1,5 +1,9 @@
 # Storage providers
 
+Start with local storage. S3, Azure Blob, and GCS are optional, dynamically loaded, disabled by
+default, and intended only for private Sandbox or Pilot use. Default health and inventory make no
+cloud calls. See [cloud storage providers](cloud-storage-providers.md).
+
 Demo Mode needs no storage setup. Sandbox/Pilot storage is private and operator-controlled.
 What to run next: `make storage-provider-check`; it makes no external storage call.
 

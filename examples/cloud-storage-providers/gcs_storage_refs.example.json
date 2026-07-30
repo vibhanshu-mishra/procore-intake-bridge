@@ -1,0 +1,8 @@
+{
+  "provider": "gcs",
+  "enabled": false,
+  "project_ref": "GCS_PROJECT_ID_REF_PLACEHOLDER",
+  "bucket_ref": "GCS_BUCKET_REF_PLACEHOLDER",
+  "object_prefix": "GCS_OBJECT_PREFIX_PLACEHOLDER",
+  "object_contents_included": false
+}

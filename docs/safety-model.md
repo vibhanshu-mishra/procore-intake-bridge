@@ -1,5 +1,9 @@
 # Safety model
 
+Cloud storage operations require independent selection, provider-enable, allow, network,
+confirmation, configuration, and dependency gates. Diagnostics expose no contents, provider
+resource names, object keys, credentials, signed URLs, or paths.
+
 Cloud resolution adds independent allow, provider-enable, network, confirmation, configuration,
 and dependency gates. Reports expose no values, credentials, resource identifiers, or paths.
 

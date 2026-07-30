@@ -18,6 +18,73 @@ class StorageProviderKind(StrEnum):
     GCS = "gcs"
 
 
+class CloudStorageProviderKind(StrEnum):
+    S3 = "s3"
+    AZURE_BLOB = "azure_blob"
+    GCS = "gcs"
+
+
+class CloudStorageProviderStatus(StrEnum):
+    DISABLED = "disabled"
+    DEPENDENCY_MISSING = "dependency_missing"
+    NEEDS_CONFIGURATION = "needs_configuration"
+    BLOCKED = "blocked"
+    READY_FOR_OPERATIONS = "ready_for_operations"
+
+
+class CloudStorageProviderDependencyStatus(StrEnum):
+    AVAILABLE = "available"
+    DEPENDENCY_MISSING = "dependency_missing"
+
+
+class CloudStorageProviderConfigStatus(StrEnum):
+    CONFIGURED = "configured"
+    NEEDS_CONFIGURATION = "needs_configuration"
+
+
+class CloudStorageProviderFinding(StrictStorageModel):
+    code: str
+    severity: Literal["info", "warning", "blocking"]
+    message: str
+
+
+class CloudStorageOperationPolicy(StrictStorageModel):
+    provider: CloudStorageProviderKind
+    enabled: bool
+    cloud_provider_allowed: bool
+    cloud_network_enabled: bool
+    cloud_confirmation_present: bool
+    configured: bool
+    operations_allowed: bool
+    list_allowed: bool = False
+    delete_allowed: bool = False
+    overwrite_allowed: bool = False
+    presigned_urls_allowed: bool = False
+    fail_closed: bool = True
+
+
+class CloudStorageProviderHealth(StrictStorageModel):
+    provider: CloudStorageProviderKind
+    status: CloudStorageProviderStatus
+    enabled: bool
+    dependency_available: bool
+    dependency_missing: bool
+    cloud_network_enabled: bool
+    cloud_confirmation_present: bool
+    configured: bool
+    operations_allowed: bool
+    health_network_check_attempted: bool = False
+    contents_exposed: bool = False
+    bucket_names_exposed: bool = False
+    object_keys_exposed: bool = False
+    credentials_exposed: bool = False
+    signed_urls_exposed: bool = False
+    private_paths_exposed: bool = False
+    external_calls: bool = False
+    findings: list[CloudStorageProviderFinding] = Field(default_factory=list)
+    recommended_next_steps: list[str] = Field(default_factory=list)
+
+
 class StorageObjectStatus(StrEnum):
     PRESENT = "present"
     MISSING = "missing"

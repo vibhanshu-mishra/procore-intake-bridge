@@ -54,6 +54,7 @@ class AttachmentStorageReadResult(AttachmentStorageWriteResult):
 
 
 class AttachmentStorageProvider(Protocol):
+    """Attachment boundary; cloud posture is supplied by app.services.storage."""
     name: str
 
     def write_bytes(

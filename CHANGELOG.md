@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Phase G2 adds optional S3, Azure Blob, and GCS adapters, fail-closed operation gates, offline
+  readiness commands, placeholder examples, audits, and mocked tests.
+
 - Phase G1 adds optional AWS Secrets Manager, Azure Key Vault, and GCP Secret Manager adapters,
   fail-closed gates, offline readiness commands, placeholder examples, audits, and mocked tests.
 

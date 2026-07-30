@@ -166,6 +166,23 @@ def collect_configuration_summary(
             "attachment_storage_provider": get_attachment_storage_provider_name(settings),
             "storage_provider": settings.storage_provider,
             "storage_provider_fail_closed": settings.storage_provider_fail_closed,
+            "cloud_storage_allowed": settings.storage_provider_allow_cloud,
+            "cloud_storage_network_enabled": (
+                settings.storage_provider_cloud_network_enabled
+            ),
+            "cloud_storage_confirmation_present": bool(
+                settings.storage_provider_cloud_confirmation
+            ),
+            "cloud_storage_list_allowed": settings.storage_provider_cloud_allow_list,
+            "cloud_storage_delete_allowed": (
+                settings.storage_provider_cloud_allow_delete
+            ),
+            "cloud_storage_overwrite_allowed": (
+                settings.storage_provider_cloud_allow_overwrite
+            ),
+            "cloud_storage_presigned_urls_allowed": (
+                settings.storage_provider_cloud_allow_presigned_urls
+            ),
             "database_provider": settings.database_provider,
             "database_external_connect_enabled": (settings.database_external_connect_enabled),
             "database_url_reference_configured": bool(settings.database_url_ref.strip()),

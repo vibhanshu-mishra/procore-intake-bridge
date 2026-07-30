@@ -1,5 +1,8 @@
 # Project status
 
+Phase G2 adds optional S3, Azure Blob, and GCS adapters with fail-closed gates and mocked tests.
+It does not claim production security completion.
+
 Phase G1 adds optional AWS, Azure, and GCP secret-manager adapters with fail-closed gates and
 mocked tests. It does not claim production security completion.
 

@@ -1,0 +1,8 @@
+{
+  "provider": "azure_blob",
+  "enabled": false,
+  "account_ref": "AZURE_STORAGE_ACCOUNT_REF_PLACEHOLDER",
+  "container_ref": "AZURE_BLOB_CONTAINER_REF_PLACEHOLDER",
+  "object_prefix": "AZURE_BLOB_PREFIX_PLACEHOLDER",
+  "object_contents_included": false
+}

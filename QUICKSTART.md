@@ -1,5 +1,8 @@
 # Quickstart: start with Demo Mode
 
+For private Sandbox or Pilot storage, start local. Optional cloud storage is disabled and offline
+by default; see [docs/cloud-storage-providers.md](docs/cloud-storage-providers.md).
+
 For private Sandbox or Pilot configuration, start with `env` or `file`. Optional cloud secret
 providers are disabled and offline by default; see
 [docs/cloud-secret-providers.md](docs/cloud-secret-providers.md).

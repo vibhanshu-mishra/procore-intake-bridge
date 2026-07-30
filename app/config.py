@@ -1091,6 +1091,44 @@ class Settings(BaseSettings):
         default=False,
         validation_alias="PROCORE_INTAKE_STORAGE_PROVIDER_ALLOW_CLOUD",
     )
+    storage_provider_cloud_network_enabled: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_STORAGE_PROVIDER_CLOUD_NETWORK_ENABLED",
+    )
+    storage_provider_cloud_confirmation: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_STORAGE_PROVIDER_CLOUD_CONFIRMATION",
+    )
+    storage_provider_cloud_timeout_seconds: int = Field(
+        default=20,
+        ge=1,
+        le=60,
+        validation_alias="PROCORE_INTAKE_STORAGE_PROVIDER_CLOUD_TIMEOUT_SECONDS",
+    )
+    storage_provider_cloud_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_STORAGE_PROVIDER_CLOUD_FAIL_CLOSED",
+    )
+    storage_provider_cloud_health_network_check: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_STORAGE_PROVIDER_CLOUD_HEALTH_NETWORK_CHECK",
+    )
+    storage_provider_cloud_allow_list: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_STORAGE_PROVIDER_CLOUD_ALLOW_LIST",
+    )
+    storage_provider_cloud_allow_delete: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_STORAGE_PROVIDER_CLOUD_ALLOW_DELETE",
+    )
+    storage_provider_cloud_allow_overwrite: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_STORAGE_PROVIDER_CLOUD_ALLOW_OVERWRITE",
+    )
+    storage_provider_cloud_allow_presigned_urls: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_STORAGE_PROVIDER_CLOUD_ALLOW_PRESIGNED_URLS",
+    )
     storage_provider_fail_closed: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_STORAGE_PROVIDER_FAIL_CLOSED",
@@ -1129,13 +1167,77 @@ class Settings(BaseSettings):
         default=False,
         validation_alias="PROCORE_INTAKE_S3_STORAGE_ENABLED",
     )
+    s3_region_ref: str = Field(
+        default="AWS_REGION",
+        validation_alias="PROCORE_INTAKE_S3_REGION_REF",
+    )
+    s3_bucket_ref: str = Field(
+        default="S3_BUCKET_NAME",
+        validation_alias="PROCORE_INTAKE_S3_BUCKET_REF",
+    )
+    s3_key_prefix: str = Field(
+        default="procore-intake-placeholder",
+        validation_alias="PROCORE_INTAKE_S3_KEY_PREFIX",
+    )
+    s3_require_region: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_S3_REQUIRE_REGION",
+    )
+    s3_allow_bucket_arns: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_S3_ALLOW_BUCKET_ARNS",
+    )
+    s3_allow_s3_urls: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_S3_ALLOW_S3_URLS",
+    )
     azure_blob_storage_enabled: bool = Field(
         default=False,
         validation_alias="PROCORE_INTAKE_AZURE_BLOB_STORAGE_ENABLED",
     )
+    azure_storage_account_ref: str = Field(
+        default="AZURE_STORAGE_ACCOUNT_NAME",
+        validation_alias="PROCORE_INTAKE_AZURE_STORAGE_ACCOUNT_REF",
+    )
+    azure_blob_container_ref: str = Field(
+        default="AZURE_BLOB_CONTAINER_NAME",
+        validation_alias="PROCORE_INTAKE_AZURE_BLOB_CONTAINER_REF",
+    )
+    azure_blob_prefix: str = Field(
+        default="procore-intake-placeholder",
+        validation_alias="PROCORE_INTAKE_AZURE_BLOB_PREFIX",
+    )
+    azure_blob_use_default_credential: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_AZURE_BLOB_USE_DEFAULT_CREDENTIAL",
+    )
+    azure_blob_allow_urls: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_AZURE_BLOB_ALLOW_URLS",
+    )
     gcs_storage_enabled: bool = Field(
         default=False,
         validation_alias="PROCORE_INTAKE_GCS_STORAGE_ENABLED",
+    )
+    gcs_project_id_ref: str = Field(
+        default="GCP_PROJECT_ID",
+        validation_alias="PROCORE_INTAKE_GCS_PROJECT_ID_REF",
+    )
+    gcs_bucket_ref: str = Field(
+        default="GCS_BUCKET_NAME",
+        validation_alias="PROCORE_INTAKE_GCS_BUCKET_REF",
+    )
+    gcs_key_prefix: str = Field(
+        default="procore-intake-placeholder",
+        validation_alias="PROCORE_INTAKE_GCS_KEY_PREFIX",
+    )
+    gcs_allow_resource_names: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_GCS_ALLOW_RESOURCE_NAMES",
+    )
+    gcs_allow_gs_urls: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_GCS_ALLOW_GS_URLS",
     )
     database_provider: Literal["sqlite", "postgres"] = Field(
         default="sqlite", validation_alias="PROCORE_INTAKE_DATABASE_PROVIDER"

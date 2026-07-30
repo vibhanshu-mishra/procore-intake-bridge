@@ -1,5 +1,8 @@
 # Pilot mode
 
+Pilot storage selection is a private operator decision. Cloud storage readiness does not approve
+production security or a pilot, and default preflight checks perform no cloud object operations.
+
 Pilot provider selection is a private operator decision. Optional cloud readiness does not approve
 production security or a pilot, and default preflight checks do not contact cloud services.
 

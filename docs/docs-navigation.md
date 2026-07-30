@@ -1,5 +1,8 @@
 # Documentation navigation map
 
+Cloud storage guidance starts at [Optional cloud storage providers](cloud-storage-providers.md),
+with S3, Azure Blob, and GCS pages under **Providers and Infrastructure**.
+
 Cloud secret guidance begins at [Optional cloud secret providers](cloud-secret-providers.md), with
 AWS, Azure, and GCP pages under **Providers and Infrastructure**.
 

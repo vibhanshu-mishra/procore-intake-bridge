@@ -33,6 +33,10 @@ REQUIRED_DOCS = {
     "docs/aws-secrets-manager.md",
     "docs/azure-key-vault-secrets.md",
     "docs/gcp-secret-manager.md",
+    "docs/cloud-storage-providers.md",
+    "docs/s3-storage.md",
+    "docs/azure-blob-storage.md",
+    "docs/gcs-storage.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -86,6 +90,9 @@ REQUIRED_SCRIPTS = {
     "scripts/check_cloud_secret_provider.py",
     "scripts/print_cloud_secret_provider_template.py",
     "scripts/explain_cloud_secret_resolution.py",
+    "scripts/check_cloud_storage_provider.py",
+    "scripts/print_cloud_storage_provider_template.py",
+    "scripts/explain_cloud_storage_operations.py",
 }
 REQUIRED_EXAMPLES = {
     "examples/demo-flow.md",
@@ -103,6 +110,10 @@ REQUIRED_EXAMPLES = {
     "examples/cloud-secret-providers/aws_secret_refs.example.json",
     "examples/cloud-secret-providers/azure_secret_refs.example.json",
     "examples/cloud-secret-providers/gcp_secret_refs.example.json",
+    "examples/cloud-storage-providers/README.md",
+    "examples/cloud-storage-providers/s3_storage_refs.example.json",
+    "examples/cloud-storage-providers/azure_blob_storage_refs.example.json",
+    "examples/cloud-storage-providers/gcs_storage_refs.example.json",
 }
 REQUIRED_TARGETS = {
     "help",
@@ -149,6 +160,9 @@ REQUIRED_TARGETS = {
     "cloud-secret-template",
     "cloud-secret-check",
     "cloud-secret-explain",
+    "cloud-storage-template",
+    "cloud-storage-check",
+    "cloud-storage-explain",
 }
 IGNORED_OUTPUTS = {
     "private-workspace/",
@@ -384,6 +398,18 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         "cloud readiness is not security approval": (
             "not production security approval"
             in _read(root, "docs/cloud-secret-providers.md").casefold()
+        ),
+        "cloud storage is optional and disabled": all(
+            term in _read(root, "docs/cloud-storage-providers.md").casefold()
+            for term in ("optional", "disabled by default", "local provider first")
+        ),
+        "cloud storage checks are offline": (
+            "never contact cloud"
+            in _read(root, "docs/cloud-storage-providers.md").casefold()
+        ),
+        "cloud storage excludes presigned URLs": (
+            "no presigned url"
+            in _read(root, "docs/cloud-storage-providers.md").casefold()
         ),
         "beginner docs steer to friendly targets": all(
             command in docs

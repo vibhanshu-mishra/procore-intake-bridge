@@ -29,6 +29,15 @@ cloud-secrets = [
   "azure-keyvault-secrets>=4.9,<5",
   "google-cloud-secret-manager>=2.21,<3",
 ]
+s3-storage = ["boto3>=1.35,<2"]
+azure-blob-storage = ["azure-identity>=1.19,<2", "azure-storage-blob>=12.24,<13"]
+gcs-storage = ["google-cloud-storage>=2.19,<4"]
+cloud-storage = [
+  "boto3>=1.35,<2",
+  "azure-identity>=1.19,<2",
+  "azure-storage-blob>=12.24,<13",
+  "google-cloud-storage>=2.19,<4",
+]
 
 [tool.hatch.build.targets.wheel]
 packages = ["app"]

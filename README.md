@@ -1,5 +1,9 @@
 # Procore Intake Bridge
 
+Optional S3, Azure Blob, and GCS storage providers are documented in
+[docs/cloud-storage-providers.md](docs/cloud-storage-providers.md). They are disabled by default,
+use optional dependencies, and are never contacted by default checks. Start with local storage.
+
 Optional AWS, Azure, and GCP secret providers are documented in
 [docs/cloud-secret-providers.md](docs/cloud-secret-providers.md). They are disabled by default,
 use optional dependencies, and are never contacted by default checks. Start with `env` or `file`.

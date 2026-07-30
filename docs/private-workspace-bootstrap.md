@@ -1,5 +1,8 @@
 # Private workspace bootstrap
 
+Storage manifests record references, never provider names or object contents from live systems.
+Prefer local storage; optional cloud providers require private SDK installation and explicit gates.
+
 The workspace records secret references, never values. Prefer `env` or `file`; optional cloud
 providers require separately installed SDKs and deliberate private enablement. Do not paste cloud
 credentials or resource identifiers into manifests.

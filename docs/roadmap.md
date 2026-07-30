@@ -1,5 +1,8 @@
 # Roadmap
 
+Phase G2 implements optional dynamically imported cloud storage providers. Default workflows
+remain offline, with separate list/delete/overwrite restrictions and no presigned URLs.
+
 Phase G1 implements optional dynamically imported cloud secret providers. Default workflows
 remain offline, and operator review is required before private Sandbox or Pilot use.
 

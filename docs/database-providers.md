@@ -1,5 +1,8 @@
 # Database providers
 
+Database and cloud-storage readiness remain separate offline checks. Neither default check resolves
+credentials, reads objects, or opens an external connection.
+
 External database URL references may be resolved internally by a deliberately configured secret
 provider. Default database and cloud-provider checks resolve no values or external connections.
 

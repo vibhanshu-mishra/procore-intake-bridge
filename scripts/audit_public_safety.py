@@ -161,6 +161,19 @@ CLOUD_RESOURCE_ID = re.compile(
 CLOUD_CREDENTIAL_PATH = re.compile(
     r"(?i)(?:/Users/|/home/|[A-Z]:\\)[^\r\n]*(?:\.aws|\.azure|gcloud|credentials)"
 )
+CLOUD_STORAGE_RESOURCE = re.compile(
+    r"(?i)(?:"
+    r"\bs3://[^\s\"']+|"
+    r"\bgs://[^\s\"']+|"
+    r"\barn:aws[a-z-]*:s3:[^\s\"']+|"
+    r"https://[a-z0-9-]+\.blob\.core\.windows\.net(?:/|\b)|"
+    r"\bprojects/[^/\s]+/(?:buckets|locations)/[^/\s]+"
+    r")"
+)
+CLOUD_STORAGE_CONTENT = re.compile(
+    r"""(?ix)["']?(?:object_contents?|file_contents?|attachment_contents?|
+    object_key|blob_name)["']?\s*:\s*["']([^"' \r\n][^"'\r\n]*)["']"""
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -175,6 +188,12 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
         text,
     ):
         issues.append(SafetyIssue(path, "external analytics or tracking JavaScript"))
+    if "examples/cloud-storage-providers" in path.as_posix():
+        for match in CLOUD_STORAGE_CONTENT.finditer(text):
+            if not _safe_value(match.group(1)):
+                issues.append(
+                    SafetyIssue(path, "cloud storage example contains an object key or contents")
+                )
     for line in text.splitlines():
         if (
             path.suffix.casefold() != ".py"
@@ -183,6 +202,15 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
             and not ("{" in line and "}" in line)
         ):
             issues.append(SafetyIssue(path, "cloud resource identifier or credential JSON"))
+            break
+    for line in text.splitlines():
+        if (
+            path.suffix.casefold() != ".py"
+            and CLOUD_STORAGE_RESOURCE.search(line)
+            and not _safe_value(line)
+            and not ("{" in line and "}" in line)
+        ):
+            issues.append(SafetyIssue(path, "cloud storage resource identifier or URL"))
             break
     if path.suffix.casefold() != ".py" and CLOUD_CREDENTIAL_PATH.search(text):
         issues.append(SafetyIssue(path, "local cloud credential path"))
