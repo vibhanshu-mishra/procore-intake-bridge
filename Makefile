@@ -1,21 +1,43 @@
-.PHONY: help first-run public-usability-audit safety-check test lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check storage-provider-template storage-provider-check storage-refs-check local-storage-provider-check migration-status migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check webhook-verification-check customer-template customer-profile-check customer-artifact-check diagnostics support-bundle support-bundle-check pilot-template pilot-readiness-check pilot-artifact-check evidence-template evidence-manifest-check evidence-workspace-check evidence-review-template evidence-review-check evidence-expiry-check evidence-review-artifact-check pilot-approval-template pilot-approval-check pilot-approval-safety-check pilot-approval-artifact-check modes doctor setup-demo check-local demo demo-sync sandbox-check pilot-check mode-report private-workspace-template init-private-workspace validate-private-workspace private-workspace-git-safety private-workspace-check secret-provider-template secret-provider-check secret-refs-check file-secret-provider-check quality
+.PHONY: help start commands next try-demo prepare-sandbox prepare-pilot first-run public-usability-audit safety-check test lint compile pip-check safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check storage-provider-template storage-provider-check storage-refs-check local-storage-provider-check migration-status migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check webhook-verification-check customer-template customer-profile-check customer-artifact-check diagnostics support-bundle support-bundle-check pilot-template pilot-readiness-check pilot-artifact-check evidence-template evidence-manifest-check evidence-workspace-check evidence-review-template evidence-review-check evidence-expiry-check evidence-review-artifact-check pilot-approval-template pilot-approval-check pilot-approval-safety-check pilot-approval-artifact-check modes doctor setup-demo check-local demo demo-sync sandbox-check pilot-check mode-report private-workspace-template init-private-workspace validate-private-workspace private-workspace-git-safety private-workspace-check secret-provider-template secret-provider-check secret-refs-check file-secret-provider-check quality
 
 PYTHON ?= .venv/bin/python
 
 help:
-	@echo "Procore Intake Bridge — safe local commands"
-	@echo "  make first-run              Check this clone and show the next safe command"
-	@echo "  make setup-demo / demo      Set up and run the fixture-only Demo Mode"
-	@echo "  make modes / doctor         Compare modes or diagnose readiness"
-	@echo "  make sandbox-check          Offline Sandbox readiness; never runs live smoke"
-	@echo "  make pilot-check            Validate fake pilot examples; never approves a pilot"
-	@echo "  make init-private-workspace Create ignored private placeholder scaffolds"
-	@echo "  make safety-check           Run public usability, data, and route safety audits"
-	@echo "  make quality                Run all offline developer checks and tests"
-	@echo "See QUICKSTART.md and docs/command-reference.md for details."
+	@echo "START HERE"
+	@echo "  make start                  Safe onboarding summary, doctor, and next step"
+	@echo "  make commands               Grouped command guide"
+	@echo "  make doctor                 Local readiness summary"
+	@echo "MODES"
+	@echo "  make try-demo               Fixture-only demo; no credentials"
+	@echo "  make prepare-sandbox        Offline private Sandbox preparation"
+	@echo "  make prepare-pilot          Offline private Pilot preparation"
+	@echo "SAFETY AND DEVELOPMENT"
+	@echo "  make safety-check           Public usability, data, and route audits"
+	@echo "  make quality                Complete offline developer checks"
+	@echo "All friendly commands are local-only. See docs/command-reference.md for advanced commands."
 
-first-run: doctor check-local modes
-	@echo "First run complete. What to run next: make setup-demo"
+start:
+	$(PYTHON) scripts/onboarding_summary.py
+	$(PYTHON) scripts/doctor.py
+	$(PYTHON) scripts/print_next_steps.py
+
+commands:
+	$(PYTHON) scripts/print_command_guide.py
+
+next:
+	$(PYTHON) scripts/print_next_steps.py
+
+try-demo: setup-demo check-local demo
+	@echo "Demo complete. Best next command: make doctor"
+
+prepare-sandbox: sandbox-check
+	$(PYTHON) scripts/print_next_steps.py --mode sandbox
+
+prepare-pilot: pilot-check
+	$(PYTHON) scripts/print_next_steps.py --mode pilot
+
+first-run: start
+	@echo "Compatibility target complete. Best next command: make try-demo"
 
 public-usability-audit:
 	$(PYTHON) scripts/audit_public_usability.py

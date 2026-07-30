@@ -2,18 +2,18 @@
 
 Demo Mode is the default safe path, uses synthetic examples only, and requires no Procore
 credentials. Sandbox Mode and Pilot Mode are private/operator-controlled and use private
-configuration outside Git. What to run next: `make modes`, then `make doctor`.
+configuration outside Git. Best next command: `make start`.
 
 For the ordered transition and local checks, see [Demo → Sandbox → Pilot](sandbox-to-pilot-flow.md).
 
-Procore Intake Bridge has three explicit modes. Start with `make modes` and `make doctor`;
+Procore Intake Bridge has three explicit modes. Start with `make start` and `make doctor`;
 both commands are local-only and print configuration posture rather than private values.
 
 | Mode | Purpose | Private inputs | Starting command |
 | --- | --- | --- | --- |
-| Demo | Local fixture walkthrough | None | `make demo` |
-| Sandbox | Read-only checks against your own sandbox | Ignored DMSA references and scope | `make sandbox-check` |
-| Pilot | Controlled private-pilot preparation | Private evidence, review, approval, and rollback records | `make pilot-check` |
+| Demo | Local fixture walkthrough | None | `make try-demo` |
+| Sandbox | Offline preparation for your own sandbox | Ignored DMSA references and scope | `make prepare-sandbox` |
+| Pilot | Controlled private-pilot preparation | Private evidence, review, approval, and rollback records | `make prepare-pilot` |
 
 The public repository contains synthetic examples only. The doctor never resolves secrets, reads
 private artifact contents, contacts Procore, or contacts external providers. Its status is guidance,

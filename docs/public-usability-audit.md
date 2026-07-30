@@ -4,6 +4,10 @@ Phase E1 checks whether a new user can find the safe Demo, private Sandbox, and 
 paths. It verifies required docs, scripts, examples, Make targets, ignore rules, next-command
 guidance, and tracked-file safety patterns.
 
+E2 also verifies the friendly `make start`, `make commands`, `make next`, `make try-demo`,
+`make prepare-sandbox`, and `make prepare-pilot` surface and ensures beginner docs never default
+to live smoke or deployment.
+
 Run:
 
 ```bash

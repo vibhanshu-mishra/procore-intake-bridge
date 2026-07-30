@@ -2,7 +2,7 @@
 
 Sandbox Mode is private/operator-controlled. It uses private credentials through DMSA secret refs
 and a private allowed scope; values and real identifiers stay outside Git. What to run next:
-finish Demo Mode, then run `make sandbox-check`. This never runs live smoke.
+finish Demo Mode, then run `make prepare-sandbox`. This never runs live smoke.
 
 Use the [D5 sandbox onboarding checklist](sandbox-onboarding.md). Readiness checks do not run the
 manually gated smoke harness or make automatic live Procore calls.
@@ -11,7 +11,7 @@ Sandbox mode is for a user-owned Procore sandbox. Store private credentials and 
 references only in ignored `.env` or other approved private configuration. Configure an allowlisted
 company/project scope without copying identifiers into reports or GitHub.
 
-Run `make sandbox-check` to explain missing prerequisites. It makes no Procore call and does not
+Run `make prepare-sandbox` to explain missing prerequisites. It makes no Procore call and does not
 resolve secret values. The existing smoke harness remains separate, manual, read-only, explicitly
 confirmed, and gated; review its plan before any authorized run. A ready sandbox check is not
 production approval.

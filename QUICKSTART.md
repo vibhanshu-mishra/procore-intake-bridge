@@ -1,4 +1,4 @@
-# Quickstart
+# Quickstart: start with Demo Mode
 
 Demo Mode is the default safe path. It uses synthetic fixtures, local SQLite, and no Procore
 credentials, private workspace, external database, storage setup, or deployment.
@@ -9,20 +9,18 @@ credentials, private workspace, external database, storage setup, or deployment.
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e ".[dev]"
-make first-run
-make setup-demo
-make demo
+make start
+make try-demo
 ```
 
-`make demo` is fixture-only. It does not call Procore or any external service. What to run next:
+`make try-demo` is fixture-only. It does not call Procore or any external service. What to run next:
 `make diagnostics`, or read [the complete demo walkthrough](docs/quickstart-demo.md).
 
 ## Choose your mode
 
 ### I just want to try it — Demo Mode
 
-Use the five-minute path above. No Procore credentials are required. This is the safe default for
-every new clone.
+Use the five-minute path above. No Procore credentials are required. This is the safe default.
 
 ### I have Procore sandbox credentials — Sandbox Mode
 
@@ -30,7 +28,7 @@ First finish Demo Mode. Then read [Sandbox Mode](docs/sandbox-mode.md) and confi
 secret refs, an allowed company/project scope, and admin authentication outside Git. Run:
 
 ```bash
-make sandbox-check
+make prepare-sandbox
 ```
 
 This is an offline, operator-controlled readiness check. It does not run the separately gated live
@@ -44,8 +42,8 @@ refs, review/expiry records, an approval packet, deployment and rollback plannin
 secret/storage readiness, diagnostics, and a launch hold.
 
 ```bash
+make prepare-pilot
 make init-private-workspace
-make pilot-check
 ```
 
 The check uses fake public examples. It does not read private evidence, approve a pilot, connect
@@ -65,9 +63,12 @@ make safety-check
 
 ```bash
 make help                    # See the small public command menu
-make modes                   # Compare Demo, Sandbox, and Pilot
+make commands                # See grouped friendly and advanced commands
+make next                    # Get the best next command
 make doctor                  # Get readiness and the next best command
-make public-usability-audit  # Check public docs, commands, files, and ignore rules
+make try-demo                # Run the safe fixture demo
+make prepare-sandbox         # Run offline Sandbox preparation
+make prepare-pilot           # Run offline Pilot preparation
 make quality                 # Run the complete local developer validation
 ```
 

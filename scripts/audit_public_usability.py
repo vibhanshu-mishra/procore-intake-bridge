@@ -41,6 +41,9 @@ REQUIRED_SCRIPTS = {
     "scripts/check_sandbox_onboarding.py",
     "scripts/check_pilot_preflight.py",
     "scripts/init_private_workspace.py",
+    "scripts/print_command_guide.py",
+    "scripts/print_next_steps.py",
+    "scripts/onboarding_summary.py",
 }
 REQUIRED_EXAMPLES = {
     "examples/demo-flow.md",
@@ -51,6 +54,12 @@ REQUIRED_EXAMPLES = {
 }
 REQUIRED_TARGETS = {
     "help",
+    "start",
+    "commands",
+    "next",
+    "try-demo",
+    "prepare-sandbox",
+    "prepare-pilot",
     "first-run",
     "doctor",
     "setup-demo",
@@ -169,6 +178,15 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             )
         ),
         "README commit safety": "must not be" in readme and "committed" in readme,
+        "README friendly commands": all(
+            command in readme
+            for command in (
+                "make start",
+                "make try-demo",
+                "make prepare-sandbox",
+                "make prepare-pilot",
+            )
+        ),
     }
     for name, passed in readme_checks.items():
         add(
@@ -217,6 +235,39 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         ),
         "quickstart offers all three paths": all(
             term in quickstart for term in ("demo mode", "sandbox mode", "pilot mode")
+        ),
+        "quickstart uses friendly commands": all(
+            command in quickstart
+            for command in (
+                "make start",
+                "make try-demo",
+                "make prepare-sandbox",
+                "make prepare-pilot",
+            )
+        ),
+        "command reference marks difficulty": all(
+            term in _read(root, "docs/command-reference.md").casefold()
+            for term in ("beginner", "intermediate", "advanced")
+        ),
+        "command reference marks safety": all(
+            term in _read(root, "docs/command-reference.md").casefold()
+            for term in ("procore", "external", "private config", "demo-safe")
+        ),
+        "beginner docs steer to friendly targets": all(
+            command in docs
+            for command in (
+                "make start",
+                "make try-demo",
+                "make prepare-sandbox",
+                "make prepare-pilot",
+            )
+        ),
+        "live smoke is not a beginner default": (
+            "make start" in quickstart
+            and "run_sandbox_dmsa_smoke.py" not in quickstart
+        ),
+        "deployment is not a beginner default": (
+            "make start" in quickstart and "make deployment-check" not in quickstart
         ),
     }
     for name, passed in guidance_checks.items():

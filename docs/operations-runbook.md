@@ -132,8 +132,8 @@ limitation, risk, and signoff placeholders. Generate artifacts only in ignored l
 never treat `ready_for_private_review` or `approved_placeholder` as real authorization.
 # Mode checks
 
-Run `make modes` and `make doctor` first. Use `make check-local` for demo blockers,
-`make sandbox-check` for no-call sandbox planning, and `make pilot-check` for the fake validator
+Run `make start` and `make doctor` first. Use `make try-demo` for Demo,
+`make prepare-sandbox` for no-call Sandbox planning, and `make prepare-pilot` for the fake validator
 chain. Sandbox smoke and all real pilot decisions remain separate, manual, private actions.
 
 For Sandbox or Pilot preparation, run `make init-private-workspace`, privately fill only the

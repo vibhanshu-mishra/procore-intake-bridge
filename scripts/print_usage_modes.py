@@ -7,17 +7,17 @@ def main() -> int:
     print(
         "READY — Demo Mode (default safe path)\n"
         "  Local synthetic fixtures; no Procore credentials or external services.\n"
-        "  What to run next: make setup-demo"
+        "  Best next command: make try-demo"
     )
     print(
         "\nNEEDS CONFIGURATION — Sandbox Mode (private/operator-controlled)\n"
         "  Private DMSA refs, allowed scope, and admin auth; friendly checks are offline.\n"
-        "  What to run next: make sandbox-check"
+        "  Best next command: make prepare-sandbox"
     )
     print(
         "\nNEEDS CONFIGURATION — Pilot Mode (private/operator-controlled)\n"
         "  Private workspace, evidence, approval, database, storage, and rollback preparation.\n"
-        "  What to run next: make pilot-check"
+        "  Best next command: make prepare-pilot"
     )
     print("The public repository contains fake examples only; private values stay outside GitHub.")
     return 0

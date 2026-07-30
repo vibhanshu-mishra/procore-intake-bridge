@@ -6,11 +6,19 @@ from app.services.usage_modes import build_demo_mode_readiness
 
 def main() -> int:
     readiness = build_demo_mode_readiness(Settings())
-    print(f"Demo mode: {readiness.status.value}")
+    print("Demo Mode local check")
+    print("=====================")
+    print(f"Status: {readiness.status.value}")
     print(readiness.summary)
-    for item in readiness.requirements:
-        print(f"- {'ready' if item.satisfied else 'missing'}: {item.detail}")
-    print("Safety: no credentials, secrets, Procore calls, or external services are used.")
+    missing = [item.detail for item in readiness.requirements if not item.satisfied]
+    if missing:
+        print("Needs attention:")
+        for detail in missing:
+            print(f"- {detail}")
+    else:
+        print("All required local checks passed.")
+    print("Safe by default: no credentials, Procore calls, or external services.")
+    print("Best next command: make try-demo")
     return 0 if readiness.status == UsageModeStatus.READY else 1
 
 

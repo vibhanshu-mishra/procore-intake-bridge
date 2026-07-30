@@ -1,37 +1,57 @@
 # Command reference
 
-All commands below are local unless explicitly described otherwise. “Writes” means repository-
-ignored local files may be created. None of these commands deploys or approves a pilot.
+Most users should use the friendly Make targets first. Run `make commands` for a concise guide.
+All friendly targets are local-only: no Procore calls, external connections, deployment, or pilot
+approval.
 
-| Group | Command | What and when | Writes | Procore | External | Demo-safe | Expected output |
-|---|---|---|---:|---:|---:|---:|---|
-| First run | `make help` | Show the public command menu anytime. | No | No | No | Yes | Short target list |
-| First run | `make first-run` | Run doctor, local setup, and mode guidance after install. | No | No | No | Yes | Readiness and next commands |
-| First run | `make doctor` | Diagnose selected-mode posture. | No | No | No | Yes | Ready, needs configuration, or blocked |
-| Demo Mode | `make setup-demo` | Confirm fixture defaults before trying the app. | No | No | No | Yes | Demo setup summary |
-| Demo Mode | `make demo` | Run the fixture-only poll path. | Local DB | No | No | Yes | Synthetic intake summary |
-| Demo Mode | `make modes` | Compare all three mode boundaries. | No | No | No | Yes | Concise mode cards |
-| Sandbox Mode | `make sandbox-check` | Check fake/offline onboarding posture before private setup. | No | No | No | Yes | Needs-configuration guidance |
-| Pilot Mode | `make pilot-check` | Validate fake public pilot artifacts and preflight. | No | No | No | Yes | Placeholder readiness; no approval |
-| Private workspace | `make init-private-workspace` | Create ignored placeholder scaffolds when private work begins. | Yes | No | No | Not needed | Relative filenames only |
-| Private workspace | `make private-workspace-check` | Validate private workspace structure and Git isolation. | No | No | No | Not needed | Sanitized checks |
-| Secret providers | `make secret-provider-check` | Inspect provider posture without resolving or printing values. | No | No | No | Yes | Provider readiness |
-| Secret providers | `make secret-refs-check` | Check reference format/readiness. | No | No | No | Yes | Ref-only findings |
-| Storage providers | `make storage-provider-check` | Check configured storage posture. | No | No | No | Yes | Sanitized provider status |
-| Storage providers | `make local-storage-provider-check` | Exercise contained local storage with fake data. | Temporary/local | No | No | Yes | Local contract result |
-| Database readiness | `make database-check` | Inspect database posture without connecting. | No | No | No | Yes | Provider/migration planning status |
-| Database readiness | `make migration-safety-check` | Test migrations against disposable SQLite. | Temporary | No | No | Yes | Upgrade/downgrade result |
-| Deployment recipes | `make deployment-check` | Validate placeholder recipes offline. | No | No | No | Yes | Recipe findings |
-| Deployment recipes | `make deployment-safety-check` | Check that recipes cannot deploy or expose private data. | No | No | No | Yes | Safety result |
-| Diagnostics/support | `make diagnostics` | Print sanitized local operator posture. | No | No | No | Yes | Aggregate diagnostics |
-| Diagnostics/support | `make support-bundle` | Create an ignored sanitized local bundle for private review. | Yes | No | No | Yes | Relative output names |
-| Safety audits | `make public-usability-audit` | Audit docs, commands, tracked files, and ignore rules. | No | No | No | Yes | Pass/warn/fail summary |
-| Safety audits | `make safety-check` | Run public data and read-only route audits too. | No | No | No | Yes | Three audit summaries |
-| Developer quality | `make quality` | Run the complete offline test and lint suite before a change. | Temporary/local | No | No | Yes | Checks and pytest summary |
+## Friendly commands
 
-Sandbox and Pilot are private/operator-controlled even when their public readiness commands are
-safe in Demo Mode. The separately gated sandbox smoke command is intentionally not a friendly
-top-level target. Database connectivity, production migrations, deployment, cloud, DNS, TLS, and
-webhook registration are also excluded.
+| Difficulty | Command | Purpose | Writes | Procore | External | Private config | Demo-safe |
+|---|---|---|---:|---:|---:|---:|---:|
+| Beginner | `make help` | Show grouped primary commands. | No | No | No | No | Yes |
+| Beginner | `make start` | Show onboarding, doctor, and the best next command. | No | No | No | No | Yes |
+| Beginner | `make commands` | Print the grouped public command guide. | No | No | No | No | Yes |
+| Beginner | `make next` | Recommend Demo Mode as the default next step. | No | No | No | No | Yes |
+| Beginner | `make doctor` | Summarize selected-mode posture safely. | No | No | No | No | Yes |
+| Beginner | `make try-demo` | Set up and run synthetic fixtures with local SQLite. | Local DB | No | No | No | Yes |
+| Intermediate | `make prepare-sandbox` | Run safe planning and onboarding checks. | No | No | No | Yes | Yes |
+| Intermediate | `make prepare-pilot` | Validate fake pilot planning and preflight inputs. | No | No | No | Yes | Yes |
+| Intermediate | `make init-private-workspace` | Create ignored placeholder scaffolds. | Yes | No | No | Yes | Not needed |
+| Beginner | `make safety-check` | Run usability, public-data, and route audits. | No | No | No | No | Yes |
+| Intermediate | `make quality` | Run the complete offline developer suite. | Temporary | No | No | No | Yes |
 
-What to run next: new users should run `make first-run`; contributors should run `make quality`.
+`make prepare-sandbox` never runs live smoke or resolves secret values.
+`make prepare-pilot` never reads real evidence, approves a pilot, connects externally, or deploys.
+
+## Intermediate checks
+
+| Command | Purpose | Writes | Procore | External | Private config | Demo-safe |
+|---|---|---:|---:|---:|---:|---:|
+| `make private-workspace-check` | Validate ignored workspace structure and Git isolation. | No | No | No | Yes | Not needed |
+| `make public-usability-audit` | Audit beginner navigation, commands, files, and safety. | No | No | No | No | Yes |
+| `make diagnostics` | Print sanitized aggregate local posture. | No | No | No | No | Yes |
+| `make migration-safety-check` | Exercise migrations on disposable SQLite. | Temporary | No | No | No | Yes |
+
+## Advanced planning and provider checks
+
+| Command | Purpose | Writes | Procore | External | Private config | Demo-safe |
+|---|---|---:|---:|---:|---:|---:|
+| `make secret-provider-check` | Inspect provider posture without resolving values. | No | No | No | Yes | Yes |
+| `make secret-refs-check` | Validate reference shape without reading values. | No | No | No | Yes | Yes |
+| `make storage-provider-check` | Inspect configured storage posture. | No | No | No | Yes | Yes |
+| `make database-check` | Inspect database readiness without connecting. | No | No | No | Yes | Yes |
+| `make deployment-check` | Validate fake recipes without deploying. | No | No | No | Yes | Yes |
+| `make deployment-safety-check` | Confirm recipe safety boundaries. | No | No | No | Yes | Yes |
+| `make support-bundle` | Write an ignored sanitized support bundle. | Yes | No | No | Yes | Yes |
+
+## Manual gated live check
+
+`python scripts/run_sandbox_dmsa_smoke.py ...` is **Advanced**, makes bounded read-only Procore
+calls, requires private configuration and explicit gates, and is not safe for first run. It is
+never invoked by `make start`, `make try-demo`, `make prepare-sandbox`, or `make prepare-pilot`.
+Read [the sandbox smoke guide](sandbox-smoke-tests.md) before considering it.
+
+Database connectivity, production migrations, webhook registration, cloud/DNS/TLS operations, and
+deployment are not onboarding commands and are never run by friendly targets.
+
+Best next command for a new user: `make start`.

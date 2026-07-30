@@ -1,7 +1,7 @@
 # Demo mode quickstart
 
 Demo Mode is the default safe path. It requires no Procore credentials, secrets, external
-services, private workspace, or deployment. What to run next: `make setup-demo`, then `make demo`.
+services, private workspace, or deployment. Best next command: `make try-demo`.
 
 After the fixture-only demo, continue with the private, no-live-call
 [sandbox onboarding flow](sandbox-onboarding.md).
@@ -12,12 +12,11 @@ external services. It uses committed synthetic fixtures and local SQLite state.
 ```bash
 python -m venv .venv
 .venv/bin/python -m pip install -e '.[dev]'
-make setup-demo
-make check-local
-make demo
+make start
+make try-demo
 ```
 
-`make demo` is a dry-run fixture sync. It does not call Procore. Local database and generated
+`make try-demo` is a fixture-only local sync. It does not call Procore. Local database and generated
 output files are ignored. Demo readiness does not mean production readiness.
 
 Demo mode does not need or read the C5 private workspace.

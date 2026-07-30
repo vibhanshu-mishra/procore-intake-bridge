@@ -4,6 +4,9 @@ Demo is the default safe path. Sandbox and Pilot are private/operator-controlled
 credentials, identities, IDs, evidence, approvals, generated/private files, and deployment
 artifacts must not be committed. What to run next: `make safety-check`.
 
+Friendly onboarding commands are local-only. `make prepare-sandbox` does not run live smoke, and
+`make prepare-pilot` does not approve, connect, migrate, or deploy.
+
 Mode transitions are local decisions: Pilot can only become ready for private review. No
 transition approves production, calls Procore automatically, or exposes private data.
 

@@ -2,14 +2,14 @@
 
 Pilot Mode is private and operator-controlled. It requires a private workspace, evidence refs,
 review/expiry records, approval, deployment/rollback planning, and database, secret, storage, and
-diagnostic readiness. What to run next: `make pilot-check`, then `make init-private-workspace`
+diagnostic readiness. What to run next: `make prepare-pilot`, then `make init-private-workspace`
 only when authorized. Keep launch on hold.
 
 Use [pilot preflight](pilot-preflight.md) to prepare for private review. It does not approve a
 pilot, inspect real evidence, deploy infrastructure, or call external services.
 
 Pilot mode assembles the repository's customer-profile, diagnostics, readiness, evidence review,
-expiry, approval, launch-condition, and rollback tooling. Run `make pilot-check` against the
+expiry, approval, launch-condition, and rollback tooling. Run `make prepare-pilot` against the
 committed fake examples and `make doctor` for a concise posture summary.
 
 Real evidence, identities, signoffs, decisions, customer identifiers, and credentials belong in an

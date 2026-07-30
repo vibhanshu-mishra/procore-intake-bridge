@@ -57,12 +57,12 @@ connect externally. See [Database providers](database-providers.md).
 
 ## Sandbox smoke is not ready
 
-`make sandbox-check` intentionally checks only offline onboarding posture and does not run live
+`make prepare-sandbox` intentionally checks only offline onboarding posture and does not run live
 smoke. A live sandbox probe remains separately gated, manually confirmed, allowlisted, read-only,
 and operator-controlled. Never use public example IDs or credentials for a real run.
 
 ## Pilot preflight is not ready
 
-`make pilot-check` uses fake examples and must not approve a pilot or read private evidence.
+`make prepare-pilot` uses fake examples and must not approve a pilot or read private evidence.
 Resolve private readiness in the ignored workspace, keep launch on hold, and follow
 [Pilot Mode](pilot-mode.md). A passing public check is not production approval.

@@ -167,8 +167,8 @@ def build_demo_mode_readiness(
         requirements=requirements,
         findings=findings,
         quickstart_steps=[
-            ModeQuickstartStep(order=1, title="Check setup", instruction="Run `make check-local`."),
-            ModeQuickstartStep(order=2, title="Run demo", instruction="Run `make demo`."),
+            ModeQuickstartStep(order=1, title="Try Demo", instruction="Run `make try-demo`."),
+            ModeQuickstartStep(order=2, title="Check readiness", instruction="Run `make doctor`."),
             ModeQuickstartStep(
                 order=3, title="Inspect diagnostics", instruction="Run `make diagnostics`."
             ),
@@ -325,7 +325,7 @@ def build_sandbox_mode_readiness(
             ModeQuickstartStep(
                 order=2,
                 title="Review plan",
-                instruction="Run `make sandbox-check`; it makes no Procore call.",
+                instruction="Run `make prepare-sandbox`; it makes no Procore call.",
             ),
             ModeQuickstartStep(
                 order=3,
@@ -456,7 +456,7 @@ def build_pilot_mode_readiness(
             ModeQuickstartStep(
                 order=1,
                 title="Validate fake tools",
-                instruction="Run `make pilot-check`.",
+                instruction="Run `make prepare-pilot`.",
             ),
             ModeQuickstartStep(
                 order=2,
@@ -536,27 +536,40 @@ def build_usage_mode_doctor_report(
 
 def render_usage_mode_report_markdown(report: UsageModeDoctorReport) -> str:
     lines = [
-        "# Procore Intake Bridge mode doctor",
+        "# Local readiness doctor",
+        "",
+        "Safe by default: local checks only; no Procore or external calls.",
+        "Missing Sandbox or Pilot configuration is expected while using Demo Mode.",
         "",
         f"Selected mode: **{report.selected_mode.value}**",
         f"Selected status: **{report.selected_mode_status.value}**",
         "",
     ]
     for readiness in (report.demo, report.sandbox, report.pilot):
+        selected = readiness.mode == report.selected_mode
         lines.extend(
             [
-                f"## {readiness.mode.value.title()} mode — {readiness.status.value}",
+                f"## {readiness.mode.value.title()} Mode — {readiness.status.value}",
                 "",
                 readiness.summary,
                 "",
             ]
         )
-        lines.extend(
-            f"- {'Ready' if item.satisfied else 'Missing'}: {item.detail}"
-            for item in readiness.requirements
-        )
-        lines.append("")
-    lines.extend(["## Recommended next steps", ""])
+        if selected:
+            missing = [
+                item.detail
+                for item in readiness.requirements
+                if item.required and not item.satisfied
+            ]
+            if missing:
+                lines.append("Needs attention:")
+                lines.extend(f"- {detail}" for detail in missing)
+                lines.append("")
+            else:
+                lines.extend(("All required local checks passed.", ""))
+        else:
+            lines.extend(("This path is not selected; its configuration can wait.", ""))
+    lines.extend(["## Best next command", ""])
     lines.extend(f"{index}. {step}" for index, step in enumerate(report.recommended_next_steps, 1))
     lines.extend(["", "## Safety boundaries", ""])
     lines.extend(f"- {boundary}" for boundary in report.safety_boundaries)

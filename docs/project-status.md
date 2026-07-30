@@ -2,7 +2,10 @@
 
 Phase E1 audits public end-to-end usability: command discovery, first-run guidance, navigation,
 troubleshooting, and safety. It adds no live integration or deployment. What to run next:
-new users run `make first-run`; contributors run `make quality`.
+new users run `make start`; contributors run `make quality`.
+
+Phase E2 consolidates onboarding around friendly Make targets while preserving every advanced
+script and target. It adds no external integration or deployment behavior.
 
 Phase D5, Real Sandbox-to-Pilot Flow, is implemented as a local placeholder-only workflow.
 Actual private pilot execution remains future, separately authorized work.

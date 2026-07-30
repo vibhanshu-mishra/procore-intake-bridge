@@ -1,7 +1,8 @@
 # Documentation
 
-Start with the [five-minute quickstart](../QUICKSTART.md). Demo Mode is the default safe path and
-requires no Procore credentials. Sandbox Mode and Pilot Mode are private/operator-controlled.
+Follow this beginner order: [Quickstart](../QUICKSTART.md), [usage modes](usage-modes.md),
+[command reference](command-reference.md), [Demo walkthrough](quickstart-demo.md), then
+[Sandbox](sandbox-mode.md) or [Pilot](pilot-mode.md). Start with `make start`.
 
 - [First-run checklist](first-run-checklist.md)
 - [Command reference](command-reference.md)
@@ -75,4 +76,4 @@ affiliated with or endorsed by Procore Technologies and carries no production gu
 - [Secret providers](secret-providers.md)
 
 Real credentials, customer data, evidence, approvals, generated output, and private workspace
-files must not be committed. What to run next: `make first-run`.
+files must not be committed. Best next command: `make start`.

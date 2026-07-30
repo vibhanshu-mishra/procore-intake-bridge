@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- E2 adds a typed public command catalog, grouped command and next-step CLIs, onboarding summary,
+  consolidated friendly Make targets, compact doctor output, and beginner-first documentation.
+  Existing advanced commands remain available and no friendly target makes external calls.
+
 - E1 adds a public usability audit, five-minute quickstart, command reference, first-run
   checklist, troubleshooting guide, friendly Make targets, mode/doctor output polish, navigation
   cleanup, and expanded generated-output safety rules. All checks remain offline and fixture-safe.

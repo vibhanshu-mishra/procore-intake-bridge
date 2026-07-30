@@ -4,6 +4,9 @@ This ignored workspace is only for private/operator-controlled Sandbox or Pilot 
 Completed files, generated outputs, evidence, and approvals must not be committed. What to run
 next: `make init-private-workspace`, then `make private-workspace-check`. Demo does not need it.
 
+Beginners should reach this step through `make prepare-sandbox` or `make prepare-pilot`; the
+workspace is never required by `make start` or `make try-demo`.
+
 D5 adds `flow/` placeholder files for sandbox readiness, pilot readiness, the ordered plan,
 preflight, and mandatory launch hold. See [the guided flow](sandbox-to-pilot-flow.md).
 

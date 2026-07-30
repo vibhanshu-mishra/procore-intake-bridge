@@ -1,8 +1,8 @@
 # Procore Intake Bridge
 
-## Start here: choose a usage mode
+## Start with Demo Mode
 
-The repository supports three safe paths:
+The repository has three safe paths, kept deliberately separate:
 
 - **Demo Mode** is the default safe path. It uses local synthetic fixtures and requires no Procore
   credentials, secrets, external database, storage setup, deployment, or private workspace.
@@ -12,16 +12,33 @@ The repository supports three safe paths:
   refs, review/expiry records, approval, deployment/rollback planning, PostgreSQL, secret/storage
   readiness, diagnostics, and an explicit launch hold.
 
-For a new clone, follow the **[five-minute quick start](QUICKSTART.md)**:
+Use Sandbox Mode when you have private Procore sandbox/DMSA credentials. Use Pilot Mode when you
+are preparing a controlled private pilot. For a new clone, follow the
+**[five-minute quick start](QUICKSTART.md)**:
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e ".[dev]"
-make first-run
-make setup-demo
-make demo
+make start
+make try-demo
 ```
+
+Primary commands:
+
+```bash
+make start
+make doctor
+make try-demo
+make prepare-sandbox
+make prepare-pilot
+make commands
+```
+
+Most users should begin with these Make targets. Existing deeper targets and scripts remain
+available in the [command reference](docs/command-reference.md). See the
+[first-run checklist](docs/first-run-checklist.md), [troubleshooting](docs/troubleshooting.md),
+and [usage modes](docs/usage-modes.md).
 
 The mode guides are [Three usage modes](docs/usage-modes.md),
 [Demo Mode](docs/quickstart-demo.md), [Sandbox Mode](docs/sandbox-mode.md), and
@@ -36,8 +53,7 @@ committed**. Run `make safety-check` before committing.
 
 ## Demo → Sandbox → Pilot
 
-Run `make sandbox-to-pilot-plan` for the exact local-only progression, then use
-`make sandbox-onboarding-check` or `make pilot-preflight` for the selected path. These checks
+Run `make prepare-sandbox` or `make prepare-pilot` for the selected path. These checks
 make no automatic live calls and never approve or deploy a pilot. See the
 [guided flow](docs/sandbox-to-pilot-flow.md).
 
