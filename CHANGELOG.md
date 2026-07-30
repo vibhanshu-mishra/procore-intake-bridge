@@ -167,3 +167,9 @@ No release tag or package publication is claimed.
   non-writing checks, temporary artifact validation, documentation, audits, and regressions.
 - H7 adds no web/download route, Procore/external call, attachment access, mutation, approval,
   compliance certification, or customer-report claim.
+# Phase H8 — Admin Dashboard Product Polish
+
+- Added a protected GET-only `/dashboard` product cockpit and sanitized JSON overview.
+- Added local, non-writing dashboard check and overview commands.
+- Connected review, lifecycle, triage, attachment metadata, export-command, and safety guidance.
+- Added no external calls, mutations, downloads, file serving, or new Procore behavior.

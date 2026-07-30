@@ -175,3 +175,13 @@ make operator-export-summary
 
 These H7 commands write nothing. Local artifact generation is a separate explicit command and
 its output remains ignored. Exports are metadata summaries, not customer or compliance reports.
+For a single safe local cockpit, open `/dashboard` or run:
+
+```bash
+make product-dashboard-check
+make product-dashboard-overview
+```
+
+The [Product Dashboard](docs/product-dashboard.md) is read-oriented and local database only.
+It makes no Procore writes or calls, offers no export downloads, and reads no attachment files.
+Demo Mode may use fake local data; Sandbox and Pilot use remains private and gated.

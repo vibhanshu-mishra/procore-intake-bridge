@@ -63,3 +63,7 @@ record to its sanitized manifest summary. It adds no attachment file access or n
 
 H7 can include bounded, sanitized workspace rows in the
 [local Export Pack](operator-export-pack.md). Raw source data is never included.
+# Product dashboard navigation
+
+The H8 [Product Dashboard](product-dashboard.md) links here and displays aggregate intake counts.
+It remains local and read-oriented; the review workspace links back to `/dashboard`.

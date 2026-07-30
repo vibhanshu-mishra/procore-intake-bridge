@@ -37,3 +37,7 @@ The triage queue links to that context without accessing files or exposing stora
 
 H7 can export triage bucket counts through the [local Export Pack](operator-export-pack.md).
 Its priority description remains deterministic local sorting only.
+# Product dashboard navigation
+
+H8 links to triage and summarizes its buckets as a deterministic local sorting helper only.
+It does not assign work, notify people, or change records.

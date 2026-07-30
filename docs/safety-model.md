@@ -216,3 +216,9 @@ CLI generator writes to allowlisted ignored or `/tmp` roots. Output excludes pri
 neutralizes spreadsheet formula prefixes. Traversal and unsafe exposure configuration fail
 closed. Export summaries are not approvals, compliance reports, customer reports, certifications,
 or Procore statuses.
+# Product dashboard boundary
+
+H8 is aggregate, local, and read-oriented. Raw payloads, URLs, private paths, storage keys,
+filenames, contents, secrets, and raw source identifiers are blocked. Dashboard readiness is not
+release, production, or pilot authorization and is not a compliance determination or customer
+report.

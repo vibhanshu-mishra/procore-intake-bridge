@@ -14,6 +14,7 @@ from app.routers import (
     intake_review_workspace,
     onboarding,
     polling,
+    product_dashboard,
     sync,
     sync_profiles,
     webhooks,
@@ -41,7 +42,7 @@ app = FastAPI(
 async def admin_security_headers(request, call_next):
     response = await call_next(request)
     settings = get_settings()
-    protected_path = request.url.path.startswith(("/admin", "/review")) or (
+    protected_path = request.url.path.startswith(("/admin", "/review", "/dashboard")) or (
         request.url.path.startswith("/deployment")
         and settings.admin_auth_protect_deployment_routes
     )
@@ -62,4 +63,5 @@ app.include_router(event_queue.router)
 app.include_router(attachments.router)
 app.include_router(onboarding.router)
 app.include_router(admin.router)
+app.include_router(product_dashboard.router)
 app.include_router(intake_review_workspace.router)

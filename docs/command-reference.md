@@ -212,3 +212,10 @@ call.
 - `python scripts/generate_operator_export_pack.py` explicitly writes ignored local artifacts.
 
 No command reads attachment files or calls Procore, storage providers, or external services.
+# Product dashboard commands
+
+- `make product-dashboard-check` validates the sanitized, non-writing local projection.
+- `make product-dashboard-overview` prints the safe local cockpit summary.
+
+Neither command calls Procore or external services, reads attachment files, generates exports,
+or mutates persistent state.

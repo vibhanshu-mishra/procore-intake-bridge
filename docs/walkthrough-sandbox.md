@@ -102,3 +102,7 @@ locations remain private and gated; no attachment operation occurs.
 
 Sandbox H7 exports remain private and gated. Never place generated summaries or source values in
 the public repository.
+# Dashboard boundary
+
+The product dashboard can summarize local state, but Sandbox work remains private and manually
+gated. Do not place generated evidence or private data in the public repository.

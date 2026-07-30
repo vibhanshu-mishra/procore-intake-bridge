@@ -250,6 +250,25 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if "product-dashboard" in path.as_posix() or "product_dashboard" in path.as_posix():
+        unsafe_dashboard_claim = re.compile(
+            r"(?i)\b(?:dashboard|readiness)\b.*\b(?:production[- ]ready|"
+            r"pilot approved|release approved|compliance determination|"
+            r"official customer report|approval granted)\b"
+        )
+        for line in text.splitlines():
+            if (
+                unsafe_dashboard_claim.search(line)
+                and "tests" not in path.parts
+                and "services" not in path.parts
+                and not re.search(
+                    r"(?i)\b(?:no|not|never|does not|is not)\b", line
+                )
+            ):
+                issues.append(
+                    SafetyIssue(path, "product dashboard implies an external decision")
+                )
+                break
     if "operator-export" in path.as_posix() or "operator_export" in path.as_posix():
         unsafe_export_claim = re.compile(
             r"(?i)\b(?:official customer report|compliance (?:report|certificate)|"

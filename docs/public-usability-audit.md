@@ -94,3 +94,8 @@ safety boundary.
 H7 adds non-writing `operator-export-check` and `operator-export-summary` quality gates. Audits
 verify ignored output patterns, documentation, command discovery, lack of export routes, and
 summary-claim safety.
+# H8 coverage
+
+The audit checks Product Dashboard documentation, scripts, Make targets, GET-only routes, docs
+navigation, local/read-oriented wording, and the absence of export-download or file-serving
+behavior.

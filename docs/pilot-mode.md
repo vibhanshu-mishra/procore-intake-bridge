@@ -78,3 +78,7 @@ compliance, or launch gates. Pilot attachment and storage details remain private
 
 H7 Pilot exports are private local summaries only. They do not grant approval, certify
 compliance, satisfy evidence gates, or represent a customer report.
+# Dashboard boundary
+
+The local dashboard may support preparation visibility. Its readiness does not indicate release,
+production, or pilot authorization; Pilot use remains private and gated.

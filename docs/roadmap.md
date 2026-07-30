@@ -49,3 +49,7 @@ the hosted pilot dry run checks opaque references only.
 
 Any later work must preserve GC/Owner control, explicit project allowlists, read-only Procore
 behavior, secret redaction, generated-output isolation, and manually confirmed live boundaries.
+# H8 — completed
+
+Admin Dashboard Product Polish connects the existing H3–H7 surfaces through a local,
+read-oriented cockpit. It adds no Procore capability, export download, or attachment serving.

@@ -30,6 +30,10 @@ REQUIRED_ATTACHMENT_REVIEW_GET_PATHS = {
     "/review/api/attachments/summary",
     "/review/api/attachments/{record_id}",
 }
+REQUIRED_PRODUCT_DASHBOARD_GET_PATHS = {
+    "/dashboard",
+    "/dashboard/api/overview",
+}
 PROHIBITED_PATH_TERMS = {
     "approve",
     "assign",
@@ -78,6 +82,10 @@ def audit_routes() -> list[RouteIssue]:
         issues.append(
             RouteIssue(missing, "GET", "required attachment review route is missing")
         )
+    for missing in sorted(REQUIRED_PRODUCT_DASHBOARD_GET_PATHS - available_gets):
+        issues.append(
+            RouteIssue(missing, "GET", "required product dashboard route is missing")
+        )
     for route in routes:
         methods = route.methods or set()
         for method in sorted(methods - {"HEAD", "OPTIONS"}):
@@ -102,6 +110,19 @@ def audit_routes() -> list[RouteIssue]:
                 )
             if route.path.startswith("/admin") and method != "GET":
                 issues.append(RouteIssue(route.path, method, "admin routes must be GET-only"))
+            if route.path.startswith("/dashboard"):
+                if method != "GET":
+                    issues.append(
+                        RouteIssue(route.path, method, "dashboard routes must be GET-only")
+                    )
+                if any(term in lowered for term in ("download", "export", "file", "serve")):
+                    issues.append(
+                        RouteIssue(
+                            route.path,
+                            method,
+                            "dashboard must not expose downloads, exports, or files",
+                        )
+                    )
             if (
                 route.path.startswith("/review")
                 and method != "GET"

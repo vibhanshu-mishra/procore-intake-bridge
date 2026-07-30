@@ -82,3 +82,7 @@ attachment files or private storage.
 
 Run `make operator-export-summary` to preview H7 with fake local data. Use the separate generator
 only when an ignored local artifact is wanted.
+# Optional product cockpit
+
+After the fake local Demo, open `/dashboard` or run `make product-dashboard-overview`. The
+dashboard is local database only and makes no Procore call.

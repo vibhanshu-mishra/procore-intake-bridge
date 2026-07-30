@@ -1,0 +1,31 @@
+{% extends "admin/base.html" %}
+{% block content %}
+<h2>Product cockpit</h2>
+<p>Safe local visibility for Demo, Sandbox, and Pilot preparation. No Procore call or write occurs here.</p>
+<div class="cards">
+  {% for card in overview.cards %}
+  <section class="card" data-group="{{ card.group }}">
+    <span>{{ card.title }}</span>
+    <strong>{{ card.status.value }}</strong>
+    {% if card.count is not none %}<p>{{ card.count }} local item(s)</p>{% endif %}
+    <p>{{ card.message }}</p>
+    {% if card.metrics %}
+    <ul>{% for label, count in card.metrics.items() %}<li>{{ label }}: {{ count }}</li>{% endfor %}</ul>
+    {% endif %}
+    {% for link in card.links %}
+      {% if link.href %}<p><a href="{{ link.href }}">{{ link.label }}</a> — {{ link.description }}</p>{% endif %}
+      {% if link.command %}<p><code>{{ link.command }}</code> — {{ link.description }}</p>{% endif %}
+    {% endfor %}
+  </section>
+  {% endfor %}
+</div>
+<h2>What to run next</h2>
+{% for item in overview.guidance %}
+<section class="card">
+  <h3>{{ item.title }}</h3><p>{{ item.message }}</p>
+  {% if item.command %}<code>{{ item.command }}</code>{% endif %}
+</section>
+{% endfor %}
+<p class="notice">Generated outputs and private evidence stay outside this public repository. Dashboard readiness is not release, production, or pilot authorization.</p>
+{% endblock %}
+

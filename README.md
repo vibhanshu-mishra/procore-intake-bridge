@@ -536,3 +536,8 @@ Phase H4 adds an [audited local status flow](docs/intake-lifecycle-status-flow.m
 application and do not update Procore. They are not approvals, compliance determinations,
 assignments, comments, or customer/broker communications. Reason codes are bounded and sanitized,
 and free-text notes are disabled by default.
+Phase H8 adds a [local read-oriented Product Dashboard](docs/product-dashboard.md) at
+`/dashboard`. It composes safe aggregate H3–H7 summaries without Procore writes or calls,
+attachment file access, export downloads, or new mutations. Run `make product-dashboard-check`
+or `make product-dashboard-overview`; dashboard readiness is not release, production, or pilot
+authorization.

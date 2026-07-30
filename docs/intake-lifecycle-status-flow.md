@@ -42,3 +42,7 @@ only review mutations.
 
 H7 exports aggregate local status and bounded event metadata only. It excludes actor identity
 fields and does not turn lifecycle labels into approval, compliance, or Procore status.
+# Product dashboard navigation
+
+H8 shows the aggregate local lifecycle distribution without adding a mutation. Lifecycle labels
+do not indicate authorization, compliance, or external system status.

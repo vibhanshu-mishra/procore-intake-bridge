@@ -32,3 +32,7 @@ metadata view into a file-serving surface.
 
 H7 now provides those [sanitized export summaries](operator-export-pack.md). It exports aggregate
 manifest metadata only and still performs no file or storage access.
+# Product dashboard navigation
+
+H8 reports metadata-only manifest counts and links to attachment review. It exposes no filename,
+path, storage key, URL, or content and never opens an attachment file.

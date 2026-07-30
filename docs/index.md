@@ -128,3 +128,8 @@ metadata-only view of sanitized local manifest status.
 
 The [Operator Export Pack](operator-export-pack.md) renders ignored local JSON, Markdown, and CSV
 summaries without adding a public export route.
+# Phase H8 product cockpit
+
+The [Product Dashboard](product-dashboard.md) connects the existing local review, lifecycle,
+triage, attachment metadata, and command-only export guidance. It is read-oriented and makes no
+Procore writes or calls.

@@ -218,3 +218,7 @@ The check does not open files or contact storage. Investigate only through the s
 Run `make operator-export-check` before generating an export. Use
 `make operator-export-artifact-check` for a temporary write-and-clean exercise. Persistent local
 exports use only the ignored configured root; never stage generated summaries.
+# Product dashboard
+
+Use `make product-dashboard-check` for a non-writing local check. The dashboard performs no
+external operation, export generation, attachment access, or persistent database mutation.

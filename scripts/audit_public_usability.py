@@ -62,6 +62,7 @@ REQUIRED_DOCS = {
     "docs/operator-triage-queue.md",
     "docs/attachment-review-manifest-ux.md",
     "docs/operator-export-pack.md",
+    "docs/product-dashboard.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -210,6 +211,8 @@ REQUIRED_TARGETS = {
     "operator-export-check",
     "operator-export-summary",
     "operator-export-artifact-check",
+    "product-dashboard-overview",
+    "product-dashboard-check",
     "help",
     "start",
     "commands",
@@ -786,6 +789,28 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         "H7 non-writing checks are included in quality": (
             "quality: operator-export-check operator-export-summary" in makefile
             and "operator-export-artifact-check" not in quality_header
+        ),
+        "H8 dashboard is local and read-oriented": all(
+            phrase in _read(root, "docs/product-dashboard.md").casefold()
+            for phrase in ("local", "read-oriented", "procore calls or writes")
+        ),
+        "H8 dashboard excludes downloads and private content": all(
+            phrase in _read(root, "docs/product-dashboard.md").casefold()
+            for phrase in ("export", "download", "attachment contents", "private paths")
+        ),
+        "H8 dashboard disclaims decisions": all(
+            phrase in _read(root, "docs/product-dashboard.md").casefold()
+            for phrase in (
+                "release",
+                "production",
+                "pilot authorization",
+                "compliance determination",
+                "customer",
+                "report",
+            )
+        ),
+        "H8 non-writing checks are included in quality": (
+            "quality: product-dashboard-check product-dashboard-overview" in makefile
         ),
         "beginner docs steer to friendly targets": all(
             command in docs

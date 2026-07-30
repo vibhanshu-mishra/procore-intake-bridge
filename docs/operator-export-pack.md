@@ -35,3 +35,7 @@ Sandbox and Pilot exports remain private, operator-controlled, and gated.
 
 Markdown deliberately identifies the result as a local sanitized metadata summary. It must not be
 presented as an official external report.
+# Product dashboard guidance
+
+H8 lists export commands only. It adds no generated-file link, public download, file-serving
+route, or artifact generation.

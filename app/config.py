@@ -507,6 +507,45 @@ class Settings(BaseSettings):
         le=100,
         validation_alias="PROCORE_INTAKE_ADMIN_PAGE_SIZE",
     )
+    product_dashboard_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_PRODUCT_DASHBOARD_ENABLED"
+    )
+    product_dashboard_include_review_workspace: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_PRODUCT_DASHBOARD_INCLUDE_REVIEW_WORKSPACE"
+    )
+    product_dashboard_include_lifecycle: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_PRODUCT_DASHBOARD_INCLUDE_LIFECYCLE"
+    )
+    product_dashboard_include_triage: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_PRODUCT_DASHBOARD_INCLUDE_TRIAGE"
+    )
+    product_dashboard_include_attachments: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_PRODUCT_DASHBOARD_INCLUDE_ATTACHMENTS"
+    )
+    product_dashboard_include_exports: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_PRODUCT_DASHBOARD_INCLUDE_EXPORTS"
+    )
+    product_dashboard_include_sandbox_guidance: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_PRODUCT_DASHBOARD_INCLUDE_SANDBOX_GUIDANCE"
+    )
+    product_dashboard_include_pilot_guidance: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_PRODUCT_DASHBOARD_INCLUDE_PILOT_GUIDANCE"
+    )
+    product_dashboard_mask_source_ids: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_PRODUCT_DASHBOARD_MASK_SOURCE_IDS"
+    )
+    product_dashboard_hash_source_ids: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_PRODUCT_DASHBOARD_HASH_SOURCE_IDS"
+    )
+    product_dashboard_expose_raw_payloads: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_PRODUCT_DASHBOARD_EXPOSE_RAW_PAYLOADS"
+    )
+    product_dashboard_expose_private_paths: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_PRODUCT_DASHBOARD_EXPOSE_PRIVATE_PATHS"
+    )
+    product_dashboard_fail_closed: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_PRODUCT_DASHBOARD_FAIL_CLOSED"
+    )
     intake_review_workspace_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_ENABLED",

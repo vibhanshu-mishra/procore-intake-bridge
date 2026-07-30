@@ -83,3 +83,7 @@ performed after H1. It adds no runtime or live capability.
   manifest inspection with no file access.
 - [Operator Export Pack](operator-export-pack.md): local sanitized JSON, Markdown, and CSV
   summaries kept outside Git.
+# H8
+
+- [Product Dashboard](product-dashboard.md): local product cockpit, safe cards, navigation, and
+  Demo/Sandbox/Pilot boundary guidance.

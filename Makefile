@@ -2,7 +2,7 @@
 
 PYTHON ?= .venv/bin/python
 
-.PHONY: review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check operator-export-check operator-export-summary operator-export-artifact-check
+.PHONY: product-dashboard-overview product-dashboard-check review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check operator-export-check operator-export-summary operator-export-artifact-check
 
 help:
 	@echo "START HERE"
@@ -14,6 +14,8 @@ help:
 	@echo "  make prepare-sandbox        Offline private Sandbox preparation"
 	@echo "  make prepare-pilot          Offline private Pilot preparation"
 	@echo "  make walkthroughs           Guided Demo, Sandbox, and Pilot docs"
+	@echo "  make product-dashboard-overview Sanitized local product cockpit summary"
+	@echo "  make product-dashboard-check Validate the read-only product cockpit"
 	@echo "  make review-workspace-summary Read-only local intake summary"
 	@echo "  make review-workspace-check Validate the local review workspace"
 	@echo "  make intake-lifecycle-summary Read-only local lifecycle summary"
@@ -167,6 +169,12 @@ public-usability-audit:
 	$(PYTHON) scripts/audit_public_usability.py
 
 safety-check: public-usability-audit safety-audit route-audit
+
+product-dashboard-overview:
+	$(PYTHON) scripts/print_product_dashboard_overview.py
+
+product-dashboard-check:
+	$(PYTHON) scripts/check_product_dashboard.py
 
 review-workspace-summary:
 	$(PYTHON) scripts/print_intake_review_workspace_summary.py
@@ -525,4 +533,5 @@ quality: intake-lifecycle-check intake-lifecycle-summary
 quality: operator-triage-check operator-triage-summary
 quality: attachment-review-check attachment-review-summary
 quality: operator-export-check operator-export-summary
+quality: product-dashboard-check product-dashboard-overview
 	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict
