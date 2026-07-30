@@ -58,6 +58,7 @@ REQUIRED_DOCS = {
     "docs/final-readiness-checklist.md",
     "docs/maintainer-review-fix-pack.md",
     "docs/intake-review-workspace.md",
+    "docs/intake-lifecycle-status-flow.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -82,6 +83,8 @@ REQUIRED_DOCS = {
 REQUIRED_SCRIPTS = {
     "scripts/check_intake_review_workspace.py",
     "scripts/print_intake_review_workspace_summary.py",
+    "scripts/check_intake_lifecycle.py",
+    "scripts/print_intake_lifecycle_summary.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -188,6 +191,8 @@ REQUIRED_EXAMPLES = {
 REQUIRED_TARGETS = {
     "review-workspace-summary",
     "review-workspace-check",
+    "intake-lifecycle-summary",
+    "intake-lifecycle-check",
     "help",
     "start",
     "commands",
@@ -699,6 +704,21 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         "H3 checks are included in quality": all(
             target in makefile
             for target in ("quality: review-workspace-check review-workspace-summary",)
+        ),
+        "H4 lifecycle is audited local-only state": all(
+            phrase in _read(root, "docs/intake-lifecycle-status-flow.md").casefold()
+            for phrase in ("local labels only", "audit event", "do not update procore")
+        ),
+        "H4 lifecycle disclaims approval compliance and communication": all(
+            phrase in _read(root, "docs/intake-lifecycle-status-flow.md").casefold()
+            for phrase in ("approval", "compliance determination", "communicate")
+        ),
+        "H4 lifecycle reasons and notes are bounded": all(
+            phrase in _read(root, "docs/intake-lifecycle-status-flow.md").casefold()
+            for phrase in ("reason codes are fixed", "bounded", "disabled by default")
+        ),
+        "H4 checks are included in quality": (
+            "quality: intake-lifecycle-check intake-lifecycle-summary" in makefile
         ),
         "beginner docs steer to friendly targets": all(
             command in docs

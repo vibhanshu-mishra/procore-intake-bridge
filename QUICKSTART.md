@@ -136,3 +136,8 @@ explicitly requested. The
 [Intake Review Workspace](docs/intake-review-workspace.md) reads only the local database. It makes
 no Procore call or write, exposes no raw payload or attachment content, and adds no lifecycle
 transition.
+
+H4 enables audited local status changes from the record detail page. Run
+`make intake-lifecycle-check` or read the
+[lifecycle guide](docs/intake-lifecycle-status-flow.md). A local status does not update Procore
+and is not an approval, compliance determination, assignment, or communication.

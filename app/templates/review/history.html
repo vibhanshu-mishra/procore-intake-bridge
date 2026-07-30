@@ -1,0 +1,17 @@
+{% extends "review/base.html" %}
+{% block content %}
+<h2>Local lifecycle history</h2>
+{% if history.items %}
+<table>
+  <thead><tr><th>From</th><th>To</th><th>Reason</th><th>Actor</th><th>Created</th></tr></thead>
+  <tbody>
+  {% for event in history.items %}
+    <tr><td>{{ event.from_status.value }}</td><td>{{ event.to_status.value }}</td>
+      <td>{{ event.reason_summary_sanitized }}</td><td>{{ event.actor_label_masked }}</td>
+      <td>{{ event.created_at }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}<p>No local lifecycle events yet.</p>{% endif %}
+<p><a href="/review/intake/{{ record_id }}">Return to intake record</a></p>
+{% endblock %}

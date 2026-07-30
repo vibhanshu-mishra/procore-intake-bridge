@@ -11,9 +11,11 @@ from sqlalchemy.orm import Session
 
 from app.config import Settings
 from app.models.attachment_objects import AttachmentObject
+from app.models.intake_lifecycle import IntakeReviewState
 from app.models.intake_records import IntakeRecord
 from app.models.sync_runs import SyncRun
 from app.models.webhook_events import WebhookEvent
+from app.schemas.intake_lifecycle import IntakeLifecycleStatus
 from app.schemas.intake_review_workspace import (
     IntakeReviewAttachmentSummary,
     IntakeReviewFilter,
@@ -27,6 +29,10 @@ from app.schemas.intake_review_workspace import (
     IntakeReviewWorkspacePage,
     IntakeReviewWorkspaceStatus,
     IntakeReviewWorkspaceSummary,
+)
+from app.services.intake_lifecycle import (
+    get_lifecycle_state,
+    list_lifecycle_history,
 )
 
 
@@ -257,6 +263,15 @@ def build_intake_review_priority_signals(
 def _item(record: IntakeRecord, session: Session, settings: Settings):
     attachments = build_intake_review_attachment_summary(record, session, settings)
     source = build_intake_review_source_context(record, session, settings)
+    lifecycle_status = IntakeLifecycleStatus.NEW
+    if inspect(session.get_bind()).has_table(IntakeReviewState.__tablename__):
+        existing_state = session.scalar(
+            select(IntakeReviewState).where(
+                IntakeReviewState.intake_record_id == record.id
+            )
+        )
+        if existing_state is not None:
+            lifecycle_status = IntakeLifecycleStatus(existing_state.status)
     return IntakeReviewRecordListItem(
         record_id=record.id,
         tool=_tool(record.source_type),
@@ -271,6 +286,7 @@ def _item(record: IntakeRecord, session: Session, settings: Settings):
         priority_signals=build_intake_review_priority_signals(
             record, attachments, source, settings
         ),
+        lifecycle_status=lifecycle_status,
     )
 
 
@@ -367,14 +383,22 @@ def get_intake_review_record_detail(
     if record is None:
         return None
     item = _item(record, session, settings)
+    lifecycle_state = get_lifecycle_state(session, record.id, settings)
+    lifecycle_history = list_lifecycle_history(
+        session, record.id, 1, 10, settings
+    )
+    detail_values = item.model_dump()
+    detail_values["lifecycle_status"] = lifecycle_state.status
     detail = IntakeReviewRecordDetail(
-        **item.model_dump(),
+        **detail_values,
         findings=[
             IntakeReviewFinding(
-                code="read_only_workspace",
-                message="This workspace does not change lifecycle state or write to Procore.",
+                code="local_lifecycle_only",
+                message="Lifecycle changes remain local and never write to Procore.",
             )
         ],
+        lifecycle_state=lifecycle_state,
+        recent_lifecycle_history=lifecycle_history.items,
     )
     validate_intake_review_response_safe(detail)
     return detail
@@ -439,6 +463,7 @@ def build_intake_review_workspace_summary(
                 "is a separate explicit local step."
             )
         ),
+        lifecycle_transitions_available=settings.intake_lifecycle_enabled,
     )
     validate_intake_review_response_safe(summary)
     return summary

@@ -53,7 +53,7 @@ def test_upgrade_and_downgrade_use_temporary_sqlite_only(tmp_path):
         with engine.connect() as connection:
             assert (
                 connection.execute(text("SELECT version_num FROM alembic_version")).scalar()
-                == "0001_initial_schema"
+                == "0002_intake_lifecycle"
             )
     finally:
         engine.dispose()
@@ -70,7 +70,7 @@ def test_status_detects_pending_without_creating_database(tmp_path):
     report = build_migration_status_report(
         settings(), database_url_override=sqlite_url(database)
     )
-    assert report.head_revision == "0001_initial_schema"
+    assert report.head_revision == "0002_intake_lifecycle"
     assert report.current_revision is None
     assert report.pending_migration_detected is True
     assert report.database_url_summary == "sqlite local file"
@@ -84,7 +84,7 @@ def test_status_detects_head_and_schema_matches_metadata(tmp_path):
     report = build_migration_status_report(
         configured, database_url_override=sqlite_url(database)
     )
-    assert get_head_revision(configured) == "0001_initial_schema"
+    assert get_head_revision(configured) == "0002_intake_lifecycle"
     assert report.current_revision == report.head_revision
     assert report.is_at_head is True
     assert compare_metadata_to_migrated_schema(sqlite_url(database), configured) == []
@@ -115,7 +115,7 @@ def test_migration_route_is_read_only_and_sanitized(client):
     response = client.get("/deployment/migrations")
     assert response.status_code == 200
     payload = response.json()
-    assert payload["head_revision"] == "0001_initial_schema"
+    assert payload["head_revision"] == "0002_intake_lifecycle"
     assert "password" not in response.text.casefold()
     assert "sqlite://" not in response.text
 

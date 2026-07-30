@@ -27,6 +27,15 @@ For documentation navigation and optional local preview guidance, see the
 Both are empty-database safe and make no Procore or external call. Run `make try-demo` first for
 fake records, then open `/review`. No lifecycle transition or mutation command exists in H3.
 
+### Intake lifecycle
+
+- `make intake-lifecycle-summary` reads sanitized counts from the local database.
+- `make intake-lifecycle-check` validates transition rules without changing persistent state.
+
+H4 status changes are available through guarded local workspace routes. CLI checks perform no
+mutation or external call. Statuses do not update Procore and are not approvals or compliance
+determinations.
+
 | Difficulty | Command | Purpose | Writes | Procore | External | Private config | Demo-safe |
 |---|---|---|---:|---:|---:|---:|---:|
 | Beginner | `make help` | Show grouped primary commands. | No | No | No | No | Yes |

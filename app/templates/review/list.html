@@ -3,13 +3,14 @@
 <h2>Local intake records</h2>
 {% if page.items %}
 <table>
-  <thead><tr><th>Tool</th><th>Number</th><th>Title</th><th>Received</th><th>Priority signals</th></tr></thead>
+  <thead><tr><th>Tool</th><th>Number</th><th>Title</th><th>Local status</th><th>Received</th><th>Priority signals</th></tr></thead>
   <tbody>
   {% for record in page.items %}
     <tr>
       <td>{{ record.tool.value }}</td>
       <td><a href="/review/intake/{{ record.record_id }}">{{ record.display_number }}</a></td>
       <td>{{ record.title }}</td>
+      <td>{{ record.lifecycle_status.value | replace("_", " ") }}</td>
       <td>{{ record.received_at or "Not recorded" }}</td>
       <td>{% for signal in record.priority_signals %}{{ signal.label }}{% if not loop.last %}; {% endif %}{% endfor %}</td>
     </tr>

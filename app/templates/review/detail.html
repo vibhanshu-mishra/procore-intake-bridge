@@ -6,6 +6,7 @@
   <p><strong>Source status:</strong> {{ record.source_status }}</p>
   <p><strong>Received:</strong> {{ record.received_at or "Not recorded" }}</p>
   <p><strong>Updated:</strong> {{ record.updated_at }}</p>
+  <p><strong>Local lifecycle status:</strong> {{ record.lifecycle_status.value | replace("_", " ") }}</p>
   <p><strong>Manifest entries:</strong> {{ record.attachment_summary.manifest_count if record.attachment_summary else "Summary disabled" }}</p>
   <p><strong>Source reference hashes:</strong>
     {% if record.source_context %}{{ record.source_context.project_id_hash }}, {{ record.source_context.item_id_hash }}{% else %}Context disabled{% endif %}
@@ -13,5 +14,29 @@
 </div>
 <h3>Priority signals</h3>
 <ul>{% for signal in record.priority_signals %}<li>{{ signal.label }}</li>{% endfor %}</ul>
-<p>This view is informational only; no review status, approval, assignment, comment, or Procore update is performed.</p>
+<h3>Change local status</h3>
+<form method="post" action="/review/intake/{{ record.record_id }}/lifecycle">
+  <label>Status
+    <select name="to_status">
+      <option value="in_review">In review</option>
+      <option value="reviewed">Reviewed</option>
+      <option value="needs_follow_up">Needs follow-up</option>
+      <option value="ignored">Ignored</option>
+    </select>
+  </label>
+  <label>Reason
+    <select name="reason_code">
+      <option value="initial_review_started">Initial review started</option>
+      <option value="reviewed_no_action_needed">Reviewed, no action needed</option>
+      <option value="follow_up_needed">Follow-up needed</option>
+      <option value="duplicate_or_irrelevant">Duplicate or irrelevant</option>
+      <option value="reopened_for_review">Reopened for review</option>
+      <option value="marked_in_error">Marked in error</option>
+      <option value="demo_placeholder_reason">Synthetic Demo reason</option>
+    </select>
+  </label>
+  <button type="submit">Save local status</button>
+</form>
+<p><a href="/review/intake/{{ record.record_id }}/lifecycle/history">View local history</a></p>
+<p>This control changes audited local workflow state only. It has no external side effect.</p>
 {% endblock %}

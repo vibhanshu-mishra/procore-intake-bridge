@@ -2,7 +2,7 @@
 
 PYTHON ?= .venv/bin/python
 
-.PHONY: review-workspace-summary review-workspace-check
+.PHONY: review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check
 
 help:
 	@echo "START HERE"
@@ -16,6 +16,8 @@ help:
 	@echo "  make walkthroughs           Guided Demo, Sandbox, and Pilot docs"
 	@echo "  make review-workspace-summary Read-only local intake summary"
 	@echo "  make review-workspace-check Validate the local review workspace"
+	@echo "  make intake-lifecycle-summary Read-only local lifecycle summary"
+	@echo "  make intake-lifecycle-check Validate local transition rules"
 	@echo "  make sandbox-smoke-explain  Explain the separate manual live check"
 	@echo "  make sandbox-read-plan      Offline bounded read-validation plan"
 	@echo "  make sandbox-evidence-check  Validate placeholder-only Sandbox evidence refs"
@@ -164,6 +166,12 @@ review-workspace-summary:
 
 review-workspace-check:
 	$(PYTHON) scripts/check_intake_review_workspace.py
+
+intake-lifecycle-summary:
+	$(PYTHON) scripts/print_intake_lifecycle_summary.py
+
+intake-lifecycle-check:
+	$(PYTHON) scripts/check_intake_lifecycle.py
 
 .PHONY: database-template database-check migration-plan backup-restore-plan database-connectivity-check
 .PHONY: deployment-template deployment-check deployment-safety-check deployment-artifact-check https-webhook-checklist
@@ -485,4 +493,5 @@ final-readiness-artifact-check:
 
 quality: lint compile pip-check public-usability-audit docs-site-check docs-preview-instructions walkthroughs-check sandbox-smoke-preflight sandbox-smoke-explain sandbox-smoke-evidence-template sandbox-read-plan sandbox-read-preflight sandbox-read-evidence-template sandbox-evidence-template sandbox-evidence-check sandbox-evidence-mapping release-readiness release-checklist release-notes-draft safety-audit route-audit admin-auth-check attachment-storage-check attachment-manifest-check storage-provider-template storage-provider-check storage-refs-check cloud-storage-check cloud-storage-template cloud-storage-explain database-template database-check migration-plan backup-restore-plan postgres-runtime-template postgres-runtime-check postgres-migration-plan postgres-backup-restore-plan hosted-deployment-template hosted-deployment-check hosted-deployment-matrix https-webhook-template https-webhook-check https-webhook-matrix webhook-disable-plan hosted-pilot-dry-run-template hosted-pilot-dry-run-check hosted-pilot-dry-run-matrix final-readiness final-readiness-checklist public-handoff-summary deployment-template deployment-check deployment-safety-check https-webhook-checklist migration-safety-check schema-drift-check webhook-verification-plan webhook-docs-check customer-template customer-profile-check diagnostics pilot-template pilot-readiness-check evidence-template evidence-manifest-check evidence-review-template evidence-review-check evidence-expiry-check pilot-approval-template pilot-approval-check pilot-approval-safety-check modes doctor check-local private-workspace-template private-workspace-git-safety secret-provider-check secret-provider-template secret-refs-check cloud-secret-check cloud-secret-template cloud-secret-explain sandbox-to-pilot-plan sandbox-pilot-template sandbox-onboarding-check pilot-preflight test
 quality: review-workspace-check review-workspace-summary
+quality: intake-lifecycle-check intake-lifecycle-summary
 	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict

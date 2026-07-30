@@ -31,12 +31,17 @@ All workspace routes are GET-only and use the existing admin access guard. H3 pe
 database mutation and no Procore write. It does not add lifecycle transitions, assignments,
 comments, approvals, outbound notifications, or webhook operations.
 
+Phase H4 adds two narrowly scoped, guarded POST routes for local lifecycle transitions. They
+write only the local state/event tables and never update Procore or contact an external system.
+The record detail includes current local status, recent history, and bounded reason-code controls.
+Local status is not an approval or compliance determination.
+
 Responses do not expose raw Procore payloads, raw source IDs, source URLs, signed URLs, private
 paths, storage keys, attachment filenames, or attachment contents. Attachment bytes are neither
 downloaded nor read. Unsafe response values fail closed.
 
 Sandbox and Pilot usage remains private, gated, and operator-controlled. Real identifiers and
-evidence stay outside Git. H4 may add a separate lifecycle/status flow later; H3 does not.
+evidence stay outside Git. H5 may add a separate operator triage queue later; H4 does not.
 
 ## Routes
 

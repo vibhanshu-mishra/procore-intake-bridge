@@ -132,3 +132,13 @@ No release tag or package publication is claimed.
 - Added local, empty-database-safe CLI/Make checks plus documentation, audits, and tests.
 - Added no Procore call or write, lifecycle transition, assignment, comment, approval,
   notification, attachment-content read, or external integration.
+
+## Phase H4
+
+- Added local lifecycle state and append-only event history with a reversible Alembic migration.
+- Added five local statuses, a fixed transition graph, bounded reason codes, masked/hashed actor
+  labels, transactional updates, and sanitized history.
+- Added guarded local HTML/JSON lifecycle routes and integrated state/history into H3.
+- Added non-writing CLI/Make checks, documentation, audits, and regression tests.
+- Added no Procore/external call, approval, compliance decision, assignment, comment,
+  communication, attachment read, or notification integration.

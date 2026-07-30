@@ -14,10 +14,25 @@ class RouteIssue:
 
 
 LOCAL_PATCH_PATHS = {"/sync-profiles/{sync_profile_id}"}
+LOCAL_LIFECYCLE_POST_PATHS = {
+    "/review/intake/{record_id}/lifecycle",
+    "/review/api/intake/{record_id}/lifecycle",
+}
 PROHIBITED_PATH_TERMS = {
     "approve",
+    "assign",
+    "calendar",
     "close",
+    "comment",
+    "compliance",
     "delete",
+    "email",
+    "notify",
+    "notification",
+    "register-webhook",
+    "send-to-customer",
+    "send-to-procore",
+    "slack",
     "submit",
     "upload",
     "write-back",
@@ -47,7 +62,14 @@ def audit_routes() -> list[RouteIssue]:
             lowered = route.path.casefold()
             if route.path.startswith("/admin") and method != "GET":
                 issues.append(RouteIssue(route.path, method, "admin routes must be GET-only"))
-            if route.path.startswith("/review") and method != "GET":
+            if (
+                route.path.startswith("/review")
+                and method != "GET"
+                and not (
+                    method == "POST"
+                    and route.path in LOCAL_LIFECYCLE_POST_PATHS
+                )
+            ):
                 issues.append(
                     RouteIssue(route.path, method, "review routes must be GET-only")
                 )

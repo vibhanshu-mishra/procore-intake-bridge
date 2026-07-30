@@ -1,7 +1,7 @@
 # Roadmap
 
-Phases A1–H3 are implemented in the public repository. H3 provides read-only local intake review;
-H4 may add a separately designed lifecycle/status flow later.
+Phases A1–H4 are implemented in the public repository. H3 provides local intake review and H4
+adds audited local-only lifecycle state.
 
 ## Completed public phases
 
@@ -20,11 +20,12 @@ H4 may add a separately designed lifecycle/status flow later.
 - **H1:** final public repository readiness audit and maintainer handoff.
 - **H2:** maintainer review cleanup.
 - **H3:** local Intake Review Workspace with no mutation or Procore write.
+- **H4:** local lifecycle state/event history with no Procore or external side effect.
 
 ## Next separately scoped phase
 
-H4 may introduce lifecycle/status flow. H3 deliberately has no review status, assignment,
-comment, approval, notification, or transition behavior.
+H5 may introduce an operator triage queue. H4 deliberately adds no assignment, comment,
+approval, compliance determination, communication, notification, or Procore update.
 
 ## Work that remains private or separately scoped
 

@@ -30,6 +30,8 @@ def create_db_and_tables() -> None:
         DMSAConnection,
         IntakeAttachment,
         IntakeRecord,
+        IntakeReviewLifecycleEvent,
+        IntakeReviewState,
         OnboardingPacket,
         SyncProfile,
         SyncRun,

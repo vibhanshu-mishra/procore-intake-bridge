@@ -1,16 +1,31 @@
 from pathlib import Path
+from urllib.parse import parse_qs
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
+from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 
 from app.config import Settings
 from app.database import get_session
 from app.routers.admin import admin_guard
+from app.schemas.intake_lifecycle import (
+    IntakeLifecycleHistoryPage,
+    IntakeLifecycleStateView,
+    IntakeLifecycleTransitionRequest,
+    IntakeLifecycleTransitionResult,
+)
 from app.schemas.intake_review_workspace import (
     IntakeReviewRecordDetail,
     IntakeReviewWorkspacePage,
     IntakeReviewWorkspaceSummary,
+)
+from app.services.intake_lifecycle import (
+    IntakeLifecycleBlockedError,
+    IntakeLifecycleError,
+    apply_lifecycle_transition,
+    get_lifecycle_state,
+    list_lifecycle_history,
 )
 from app.services.intake_review_workspace import (
     IntakeReviewWorkspaceError,
@@ -39,6 +54,13 @@ def _filters(
         )
     except IntakeReviewWorkspaceError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+
+def _lifecycle_error(exc: IntakeLifecycleError) -> HTTPException:
+    status = 403 if isinstance(exc, IntakeLifecycleBlockedError) else 400
+    if "not found" in str(exc).casefold():
+        status = 404
+    return HTTPException(status_code=status, detail=str(exc))
 
 
 @router.get("/api/summary", response_model=IntakeReviewWorkspaceSummary)
@@ -130,3 +152,101 @@ def html_intake_detail(
         name="review/detail.html",
         context={"title": "Intake record detail", "record": detail},
     )
+
+
+@router.get(
+    "/api/intake/{record_id}/lifecycle",
+    response_model=IntakeLifecycleStateView,
+)
+def api_lifecycle_state(
+    record_id: int,
+    session: Session = Depends(get_session),
+    settings: Settings = Depends(admin_guard),
+):
+    try:
+        return get_lifecycle_state(session, record_id, settings)
+    except IntakeLifecycleError as exc:
+        raise _lifecycle_error(exc) from exc
+
+
+@router.get(
+    "/api/intake/{record_id}/lifecycle/history",
+    response_model=IntakeLifecycleHistoryPage,
+)
+def api_lifecycle_history(
+    record_id: int,
+    page: int = Query(default=1, ge=1),
+    page_size: int = Query(default=25, ge=1),
+    session: Session = Depends(get_session),
+    settings: Settings = Depends(admin_guard),
+):
+    try:
+        return list_lifecycle_history(
+            session, record_id, page, page_size, settings
+        )
+    except IntakeLifecycleError as exc:
+        raise _lifecycle_error(exc) from exc
+
+
+@router.post(
+    "/api/intake/{record_id}/lifecycle",
+    response_model=IntakeLifecycleTransitionResult,
+)
+def api_lifecycle_transition(
+    record_id: int,
+    payload: IntakeLifecycleTransitionRequest,
+    session: Session = Depends(get_session),
+    settings: Settings = Depends(admin_guard),
+):
+    try:
+        return apply_lifecycle_transition(session, record_id, payload, settings)
+    except IntakeLifecycleError as exc:
+        raise _lifecycle_error(exc) from exc
+
+
+@router.get("/intake/{record_id}/lifecycle/history")
+def html_lifecycle_history(
+    record_id: int,
+    request: Request,
+    page: int = Query(default=1, ge=1),
+    session: Session = Depends(get_session),
+    settings: Settings = Depends(admin_guard),
+):
+    try:
+        history = list_lifecycle_history(session, record_id, page, 25, settings)
+    except IntakeLifecycleError as exc:
+        raise _lifecycle_error(exc) from exc
+    return templates.TemplateResponse(
+        request=request,
+        name="review/history.html",
+        context={
+            "title": "Local lifecycle history",
+            "record_id": record_id,
+            "history": history,
+        },
+    )
+
+
+@router.post("/intake/{record_id}/lifecycle")
+async def html_lifecycle_transition(
+    record_id: int,
+    request: Request,
+    session: Session = Depends(get_session),
+    settings: Settings = Depends(admin_guard),
+):
+    fields = parse_qs((await request.body()).decode("utf-8"))
+    try:
+        payload = IntakeLifecycleTransitionRequest(
+            to_status=fields.get("to_status", [""])[0],
+            reason_code=fields.get("reason_code", [""])[0],
+            actor_label="LOCAL_OPERATOR_PLACEHOLDER",
+        )
+        apply_lifecycle_transition(session, record_id, payload, settings)
+    except (IntakeLifecycleError, ValueError) as exc:
+        lifecycle_exc = (
+            exc
+            if isinstance(exc, IntakeLifecycleError)
+            else IntakeLifecycleError("Invalid local lifecycle request.")
+        )
+        raise _lifecycle_error(lifecycle_exc) from exc
+    return RedirectResponse(url=f"/review/intake/{record_id}", status_code=303)

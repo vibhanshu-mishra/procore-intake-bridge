@@ -5,6 +5,11 @@ targets, GET-only routes, docs navigation, and explicit no-Procore-write/no-life
 language. Safety checks also guard against workspace examples exposing raw payloads, source URLs,
 private paths, raw source IDs, secrets, or attachment contents.
 
+H4 checks require lifecycle docs, read-only summary/check scripts, Make targets, the reversible
+migration, exact local POST allowlisting, and explicit local-only/no-Procore-write language.
+They also require clear statements that statuses are not approvals, compliance determinations,
+or communications and that every change is audited locally with bounded reasons.
+
 G2 requires four cloud-storage docs, three offline scripts, placeholder-only examples, Make
 targets, disabled-by-default guidance, and explicit no-presigned-URL guidance.
 

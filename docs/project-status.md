@@ -4,6 +4,10 @@ The public repository has completed phases A1–H2. Phase H3 adds a public-safe,
 Review Workspace for sanitized local RFI/Submittal records. It adds no Procore write, lifecycle
 transition, approval, assignment, comment, notification, or external call.
 
+Phase H4 adds audited local lifecycle state and history. It permits only exact guarded local
+transition routes, makes no Procore/external call, and does not represent approval, compliance,
+assignment, or communication.
+
 ## Current public posture
 
 - Demo Mode is the default and uses synthetic fixtures with local SQLite.
@@ -38,6 +42,7 @@ transition, approval, assignment, comment, notification, or external call.
 - **H1:** final public repository readiness inspection and maintainer handoff.
 - **H2:** maintainer-review documentation, command-discovery, and audit cleanup.
 - **H3:** GET-only local intake review, safe source/manifest context, and priority signals.
+- **H4:** transactional local status state/history with bounded reasons and masked actors.
 
 ## Known limitations
 

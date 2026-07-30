@@ -10,6 +10,8 @@ from app.models import (  # noqa: F401
     DMSAConnection,
     IntakeAttachment,
     IntakeRecord,
+    IntakeReviewLifecycleEvent,
+    IntakeReviewState,
     OnboardingPacket,
     SyncProfile,
     SyncRun,

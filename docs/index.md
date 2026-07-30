@@ -23,6 +23,10 @@ For the current public handoff, use [Final public readiness](final-public-readin
 For a product-facing Demo view, use the [Intake Review Workspace](intake-review-workspace.md).
 It reviews sanitized local records only and performs no Procore write or lifecycle transition.
 
+The [Intake lifecycle status flow](intake-lifecycle-status-flow.md) adds audited local state
+changes only. Local status does not update Procore and is not an approval, compliance decision,
+or external communication.
+
 - [First-run checklist](first-run-checklist.md)
 - [Command reference](command-reference.md)
 - [Troubleshooting](troubleshooting.md)

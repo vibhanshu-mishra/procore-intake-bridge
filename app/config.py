@@ -562,6 +562,56 @@ class Settings(BaseSettings):
         default=True,
         validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_FAIL_CLOSED",
     )
+    intake_lifecycle_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_LIFECYCLE_ENABLED"
+    )
+    intake_lifecycle_default_status: Literal[
+        "new", "in_review", "reviewed", "needs_follow_up", "ignored"
+    ] = Field(
+        default="new",
+        validation_alias="PROCORE_INTAKE_LIFECYCLE_DEFAULT_STATUS",
+    )
+    intake_lifecycle_require_reason: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_LIFECYCLE_REQUIRE_REASON",
+    )
+    intake_lifecycle_allow_free_text_notes: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_LIFECYCLE_ALLOW_FREE_TEXT_NOTES",
+    )
+    intake_lifecycle_max_reason_length: int = Field(
+        default=120,
+        ge=1,
+        le=500,
+        validation_alias="PROCORE_INTAKE_LIFECYCLE_MAX_REASON_LENGTH",
+    )
+    intake_lifecycle_max_events_per_record: int = Field(
+        default=100,
+        ge=1,
+        le=1000,
+        validation_alias="PROCORE_INTAKE_LIFECYCLE_MAX_EVENTS_PER_RECORD",
+    )
+    intake_lifecycle_mask_actor: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_LIFECYCLE_MASK_ACTOR"
+    )
+    intake_lifecycle_hash_actor: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_LIFECYCLE_HASH_ACTOR"
+    )
+    intake_lifecycle_expose_raw_payloads: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_LIFECYCLE_EXPOSE_RAW_PAYLOADS",
+    )
+    intake_lifecycle_expose_source_ids: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_LIFECYCLE_EXPOSE_SOURCE_IDS",
+    )
+    intake_lifecycle_expose_private_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_LIFECYCLE_EXPOSE_PRIVATE_PATHS",
+    )
+    intake_lifecycle_fail_closed: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_LIFECYCLE_FAIL_CLOSED"
+    )
     sandbox_smoke_enabled: bool = Field(
         default=False,
         validation_alias="PROCORE_INTAKE_SANDBOX_SMOKE_ENABLED",

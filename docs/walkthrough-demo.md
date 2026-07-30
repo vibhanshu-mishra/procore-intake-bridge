@@ -5,6 +5,10 @@ After explicitly persisting fake fixture intake, open `/review` or run
 remains a dry run. The H3 workspace is GET-only: it reads no attachment contents,
 exposes no raw payloads, and performs no Procore write or lifecycle transition.
 
+H4 adds audited local status controls on the detail page. A status change updates only this
+app's local tables, uses a fixed reason code, and sends no message or notification. It is not an
+approval or compliance determination.
+
 ## Who this is for
 
 Use this path if you just cloned the repository or want to understand it without a Procore

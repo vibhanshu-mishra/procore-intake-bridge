@@ -250,6 +250,21 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if "intake-lifecycle" in path.as_posix() or "intake_lifecycle" in path.as_posix():
+        lifecycle_claim = re.compile(
+            r"(?i)\b(?:status|transition|lifecycle)\b.*\b(?:approval|"
+            r"compliance determination|sent to procore|customer communication)\b"
+        )
+        for line in text.splitlines():
+            if (
+                lifecycle_claim.search(line)
+                and not re.search(r"(?i)\b(?:no|not|never|does not|do not)\b", line)
+                and not _safe_value(line)
+            ):
+                issues.append(
+                    SafetyIssue(path, "lifecycle content implies an external decision or action")
+                )
+                break
     if (
         "intake_review_workspace" in path.as_posix()
         and path.parts

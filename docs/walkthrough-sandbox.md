@@ -4,6 +4,10 @@ The Intake Review Workspace may display already-stored local records, but Sandbo
 and data remain private and gated. H3 makes no Procore call or write, exposes no raw payloads or
 attachment contents, and provides no lifecycle transition.
 
+H4 lifecycle state remains local even when reviewing privately sourced Sandbox records. It does
+not update Procore, communicate externally, or establish approval/compliance state. Sandbox
+configuration and identifiers remain private and gated.
+
 ## Who this is for
 
 Use this optional path only when you have authorized Procore sandbox/DMSA access. Finish the

@@ -4,6 +4,10 @@ The H3 Intake Review Workspace is read-only and does not approve a Pilot. Pilot 
 identifiers, and evidence remain private and gated; raw payloads and attachment contents are not
 exposed. No assignment, comment, approval, lifecycle transition, or Procore write is available.
 
+H4 may record audited lifecycle labels locally, but those labels do not approve a Pilot, update
+Procore, determine compliance, assign work, or communicate with any customer or broker. Pilot use
+remains private, gated, and subject to separate human review.
+
 Pilot storage selection is a private operator decision. Cloud storage readiness does not approve
 production security or a pilot, and default preflight checks perform no cloud object operations.
 

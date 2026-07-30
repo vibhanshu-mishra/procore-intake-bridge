@@ -5,6 +5,12 @@ raw payload keys, source URLs, signed URLs, private paths, storage keys, secrets
 IDs. Attachment bytes are never downloaded or read. Priority signals are informational and do
 not create lifecycle state, approvals, compliance determinations, or Procore updates.
 
+H4 allows only two exact, guarded lifecycle POST paths. They mutate local state and append local
+audit history transactionally. The route audit rejects every other review POST and continues to
+block destructive, Procore-facing, deployment, webhook-registration, and notification-style
+paths. Fixed reason codes, bounded summaries, masked/hashed actors, and default-disabled free text
+keep lifecycle responses public-safe. Local state is not approval or compliance state.
+
 Cloud storage operations require independent selection, provider-enable, allow, network,
 confirmation, configuration, and dependency gates. Diagnostics expose no contents, provider
 resource names, object keys, credentials, signed URLs, or paths.

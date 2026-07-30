@@ -516,3 +516,11 @@ a dry run until fixture persistence is explicitly requested. The workspace displ
 local RFI/Submittal records, manifest summaries, source context, and priority signals. It exposes
 no raw payloads, source URLs, private paths, raw source IDs, or attachment contents and performs
 no Procore writes or lifecycle transitions.
+
+## Local intake lifecycle
+
+Phase H4 adds an [audited local status flow](docs/intake-lifecycle-status-flow.md) with `new`,
+`in_review`, `reviewed`, `needs_follow_up`, and `ignored`. Status changes remain inside this
+application and do not update Procore. They are not approvals, compliance determinations,
+assignments, comments, or customer/broker communications. Reason codes are bounded and sanitized,
+and free-text notes are disabled by default.

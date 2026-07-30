@@ -3,6 +3,12 @@ from enum import StrEnum
 
 from pydantic import BaseModel, Field
 
+from app.schemas.intake_lifecycle import (
+    IntakeLifecycleEventItem,
+    IntakeLifecycleStateView,
+    IntakeLifecycleStatus,
+)
+
 
 class IntakeReviewTool(StrEnum):
     RFI = "rfi"
@@ -79,12 +85,15 @@ class IntakeReviewRecordListItem(BaseModel):
     attachment_summary: IntakeReviewAttachmentSummary | None = None
     source_context: IntakeReviewSourceContext | None = None
     priority_signals: list[IntakeReviewPrioritySignal] = Field(default_factory=list)
+    lifecycle_status: IntakeLifecycleStatus = IntakeLifecycleStatus.NEW
 
 
 class IntakeReviewRecordDetail(IntakeReviewRecordListItem):
     findings: list[IntakeReviewFinding] = Field(default_factory=list)
     read_only: bool = True
-    lifecycle_transitions_available: bool = False
+    lifecycle_transitions_available: bool = True
+    lifecycle_state: IntakeLifecycleStateView | None = None
+    recent_lifecycle_history: list[IntakeLifecycleEventItem] = Field(default_factory=list)
     raw_payload_exposed: bool = False
 
 
@@ -118,4 +127,3 @@ class IntakeReviewWorkspaceReport(BaseModel):
     summary: IntakeReviewWorkspaceSummary
     page: IntakeReviewWorkspacePage | None = None
     findings: list[IntakeReviewFinding] = Field(default_factory=list)
-

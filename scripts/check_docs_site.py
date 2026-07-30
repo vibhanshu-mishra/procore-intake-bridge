@@ -62,6 +62,7 @@ REQUIRED_NAV_DOCS = {
     "final-readiness-checklist.md",
     "maintainer-review-fix-pack.md",
     "intake-review-workspace.md",
+    "intake-lifecycle-status-flow.md",
     "release-readiness.md",
     "release-checklist.md",
     "release-notes-template.md",

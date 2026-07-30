@@ -1,5 +1,6 @@
 from app.models.attachment_objects import AttachmentObject
 from app.models.connections import DMSAConnection
+from app.models.intake_lifecycle import IntakeReviewLifecycleEvent, IntakeReviewState
 from app.models.intake_records import IntakeAttachment, IntakeRecord
 from app.models.onboarding_packets import OnboardingPacket
 from app.models.sync_profiles import SyncProfile
@@ -11,6 +12,8 @@ __all__ = [
     "AttachmentObject",
     "IntakeAttachment",
     "IntakeRecord",
+    "IntakeReviewState",
+    "IntakeReviewLifecycleEvent",
     "OnboardingPacket",
     "SyncProfile",
     "SyncRun",
