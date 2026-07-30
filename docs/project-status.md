@@ -1,6 +1,6 @@
 # Project status
 
-The public repository has completed phases A1–H6. Phase H3 adds a public-safe, read-only Intake
+The public repository has completed phases A1–H7. Phase H3 adds a public-safe, read-only Intake
 Review Workspace for sanitized local RFI/Submittal records. It adds no Procore write, lifecycle
 transition, approval, assignment, comment, notification, or external call.
 
@@ -14,6 +14,9 @@ communication, notification, risk, or a Procore update.
 
 Phase H6 adds metadata-only attachment manifest review without file access, storage-provider
 calls, private storage details, filenames, URLs, or attachment contents.
+
+Phase H7 adds ignored local JSON, Markdown, and CSV summary generation with bounded rows,
+traversal protection, and CSV formula neutralization. It adds no public export route.
 
 ## Current public posture
 
@@ -52,6 +55,7 @@ calls, private storage details, filenames, URLs, or attachment contents.
 - **H4:** transactional local status state/history with bounded reasons and masked actors.
 - **H5:** read-only operator triage buckets and deterministic local sorting.
 - **H6:** read-only attachment manifest metadata summaries and detail views.
+- **H7:** local sanitized summary exports for H3–H6 operator metadata.
 
 ## Known limitations
 

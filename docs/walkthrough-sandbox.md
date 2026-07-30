@@ -99,3 +99,6 @@ values, and evidence remain private. Opening it makes no live Procore or externa
 
 H6 may inspect already-local manifest metadata only. Sandbox attachment values and storage
 locations remain private and gated; no attachment operation occurs.
+
+Sandbox H7 exports remain private and gated. Never place generated summaries or source values in
+the public repository.

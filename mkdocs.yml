@@ -19,6 +19,7 @@ nav:
       - Intake Lifecycle Status Flow: intake-lifecycle-status-flow.md
       - Operator Triage Queue: operator-triage-queue.md
       - Attachment Review and Manifest UX: attachment-review-manifest-ux.md
+      - Operator Export Pack: operator-export-pack.md
   - Sandbox Mode:
       - Sandbox Mode: sandbox-mode.md
       - Sandbox Onboarding: sandbox-onboarding.md

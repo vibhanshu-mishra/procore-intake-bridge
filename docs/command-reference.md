@@ -202,3 +202,13 @@ Neither command changes persistent state or calls Procore or another external sy
 
 Neither command opens a file, contacts attachment storage, changes state, or makes an external
 call.
+
+## Operator Export Pack
+
+- `make operator-export-check` validates JSON, Markdown, and CSV rendering without writing.
+- `make operator-export-summary` prints a sanitized combined summary without writing.
+- `make operator-export-artifact-check` generates artifacts under temporary `/tmp` storage and
+  cleans them automatically.
+- `python scripts/generate_operator_export_pack.py` explicitly writes ignored local artifacts.
+
+No command reads attachment files or calls Procore, storage providers, or external services.

@@ -29,3 +29,6 @@ only. There is no file access, and they make no Procore, storage-provider, or ex
 
 Future separately scoped phases may add sanitized export summaries. They must not turn this
 metadata view into a file-serving surface.
+
+H7 now provides those [sanitized export summaries](operator-export-pack.md). It exports aggregate
+manifest metadata only and still performs no file or storage access.

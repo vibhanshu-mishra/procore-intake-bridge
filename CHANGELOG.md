@@ -158,3 +158,12 @@ No release tag or package publication is claimed.
   source-availability signals, CLI/Make checks, documentation, audits, and regressions.
 - H6 performs no attachment download, file serving/opening, storage-provider call, mutation,
   Procore/external call, document approval, or compliance determination.
+
+## Phase H7
+
+- Added local JSON, Markdown, and CSV summaries for intake, lifecycle, triage, attachment
+  metadata, bounded lifecycle events, and a combined operator packet.
+- Added strict output-root validation, ignored artifact patterns, CSV formula neutralization,
+  non-writing checks, temporary artifact validation, documentation, audits, and regressions.
+- H7 adds no web/download route, Procore/external call, attachment access, mutation, approval,
+  compliance certification, or customer-report claim.

@@ -250,6 +250,30 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if "operator-export" in path.as_posix() or "operator_export" in path.as_posix():
+        unsafe_export_claim = re.compile(
+            r"(?i)\b(?:official customer report|compliance (?:report|certificate)|"
+            r"approval granted|approved export|procore status)\b"
+        )
+        for line in text.splitlines():
+            if (
+                unsafe_export_claim.search(line)
+                and (
+                    not (
+                        "tests" in path.parts
+                        or ("app" in path.parts and "services" in path.parts)
+                    )
+                    or "assert" in line
+                )
+                and not re.search(
+                    r"(?i)\b(?:no|not|never|isn't|is not|does not|must not)\b", line
+                )
+                and not _safe_value(line)
+            ):
+                issues.append(
+                    SafetyIssue(path, "operator export implies an official external decision")
+                )
+                break
     if "attachment-review" in path.as_posix() or "attachment_review" in path.as_posix():
         unsafe_attachment_claim = re.compile(
             r"(?i)\b(?:attachment|manifest|file)\b.*\b(?:download|serve|open file|"
@@ -585,6 +609,30 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             )
         ):
             issues.append(SafetyIssue(path, "tracked hosted deployment output"))
+            continue
+        if path.name.endswith(
+            (
+                ".operator-export.json",
+                ".operator-export.md",
+                ".operator-export.csv",
+                ".review-export.json",
+                ".review-export.md",
+                ".review-export.csv",
+                ".intake-summary-export.json",
+                ".intake-summary-export.md",
+                ".intake-summary-export.csv",
+                ".lifecycle-summary-export.json",
+                ".lifecycle-summary-export.md",
+                ".lifecycle-summary-export.csv",
+                ".triage-summary-export.json",
+                ".triage-summary-export.md",
+                ".triage-summary-export.csv",
+                ".attachment-summary-export.json",
+                ".attachment-summary-export.md",
+                ".attachment-summary-export.csv",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated operator export output"))
             continue
         if path.name.endswith(
             (

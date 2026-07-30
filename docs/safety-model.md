@@ -208,3 +208,11 @@ H6 reads only local database manifest metadata. It never opens or serves a file,
 storage provider, or downloads a Procore attachment. Responses exclude URLs, private paths,
 storage keys, original filenames, checksum values, raw identifiers, payloads, and contents.
 Unsafe exposure settings fail closed.
+
+## H7 Operator Export Pack
+
+H7 has no web route. Its read-only builders reuse sanitized H3–H6 projections; only the explicit
+CLI generator writes to allowlisted ignored or `/tmp` roots. Output excludes private values and
+neutralizes spreadsheet formula prefixes. Traversal and unsafe exposure configuration fail
+closed. Export summaries are not approvals, compliance reports, customer reports, certifications,
+or Procore statuses.

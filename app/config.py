@@ -759,6 +759,84 @@ class Settings(BaseSettings):
         default=True,
         validation_alias="PROCORE_INTAKE_ATTACHMENT_REVIEW_FAIL_CLOSED",
     )
+    export_pack_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_EXPORT_PACK_ENABLED",
+    )
+    export_pack_output_root: Path = Field(
+        default=Path("./operator-export-output"),
+        validation_alias="PROCORE_INTAKE_EXPORT_PACK_OUTPUT_ROOT",
+    )
+    export_pack_default_formats: str = Field(
+        default="json,md,csv",
+        validation_alias="PROCORE_INTAKE_EXPORT_PACK_DEFAULT_FORMATS",
+    )
+    export_pack_max_records: int = Field(
+        default=1000,
+        ge=1,
+        le=10000,
+        validation_alias="PROCORE_INTAKE_EXPORT_PACK_MAX_RECORDS",
+    )
+    export_pack_include_intake_summary: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_EXPORT_PACK_INCLUDE_INTAKE_SUMMARY",
+    )
+    export_pack_include_lifecycle_summary: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_EXPORT_PACK_INCLUDE_LIFECYCLE_SUMMARY",
+    )
+    export_pack_include_triage_summary: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_EXPORT_PACK_INCLUDE_TRIAGE_SUMMARY",
+    )
+    export_pack_include_attachment_summary: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_EXPORT_PACK_INCLUDE_ATTACHMENT_SUMMARY",
+    )
+    export_pack_include_event_summary: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_EXPORT_PACK_INCLUDE_EVENT_SUMMARY",
+    )
+    export_pack_mask_source_ids: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_EXPORT_PACK_MASK_SOURCE_IDS",
+    )
+    export_pack_hash_source_ids: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_EXPORT_PACK_HASH_SOURCE_IDS",
+    )
+    export_pack_expose_raw_payloads: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_EXPORT_PACK_EXPOSE_RAW_PAYLOADS",
+    )
+    export_pack_expose_source_urls: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_EXPORT_PACK_EXPOSE_SOURCE_URLS",
+    )
+    export_pack_expose_signed_urls: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_EXPORT_PACK_EXPOSE_SIGNED_URLS",
+    )
+    export_pack_expose_storage_keys: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_EXPORT_PACK_EXPOSE_STORAGE_KEYS",
+    )
+    export_pack_expose_private_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_EXPORT_PACK_EXPOSE_PRIVATE_PATHS",
+    )
+    export_pack_expose_original_filenames: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_EXPORT_PACK_EXPOSE_ORIGINAL_FILENAMES",
+    )
+    export_pack_expose_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_EXPORT_PACK_EXPOSE_CONTENTS",
+    )
+    export_pack_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_EXPORT_PACK_FAIL_CLOSED",
+    )
     sandbox_smoke_enabled: bool = Field(
         default=False,
         validation_alias="PROCORE_INTAKE_SANDBOX_SMOKE_ENABLED",

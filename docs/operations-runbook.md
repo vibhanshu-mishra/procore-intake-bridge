@@ -212,3 +212,9 @@ sanitized local detail and never copy private source data into public artifacts.
 Run `make attachment-review-check` for a non-writing validation of local manifest metadata.
 The check does not open files or contact storage. Investigate only through the sanitized
 `/review/attachments` views.
+
+## Operator export checks
+
+Run `make operator-export-check` before generating an export. Use
+`make operator-export-artifact-check` for a temporary write-and-clean exercise. Persistent local
+exports use only the ignored configured root; never stage generated summaries.

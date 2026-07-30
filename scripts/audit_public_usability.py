@@ -61,6 +61,7 @@ REQUIRED_DOCS = {
     "docs/intake-lifecycle-status-flow.md",
     "docs/operator-triage-queue.md",
     "docs/attachment-review-manifest-ux.md",
+    "docs/operator-export-pack.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -91,6 +92,9 @@ REQUIRED_SCRIPTS = {
     "scripts/print_operator_triage_summary.py",
     "scripts/check_attachment_review.py",
     "scripts/print_attachment_review_summary.py",
+    "scripts/check_operator_export_pack.py",
+    "scripts/print_operator_export_summary.py",
+    "scripts/generate_operator_export_pack.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -203,6 +207,9 @@ REQUIRED_TARGETS = {
     "operator-triage-check",
     "attachment-review-summary",
     "attachment-review-check",
+    "operator-export-check",
+    "operator-export-summary",
+    "operator-export-artifact-check",
     "help",
     "start",
     "commands",
@@ -757,6 +764,28 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         ),
         "H6 checks are included in quality": (
             "quality: attachment-review-check attachment-review-summary" in makefile
+        ),
+        "H7 exports are local sanitized summaries": all(
+            phrase in _read(root, "docs/operator-export-pack.md").casefold()
+            for phrase in ("local sanitized", "no public export route", "outside version control")
+        ),
+        "H7 exports disclaim external report claims": all(
+            phrase in _read(root, "docs/operator-export-pack.md").casefold()
+            for phrase in ("not compliance reports", "approvals", "customer reports")
+        ),
+        "H7 export outputs are ignored": all(
+            pattern in _read(root, ".gitignore")
+            for pattern in (
+                "operator-export-output/",
+                "*.operator-export.json",
+                "*.operator-export.md",
+                "*.operator-export.csv",
+                "*.attachment-summary-export.csv",
+            )
+        ),
+        "H7 non-writing checks are included in quality": (
+            "quality: operator-export-check operator-export-summary" in makefile
+            and "operator-export-artifact-check" not in quality_header
         ),
         "beginner docs steer to friendly targets": all(
             command in docs

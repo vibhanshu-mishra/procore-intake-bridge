@@ -82,6 +82,14 @@ def audit_routes() -> list[RouteIssue]:
         methods = route.methods or set()
         for method in sorted(methods - {"HEAD", "OPTIONS"}):
             lowered = route.path.casefold()
+            if route.path.startswith("/review") and "export" in lowered:
+                issues.append(
+                    RouteIssue(
+                        route.path,
+                        method,
+                        "operator exports must remain CLI-only with no web route",
+                    )
+                )
             if route.path.startswith("/review/attachments") and any(
                 term in lowered for term in ("download", "file", "serve", "content")
             ):

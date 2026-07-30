@@ -2,7 +2,7 @@
 
 PYTHON ?= .venv/bin/python
 
-.PHONY: review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check
+.PHONY: review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check operator-export-check operator-export-summary operator-export-artifact-check
 
 help:
 	@echo "START HERE"
@@ -22,6 +22,9 @@ help:
 	@echo "  make operator-triage-check Validate the local triage projection"
 	@echo "  make attachment-review-summary Metadata-only attachment summary"
 	@echo "  make attachment-review-check Validate safe attachment metadata review"
+	@echo "  make operator-export-summary Print sanitized local export summary"
+	@echo "  make operator-export-check Validate safe export rendering"
+	@echo "  make operator-export-artifact-check Generate and clean temporary exports"
 	@echo "  make sandbox-smoke-explain  Explain the separate manual live check"
 	@echo "  make sandbox-read-plan      Offline bounded read-validation plan"
 	@echo "  make sandbox-evidence-check  Validate placeholder-only Sandbox evidence refs"
@@ -188,6 +191,15 @@ attachment-review-summary:
 
 attachment-review-check:
 	$(PYTHON) scripts/check_attachment_review.py
+
+operator-export-summary:
+	$(PYTHON) scripts/print_operator_export_summary.py
+
+operator-export-check:
+	$(PYTHON) scripts/check_operator_export_pack.py
+
+operator-export-artifact-check:
+	$(PYTHON) scripts/generate_operator_export_pack.py --temporary
 
 .PHONY: database-template database-check migration-plan backup-restore-plan database-connectivity-check
 .PHONY: deployment-template deployment-check deployment-safety-check deployment-artifact-check https-webhook-checklist
@@ -512,4 +524,5 @@ quality: review-workspace-check review-workspace-summary
 quality: intake-lifecycle-check intake-lifecycle-summary
 quality: operator-triage-check operator-triage-summary
 quality: attachment-review-check attachment-review-summary
+quality: operator-export-check operator-export-summary
 	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict

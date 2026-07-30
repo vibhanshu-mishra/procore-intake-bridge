@@ -75,3 +75,6 @@ compliance, assign work, notify anyone, or satisfy a launch gate. Pilot material
 
 H6 attachment review is metadata-only and does not approve documents or satisfy evidence,
 compliance, or launch gates. Pilot attachment and storage details remain private.
+
+H7 Pilot exports are private local summaries only. They do not grant approval, certify
+compliance, satisfy evidence gates, or represent a customer report.

@@ -34,3 +34,6 @@ tool, reviewed, and ignored. A record may appear in multiple buckets.
 
 H6 provides a separate [attachment manifest metadata view](attachment-review-manifest-ux.md).
 The triage queue links to that context without accessing files or exposing storage details.
+
+H7 can export triage bucket counts through the [local Export Pack](operator-export-pack.md).
+Its priority description remains deterministic local sorting only.

@@ -79,3 +79,6 @@ The displayed priority is only deterministic sorting; the GET-only view changes 
 
 Open `/review/attachments` to inspect fake fixture manifest metadata. The H6 view does not access
 attachment files or private storage.
+
+Run `make operator-export-summary` to preview H7 with fake local data. Use the separate generator
+only when an ignored local artifact is wanted.

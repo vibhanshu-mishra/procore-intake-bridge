@@ -39,3 +39,6 @@ triage queue later; H4 adds no queue, assignment, message, or notification integ
 The [Operator Triage Queue](operator-triage-queue.md) reads H4 state without lazily creating or
 changing it. H5 adds no lifecycle transition; the existing two guarded H4 POST routes remain the
 only review mutations.
+
+H7 exports aggregate local status and bounded event metadata only. It excludes actor identity
+fields and does not turn lifecycle labels into approval, compliance, or Procore status.

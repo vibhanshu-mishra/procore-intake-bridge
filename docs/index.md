@@ -125,3 +125,6 @@ sanitized intake and lifecycle data. Its score only controls sorting.
 
 The [Attachment Review and Manifest UX](attachment-review-manifest-ux.md) provides a GET-only,
 metadata-only view of sanitized local manifest status.
+
+The [Operator Export Pack](operator-export-pack.md) renders ignored local JSON, Markdown, and CSV
+summaries without adding a public export route.

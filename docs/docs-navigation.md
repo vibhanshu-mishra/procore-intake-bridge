@@ -81,3 +81,5 @@ performed after H1. It adds no runtime or live capability.
   over sanitized H3/H4 data.
 - [Attachment Review and Manifest UX](attachment-review-manifest-ux.md): metadata-only local
   manifest inspection with no file access.
+- [Operator Export Pack](operator-export-pack.md): local sanitized JSON, Markdown, and CSV
+  summaries kept outside Git.

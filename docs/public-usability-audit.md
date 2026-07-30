@@ -90,3 +90,7 @@ navigation, local sorting disclaimer, and prohibited-action boundary.
 H6 adds `attachment-review-check` and `attachment-review-summary` to `make quality`. Audits cover
 the required docs/scripts, GET-only route set, absence of file-serving routes, and metadata-only
 safety boundary.
+
+H7 adds non-writing `operator-export-check` and `operator-export-summary` quality gates. Audits
+verify ignored output patterns, documentation, command discovery, lack of export routes, and
+summary-claim safety.

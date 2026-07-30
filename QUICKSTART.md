@@ -165,3 +165,13 @@ make attachment-review-summary
 
 H6 reads local manifest metadata only. No attachment file, private path, storage key, filename,
 URL, or content is exposed or accessed.
+
+## Preview sanitized export summaries
+
+```bash
+make operator-export-check
+make operator-export-summary
+```
+
+These H7 commands write nothing. Local artifact generation is a separate explicit command and
+its output remains ignored. Exports are metadata summaries, not customer or compliance reports.

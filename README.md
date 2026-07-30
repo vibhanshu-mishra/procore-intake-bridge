@@ -57,6 +57,9 @@ Phase H6 adds [metadata-only attachment review](docs/attachment-review-manifest-
 manifest rows. It exposes no source/signed URL, path, storage key, original live filename,
 attachment content, or raw identifier, and performs no file or storage-provider operation.
 
+Phase H7 adds a [local sanitized Export Pack](docs/operator-export-pack.md) for JSON, Markdown,
+and CSV summaries of H3–H6. It adds no public export route, and generated artifacts stay ignored.
+
 Continue with the **[guided walkthroughs](docs/walkthrough-index.md)**. The
 [Demo walkthrough](docs/walkthrough-demo.md) is the default next document; Sandbox and Pilot
 walkthroughs are optional private paths.
