@@ -57,3 +57,6 @@ sync profile have been prepared.
 
 The [Operator Triage Queue](operator-triage-queue.md) reuses this workspace's sanitized records
 and safe source/manifest context. It remains GET-only and never reads attachment contents.
+
+H6 adds [metadata-only attachment review](attachment-review-manifest-ux.md) and links each local
+record to its sanitized manifest summary. It adds no attachment file access or new mutation.

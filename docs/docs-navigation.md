@@ -79,3 +79,5 @@ The [H2 maintainer review fix pack](maintainer-review-fix-pack.md) records the b
 performed after H1. It adds no runtime or live capability.
 - [Operator Triage Queue](operator-triage-queue.md): GET-only local sorting and bucket projection
   over sanitized H3/H4 data.
+- [Attachment Review and Manifest UX](attachment-review-manifest-ux.md): metadata-only local
+  manifest inspection with no file access.

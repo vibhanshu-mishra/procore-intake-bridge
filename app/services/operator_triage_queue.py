@@ -27,6 +27,7 @@ from app.schemas.operator_triage_queue import (
 from app.services.intake_review_workspace import (
     build_intake_review_attachment_summary,
     build_intake_review_source_context,
+    classify_intake_review_tool,
     hash_intake_review_identifier,
     mask_intake_review_identifier,
     sanitize_intake_review_value,
@@ -52,15 +53,6 @@ def mask_triage_identifier(value: Any) -> str | None:
 
 def hash_triage_identifier(value: Any) -> str | None:
     return hash_intake_review_identifier(value)
-
-
-def _tool(source_type: str) -> IntakeReviewTool:
-    normalized = source_type.casefold().rstrip("s")
-    if normalized == "rfi":
-        return IntakeReviewTool.RFI
-    if normalized == "submittal":
-        return IntakeReviewTool.SUBMITTAL
-    return IntakeReviewTool.UNKNOWN
 
 
 def build_operator_triage_filter(
@@ -171,7 +163,7 @@ def compute_triage_signals(
                 weight=0 if has_context else 15,
             )
         )
-    if _tool(record.source_type) is IntakeReviewTool.UNKNOWN:
+    if classify_intake_review_tool(record.source_type) is IntakeReviewTool.UNKNOWN:
         signals.append(
             OperatorTriageSignal(code="unknown_tool", label="Unknown local source type", weight=20)
         )
@@ -233,7 +225,7 @@ def _build_items(session: Session, settings: Settings) -> list[OperatorTriageQue
         signals = compute_triage_signals(record, state, attachments, source, settings)
         item = OperatorTriageQueueItem(
             record_id=record.id,
-            tool=_tool(record.source_type),
+            tool=classify_intake_review_tool(record.source_type),
             display_number=mask_triage_identifier(record.number) or "••••",
             title=sanitize_triage_value(record.title),
             lifecycle_status=lifecycle_status,

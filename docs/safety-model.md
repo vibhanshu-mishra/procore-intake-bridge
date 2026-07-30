@@ -201,3 +201,10 @@ H5 reuses H3 sanitization and reads H4 state without creating or changing it. Re
 raw payloads, source and signed URLs, private paths, attachment contents, and raw source IDs.
 Unsafe exposure configuration fails closed. The queue makes no assignment, comment, approval,
 compliance decision, communication, notification, lifecycle transition, or Procore update.
+
+## H6 Attachment Review
+
+H6 reads only local database manifest metadata. It never opens or serves a file, contacts a
+storage provider, or downloads a Procore attachment. Responses exclude URLs, private paths,
+storage keys, original filenames, checksum values, raw identifiers, payloads, and contents.
+Unsafe exposure settings fail closed.

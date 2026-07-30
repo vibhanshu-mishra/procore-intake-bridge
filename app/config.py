@@ -682,6 +682,83 @@ class Settings(BaseSettings):
         default=True,
         validation_alias="PROCORE_INTAKE_TRIAGE_QUEUE_FAIL_CLOSED",
     )
+    attachment_review_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_REVIEW_ENABLED",
+    )
+    attachment_review_page_size: int = Field(
+        default=25,
+        ge=1,
+        le=100,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_REVIEW_PAGE_SIZE",
+    )
+    attachment_review_max_page_size: int = Field(
+        default=100,
+        ge=1,
+        le=100,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_REVIEW_MAX_PAGE_SIZE",
+    )
+    attachment_review_default_sort: Literal[
+        "record_received_at_desc",
+        "record_received_at_asc",
+        "attachment_count_desc",
+        "attachment_count_asc",
+        "tool_asc",
+        "tool_desc",
+        "storage_status_asc",
+        "storage_status_desc",
+    ] = Field(
+        default="record_received_at_desc",
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_REVIEW_DEFAULT_SORT",
+    )
+    attachment_review_include_manifest_summary: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_REVIEW_INCLUDE_MANIFEST_SUMMARY",
+    )
+    attachment_review_include_storage_status: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_REVIEW_INCLUDE_STORAGE_STATUS",
+    )
+    attachment_review_include_checksum_status: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_REVIEW_INCLUDE_CHECKSUM_STATUS",
+    )
+    attachment_review_mask_attachment_ids: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_REVIEW_MASK_ATTACHMENT_IDS",
+    )
+    attachment_review_hash_attachment_ids: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_REVIEW_HASH_ATTACHMENT_IDS",
+    )
+    attachment_review_expose_source_urls: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_REVIEW_EXPOSE_SOURCE_URLS",
+    )
+    attachment_review_expose_signed_urls: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_REVIEW_EXPOSE_SIGNED_URLS",
+    )
+    attachment_review_expose_storage_keys: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_REVIEW_EXPOSE_STORAGE_KEYS",
+    )
+    attachment_review_expose_private_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_REVIEW_EXPOSE_PRIVATE_PATHS",
+    )
+    attachment_review_expose_original_filenames: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_REVIEW_EXPOSE_ORIGINAL_FILENAMES",
+    )
+    attachment_review_expose_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_REVIEW_EXPOSE_CONTENTS",
+    )
+    attachment_review_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_ATTACHMENT_REVIEW_FAIL_CLOSED",
+    )
     sandbox_smoke_enabled: bool = Field(
         default=False,
         validation_alias="PROCORE_INTAKE_SANDBOX_SMOKE_ENABLED",

@@ -8,6 +8,7 @@
   <p><strong>Updated:</strong> {{ record.updated_at }}</p>
   <p><strong>Local lifecycle status:</strong> {{ record.lifecycle_status.value | replace("_", " ") }}</p>
   <p><strong>Manifest entries:</strong> {{ record.attachment_summary.manifest_count if record.attachment_summary else "Summary disabled" }}</p>
+  <p><a href="/review/attachments/{{ record.record_id }}">Review attachment manifest metadata</a></p>
   <p><strong>Source reference hashes:</strong>
     {% if record.source_context %}{{ record.source_context.project_id_hash }}, {{ record.source_context.item_id_hash }}{% else %}Context disabled{% endif %}
   </p>

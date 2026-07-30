@@ -77,7 +77,7 @@ def hash_intake_review_identifier(value: Any) -> str | None:
     return hashlib.sha256(str(value).encode()).hexdigest()[:12]
 
 
-def _tool(source_type: str) -> IntakeReviewTool:
+def classify_intake_review_tool(source_type: str) -> IntakeReviewTool:
     normalized = source_type.casefold().rstrip("s")
     if normalized == "rfi":
         return IntakeReviewTool.RFI
@@ -274,7 +274,7 @@ def _item(record: IntakeRecord, session: Session, settings: Settings):
             lifecycle_status = IntakeLifecycleStatus(existing_state.status)
     return IntakeReviewRecordListItem(
         record_id=record.id,
-        tool=_tool(record.source_type),
+        tool=classify_intake_review_tool(record.source_type),
         display_number=mask_intake_review_identifier(record.number) or "••••",
         title=sanitize_intake_review_value(record.title),
         source_status=sanitize_intake_review_value(record.status),

@@ -86,3 +86,7 @@ release, production, or pilot approval.
 H5 adds `operator-triage-check` and `operator-triage-summary` to `make quality`. The usability,
 route, documentation, and public-safety audits cover its required files, GET-only routes,
 navigation, local sorting disclaimer, and prohibited-action boundary.
+
+H6 adds `attachment-review-check` and `attachment-review-summary` to `make quality`. Audits cover
+the required docs/scripts, GET-only route set, absence of file-serving routes, and metadata-only
+safety boundary.

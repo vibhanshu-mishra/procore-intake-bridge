@@ -53,6 +53,10 @@ records and local H4 lifecycle state. Its deterministic score is a local sorting
 adds no Procore write, lifecycle transition, assignment, comment, approval, compliance decision,
 communication, notification, attachment-content read, or external call.
 
+Phase H6 adds [metadata-only attachment review](docs/attachment-review-manifest-ux.md) for local
+manifest rows. It exposes no source/signed URL, path, storage key, original live filename,
+attachment content, or raw identifier, and performs no file or storage-provider operation.
+
 Continue with the **[guided walkthroughs](docs/walkthrough-index.md)**. The
 [Demo walkthrough](docs/walkthrough-demo.md) is the default next document; Sandbox and Pilot
 walkthroughs are optional private paths.

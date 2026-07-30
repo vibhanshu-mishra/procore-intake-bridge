@@ -1,7 +1,8 @@
 # Roadmap
 
-Phases A1–H5 are implemented in the public repository. H3 provides local intake review, H4 adds
-audited local-only lifecycle state, and H5 adds a GET-only local triage projection.
+Phases A1–H6 are implemented in the public repository. H3 provides local intake review, H4 adds
+audited local-only lifecycle state, H5 adds local triage, and H6 adds metadata-only attachment
+manifest review.
 
 ## Completed public phases
 
@@ -22,6 +23,7 @@ audited local-only lifecycle state, and H5 adds a GET-only local triage projecti
 - **H3:** local Intake Review Workspace with no mutation or Procore write.
 - **H4:** local lifecycle state/event history with no Procore or external side effect.
 - **H5:** bounded triage filters, buckets, and deterministic sorting with no mutation.
+- **H6:** sanitized attachment manifest metadata review with no file or storage access.
 
 ## Next separately scoped phase
 

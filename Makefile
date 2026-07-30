@@ -2,7 +2,7 @@
 
 PYTHON ?= .venv/bin/python
 
-.PHONY: review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check
+.PHONY: review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check
 
 help:
 	@echo "START HERE"
@@ -20,6 +20,8 @@ help:
 	@echo "  make intake-lifecycle-check Validate local transition rules"
 	@echo "  make operator-triage-summary Read-only local triage summary"
 	@echo "  make operator-triage-check Validate the local triage projection"
+	@echo "  make attachment-review-summary Metadata-only attachment summary"
+	@echo "  make attachment-review-check Validate safe attachment metadata review"
 	@echo "  make sandbox-smoke-explain  Explain the separate manual live check"
 	@echo "  make sandbox-read-plan      Offline bounded read-validation plan"
 	@echo "  make sandbox-evidence-check  Validate placeholder-only Sandbox evidence refs"
@@ -180,6 +182,12 @@ operator-triage-summary:
 
 operator-triage-check:
 	$(PYTHON) scripts/check_operator_triage_queue.py
+
+attachment-review-summary:
+	$(PYTHON) scripts/print_attachment_review_summary.py
+
+attachment-review-check:
+	$(PYTHON) scripts/check_attachment_review.py
 
 .PHONY: database-template database-check migration-plan backup-restore-plan database-connectivity-check
 .PHONY: deployment-template deployment-check deployment-safety-check deployment-artifact-check https-webhook-checklist
@@ -503,4 +511,5 @@ quality: lint compile pip-check public-usability-audit docs-site-check docs-prev
 quality: review-workspace-check review-workspace-summary
 quality: intake-lifecycle-check intake-lifecycle-summary
 quality: operator-triage-check operator-triage-summary
+quality: attachment-review-check attachment-review-summary
 	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict

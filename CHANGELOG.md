@@ -150,3 +150,11 @@ No release tag or package publication is claimed.
   checks, documentation, audits, and regressions.
 - Priority is a deterministic local sorting helper only. H5 adds no mutation, Procore/external
   call, assignment, comment, approval, compliance decision, communication, or notification.
+
+## Phase H6
+
+- Added GET-only attachment manifest summary/detail views over local database metadata.
+- Added safe categories, size/count summaries, checksum presence, storage-status labels,
+  source-availability signals, CLI/Make checks, documentation, audits, and regressions.
+- H6 performs no attachment download, file serving/opening, storage-provider call, mutation,
+  Procore/external call, document approval, or compliance determination.

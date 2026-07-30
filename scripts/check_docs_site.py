@@ -64,6 +64,7 @@ REQUIRED_NAV_DOCS = {
     "intake-review-workspace.md",
     "intake-lifecycle-status-flow.md",
     "operator-triage-queue.md",
+    "attachment-review-manifest-ux.md",
     "release-readiness.md",
     "release-checklist.md",
     "release-notes-template.md",

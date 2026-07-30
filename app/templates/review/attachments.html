@@ -1,0 +1,31 @@
+{% extends "review/base.html" %}
+{% block content %}
+<h2>Attachment Review</h2>
+<p>Sanitized manifest metadata only. Attachment contents are unavailable by design.</p>
+<div class="grid">
+  <div class="card">Status<strong>{{ summary.status.value }}</strong></div>
+  <div class="card">Records with manifests<strong>{{ summary.records_with_manifests }}</strong></div>
+  <div class="card">Missing manifests<strong>{{ summary.records_without_manifests }}</strong></div>
+  <div class="card">Planned attachments<strong>{{ summary.planned_attachments }}</strong></div>
+</div>
+{% if page.items %}
+<table>
+  <thead><tr><th>Tool</th><th>Record</th><th>Manifest</th><th>Planned</th><th>Stored metadata</th><th>Checksums</th></tr></thead>
+  <tbody>
+  {% for item in page.items %}
+    <tr>
+      <td>{{ item.tool.value }}</td>
+      <td><a href="/review/attachments/{{ item.record_id }}">{{ item.display_number }} · {{ item.title }}</a></td>
+      <td>{{ item.manifest.availability.value | replace("_", " ") }}</td>
+      <td>{{ item.manifest.planned_count }}</td>
+      <td>{{ item.manifest.stored_metadata_count }}</td>
+      <td>{{ item.manifest.checksum_present_count }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>No local records yet. Start with the safe Demo flow; fixture persistence remains explicit.</p>
+{% endif %}
+<p>This view performs no file access, storage access, or external operation.</p>
+{% endblock %}

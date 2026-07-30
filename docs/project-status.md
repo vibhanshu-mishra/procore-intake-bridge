@@ -1,6 +1,6 @@
 # Project status
 
-The public repository has completed phases A1–H5. Phase H3 adds a public-safe, read-only Intake
+The public repository has completed phases A1–H6. Phase H3 adds a public-safe, read-only Intake
 Review Workspace for sanitized local RFI/Submittal records. It adds no Procore write, lifecycle
 transition, approval, assignment, comment, notification, or external call.
 
@@ -11,6 +11,9 @@ assignment, or communication.
 Phase H5 adds a GET-only operator triage projection with bounded filters and deterministic local
 sorting. It does not mutate lifecycle state or represent assignment, approval, compliance,
 communication, notification, risk, or a Procore update.
+
+Phase H6 adds metadata-only attachment manifest review without file access, storage-provider
+calls, private storage details, filenames, URLs, or attachment contents.
 
 ## Current public posture
 
@@ -48,6 +51,7 @@ communication, notification, risk, or a Procore update.
 - **H3:** GET-only local intake review, safe source/manifest context, and priority signals.
 - **H4:** transactional local status state/history with bounded reasons and masked actors.
 - **H5:** read-only operator triage buckets and deterministic local sorting.
+- **H6:** read-only attachment manifest metadata summaries and detail views.
 
 ## Known limitations
 

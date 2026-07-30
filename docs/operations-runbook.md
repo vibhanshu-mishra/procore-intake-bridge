@@ -206,3 +206,9 @@ real operations stay outside Git.
 Run `make operator-triage-check` for a non-writing, empty-database-safe validation. Open
 `/review/triage` for the guarded GET-only view. Treat priority as sorting only; investigate using
 sanitized local detail and never copy private source data into public artifacts.
+
+## Attachment metadata check
+
+Run `make attachment-review-check` for a non-writing validation of local manifest metadata.
+The check does not open files or contact storage. Investigate only through the sanitized
+`/review/attachments` views.

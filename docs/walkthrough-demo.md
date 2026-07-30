@@ -76,3 +76,6 @@ Stay in Demo with `make doctor`, or read the optional
 
 Open `/review/triage` after loading fake Demo fixtures, or run `make operator-triage-summary`.
 The displayed priority is only deterministic sorting; the GET-only view changes nothing.
+
+Open `/review/attachments` to inspect fake fixture manifest metadata. The H6 view does not access
+attachment files or private storage.

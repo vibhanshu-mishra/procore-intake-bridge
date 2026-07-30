@@ -9,6 +9,11 @@ from sqlalchemy.orm import Session
 from app.config import Settings
 from app.database import get_session
 from app.routers.admin import admin_guard
+from app.schemas.attachment_review import (
+    AttachmentReviewPage,
+    AttachmentReviewRecordDetail,
+    AttachmentReviewWorkspaceSummary,
+)
 from app.schemas.intake_lifecycle import (
     IntakeLifecycleHistoryPage,
     IntakeLifecycleStateView,
@@ -23,6 +28,13 @@ from app.schemas.intake_review_workspace import (
 from app.schemas.operator_triage_queue import (
     OperatorTriageQueuePage,
     OperatorTriageQueueSummary,
+)
+from app.services.attachment_review import (
+    AttachmentReviewError,
+    build_attachment_review_filter,
+    build_attachment_review_workspace_summary,
+    get_attachment_review_record_detail,
+    list_attachment_review_records,
 )
 from app.services.intake_lifecycle import (
     IntakeLifecycleBlockedError,
@@ -91,6 +103,29 @@ def _triage_filters(
             sort=sort,
         )
     except OperatorTriageQueueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+
+def _attachment_filters(
+    settings: Settings,
+    availability: str | None,
+    tool: str | None,
+    storage_status: str | None,
+    page: int,
+    page_size: int | None,
+    sort: str | None,
+):
+    try:
+        return build_attachment_review_filter(
+            settings,
+            availability=availability,
+            tool=tool,
+            storage_status=storage_status,
+            page=page,
+            page_size=page_size,
+            sort=sort,
+        )
+    except AttachmentReviewError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
 
 
@@ -325,4 +360,84 @@ def html_triage_queue(
             "queue": list_operator_triage_queue(session, filters, settings),
             "summary": build_operator_triage_summary(session, settings),
         },
+    )
+
+
+@router.get("/api/attachments", response_model=AttachmentReviewPage)
+def api_attachment_review(
+    availability: str | None = None,
+    tool: str | None = None,
+    storage_status: str | None = None,
+    page: int = Query(default=1, ge=1),
+    page_size: int | None = Query(default=None, ge=1),
+    sort: str | None = None,
+    session: Session = Depends(get_session),
+    settings: Settings = Depends(admin_guard),
+):
+    filters = _attachment_filters(
+        settings, availability, tool, storage_status, page, page_size, sort
+    )
+    return list_attachment_review_records(session, filters, settings)
+
+
+@router.get("/api/attachments/summary", response_model=AttachmentReviewWorkspaceSummary)
+def api_attachment_review_summary(
+    session: Session = Depends(get_session),
+    settings: Settings = Depends(admin_guard),
+):
+    return build_attachment_review_workspace_summary(session, settings)
+
+
+@router.get("/api/attachments/{record_id}", response_model=AttachmentReviewRecordDetail)
+def api_attachment_review_detail(
+    record_id: int,
+    session: Session = Depends(get_session),
+    settings: Settings = Depends(admin_guard),
+):
+    detail = get_attachment_review_record_detail(session, record_id, settings)
+    if detail is None:
+        raise HTTPException(status_code=404, detail="Local attachment metadata not found.")
+    return detail
+
+
+@router.get("/attachments")
+def html_attachment_review(
+    request: Request,
+    availability: str | None = None,
+    tool: str | None = None,
+    storage_status: str | None = None,
+    page: int = Query(default=1, ge=1),
+    page_size: int | None = Query(default=None, ge=1),
+    sort: str | None = None,
+    session: Session = Depends(get_session),
+    settings: Settings = Depends(admin_guard),
+):
+    filters = _attachment_filters(
+        settings, availability, tool, storage_status, page, page_size, sort
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="review/attachments.html",
+        context={
+            "title": "Attachment Review",
+            "page": list_attachment_review_records(session, filters, settings),
+            "summary": build_attachment_review_workspace_summary(session, settings),
+        },
+    )
+
+
+@router.get("/attachments/{record_id}")
+def html_attachment_review_detail(
+    record_id: int,
+    request: Request,
+    session: Session = Depends(get_session),
+    settings: Settings = Depends(admin_guard),
+):
+    detail = get_attachment_review_record_detail(session, record_id, settings)
+    if detail is None:
+        raise HTTPException(status_code=404, detail="Local attachment metadata not found.")
+    return templates.TemplateResponse(
+        request=request,
+        name="review/attachment_detail.html",
+        context={"title": "Attachment Manifest Detail", "detail": detail},
     )

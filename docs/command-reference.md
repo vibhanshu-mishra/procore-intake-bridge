@@ -194,3 +194,11 @@ approval; private values and real reports stay outside Git.
 - `make operator-triage-summary` prints an empty-database-safe local summary.
 
 Neither command changes persistent state or calls Procore or another external system.
+
+## Attachment Review
+
+- `make attachment-review-check` validates the bounded metadata-only projection.
+- `make attachment-review-summary` prints an empty-database-safe local summary.
+
+Neither command opens a file, contacts attachment storage, changes state, or makes an external
+call.

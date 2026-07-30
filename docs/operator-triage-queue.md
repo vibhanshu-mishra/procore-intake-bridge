@@ -31,3 +31,6 @@ sorting; and filters for bucket, tool, and lifecycle status.
 The queue buckets are local observations such as new, in review, needs follow-up, older
 unreviewed, recently received, attachment manifest present, missing source context, unknown
 tool, reviewed, and ignored. A record may appear in multiple buckets.
+
+H6 provides a separate [attachment manifest metadata view](attachment-review-manifest-ux.md).
+The triage queue links to that context without accessing files or exposing storage details.

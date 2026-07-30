@@ -122,3 +122,6 @@ release, production, or pilot approval.
 
 The [Operator Triage Queue](operator-triage-queue.md) is a GET-only local projection over
 sanitized intake and lifecycle data. Its score only controls sorting.
+
+The [Attachment Review and Manifest UX](attachment-review-manifest-ux.md) provides a GET-only,
+metadata-only view of sanitized local manifest status.

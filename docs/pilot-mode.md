@@ -72,3 +72,6 @@ no release, production, or pilot approval. Private values and real reports stay 
 
 The H5 queue is a read-only local sorting aid and does not grant pilot approval, determine
 compliance, assign work, notify anyone, or satisfy a launch gate. Pilot materials remain private.
+
+H6 attachment review is metadata-only and does not approve documents or satisfy evidence,
+compliance, or launch gates. Pilot attachment and storage details remain private.

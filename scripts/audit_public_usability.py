@@ -60,6 +60,7 @@ REQUIRED_DOCS = {
     "docs/intake-review-workspace.md",
     "docs/intake-lifecycle-status-flow.md",
     "docs/operator-triage-queue.md",
+    "docs/attachment-review-manifest-ux.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -88,6 +89,8 @@ REQUIRED_SCRIPTS = {
     "scripts/print_intake_lifecycle_summary.py",
     "scripts/check_operator_triage_queue.py",
     "scripts/print_operator_triage_summary.py",
+    "scripts/check_attachment_review.py",
+    "scripts/print_attachment_review_summary.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -198,6 +201,8 @@ REQUIRED_TARGETS = {
     "intake-lifecycle-check",
     "operator-triage-summary",
     "operator-triage-check",
+    "attachment-review-summary",
+    "attachment-review-check",
     "help",
     "start",
     "commands",
@@ -735,6 +740,23 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         ),
         "H5 checks are included in quality": (
             "quality: operator-triage-check operator-triage-summary" in makefile
+        ),
+        "H6 attachment review is metadata-only": all(
+            phrase in _read(root, "docs/attachment-review-manifest-ux.md").casefold()
+            for phrase in ("metadata-only", "no procore", "no file")
+        ),
+        "H6 attachment review excludes private file details": all(
+            phrase in _read(root, "docs/attachment-review-manifest-ux.md").casefold()
+            for phrase in (
+                "signed urls",
+                "private paths",
+                "storage keys",
+                "original live filenames",
+                "contents",
+            )
+        ),
+        "H6 checks are included in quality": (
+            "quality: attachment-review-check attachment-review-summary" in makefile
         ),
         "beginner docs steer to friendly targets": all(
             command in docs

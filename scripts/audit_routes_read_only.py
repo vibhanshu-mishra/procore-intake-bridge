@@ -23,6 +23,13 @@ REQUIRED_TRIAGE_GET_PATHS = {
     "/review/api/triage",
     "/review/api/triage/summary",
 }
+REQUIRED_ATTACHMENT_REVIEW_GET_PATHS = {
+    "/review/attachments",
+    "/review/attachments/{record_id}",
+    "/review/api/attachments",
+    "/review/api/attachments/summary",
+    "/review/api/attachments/{record_id}",
+}
 PROHIBITED_PATH_TERMS = {
     "approve",
     "assign",
@@ -67,10 +74,24 @@ def audit_routes() -> list[RouteIssue]:
     }
     for missing in sorted(REQUIRED_TRIAGE_GET_PATHS - available_gets):
         issues.append(RouteIssue(missing, "GET", "required triage route is missing"))
+    for missing in sorted(REQUIRED_ATTACHMENT_REVIEW_GET_PATHS - available_gets):
+        issues.append(
+            RouteIssue(missing, "GET", "required attachment review route is missing")
+        )
     for route in routes:
         methods = route.methods or set()
         for method in sorted(methods - {"HEAD", "OPTIONS"}):
             lowered = route.path.casefold()
+            if route.path.startswith("/review/attachments") and any(
+                term in lowered for term in ("download", "file", "serve", "content")
+            ):
+                issues.append(
+                    RouteIssue(
+                        route.path,
+                        method,
+                        "attachment review must not expose a file-serving route",
+                    )
+                )
             if route.path.startswith("/admin") and method != "GET":
                 issues.append(RouteIssue(route.path, method, "admin routes must be GET-only"))
             if (

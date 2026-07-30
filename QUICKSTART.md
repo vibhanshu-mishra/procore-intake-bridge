@@ -153,3 +153,15 @@ make operator-triage-summary
 These H5 commands only read sanitized local H3/H4 data. Priority is a sorting helper, and no
 Procore write, lifecycle transition, assignment, comment, approval, notification, or external
 call occurs. See [Operator Triage Queue](docs/operator-triage-queue.md).
+
+## Review attachment manifest metadata
+
+After local Demo ingestion, open `/review/attachments` or run:
+
+```bash
+make attachment-review-check
+make attachment-review-summary
+```
+
+H6 reads local manifest metadata only. No attachment file, private path, storage key, filename,
+URL, or content is exposed or accessed.

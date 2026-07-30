@@ -1,0 +1,32 @@
+{% extends "review/base.html" %}
+{% block content %}
+<h2>Attachment Manifest Detail</h2>
+<p><a href="/review/intake/{{ detail.record_id }}">Back to local intake record</a></p>
+<div class="card">
+  <p><strong>Record:</strong> {{ detail.tool.value | upper }} {{ detail.display_number }}</p>
+  <p><strong>Manifest:</strong> {{ detail.manifest.availability.value | replace("_", " ") }}</p>
+  <p><strong>Planned:</strong> {{ detail.manifest.planned_count }}</p>
+  <p><strong>Manifest entries:</strong> {{ detail.manifest.manifest_count }}</p>
+  <p><strong>Total known size:</strong> {{ detail.manifest.total_size_bytes }} bytes</p>
+  <p><strong>Source metadata available:</strong> {{ detail.manifest.source_available_count }}</p>
+</div>
+{% if detail.items %}
+<table>
+  <thead><tr><th>Reference</th><th>Category</th><th>Status</th><th>Checksum</th><th>Size</th></tr></thead>
+  <tbody>
+  {% for item in detail.items %}
+    <tr>
+      <td>{{ item.attachment_id_masked or item.attachment_id_hash or "Unavailable" }}</td>
+      <td>{{ item.file_category.value | replace("_", " ") }}</td>
+      <td>{{ item.storage_status.value | replace("_", " ") }}</td>
+      <td>{{ item.checksum_status.value | replace("_", " ") }}</td>
+      <td>{{ item.size_bytes if item.size_bytes is not none else "Unknown" }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>No manifest entries are stored for this local record.</p>
+{% endif %}
+<p>Metadata review only. Contents and private storage details are unavailable by design.</p>
+{% endblock %}

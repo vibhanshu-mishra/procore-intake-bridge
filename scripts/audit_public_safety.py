@@ -250,6 +250,28 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if "attachment-review" in path.as_posix() or "attachment_review" in path.as_posix():
+        unsafe_attachment_claim = re.compile(
+            r"(?i)\b(?:attachment|manifest|file)\b.*\b(?:download|serve|open file|"
+            r"source url|signed url|storage key|private path|original filename|"
+            r"approval|compliance)\b"
+        )
+        for line in text.splitlines():
+            if (
+                unsafe_attachment_claim.search(line)
+                and not re.search(
+                    r"(?i)\b(?:no|not|never|without|unavailable|does not|do not)\b",
+                    line,
+                )
+                and not _safe_value(line)
+            ):
+                issues.append(
+                    SafetyIssue(
+                        path,
+                        "attachment review content implies unsafe file access or action",
+                    )
+                )
+                break
     if "operator-triage" in path.as_posix() or "operator_triage" in path.as_posix():
         triage_claim = re.compile(
             r"(?i)\b(?:triage|priority|queue)\b.*\b(?:approval|compliance|"
