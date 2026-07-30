@@ -1,5 +1,9 @@
 # Operations runbook
 
+Before selecting a cloud secret provider, run offline `make cloud-secret-check`. Missing optional
+dependencies and configuration are reported without resource names or values. Readiness is not
+production security approval.
+
 Start with [QUICKSTART](../QUICKSTART.md). Demo is the safe default; Sandbox/Pilot require private,
 operator-controlled configuration. What to run next: `make doctor`. Before committing, run
 `make safety-check`.

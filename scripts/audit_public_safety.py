@@ -148,6 +148,19 @@ WALKTHROUGH_UNSAFE = re.compile(
     r"(?:/Users/|/home/[^/\s]+/|[A-Z]:\\Users\\)|"
     r"-----BEGIN (?:RSA |EC |OPENSSH )?(?:PRIVATE KEY|CERTIFICATE)-----)"
 )
+CLOUD_RESOURCE_ID = re.compile(
+    r"(?i)(?:"
+    r"\barn:aws[a-z-]*:[^\s\"']+|"
+    r"\b\d{12}\b|"
+    r"https://[a-z0-9-]+\.vault\.azure\.net(?:/|\b)|"
+    r"\b[0-9a-f]{8}-[0-9a-f-]{27,}\b|"
+    r"\bprojects/[^/\s]+/secrets/[^/\s]+|"
+    r'"(?:private_key|private_key_id|client_email|client_x509_cert_url)"\s*:'
+    r")"
+)
+CLOUD_CREDENTIAL_PATH = re.compile(
+    r"(?i)(?:/Users/|/home/|[A-Z]:\\)[^\r\n]*(?:\.aws|\.azure|gcloud|credentials)"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -162,6 +175,17 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
         text,
     ):
         issues.append(SafetyIssue(path, "external analytics or tracking JavaScript"))
+    for line in text.splitlines():
+        if (
+            path.suffix.casefold() != ".py"
+            and CLOUD_RESOURCE_ID.search(line)
+            and not _safe_value(line)
+            and not ("{" in line and "}" in line)
+        ):
+            issues.append(SafetyIssue(path, "cloud resource identifier or credential JSON"))
+            break
+    if path.suffix.casefold() != ".py" and CLOUD_CREDENTIAL_PATH.search(text):
+        issues.append(SafetyIssue(path, "local cloud credential path"))
     if "examples/sandbox-read-validation" in path.as_posix():
         if re.search(
             r"(?i)[\"']?(?:company|project|rfi|submittal)[_-]?id[\"']?\s*:\s*[0-9]{4,}",

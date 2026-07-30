@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Phase G1 adds optional AWS Secrets Manager, Azure Key Vault, and GCP Secret Manager adapters,
+  fail-closed gates, offline readiness commands, placeholder examples, audits, and mocked tests.
+
 - F3 adds placeholder-only Sandbox evidence linkage, C1/C2/B9/C3/D5 mapping templates, local
   validators, ignored artifacts, and private-report safety rules. It reads no reports and grants
   no Pilot approval.

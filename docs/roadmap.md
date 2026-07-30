@@ -1,5 +1,8 @@
 # Roadmap
 
+Phase G1 implements optional dynamically imported cloud secret providers. Default workflows
+remain offline, and operator review is required before private Sandbox or Pilot use.
+
 Phase E1 completed the public usability audit. Phase E2 consolidated command and onboarding UX.
 Phase E3 completes guided Demo/Sandbox/Pilot walkthroughs and safe illustrative output. Further
 work remains separately scoped.

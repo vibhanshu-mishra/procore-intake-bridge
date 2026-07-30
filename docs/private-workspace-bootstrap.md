@@ -1,5 +1,9 @@
 # Private workspace bootstrap
 
+The workspace records secret references, never values. Prefer `env` or `file`; optional cloud
+providers require separately installed SDKs and deliberate private enablement. Do not paste cloud
+credentials or resource identifiers into manifests.
+
 This ignored workspace is only for private/operator-controlled Sandbox or Pilot preparation.
 Completed files, generated outputs, evidence, and approvals must not be committed. What to run
 next: `make init-private-workspace`, then `make private-workspace-check`. Demo does not need it.

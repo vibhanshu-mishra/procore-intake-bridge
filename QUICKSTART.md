@@ -1,5 +1,9 @@
 # Quickstart: start with Demo Mode
 
+For private Sandbox or Pilot configuration, start with `env` or `file`. Optional cloud secret
+providers are disabled and offline by default; see
+[docs/cloud-secret-providers.md](docs/cloud-secret-providers.md).
+
 Demo Mode is the default safe path. It uses synthetic fixtures, local SQLite, and no Procore
 credentials, private workspace, external database, storage setup, or deployment.
 

@@ -1,5 +1,8 @@
 # Project status
 
+Phase G1 adds optional AWS, Azure, and GCP secret-manager adapters with fail-closed gates and
+mocked tests. It does not claim production security completion.
+
 Phase E1 audits public end-to-end usability: command discovery, first-run guidance, navigation,
 troubleshooting, and safety. It adds no live integration or deployment. What to run next:
 new users run `make start`; contributors run `make quality`.

@@ -1,5 +1,9 @@
 # Secret providers
 
+Start with `env` or `file`. AWS, Azure, and GCP providers are optional, disabled by default,
+dynamically loaded, and intended only for private Sandbox or Pilot use. Default health and
+inventory checks make no cloud calls. See [cloud providers](cloud-secret-providers.md).
+
 Demo Mode requires no Procore credentials. Sandbox and Pilot use private refs; values must never
 be committed or printed. What to run next: `make secret-provider-check`, then
 `make secret-refs-check`.

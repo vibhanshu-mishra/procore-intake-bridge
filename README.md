@@ -1,5 +1,9 @@
 # Procore Intake Bridge
 
+Optional AWS, Azure, and GCP secret providers are documented in
+[docs/cloud-secret-providers.md](docs/cloud-secret-providers.md). They are disabled by default,
+use optional dependencies, and are never contacted by default checks. Start with `env` or `file`.
+
 ## Start with Demo Mode
 
 The repository has three safe paths, kept deliberately separate:

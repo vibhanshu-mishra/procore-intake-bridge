@@ -7,10 +7,18 @@ TARGETS = [
     Path(".env.example"),
     Path("examples/customer-deployments/example_customer_profile.json"),
     Path("examples/private-workspace/example_workspace_manifest.json"),
+    Path("examples/cloud-secret-providers/aws_secret_refs.example.json"),
+    Path("examples/cloud-secret-providers/azure_secret_refs.example.json"),
+    Path("examples/cloud-secret-providers/gcp_secret_refs.example.json"),
 ]
 UNSAFE = re.compile(
     r"(?i)(authorization\s*:|bearer\s+|(?:postgres|mysql|mongodb)://|"
-    r"https?://\S+[?&](?:signature|token|expires)=)"
+    r"https?://\S+[?&](?:signature|token|expires)=|"
+    r"\barn:aws[a-z-]*:secretsmanager:|"
+    r"https://[a-z0-9-]+\.vault\.azure\.net|"
+    r"\bprojects/[^/\s]+/secrets/[^/\s]+|"
+    r"BEGIN [A-Z ]*PRIVATE KEY|"
+    r'"(?:private_key|client_email)"\s*:)'
 )
 
 

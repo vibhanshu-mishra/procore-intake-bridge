@@ -1,5 +1,9 @@
 # Sandbox mode
 
+Sandbox may use an optional cloud secret provider, but `env` or `file` is recommended first.
+Cloud providers are disabled and network-blocked by default; preparation and doctor commands do
+not contact them.
+
 Sandbox Mode is private/operator-controlled. It uses private credentials through DMSA secret refs
 and a private allowed scope; values and real identifiers stay outside Git. What to run next:
 finish Demo Mode, then run `make prepare-sandbox`. This never runs live smoke.

@@ -19,6 +19,30 @@ class SecretProviderKind(StrEnum):
     GCP_SECRET_MANAGER = "gcp_secret_manager"
 
 
+class CloudSecretProviderKind(StrEnum):
+    AWS_SECRETS_MANAGER = "aws_secrets_manager"
+    AZURE_KEY_VAULT = "azure_key_vault"
+    GCP_SECRET_MANAGER = "gcp_secret_manager"
+
+
+class CloudSecretProviderStatus(StrEnum):
+    DISABLED = "disabled"
+    DEPENDENCY_MISSING = "dependency_missing"
+    NEEDS_CONFIGURATION = "needs_configuration"
+    READY_FOR_RESOLUTION = "ready_for_resolution"
+    BLOCKED = "blocked"
+
+
+class CloudSecretProviderDependencyStatus(StrEnum):
+    AVAILABLE = "available"
+    DEPENDENCY_MISSING = "dependency_missing"
+
+
+class CloudSecretProviderConfigStatus(StrEnum):
+    CONFIGURED = "configured"
+    NEEDS_CONFIGURATION = "needs_configuration"
+
+
 class SecretRef(StrictSecretModel):
     masked_ref: str
     provider: SecretProviderKind
@@ -35,6 +59,42 @@ class SecretProviderFinding(StrictSecretModel):
     code: str
     severity: Literal["info", "warning", "blocking"]
     message: str
+
+
+class CloudSecretProviderFinding(StrictSecretModel):
+    code: str
+    severity: Literal["info", "warning", "blocking"]
+    message: str
+
+
+class CloudSecretResolutionPolicy(StrictSecretModel):
+    provider: CloudSecretProviderKind
+    enabled: bool
+    cloud_provider_allowed: bool
+    cloud_network_enabled: bool
+    cloud_confirmation_present: bool
+    configured: bool
+    resolution_allowed: bool
+    fail_closed: bool = True
+
+
+class CloudSecretProviderHealth(StrictSecretModel):
+    provider: CloudSecretProviderKind
+    status: CloudSecretProviderStatus
+    enabled: bool
+    dependency_available: bool
+    dependency_missing: bool
+    cloud_network_enabled: bool
+    cloud_confirmation_present: bool
+    configured: bool
+    resolution_allowed: bool
+    health_network_check_attempted: bool = False
+    value_exposed: bool = False
+    resource_names_exposed: bool = False
+    credentials_exposed: bool = False
+    external_calls: bool = False
+    findings: list[CloudSecretProviderFinding] = []
+    recommended_next_steps: list[str] = []
 
 
 class SecretProviderInventoryItem(StrictSecretModel):

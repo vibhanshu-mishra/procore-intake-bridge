@@ -1,5 +1,8 @@
 # Safety model
 
+Cloud resolution adds independent allow, provider-enable, network, confirmation, configuration,
+and dependency gates. Reports expose no values, credentials, resource identifiers, or paths.
+
 Demo is the default safe path. Sandbox and Pilot are private/operator-controlled. Real
 credentials, identities, IDs, evidence, approvals, generated/private files, and deployment
 artifacts must not be committed. What to run next: `make safety-check`.

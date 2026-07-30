@@ -20,6 +20,15 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["httpx>=0.27,<1", "pytest>=8,<9", "ruff>=0.8"]
+aws-secrets = ["boto3>=1.35,<2"]
+azure-secrets = ["azure-identity>=1.19,<2", "azure-keyvault-secrets>=4.9,<5"]
+gcp-secrets = ["google-cloud-secret-manager>=2.21,<3"]
+cloud-secrets = [
+  "boto3>=1.35,<2",
+  "azure-identity>=1.19,<2",
+  "azure-keyvault-secrets>=4.9,<5",
+  "google-cloud-secret-manager>=2.21,<3",
+]
 
 [tool.hatch.build.targets.wheel]
 packages = ["app"]

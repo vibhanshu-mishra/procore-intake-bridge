@@ -29,6 +29,10 @@ REQUIRED_DOCS = {
     "docs/troubleshooting.md",
     "docs/private-workspace-bootstrap.md",
     "docs/secret-providers.md",
+    "docs/cloud-secret-providers.md",
+    "docs/aws-secrets-manager.md",
+    "docs/azure-key-vault-secrets.md",
+    "docs/gcp-secret-manager.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -79,6 +83,9 @@ REQUIRED_SCRIPTS = {
     "scripts/check_sandbox_evidence_linkage.py",
     "scripts/generate_sandbox_evidence_linkage_artifacts.py",
     "scripts/print_sandbox_evidence_mapping.py",
+    "scripts/check_cloud_secret_provider.py",
+    "scripts/print_cloud_secret_provider_template.py",
+    "scripts/explain_cloud_secret_resolution.py",
 }
 REQUIRED_EXAMPLES = {
     "examples/demo-flow.md",
@@ -92,6 +99,10 @@ REQUIRED_EXAMPLES = {
     "examples/walkthrough-output/pilot_expected_output.md",
     "examples/sandbox-evidence-linkage/example_sandbox_evidence_profile.json",
     "examples/sandbox-evidence-linkage/example_evidence_manifest_patch.md",
+    "examples/cloud-secret-providers/README.md",
+    "examples/cloud-secret-providers/aws_secret_refs.example.json",
+    "examples/cloud-secret-providers/azure_secret_refs.example.json",
+    "examples/cloud-secret-providers/gcp_secret_refs.example.json",
 }
 REQUIRED_TARGETS = {
     "help",
@@ -135,6 +146,9 @@ REQUIRED_TARGETS = {
     "public-usability-audit",
     "safety-check",
     "quality",
+    "cloud-secret-template",
+    "cloud-secret-check",
+    "cloud-secret-explain",
 }
 IGNORED_OUTPUTS = {
     "private-workspace/",
@@ -358,6 +372,18 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         "command reference marks safety": all(
             term in _read(root, "docs/command-reference.md").casefold()
             for term in ("procore", "external", "private config", "demo-safe")
+        ),
+        "cloud providers are optional and disabled": all(
+            term in _read(root, "docs/cloud-secret-providers.md").casefold()
+            for term in ("optional", "disabled by default")
+        ),
+        "cloud checks are offline by default": all(
+            term in _read(root, "docs/cloud-secret-providers.md").casefold()
+            for term in ("never contact cloud", "env", "file")
+        ),
+        "cloud readiness is not security approval": (
+            "not production security approval"
+            in _read(root, "docs/cloud-secret-providers.md").casefold()
         ),
         "beginner docs steer to friendly targets": all(
             command in docs

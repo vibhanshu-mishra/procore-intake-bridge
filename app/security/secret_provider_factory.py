@@ -70,6 +70,11 @@ def summarize_secret_provider_config(settings: Settings) -> dict[str, Any]:
         "env_allowed": settings.secret_provider_allow_env,
         "file_allowed": settings.secret_provider_allow_file,
         "cloud_allowed": settings.secret_provider_allow_cloud,
+        "cloud_network_enabled": settings.secret_provider_cloud_network_enabled,
+        "cloud_confirmation_present": bool(
+            settings.secret_provider_cloud_confirmation
+        ),
+        "cloud_health_network_check": settings.secret_provider_cloud_health_network_check,
         "file_root_configured": bool(settings.file_secret_root.parts),
         "file_root_is_absolute": settings.file_secret_root.is_absolute(),
         "file_max_bytes": settings.file_secret_max_bytes,

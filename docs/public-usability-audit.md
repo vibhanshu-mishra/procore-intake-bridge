@@ -1,5 +1,8 @@
 # Public usability audit
 
+G1 requires four cloud-provider docs, three offline scripts, placeholder-only examples, Make
+targets, disabled-by-default guidance, and no-cloud-call guidance.
+
 Phase E1 checks whether a new user can find the safe Demo, private Sandbox, and private Pilot
 paths. It verifies required docs, scripts, examples, Make targets, ignore rules, next-command
 guidance, and tracked-file safety patterns.

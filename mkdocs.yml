@@ -34,6 +34,10 @@ nav:
       - Evidence Review and Expiry: evidence-review-expiry.md
   - Providers and Infrastructure:
       - Secret Providers: secret-providers.md
+      - Optional Cloud Secret Providers: cloud-secret-providers.md
+      - AWS Secrets Manager: aws-secrets-manager.md
+      - Azure Key Vault Secrets: azure-key-vault-secrets.md
+      - GCP Secret Manager: gcp-secret-manager.md
       - Storage Providers: storage-providers.md
       - Database Providers: database-providers.md
       - PostgreSQL Readiness: postgres-readiness.md

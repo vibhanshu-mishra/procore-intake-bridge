@@ -141,6 +141,28 @@ class Settings(BaseSettings):
         default=False,
         validation_alias="PROCORE_INTAKE_SECRET_PROVIDER_ALLOW_CLOUD",
     )
+    secret_provider_cloud_network_enabled: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SECRET_PROVIDER_CLOUD_NETWORK_ENABLED",
+    )
+    secret_provider_cloud_confirmation: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_SECRET_PROVIDER_CLOUD_CONFIRMATION",
+    )
+    secret_provider_cloud_timeout_seconds: int = Field(
+        default=10,
+        ge=1,
+        le=60,
+        validation_alias="PROCORE_INTAKE_SECRET_PROVIDER_CLOUD_TIMEOUT_SECONDS",
+    )
+    secret_provider_cloud_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SECRET_PROVIDER_CLOUD_FAIL_CLOSED",
+    )
+    secret_provider_cloud_health_network_check: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SECRET_PROVIDER_CLOUD_HEALTH_NETWORK_CHECK",
+    )
     secret_provider_fail_closed: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_SECRET_PROVIDER_FAIL_CLOSED",
@@ -167,13 +189,65 @@ class Settings(BaseSettings):
         default=False,
         validation_alias="PROCORE_INTAKE_AWS_SECRETS_ENABLED",
     )
+    aws_region_ref: str = Field(
+        default="AWS_REGION",
+        validation_alias="PROCORE_INTAKE_AWS_REGION_REF",
+    )
+    aws_profile_ref: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_AWS_PROFILE_REF",
+    )
+    aws_secret_id_prefix: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_AWS_SECRET_ID_PREFIX",
+    )
+    aws_require_region: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_AWS_REQUIRE_REGION",
+    )
+    aws_allow_arns: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_AWS_ALLOW_ARNS",
+    )
     azure_key_vault_enabled: bool = Field(
         default=False,
         validation_alias="PROCORE_INTAKE_AZURE_KEY_VAULT_ENABLED",
     )
+    azure_key_vault_name_ref: str = Field(
+        default="AZURE_KEY_VAULT_NAME",
+        validation_alias="PROCORE_INTAKE_AZURE_KEY_VAULT_NAME_REF",
+    )
+    azure_key_vault_url_ref: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_AZURE_KEY_VAULT_URL_REF",
+    )
+    azure_tenant_id_ref: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_AZURE_TENANT_ID_REF",
+    )
+    azure_use_default_credential: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_AZURE_USE_DEFAULT_CREDENTIAL",
+    )
+    azure_allow_vault_url: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_AZURE_ALLOW_VAULT_URL",
+    )
     gcp_secret_manager_enabled: bool = Field(
         default=False,
         validation_alias="PROCORE_INTAKE_GCP_SECRET_MANAGER_ENABLED",
+    )
+    gcp_project_id_ref: str = Field(
+        default="GCP_PROJECT_ID",
+        validation_alias="PROCORE_INTAKE_GCP_PROJECT_ID_REF",
+    )
+    gcp_secret_prefix: str = Field(
+        default="",
+        validation_alias="PROCORE_INTAKE_GCP_SECRET_PREFIX",
+    )
+    gcp_allow_resource_names: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_GCP_ALLOW_RESOURCE_NAMES",
     )
     external_secret_provider_name: str = Field(
         default="",

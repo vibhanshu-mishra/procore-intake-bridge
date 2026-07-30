@@ -1,5 +1,9 @@
 # Command reference
 
+Optional cloud commands are `make cloud-secret-template`, `make cloud-secret-check`, and
+`make cloud-secret-explain`. All three are offline and resolve no values. See
+[Optional cloud secret providers](cloud-secret-providers.md).
+
 Most users should use the friendly Make targets first. Run `make commands` for a concise guide.
 All friendly targets are local-only: no Procore calls, external connections, deployment, or pilot
 approval.

@@ -1,5 +1,8 @@
 # Deployment recipes
 
+Recipes contain secret references only. Optional cloud SDKs belong in a private runtime extra;
+recipes must not contain credentials, provider resource identifiers, or credential paths.
+
 Recipes are placeholder-only planning inputs. They do not deploy, provision, change DNS/TLS, or
 register webhooks. What to run next: `make deployment-check`, then
 `make deployment-safety-check`.

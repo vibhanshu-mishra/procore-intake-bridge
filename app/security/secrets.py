@@ -1,5 +1,6 @@
 import os
 from dataclasses import dataclass, field
+from importlib import import_module
 from importlib.util import find_spec
 from pathlib import Path
 from typing import Literal, Protocol
@@ -9,6 +10,11 @@ from app.security.secret_refs import (
     SecretRefError,
     mask_secret_ref,
     normalize_secret_ref,
+    validate_cloud_secret_ref,
+)
+
+CLOUD_CONFIRMATION_PHRASE = (
+    "I understand this may contact an external cloud secret manager"
 )
 
 
@@ -36,7 +42,7 @@ class SecretProviderResolutionError(SecretProviderError):
     """A secret could not be resolved without exposing its value."""
 
 
-class SecretProviderBlockedError(SecretProviderError):
+class SecretProviderBlockedError(SecretProviderConfigError):
     """A secret operation was blocked by a safety boundary."""
 
 
@@ -288,40 +294,92 @@ class OptionalCloudSecretProvider(_ProviderBase):
     dependency = ""
     enabled_setting = ""
 
+    def __init__(self, settings: Settings | None = None, client=None):
+        super().__init__(settings)
+        self._client = client
+
+    def _provider_enabled(self) -> bool:
+        return bool(getattr(self.settings, self.enabled_setting))
+
     def _enabled(self) -> bool:
         return bool(
-            self.settings.secret_provider_allow_cloud
-            and getattr(self.settings, self.enabled_setting)
+            self.settings.secret_provider == self.name
+            and self.settings.secret_provider_allow_cloud
+            and self._provider_enabled()
         )
 
     def _dependency_present(self) -> bool:
+        if self._client is not None:
+            return True
         try:
             return find_spec(self.dependency) is not None
         except (ImportError, ModuleNotFoundError, ValueError):
             return False
 
-    def get_secret(self, ref: str) -> str:
-        self._normalized(ref)
+    def _confirmation_present(self) -> bool:
+        return self.settings.secret_provider_cloud_confirmation == CLOUD_CONFIRMATION_PHRASE
+
+    def _config_ready(self) -> bool:
+        return True
+
+    def _validate_ref(self, ref: str) -> str:
+        return validate_cloud_secret_ref(ref, self.name).name
+
+    def _assert_resolution_allowed(self) -> None:
         if not self._enabled():
             raise SecretProviderBlockedError("Cloud secret provider is disabled.")
+        if not self.settings.secret_provider_cloud_network_enabled:
+            raise SecretProviderBlockedError("Cloud secret network access is disabled.")
+        if not self._confirmation_present():
+            raise SecretProviderBlockedError("Cloud secret confirmation is missing.")
+        if not self._config_ready():
+            raise SecretProviderConfigError(
+                "Cloud secret provider needs private configuration."
+            )
         if not self._dependency_present():
             raise SecretProviderUnavailableError(
                 "Optional cloud secret provider dependency is missing."
             )
-        raise SecretProviderConfigError(
-            "Cloud secret provider requires private configuration verification."
-        )
+
+    def _resolve(self, ref: str) -> str:
+        raise NotImplementedError
+
+    def get_secret(self, ref: str) -> str:
+        safe_ref = self._validate_ref(ref)
+        self._assert_resolution_allowed()
+        try:
+            value = self._resolve(safe_ref)
+        except SecretProviderError:
+            raise
+        except Exception as exc:
+            raise SecretProviderResolutionError(
+                "Cloud secret resolution failed; provider details were suppressed."
+            ) from exc
+        if not isinstance(value, str) or not value:
+            raise SecretNotFoundError(
+                "Cloud secret was unavailable; provider details were suppressed."
+            )
+        return value
 
     def health_check(
         self, required_refs: list[str] | None = None
     ) -> SecretProviderHealth:
         enabled = self._enabled()
         dependency_present = self._dependency_present()
-        status = (
-            "dependency_missing"
-            if enabled and not dependency_present
-            else "unavailable"
+        configured = self._config_ready()
+        resolution_allowed = bool(
+            enabled
+            and dependency_present
+            and configured
+            and self.settings.secret_provider_cloud_network_enabled
+            and self._confirmation_present()
         )
+        if not enabled:
+            status = "unavailable"
+        elif not dependency_present:
+            status = "dependency_missing"
+        else:
+            status = "unavailable"
         return SecretProviderHealth(
             provider=self.name,
             status=status,
@@ -335,7 +393,11 @@ class OptionalCloudSecretProvider(_ProviderBase):
                 )
                 for ref in (required_refs or [])
             ],
-            message="Cloud provider health is configuration-only; no external call was made.",
+            message=(
+                "Cloud provider is resolution-ready; health remained offline."
+                if resolution_allowed
+                else "Cloud provider health is configuration-only; no external call was made."
+            ),
         )
 
 
@@ -344,17 +406,130 @@ class AwsSecretsManagerProvider(OptionalCloudSecretProvider):
     dependency = "boto3"
     enabled_setting = "aws_secrets_enabled"
 
+    def _config_ready(self) -> bool:
+        return not self.settings.aws_require_region or bool(
+            self.settings.aws_region_ref
+            and os.getenv(self.settings.aws_region_ref, "").strip()
+        )
 
-class AzureKeyVaultProvider(OptionalCloudSecretProvider):
+    def _validate_ref(self, ref: str) -> str:
+        return validate_cloud_secret_ref(
+            ref,
+            self.name,
+            allow_aws_arn=self.settings.aws_allow_arns,
+        ).name
+
+    def _resolve(self, ref: str) -> str:
+        client = self._client
+        if client is None:
+            boto3 = import_module("boto3")
+            session_kwargs = {}
+            if self.settings.aws_profile_ref:
+                profile = os.getenv(self.settings.aws_profile_ref, "").strip()
+                if profile:
+                    session_kwargs["profile_name"] = profile
+            session = boto3.session.Session(**session_kwargs)
+            client = session.client(
+                "secretsmanager",
+                region_name=os.getenv(self.settings.aws_region_ref) or None,
+                config=import_module("botocore.config").Config(
+                    connect_timeout=self.settings.secret_provider_cloud_timeout_seconds,
+                    read_timeout=self.settings.secret_provider_cloud_timeout_seconds,
+                ),
+            )
+        response = client.get_secret_value(
+            SecretId=f"{self.settings.aws_secret_id_prefix}{ref}"
+        )
+        if response.get("SecretBinary") is not None:
+            raise SecretProviderBlockedError("Binary cloud secrets are not supported.")
+        return response.get("SecretString", "")
+
+
+class AzureKeyVaultSecretProvider(OptionalCloudSecretProvider):
     name = "azure_key_vault"
     dependency = "azure.keyvault.secrets"
     enabled_setting = "azure_key_vault_enabled"
+
+    def _config_ready(self) -> bool:
+        if self.settings.azure_key_vault_url_ref:
+            return self.settings.azure_allow_vault_url and bool(
+                os.getenv(self.settings.azure_key_vault_url_ref, "").strip()
+            )
+        return bool(
+            self.settings.azure_key_vault_name_ref
+            and os.getenv(self.settings.azure_key_vault_name_ref, "").strip()
+            and self.settings.azure_use_default_credential
+        )
+
+    def _resolve(self, ref: str) -> str:
+        client = self._client
+        if client is None:
+            credential_type = import_module("azure.identity").DefaultAzureCredential
+            client_type = import_module(
+                "azure.keyvault.secrets"
+            ).SecretClient
+            if self.settings.azure_key_vault_url_ref:
+                vault_url = os.getenv(self.settings.azure_key_vault_url_ref, "")
+            else:
+                vault_name = os.getenv(self.settings.azure_key_vault_name_ref, "")
+                vault_url = f"https://{vault_name}.vault.azure.net"
+            client = client_type(
+                vault_url=vault_url,
+                credential=credential_type(),
+            )
+        result = client.get_secret(ref)
+        return getattr(result, "value", "")
+
+
+AzureKeyVaultProvider = AzureKeyVaultSecretProvider
 
 
 class GcpSecretManagerProvider(OptionalCloudSecretProvider):
     name = "gcp_secret_manager"
     dependency = "google.cloud.secretmanager"
     enabled_setting = "gcp_secret_manager_enabled"
+
+    def _config_ready(self) -> bool:
+        return bool(
+            self.settings.gcp_allow_resource_names
+            or (
+                self.settings.gcp_project_id_ref
+                and os.getenv(self.settings.gcp_project_id_ref, "").strip()
+            )
+        )
+
+    def _validate_ref(self, ref: str) -> str:
+        return validate_cloud_secret_ref(
+            ref,
+            self.name,
+            allow_gcp_resource_name=self.settings.gcp_allow_resource_names,
+        ).name
+
+    def _resolve(self, ref: str) -> str:
+        client = self._client
+        if client is None:
+            client_type = import_module(
+                "google.cloud.secretmanager"
+            ).SecretManagerServiceClient
+            client = client_type()
+        if self.settings.gcp_allow_resource_names and ref.startswith("projects/"):
+            resource_name = ref
+        else:
+            project = os.getenv(self.settings.gcp_project_id_ref, "")
+            resource_name = (
+                f"projects/{project}/secrets/"
+                f"{self.settings.gcp_secret_prefix}{ref}/versions/latest"
+            )
+        response = client.access_secret_version(request={"name": resource_name})
+        payload = getattr(getattr(response, "payload", None), "data", None)
+        if not isinstance(payload, bytes):
+            return ""
+        try:
+            return payload.decode("utf-8")
+        except UnicodeDecodeError as exc:
+            raise SecretProviderBlockedError(
+                "Binary cloud secrets are not supported."
+            ) from exc
 
 
 class TestSecretProvider(_ProviderBase):
@@ -424,6 +599,7 @@ __all__ = [
     "FileSecretProvider",
     "ExternalPlaceholderSecretProvider",
     "AwsSecretsManagerProvider",
+    "AzureKeyVaultSecretProvider",
     "AzureKeyVaultProvider",
     "GcpSecretManagerProvider",
     "SecretNotFoundError",
@@ -436,4 +612,5 @@ __all__ = [
     "SecretProviderResolutionError",
     "SecretProviderUnavailableError",
     "TestSecretProvider",
+    "CLOUD_CONFIRMATION_PHRASE",
 ]

@@ -1,5 +1,8 @@
 # Database providers
 
+External database URL references may be resolved internally by a deliberately configured secret
+provider. Default database and cloud-provider checks resolve no values or external connections.
+
 Demo Mode uses local SQLite. Pilot expects a private PostgreSQL ref, but routine checks do not
 resolve it or connect externally. What to run next: `make database-check`, then the isolated
 `make migration-safety-check`.

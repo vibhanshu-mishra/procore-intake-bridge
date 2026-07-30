@@ -5,10 +5,13 @@ import re
 from app.config import Settings
 from app.security.secret_provider_factory import build_secret_provider
 from app.security.secrets import (
+    AwsSecretsManagerProvider,
+    AzureKeyVaultSecretProvider,
     DisabledSecretProvider,
     EnvSecretProvider,
     ExternalPlaceholderSecretProvider,
     FileSecretProvider,
+    GcpSecretManagerProvider,
     SecretNotFoundError,
     SecretProvider,
     SecretProviderError,
@@ -36,8 +39,11 @@ def get_secret_provider(settings: Settings) -> SecretProvider:
 
 __all__ = [
     "DisabledSecretProvider",
+    "AwsSecretsManagerProvider",
+    "AzureKeyVaultSecretProvider",
     "EnvSecretProvider",
     "FileSecretProvider",
+    "GcpSecretManagerProvider",
     "ExternalPlaceholderSecretProvider",
     "SecretNotFoundError",
     "SecretProvider",

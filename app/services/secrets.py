@@ -1,5 +1,9 @@
 from app.config import Settings
 from app.schemas.secrets import (
+    CloudSecretProviderFinding,
+    CloudSecretProviderHealth,
+    CloudSecretProviderKind,
+    CloudSecretProviderStatus,
     SecretProviderFinding,
     SecretProviderHealth,
     SecretProviderInventoryItem,
@@ -21,10 +25,13 @@ from app.security.secret_refs import (
     validate_secret_ref as _validate_secret_ref,
 )
 from app.security.secrets import (
+    AwsSecretsManagerProvider,
+    AzureKeyVaultSecretProvider,
     DisabledSecretProvider,
     EnvSecretProvider,
     ExternalPlaceholderSecretProvider,
     FileSecretProvider,
+    GcpSecretManagerProvider,
     SecretProviderBlockedError,
     SecretProviderConfigError,
     SecretProviderError,
@@ -145,6 +152,105 @@ def build_secret_provider_readiness(settings: Settings) -> SecretProviderReadine
     )
 
 
+_CLOUD_PROVIDERS = {
+    CloudSecretProviderKind.AWS_SECRETS_MANAGER: AwsSecretsManagerProvider,
+    CloudSecretProviderKind.AZURE_KEY_VAULT: AzureKeyVaultSecretProvider,
+    CloudSecretProviderKind.GCP_SECRET_MANAGER: GcpSecretManagerProvider,
+}
+
+
+def build_cloud_secret_provider_health(
+    kind: CloudSecretProviderKind | str,
+    settings: Settings,
+) -> CloudSecretProviderHealth:
+    provider_kind = CloudSecretProviderKind(kind)
+    provider = _CLOUD_PROVIDERS[provider_kind](settings)
+    enabled = provider._enabled()
+    dependency_available = provider._dependency_present()
+    configured = provider._config_ready()
+    confirmation_present = provider._confirmation_present()
+    resolution_allowed = bool(
+        enabled
+        and dependency_available
+        and configured
+        and settings.secret_provider_cloud_network_enabled
+        and confirmation_present
+    )
+    findings: list[CloudSecretProviderFinding] = []
+    next_steps: list[str] = []
+    if not enabled:
+        status = CloudSecretProviderStatus.DISABLED
+        findings.append(
+            CloudSecretProviderFinding(
+                code="provider_disabled",
+                severity="info",
+                message="Cloud provider is disabled by default.",
+            )
+        )
+        next_steps.append("Keep disabled unless an operator selects this provider.")
+    elif not dependency_available:
+        status = CloudSecretProviderStatus.DEPENDENCY_MISSING
+        findings.append(
+            CloudSecretProviderFinding(
+                code="dependency_missing",
+                severity="warning",
+                message="Optional provider dependency is not installed.",
+            )
+        )
+        next_steps.append("Install the matching optional dependency in the private runtime.")
+    elif not configured:
+        status = CloudSecretProviderStatus.NEEDS_CONFIGURATION
+        findings.append(
+            CloudSecretProviderFinding(
+                code="needs_configuration",
+                severity="warning",
+                message="Required private configuration references are unresolved.",
+            )
+        )
+        next_steps.append("Configure private environment references; do not paste their values.")
+    elif not resolution_allowed:
+        status = CloudSecretProviderStatus.BLOCKED
+        findings.append(
+            CloudSecretProviderFinding(
+                code="resolution_gated",
+                severity="info",
+                message="Resolution remains blocked by network and confirmation gates.",
+            )
+        )
+        next_steps.append("Use env or file first; cloud resolution requires deliberate enablement.")
+    else:
+        status = CloudSecretProviderStatus.READY_FOR_RESOLUTION
+        findings.append(
+            CloudSecretProviderFinding(
+                code="resolution_ready",
+                severity="info",
+                message="Configuration gates permit resolution; no resolution was attempted.",
+            )
+        )
+    return CloudSecretProviderHealth(
+        provider=provider_kind,
+        status=status,
+        enabled=enabled,
+        dependency_available=dependency_available,
+        dependency_missing=not dependency_available,
+        cloud_network_enabled=settings.secret_provider_cloud_network_enabled,
+        cloud_confirmation_present=confirmation_present,
+        configured=configured,
+        resolution_allowed=resolution_allowed,
+        findings=findings,
+        recommended_next_steps=next_steps,
+    )
+
+
+def build_all_cloud_secret_provider_health(
+    settings: Settings,
+) -> list[CloudSecretProviderHealth]:
+    return [
+        build_cloud_secret_provider_health(kind, settings)
+        for kind in CloudSecretProviderKind
+    ]
+
+
 def collect_required_secret_refs(settings: Settings, db_session=None):
     return _collect_required_secret_refs(settings, db_session=db_session, run_health=False)
 
@@ -167,6 +273,8 @@ __all__ = [
     "build_secret_provider",
     "build_secret_provider_health",
     "build_secret_provider_readiness",
+    "build_cloud_secret_provider_health",
+    "build_all_cloud_secret_provider_health",
     "collect_required_secret_refs",
     "mask_secret_ref",
     "normalize_secret_ref",

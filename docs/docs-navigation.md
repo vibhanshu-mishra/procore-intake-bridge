@@ -1,5 +1,8 @@
 # Documentation navigation map
 
+Cloud secret guidance begins at [Optional cloud secret providers](cloud-secret-providers.md), with
+AWS, Azure, and GCP pages under **Providers and Infrastructure**.
+
 Use this reading order; later sections are needed only for the selected journey.
 
 ## 1. Start here

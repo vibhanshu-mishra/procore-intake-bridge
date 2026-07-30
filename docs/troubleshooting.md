@@ -1,5 +1,9 @@
 # Troubleshooting
 
+`dependency_missing` is expected for cloud providers in the default install. Continue with `env`
+or `file`, or install the matching extra in the private runtime. Never paste credentials or
+provider resource identifiers into public logs or issues.
+
 Start with `make doctor`. It is local-only and prints sanitized readiness plus what to run next.
 Use the [walkthrough index](walkthrough-index.md) to return to the expected command order.
 

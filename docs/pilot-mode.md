@@ -1,5 +1,8 @@
 # Pilot mode
 
+Pilot provider selection is a private operator decision. Optional cloud readiness does not approve
+production security or a pilot, and default preflight checks do not contact cloud services.
+
 Pilot Mode is private and operator-controlled. It requires a private workspace, evidence refs,
 review/expiry records, approval, deployment/rollback planning, and database, secret, storage, and
 diagnostic readiness. What to run next: `make prepare-pilot`, then `make init-private-workspace`
