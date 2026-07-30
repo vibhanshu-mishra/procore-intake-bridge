@@ -14,7 +14,8 @@ make try-demo
 ```
 
 `make try-demo` is fixture-only. It does not call Procore or any external service. What to run next:
-`make diagnostics`, or read [the complete demo walkthrough](docs/quickstart-demo.md).
+read the [guided Demo walkthrough](docs/walkthrough-demo.md), then use the
+[walkthrough index](docs/walkthrough-index.md) for optional private paths.
 
 ## Choose your mode
 
@@ -85,3 +86,5 @@ no secret values, private file contents, raw environment values, or absolute pat
 - Fake examples live under `examples/` and contain placeholders or synthetic data only.
 
 Use [the command reference](docs/command-reference.md) when you need a deeper command.
+For a command-by-command journey, continue to the
+[guided walkthroughs](docs/walkthrough-index.md).

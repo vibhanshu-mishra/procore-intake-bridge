@@ -8,6 +8,9 @@ E2 also verifies the friendly `make start`, `make commands`, `make next`, `make 
 `make prepare-sandbox`, and `make prepare-pilot` surface and ensures beginner docs never default
 to live smoke or deployment.
 
+E3 verifies the linked Demo/Sandbox/Pilot walkthroughs, placeholder-only expected output, friendly
+command order, internal links, and no-live/no-deploy defaults. Run `make walkthroughs-check`.
+
 Run:
 
 ```bash

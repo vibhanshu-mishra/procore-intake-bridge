@@ -5,6 +5,9 @@ review/expiry records, approval, deployment/rollback planning, and database, sec
 diagnostic readiness. What to run next: `make prepare-pilot`, then `make init-private-workspace`
 only when authorized. Keep launch on hold.
 
+Follow the [Pilot walkthrough](walkthrough-pilot.md) for the ordered private preparation and
+required human review.
+
 Use [pilot preflight](pilot-preflight.md) to prepare for private review. It does not approve a
 pilot, inspect real evidence, deploy infrastructure, or call external services.
 

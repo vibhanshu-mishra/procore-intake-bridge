@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- E3 adds guided Demo, Sandbox, and Pilot walkthroughs, short placeholder-only expected output,
+  local walkthrough Make targets, navigation updates, and an offline safety/link verifier.
+
 - E2 adds a typed public command catalog, grouped command and next-step CLIs, onboarding summary,
   consolidated friendly Make targets, compact doctor output, and beginner-first documentation.
   Existing advanced commands remain available and no friendly target makes external calls.

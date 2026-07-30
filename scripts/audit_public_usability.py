@@ -32,6 +32,10 @@ REQUIRED_DOCS = {
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
+    "docs/walkthrough-index.md",
+    "docs/walkthrough-demo.md",
+    "docs/walkthrough-sandbox.md",
+    "docs/walkthrough-pilot.md",
 }
 REQUIRED_SCRIPTS = {
     "scripts/doctor.py",
@@ -44,6 +48,7 @@ REQUIRED_SCRIPTS = {
     "scripts/print_command_guide.py",
     "scripts/print_next_steps.py",
     "scripts/onboarding_summary.py",
+    "scripts/check_walkthroughs.py",
 }
 REQUIRED_EXAMPLES = {
     "examples/demo-flow.md",
@@ -51,6 +56,10 @@ REQUIRED_EXAMPLES = {
     "examples/sandbox-pilot-flow/example_sandbox_flow.json",
     "examples/sandbox-pilot-flow/example_pilot_flow.json",
     "examples/private-workspace/example_workspace_manifest.json",
+    "examples/walkthrough-output/README.md",
+    "examples/walkthrough-output/demo_expected_output.md",
+    "examples/walkthrough-output/sandbox_expected_output.md",
+    "examples/walkthrough-output/pilot_expected_output.md",
 }
 REQUIRED_TARGETS = {
     "help",
@@ -60,6 +69,11 @@ REQUIRED_TARGETS = {
     "try-demo",
     "prepare-sandbox",
     "prepare-pilot",
+    "walkthroughs",
+    "walkthroughs-check",
+    "demo-walkthrough",
+    "sandbox-walkthrough",
+    "pilot-walkthrough",
     "first-run",
     "doctor",
     "setup-demo",
@@ -187,6 +201,7 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 "make prepare-pilot",
             )
         ),
+        "README walkthrough link": "docs/walkthrough-index.md" in readme,
     }
     for name, passed in readme_checks.items():
         add(
@@ -268,6 +283,40 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         ),
         "deployment is not a beginner default": (
             "make start" in quickstart and "make deployment-check" not in quickstart
+        ),
+        "QUICKSTART walkthrough link": "docs/walkthrough-index.md" in quickstart,
+        "docs index walkthrough link": (
+            "walkthrough-index.md" in _read(root, "docs/index.md").casefold()
+        ),
+        "command reference walkthrough links": all(
+            name in _read(root, "docs/command-reference.md").casefold()
+            for name in (
+                "walkthrough-demo.md",
+                "walkthrough-sandbox.md",
+                "walkthrough-pilot.md",
+            )
+        ),
+        "walkthroughs use friendly commands": all(
+            command
+            in "\n".join(
+                _read(root, path).casefold()
+                for path in (
+                    "docs/walkthrough-demo.md",
+                    "docs/walkthrough-sandbox.md",
+                    "docs/walkthrough-pilot.md",
+                )
+            )
+            for command in (
+                "make start",
+                "make try-demo",
+                "make prepare-sandbox",
+                "make prepare-pilot",
+            )
+        ),
+        "walkthroughs avoid live/deploy defaults": (
+            "do not run it as part of this walkthrough"
+            in _read(root, "docs/walkthrough-sandbox.md").casefold()
+            and "launch hold" in _read(root, "docs/walkthrough-pilot.md").casefold()
         ),
     }
     for name, passed in guidance_checks.items():

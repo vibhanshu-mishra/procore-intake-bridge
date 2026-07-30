@@ -3,6 +3,9 @@
 Demo Mode is the default safe path. It requires no Procore credentials, secrets, external
 services, private workspace, or deployment. Best next command: `make try-demo`.
 
+For the beginner-friendly explanation of every command and expected result, use the
+[Demo walkthrough](walkthrough-demo.md).
+
 After the fixture-only demo, continue with the private, no-live-call
 [sandbox onboarding flow](sandbox-onboarding.md).
 

@@ -1,6 +1,7 @@
 # Troubleshooting
 
 Start with `make doctor`. It is local-only and prints sanitized readiness plus what to run next.
+Use the [walkthrough index](walkthrough-index.md) to return to the expected command order.
 
 ## Repository or workspace path is wrong
 

@@ -129,6 +129,11 @@ ABSOLUTE_LOCAL_PATH = re.compile(r"(?i)(?:/Users/|/home/|/private/|/tmp/|[A-Z]:\
 BINARY_EVIDENCE_REFERENCE = re.compile(
     r"(?i)\.(?:db|sqlite3?|pdf|docx|xlsx?|png|jpe?g|gif|webp|zip)(?:\b|$)"
 )
+WALKTHROUGH_UNSAFE = re.compile(
+    r"(?i)(?:https?://|(?:postgres(?:ql)?|mysql|mariadb|mongodb|sqlite)://|"
+    r"(?:/Users/|/home/[^/\s]+/|[A-Z]:\\Users\\)|"
+    r"-----BEGIN (?:RSA |EC |OPENSSH )?(?:PRIVATE KEY|CERTIFICATE)-----)"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -204,6 +209,14 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
             issues.append(SafetyIssue(path, "evidence example contains an absolute local path"))
         if BINARY_EVIDENCE_REFERENCE.search(text):
             issues.append(SafetyIssue(path, "evidence example contains a binary reference"))
+    if (
+        path.as_posix().startswith("docs/walkthrough-")
+        or "examples/walkthrough-output" in path.as_posix()
+    ):
+        if WALKTHROUGH_UNSAFE.search(text):
+            issues.append(SafetyIssue(path, "walkthrough contains an unsafe public pattern"))
+        if CUSTOMER_EMAIL.search(text):
+            issues.append(SafetyIssue(path, "walkthrough contains an email address"))
     return issues
 
 

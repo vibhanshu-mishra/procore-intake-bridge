@@ -4,6 +4,9 @@ Most users should use the friendly Make targets first. Run `make commands` for a
 All friendly targets are local-only: no Procore calls, external connections, deployment, or pilot
 approval.
 
+Prefer a guided sequence? See the [Demo walkthrough](walkthrough-demo.md),
+[Sandbox walkthrough](walkthrough-sandbox.md), or [Pilot walkthrough](walkthrough-pilot.md).
+
 ## Friendly commands
 
 | Difficulty | Command | Purpose | Writes | Procore | External | Private config | Demo-safe |
@@ -19,6 +22,8 @@ approval.
 | Intermediate | `make init-private-workspace` | Create ignored placeholder scaffolds. | Yes | No | No | Yes | Not needed |
 | Beginner | `make safety-check` | Run usability, public-data, and route audits. | No | No | No | No | Yes |
 | Intermediate | `make quality` | Run the complete offline developer suite. | Temporary | No | No | No | Yes |
+| Beginner | `make walkthroughs` | List all guided walkthrough documents. | No | No | No | No | Yes |
+| Beginner | `make walkthroughs-check` | Verify walkthrough safety and links. | No | No | No | No | Yes |
 
 `make prepare-sandbox` never runs live smoke or resolves secret values.
 `make prepare-pilot` never reads real evidence, approves a pilot, connects externally, or deploys.

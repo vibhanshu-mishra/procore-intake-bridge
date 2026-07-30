@@ -4,6 +4,9 @@ Demo Mode is the default safe path, uses synthetic examples only, and requires n
 credentials. Sandbox Mode and Pilot Mode are private/operator-controlled and use private
 configuration outside Git. Best next command: `make start`.
 
+Use the [walkthrough index](walkthrough-index.md) for the guided command order. Demo is the
+default; Sandbox and Pilot walkthroughs are optional private paths.
+
 For the ordered transition and local checks, see [Demo → Sandbox → Pilot](sandbox-to-pilot-flow.md).
 
 Procore Intake Bridge has three explicit modes. Start with `make start` and `make doctor`;

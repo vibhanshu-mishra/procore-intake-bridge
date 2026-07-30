@@ -8,6 +8,8 @@ Demo Mode is the default safe starting point and requires no Procore credentials
 - [ ] Run `make start` for safe onboarding, doctor, and next-step guidance.
 - [ ] If developing, run `make quality`.
 - [ ] Run `make try-demo`; it uses fixtures and makes no external calls.
+- [ ] Read the [Demo walkthrough](walkthrough-demo.md) and compare only the short illustrative
+  output.
 - [ ] Run `make commands` to discover deeper commands only when needed.
 - [ ] Choose [Sandbox Mode](sandbox-mode.md) or [Pilot Mode](pilot-mode.md) only if needed.
 - [ ] Initialize `private-workspace/` only when private preparation is needed.

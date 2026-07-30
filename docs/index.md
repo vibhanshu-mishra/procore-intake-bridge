@@ -4,6 +4,10 @@ Follow this beginner order: [Quickstart](../QUICKSTART.md), [usage modes](usage-
 [command reference](command-reference.md), [Demo walkthrough](quickstart-demo.md), then
 [Sandbox](sandbox-mode.md) or [Pilot](pilot-mode.md). Start with `make start`.
 
+For the complete guided journeys, use the [walkthrough index](walkthrough-index.md):
+[Demo](walkthrough-demo.md), [Sandbox](walkthrough-sandbox.md), and
+[Pilot](walkthrough-pilot.md).
+
 - [First-run checklist](first-run-checklist.md)
 - [Command reference](command-reference.md)
 - [Troubleshooting](troubleshooting.md)

@@ -1,7 +1,8 @@
 # Roadmap
 
-Phase E1 completed the public usability audit. Phase E2 consolidates command and onboarding UX
-without removing advanced capabilities. Future E3 work remains separately scoped.
+Phase E1 completed the public usability audit. Phase E2 consolidated command and onboarding UX.
+Phase E3 completes guided Demo/Sandbox/Pilot walkthroughs and safe illustrative output. Further
+work remains separately scoped.
 
 Phase D5 is complete: the repository guides Demo → Sandbox → Pilot readiness without live calls
 or approval. Separately authorized private pilot execution remains future work.
