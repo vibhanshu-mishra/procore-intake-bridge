@@ -1,5 +1,7 @@
 # Auth boundary map
 
+The I5 secret boundary covers protected configuration references used by existing authentication boundaries.
+
 Use the I4 redaction boundary map alongside this route map when reviewing what protected handlers may expose in public diagnostics and summaries.
 
 The I2 map assigns every local FastAPI route to a public, protected, local-only, webhook, or

@@ -1,5 +1,7 @@
 # Final public repository readiness
 
+I5 adds offline infrastructure-boundary evidence; it is not certification or production approval.
+
 I4 adds offline validation of data classifications and public/private output boundaries. It is review input, not legal compliance, certification, or production approval.
 
 Phase H1 is an offline maintainer-review aid that consolidates the public repository’s onboarding,

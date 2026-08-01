@@ -809,6 +809,79 @@ class Settings(BaseSettings):
         le=1000,
         validation_alias="PROCORE_INTAKE_DATA_POLICY_REVIEW_MAX_FINDINGS",
     )
+    infra_security_review_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_INFRA_SECURITY_REVIEW_ENABLED"
+    )
+    infra_security_review_output_root: Path = Field(
+        default=Path("./infra-security-review-output"),
+        validation_alias="PROCORE_INTAKE_INFRA_SECURITY_REVIEW_OUTPUT_ROOT",
+    )
+    infra_security_review_require_placeholders: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_INFRA_SECURITY_REVIEW_REQUIRE_PLACEHOLDERS"
+    )
+    infra_security_review_require_secret_references: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_INFRA_SECURITY_REVIEW_REQUIRE_SECRET_REFERENCES",
+    )
+    infra_security_review_require_no_secret_values: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_INFRA_SECURITY_REVIEW_REQUIRE_NO_SECRET_VALUES",
+    )
+    infra_security_review_require_secret_masking: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_INFRA_SECURITY_REVIEW_REQUIRE_SECRET_MASKING"
+    )
+    infra_security_review_require_storage_metadata_only: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_INFRA_SECURITY_REVIEW_REQUIRE_STORAGE_METADATA_ONLY",
+    )
+    infra_security_review_require_no_presigned_urls: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_INFRA_SECURITY_REVIEW_REQUIRE_NO_PRESIGNED_URLS",
+    )
+    infra_security_review_require_no_storage_keys: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_INFRA_SECURITY_REVIEW_REQUIRE_NO_STORAGE_KEYS",
+    )
+    infra_security_review_require_db_url_references: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_INFRA_SECURITY_REVIEW_REQUIRE_DB_URL_REFERENCES",
+    )
+    infra_security_review_require_db_operation_gates: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_INFRA_SECURITY_REVIEW_REQUIRE_DB_OPERATION_GATES",
+    )
+    infra_security_review_require_migration_gates: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_INFRA_SECURITY_REVIEW_REQUIRE_MIGRATION_GATES",
+    )
+    infra_security_review_require_backup_restore_plans: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_INFRA_SECURITY_REVIEW_REQUIRE_BACKUP_RESTORE_PLANS",
+    )
+    infra_security_review_allow_real_identities: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_INFRA_SECURITY_REVIEW_ALLOW_REAL_IDENTITIES"
+    )
+    infra_security_review_allow_real_domains: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_INFRA_SECURITY_REVIEW_ALLOW_REAL_DOMAINS"
+    )
+    infra_security_review_allow_real_urls: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_INFRA_SECURITY_REVIEW_ALLOW_REAL_URLS"
+    )
+    infra_security_review_allow_report_contents: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_INFRA_SECURITY_REVIEW_ALLOW_REPORT_CONTENTS"
+    )
+    infra_security_review_allow_private_paths: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_INFRA_SECURITY_REVIEW_ALLOW_PRIVATE_PATHS"
+    )
+    infra_security_review_fail_closed: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_INFRA_SECURITY_REVIEW_FAIL_CLOSED"
+    )
+    infra_security_review_max_findings: int = Field(
+        default=300,
+        ge=1,
+        le=1000,
+        validation_alias="PROCORE_INTAKE_INFRA_SECURITY_REVIEW_MAX_FINDINGS",
+    )
     intake_review_workspace_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_ENABLED",

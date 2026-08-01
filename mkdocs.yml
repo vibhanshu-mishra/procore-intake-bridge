@@ -65,6 +65,11 @@ nav:
       - Azure Blob Storage: azure-blob-storage.md
       - GCS Storage: gcs-storage.md
       - Database Providers: database-providers.md
+      - Secrets Storage DB Security Review: secrets-storage-db-security-review.md
+      - Secret Boundary Map: secret-boundary-map.md
+      - Storage Boundary Map: storage-boundary-map.md
+      - Database Boundary Map: database-boundary-map.md
+      - Infrastructure Security Checklist: infra-security-checklist.md
       - PostgreSQL Readiness: postgres-readiness.md
       - PostgreSQL Runtime Operations: postgres-runtime-operations.md
       - PostgreSQL Connection Pooling: postgres-connection-pooling.md

@@ -1,5 +1,7 @@
 # Documentation
 
+See the [I5 secrets/storage/database security review](secrets-storage-db-security-review.md) for offline provider and operation boundaries.
+
 Security review continues with the [Phase I4 Data Retention and Redaction Policy](data-retention-redaction-policy.md), an offline, non-destructive public repository check.
 
 Follow this beginner order: [Quickstart](../QUICKSTART.md), [usage modes](usage-modes.md),

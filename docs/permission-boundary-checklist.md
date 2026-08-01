@@ -1,5 +1,7 @@
 # Permission boundary checklist
 
+- [ ] Review cloud-provider permissions and database roles privately; I5 makes no live permission check.
+
 - [ ] Confirm I4 public outputs remain placeholder-, metadata-, or reference-only and expose no private content.
 
 Use `make permission-boundary-checklist` for the generated offline checklist.

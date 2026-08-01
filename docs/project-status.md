@@ -1,5 +1,7 @@
 # Project status
 
+Phase I5 is implemented as an offline secrets/storage/database security review; private infrastructure authorization and operational evidence remain outstanding.
+
 Phase I4 is implemented as an offline data retention and redaction policy layer. Private retention periods, deletion operations, and legal/security review remain outside the public repository.
 
 The public repository has completed phases A1–H7. Phase H3 adds a public-safe, read-only Intake

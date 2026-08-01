@@ -1,5 +1,7 @@
 # Documentation navigation map
 
+Phase I5: [review](secrets-storage-db-security-review.md), [secret map](secret-boundary-map.md), [storage map](storage-boundary-map.md), [database map](database-boundary-map.md), and [checklist](infra-security-checklist.md).
+
 Phase I4: [policy](data-retention-redaction-policy.md), [retention map](data-retention-map.md), [redaction map](redaction-boundary-map.md), and [handling checklist](data-handling-checklist.md).
 
 Cloud storage guidance starts at [Optional cloud storage providers](cloud-storage-providers.md),

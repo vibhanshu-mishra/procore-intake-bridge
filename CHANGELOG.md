@@ -1,5 +1,7 @@
 # Changelog
 
+- Added Phase I5 offline secrets/storage/database security review, maps, checklist, provider matrix, examples, audits, and sanitized artifacts.
+
 - Added Phase I4 offline Data Retention and Redaction Policy schemas, checks, maps, examples, documentation, audits, and sanitized temporary artifacts.
 
 ## Unreleased

@@ -78,6 +78,11 @@ REQUIRED_DOCS = {
     "docs/data-retention-map.md",
     "docs/redaction-boundary-map.md",
     "docs/data-handling-checklist.md",
+    "docs/secrets-storage-db-security-review.md",
+    "docs/secret-boundary-map.md",
+    "docs/storage-boundary-map.md",
+    "docs/database-boundary-map.md",
+    "docs/infra-security-checklist.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -132,6 +137,12 @@ REQUIRED_SCRIPTS = {
     "scripts/print_redaction_boundary_map.py",
     "scripts/print_data_handling_checklist.py",
     "scripts/generate_data_policy_review_artifacts.py",
+    "scripts/run_infra_security_review.py",
+    "scripts/print_secret_boundary_map.py",
+    "scripts/print_storage_boundary_map.py",
+    "scripts/print_database_boundary_map.py",
+    "scripts/print_infra_security_checklist.py",
+    "scripts/generate_infra_security_review_artifacts.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -253,6 +264,12 @@ REQUIRED_EXAMPLES = {
     "examples/data-policy-review/example_redaction_boundary_map.md",
     "examples/data-policy-review/example_data_handling_checklist.md",
     "examples/data-policy-review/example_generated_output_inventory.csv",
+    "examples/infra-security-review/README.md",
+    "examples/infra-security-review/example_secret_boundary_map.md",
+    "examples/infra-security-review/example_storage_boundary_map.md",
+    "examples/infra-security-review/example_database_boundary_map.md",
+    "examples/infra-security-review/example_infra_security_checklist.md",
+    "examples/infra-security-review/example_infra_provider_matrix.csv",
 }
 REQUIRED_TARGETS = {
     "review-workspace-summary",
@@ -287,6 +304,12 @@ REQUIRED_TARGETS = {
     "redaction-boundary-map",
     "data-handling-checklist",
     "data-policy-artifact-check",
+    "infra-security-review",
+    "secret-boundary-map",
+    "storage-boundary-map",
+    "database-boundary-map",
+    "infra-security-checklist",
+    "infra-security-artifact-check",
     "webhook-replay-checklist",
     "webhook-security-artifact-check",
     "help",
@@ -498,6 +521,18 @@ IGNORED_OUTPUTS = {
     "*.redaction-boundary-map.md",
     "*.generated-output-inventory.csv",
     "*.data-handling-checklist.md",
+    "infra-security-review-output/",
+    "secrets-storage-db-review-output/",
+    "secret-storage-review-output/",
+    "database-security-review-output/",
+    "storage-security-review-output/",
+    "*.infra-security-review-report.json",
+    "*.infra-security-review-report.md",
+    "*.secret-boundary-map.md",
+    "*.storage-boundary-map.md",
+    "*.database-boundary-map.md",
+    "*.infra-security-checklist.md",
+    "*.infra-provider-matrix.csv",
 }
 GENERATED_PARTS = {
     "private-workspace",
@@ -556,6 +591,11 @@ GENERATED_PARTS = {
     "retention-redaction-output",
     "redaction-review-output",
     "data-classification-output",
+    "infra-security-review-output",
+    "secrets-storage-db-review-output",
+    "secret-storage-review-output",
+    "database-security-review-output",
+    "storage-security-review-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak",
@@ -928,6 +968,37 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             in makefile
             and "quality: data-policy-artifact-check" not in makefile
         ),
+        "I5 infrastructure review is offline and non-operational": all(
+            phrase in _read(root, "docs/secrets-storage-db-security-review.md").casefold()
+            for phrase in (
+                "offline secrets/storage/db security review",
+                "no secret retrieval",
+                "no storage access",
+                "no database connection",
+                "no migration",
+                "no backup",
+                "no restore",
+                "no db dump inspection",
+                "no external call",
+                "no procore call",
+            )
+        ),
+        "I5 infrastructure review disclaims certification and approval": all(
+            phrase in _read(root, "docs/secrets-storage-db-security-review.md").casefold()
+            for phrase in (
+                "not legal",
+                "security",
+                "compliance certification",
+                "no production",
+                "pilot approval",
+            )
+        ),
+        "I5 checks are included and artifacts excluded": (
+            "quality: infra-security-review secret-boundary-map storage-boundary-map "
+            "database-boundary-map infra-security-checklist"
+            in makefile
+            and "quality: infra-security-artifact-check" not in makefile
+        ),
         "H3 workspace is read-only and local": all(
             phrase in _read(root, "docs/intake-review-workspace.md").casefold()
             for phrase in ("read-only", "local intake records only", "no procore")
@@ -1230,6 +1301,13 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 ".redaction-boundary-map.md",
                 ".generated-output-inventory.csv",
                 ".data-handling-checklist.md",
+                ".infra-security-review-report.json",
+                ".infra-security-review-report.md",
+                ".secret-boundary-map.md",
+                ".storage-boundary-map.md",
+                ".database-boundary-map.md",
+                ".infra-security-checklist.md",
+                ".infra-provider-matrix.csv",
             )
         ):
             add(

@@ -1,5 +1,7 @@
 # Security Boundary Map
 
+I5 adds dedicated [secret](secret-boundary-map.md), [storage](storage-boundary-map.md), and [database](database-boundary-map.md) maps.
+
 The [I4 retention map](data-retention-map.md) and [redaction map](redaction-boundary-map.md) document public/private data handling without reading private contents.
 
 The I1 boundary map lists public runtime, local data, administrative, provider, external API,

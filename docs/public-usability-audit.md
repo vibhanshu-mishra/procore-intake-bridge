@@ -1,5 +1,7 @@
 # Public usability audit
 
+The audit verifies I5 docs, scripts, examples, targets, ignored outputs, offline guidance, and certification/approval disclaimers.
+
 The audit verifies I4 docs, commands, examples, ignored outputs, offline guidance, non-destructive boundaries, and certification/approval disclaimers.
 
 H3 checks require the Intake Review Workspace documentation, local summary/check scripts, Make

@@ -128,6 +128,11 @@ PRIVATE_PATH_PARTS = {
     "retention-redaction-output",
     "redaction-review-output",
     "data-classification-output",
+    "infra-security-review-output",
+    "secrets-storage-db-review-output",
+    "secret-storage-review-output",
+    "database-security-review-output",
+    "storage-security-review-output",
     "sandbox-output",
     "sandbox-pilot-output",
     "pilot-flow-output",
@@ -276,6 +281,17 @@ DATA_POLICY_UNSAFE_CLAIM = re.compile(
     r"\b(?:launch|pilot) approved\b|\bprocore (?:endorsed|partner|certified)\b|"
     r"\bpurge job (?:implemented|enabled|active)\b"
 )
+INFRA_PRIVATE_MATERIAL = re.compile(
+    r"(?i)(?:secret_value|password|api_key|admin_token|webhook_secret|"
+    r"dmsa_client_(?:id|secret)|database_url|presigned_url|signed_url|"
+    r"storage_key|object_key|db_dump_content|backup_archive_content|migration_log)"
+    r"\s*[:=]\s*[\"']?(?!false\b|none\b|placeholder\b|fake\b|synthetic\b)[^\"'\s]+"
+)
+INFRA_UNSAFE_CLAIM = re.compile(
+    r"(?i)\b(?:gdpr|ccpa|hipaa) compliant\b|\b(?:soc ?2|iso ?27001) certified\b|"
+    r"\b(?:compliance|security) certified\b|\bproduction[- ]ready\b|"
+    r"\b(?:launch|pilot) approved\b|\bprocore (?:endorsed|partner|certified)\b"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -285,6 +301,27 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if any(
+        marker in path.as_posix()
+        for marker in (
+            "infra-security",
+            "infra_security",
+            "secret-boundary",
+            "storage-boundary",
+            "database-boundary",
+        )
+    ):
+        for line in text.splitlines():
+            excluded = any(part in path.parts for part in ("tests", "services", "schemas"))
+            negated = re.search(r"(?i)\b(?:no|not|never|does not|is not|must not)\b", line)
+            if INFRA_UNSAFE_CLAIM.search(line) and not excluded and not negated:
+                issues.append(
+                    SafetyIssue(path, "infrastructure review implies certification or approval")
+                )
+                break
+            if INFRA_PRIVATE_MATERIAL.search(line) and not excluded and not _safe_value(line):
+                issues.append(SafetyIssue(path, "infrastructure review contains private material"))
+                break
     if any(
         marker in path.as_posix()
         for marker in ("data-policy", "data_policy", "retention-redaction")
@@ -815,6 +852,29 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             )
         ):
             issues.append(SafetyIssue(path, "tracked generated data-policy output"))
+            continue
+        if any(
+            part
+            in {
+                "infra-security-review-output",
+                "secrets-storage-db-review-output",
+                "secret-storage-review-output",
+                "database-security-review-output",
+                "storage-security-review-output",
+            }
+            for part in path.parts
+        ) or path.name.endswith(
+            (
+                ".infra-security-review-report.json",
+                ".infra-security-review-report.md",
+                ".secret-boundary-map.md",
+                ".storage-boundary-map.md",
+                ".database-boundary-map.md",
+                ".infra-security-checklist.md",
+                ".infra-provider-matrix.csv",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated infrastructure-security output"))
             continue
         if path.name.endswith(
             (

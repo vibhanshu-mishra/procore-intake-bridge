@@ -1,5 +1,7 @@
 # Security Review Checklist
 
+- [ ] Run the offline I5 review and complete provider permissions, resource policies, database roles, and operational evidence review privately.
+
 - [ ] Review the I4 classifications, retention boundaries, redaction boundaries, generated-output ignores, and remaining private legal/security decisions.
 
 - [ ] Review all public trust boundaries and threat categories.

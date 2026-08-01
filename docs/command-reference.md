@@ -1,5 +1,9 @@
 # Command reference
 
+## Phase I5 infrastructure review
+
+`make infra-security-review`, `make secret-boundary-map`, `make storage-boundary-map`, `make database-boundary-map`, and `make infra-security-checklist` are offline and non-writing. `make infra-security-artifact-check` uses an automatically cleaned temporary directory.
+
 ## Phase I4 data policy commands
 
 | Command | Safety | Output |

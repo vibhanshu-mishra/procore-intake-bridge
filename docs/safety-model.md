@@ -1,5 +1,7 @@
 # Safety model
 
+I5 permits placeholder references and sanitized metadata, never secret values, database URLs, object keys, presigned URLs, contents, or live infrastructure operations.
+
 Phase I4 maps retention and redaction boundaries offline. It excludes raw payloads, secrets, URLs, paths, storage keys, original filenames, attachment contents, and private evidence contents; it adds no destructive deletion or purge jobs.
 
 The H3 Intake Review Workspace is GET-only and local-database-only. Its response validator blocks

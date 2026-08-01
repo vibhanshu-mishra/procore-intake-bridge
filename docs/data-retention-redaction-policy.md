@@ -1,5 +1,7 @@
 # Data Retention and Redaction Policy
 
+I5 applies these redaction requirements to secret, storage, database, migration, backup, and provider-review output.
+
 Phase I4 is an offline data policy/redaction review for the public repository. It inspects a curated set of local source, documentation, test, and ignore-rule files. It performs no live scan, no external call, no Procore call, no cloud call, and no database connection.
 
 ## Policy boundary

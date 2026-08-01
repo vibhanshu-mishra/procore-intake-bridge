@@ -1,5 +1,7 @@
 # Data Handling Checklist
 
+- [ ] Apply I5 reference-only and metadata-only rules to provider, storage, database, migration, and backup review material.
+
 - [ ] Keep public examples placeholder-only.
 - [ ] Exclude raw payloads, live headers, secrets, URLs, paths, identifiers, filenames, and attachment contents.
 - [ ] Keep sandbox and pilot evidence reference-only.

@@ -1,5 +1,7 @@
 # Roadmap
 
+- Phase I5: Secrets / Storage / DB Security Review — offline public-safe review layer; no live infrastructure operations.
+
 - Phase I4: Data Retention and Redaction Policy — offline public-safe mapping and validation; destructive enforcement remains out of scope.
 
 Phases A1–H7 are implemented in the public repository. H3 provides local intake review, H4 adds

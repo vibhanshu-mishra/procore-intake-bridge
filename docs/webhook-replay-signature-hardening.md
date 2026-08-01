@@ -1,5 +1,7 @@
 # Webhook Replay and Signature Hardening Review
 
+I5 treats webhook signing configuration as a secret reference and never retrieves or prints its value.
+
 Phase I4 classifies the webhook payload and event-fingerprint boundary while continuing to exclude live payloads, headers, signatures, and replay reports from public output.
 
 Phase I3 is an offline webhook security review using local code, documentation, tests, and fake

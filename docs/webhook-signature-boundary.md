@@ -1,5 +1,7 @@
 # Webhook signature boundary
 
+I5 verifies the reference boundary only; it performs no secret retrieval and exposes no submitted signature.
+
 The I4 secret and raw-payload redaction boundaries apply to this signature boundary; submitted values remain excluded.
 
 The receiver’s configured verification path computes HMAC-SHA256 over the exact request bytes and

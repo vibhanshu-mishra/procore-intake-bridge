@@ -1,5 +1,7 @@
 # Webhook replay checklist
 
+- [ ] Preserve the I5 secret-reference and database-operation gates during private replay review.
+
 - [ ] Apply I4 payload, identifier, diagnostics, and generated-output redaction boundaries to replay review material.
 
 - [ ] Require private authorization for any local replay operation.
