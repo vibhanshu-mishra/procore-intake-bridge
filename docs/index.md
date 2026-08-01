@@ -1,5 +1,21 @@
 # Documentation
 
+## Start here
+
+Choose a canonical [reader path](docs-reader-paths.md), use the
+[navigation map](docs-navigation-map.md) for topic grouping, and keep the
+[command reference](command-reference.md) as the single source for executable commands.
+
+- **First-time evaluator:** local setup → fake Demo seed → product walkthrough → API reference.
+- **Demo user:** review workspace → lifecycle → triage → attachment metadata.
+- **Sandbox/Pilot preparer:** private, manually gated mode guidance.
+- **Hosted preparer:** hosted UI planning → private infrastructure/security gates.
+- **Security or release reviewer:** threat/security closeout → readiness and release review.
+
+Phase J5 polishes local navigation only. The site may be previewed locally with `make docs-serve`;
+no docs deployment, GitHub Pages workflow, external analytics, tracking, search service, or CDN
+asset is added. Documentation grants no production, Pilot, release, deployment, or hosting approval.
+
 Phase J4 provides [hosted UI preparation](hosted-ui-preparation.md), a
 [page inventory](hosted-ui-page-inventory.md), [readiness checklist](hosted-ui-readiness-checklist.md),
 and [private gates](hosted-ui-private-gates.md). The review is offline and non-deploying. It adds no

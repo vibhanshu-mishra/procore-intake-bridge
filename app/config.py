@@ -1405,6 +1405,71 @@ class Settings(BaseSettings):
         le=300,
         validation_alias="PROCORE_INTAKE_HOSTED_UI_MAX_FINDINGS",
     )
+    docs_site_polish_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DOCS_SITE_POLISH_ENABLED"
+    )
+    docs_site_polish_output_root: Path = Field(
+        default=Path("./docs-site-polish-output"),
+        validation_alias="PROCORE_INTAKE_DOCS_SITE_POLISH_OUTPUT_ROOT",
+    )
+    docs_site_polish_require_local_only: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DOCS_SITE_POLISH_REQUIRE_LOCAL_ONLY"
+    )
+    docs_site_polish_require_nav_groups: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DOCS_SITE_POLISH_REQUIRE_NAV_GROUPS"
+    )
+    docs_site_polish_require_reader_paths: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DOCS_SITE_POLISH_REQUIRE_READER_PATHS"
+    )
+    docs_site_polish_require_no_hosting_automation: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_DOCS_SITE_POLISH_REQUIRE_NO_HOSTING_AUTOMATION",
+    )
+    docs_site_polish_require_no_external_analytics: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_DOCS_SITE_POLISH_REQUIRE_NO_EXTERNAL_ANALYTICS",
+    )
+    docs_site_polish_require_no_external_assets: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_DOCS_SITE_POLISH_REQUIRE_NO_EXTERNAL_ASSETS",
+    )
+    docs_site_polish_require_generated_output_ignores: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_DOCS_SITE_POLISH_REQUIRE_GENERATED_OUTPUT_IGNORES",
+    )
+    docs_site_polish_allow_real_identities: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_DOCS_SITE_POLISH_ALLOW_REAL_IDENTITIES",
+    )
+    docs_site_polish_allow_real_domains: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_DOCS_SITE_POLISH_ALLOW_REAL_DOMAINS"
+    )
+    docs_site_polish_allow_real_urls: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_DOCS_SITE_POLISH_ALLOW_REAL_URLS"
+    )
+    docs_site_polish_allow_report_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_DOCS_SITE_POLISH_ALLOW_REPORT_CONTENTS",
+    )
+    docs_site_polish_allow_private_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_DOCS_SITE_POLISH_ALLOW_PRIVATE_PATHS",
+    )
+    docs_site_polish_fail_closed: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DOCS_SITE_POLISH_FAIL_CLOSED"
+    )
+    docs_site_polish_max_docs: int = Field(
+        default=400,
+        ge=1,
+        le=400,
+        validation_alias="PROCORE_INTAKE_DOCS_SITE_POLISH_MAX_DOCS",
+    )
+    docs_site_polish_max_findings: int = Field(
+        default=300,
+        ge=1,
+        le=300,
+        validation_alias="PROCORE_INTAKE_DOCS_SITE_POLISH_MAX_FINDINGS",
+    )
     intake_review_workspace_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_ENABLED",

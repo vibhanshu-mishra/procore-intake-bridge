@@ -1,5 +1,8 @@
 # Hosted UI Preparation
 
+J5 places this page on the Hosted preparer path but does not convert preparation into hosted docs or
+UI deployment. No workflow, external analytics, tracking, search, CDN asset, or approval is added.
+
 Phase J4 prepares the existing local interface for possible future hosted evaluation. It is an
 offline, public-safe review of routes, templates, documentation, and command guidance. It performs
 no hosted deployment, live call, cloud operation, frontend build, or external UI-tool invocation.

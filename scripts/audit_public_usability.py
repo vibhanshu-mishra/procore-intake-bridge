@@ -115,6 +115,9 @@ REQUIRED_DOCS = {
     "docs/hosted-ui-page-inventory.md",
     "docs/hosted-ui-readiness-checklist.md",
     "docs/hosted-ui-private-gates.md",
+    "docs/docs-site-polish.md",
+    "docs/docs-reader-paths.md",
+    "docs/docs-navigation-map.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -217,6 +220,11 @@ REQUIRED_SCRIPTS = {
     "scripts/print_hosted_ui_readiness_checklist.py",
     "scripts/print_hosted_ui_private_gates.py",
     "scripts/generate_hosted_ui_review_artifacts.py",
+    "scripts/run_docs_site_polish_review.py",
+    "scripts/print_docs_reader_paths.py",
+    "scripts/print_docs_navigation_map.py",
+    "scripts/print_docs_site_checklist.py",
+    "scripts/generate_docs_site_polish_artifacts.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -384,6 +392,11 @@ REQUIRED_EXAMPLES = {
     "examples/hosted-ui-review/example_hosted_ui_readiness_checklist.md",
     "examples/hosted-ui-review/example_hosted_ui_private_gates.md",
     "examples/hosted-ui-review/example_hosted_ui_route_matrix.csv",
+    "examples/docs-site-polish/README.md",
+    "examples/docs-site-polish/example_docs_reader_paths.md",
+    "examples/docs-site-polish/example_docs_navigation_map.md",
+    "examples/docs-site-polish/example_docs_site_checklist.md",
+    "examples/docs-site-polish/example_docs_link_inventory.csv",
 }
 REQUIRED_TARGETS = {
     "review-workspace-summary",
@@ -466,6 +479,11 @@ REQUIRED_TARGETS = {
     "hosted-ui-readiness-checklist",
     "hosted-ui-private-gates",
     "hosted-ui-artifact-check",
+    "docs-site-polish-review",
+    "docs-reader-paths",
+    "docs-navigation-map",
+    "docs-site-checklist",
+    "docs-site-polish-artifact-check",
     "webhook-replay-checklist",
     "webhook-security-artifact-check",
     "help",
@@ -540,6 +558,17 @@ REQUIRED_TARGETS = {
     "final-readiness-artifact-check",
 }
 IGNORED_OUTPUTS = {
+    "docs-site-polish-output/",
+    "docs-site-review-output/",
+    "docs-navigation-output/",
+    "docs-reader-path-output/",
+    "docs-link-check-output/",
+    "*.docs-site-polish-report.json",
+    "*.docs-site-polish-report.md",
+    "*.docs-reader-paths.md",
+    "*.docs-navigation-map.md",
+    "*.docs-site-checklist.md",
+    "*.docs-link-inventory.csv",
     "hosted-ui-review-output/",
     "hosted-ui-output/",
     "ui-readiness-output/",
@@ -873,6 +902,11 @@ GENERATED_PARTS = {
     "hosted-ui-output",
     "ui-readiness-output",
     "hosted-page-review-output",
+    "docs-site-polish-output",
+    "docs-site-review-output",
+    "docs-navigation-output",
+    "docs-reader-path-output",
+    "docs-link-check-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak",
@@ -1518,6 +1552,31 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             )
             and "hosted-ui-artifact-check" not in quality_headers
         ),
+        "J5 docs-site polish is local-only and non-approving": all(
+            phrase in _read(root, "docs/docs-site-polish.md").casefold()
+            for phrase in (
+                "local-only",
+                "no docs deployment",
+                "no external",
+                "production approval",
+            )
+        ),
+        "J5 reader paths cover core audiences": all(
+            phrase in _read(root, "docs/docs-reader-paths.md").casefold()
+            for phrase in ("evaluator", "demo", "sandbox", "pilot", "hosted", "security")
+        ),
+        "J5 checks included and artifacts excluded": (
+            all(
+                target in quality_headers
+                for target in (
+                    "docs-site-polish-review",
+                    "docs-reader-paths",
+                    "docs-navigation-map",
+                    "docs-site-checklist",
+                )
+            )
+            and "docs-site-polish-artifact-check" not in quality_headers
+        ),
         "H3 workspace is read-only and local": all(
             phrase in _read(root, "docs/intake-review-workspace.md").casefold()
             for phrase in ("read-only", "local intake records only", "no procore")
@@ -1875,6 +1934,12 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 ".hosted-ui-route-matrix.csv",
                 ".hosted-ui-readiness-checklist.md",
                 ".hosted-ui-private-gates.md",
+                ".docs-site-polish-report.json",
+                ".docs-site-polish-report.md",
+                ".docs-reader-paths.md",
+                ".docs-navigation-map.md",
+                ".docs-site-checklist.md",
+                ".docs-link-inventory.csv",
             )
         ):
             add(

@@ -1,5 +1,9 @@
 # API Route Reference
 
+J5 makes this route reference discoverable from evaluator, hosted-preparer, and developer paths
+without duplicating its content. The navigation layer is local-only and adds no deployment,
+external analytics, tracking, search service, CDN asset, or approval.
+
 J4 consumes this local route inventory when reviewing hosted UI candidates. Admin, dashboard, and
 review routes stay protected; lifecycle controls remain protected local-only mutations; attachment
 routes remain metadata-only; and exports remain command-only with no public download route. J4

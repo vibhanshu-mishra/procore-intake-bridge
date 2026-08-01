@@ -174,6 +174,11 @@ PRIVATE_PATH_PARTS = {
     "hosted-ui-output",
     "ui-readiness-output",
     "hosted-page-review-output",
+    "docs-site-polish-output",
+    "docs-site-review-output",
+    "docs-navigation-output",
+    "docs-reader-path-output",
+    "docs-link-check-output",
 }
 
 
@@ -432,6 +437,25 @@ HOSTED_UI_UNSAFE_CLAIM = re.compile(
     r"deployment) (?:is )?approved|(?:soc ?2|iso ?27001|hipaa|gdpr|ccpa|security|"
     r"compliance) certified|(?:gdpr|ccpa|hipaa|privacy|legal) compliant)\b"
 )
+DOCS_SITE_EXTERNAL_SERVICE = re.compile(
+    r"(?i)(?:<(?:script|link)\b[^>]*(?:src|href)\s*=\s*[\"'](?:https?:)?//|"
+    r"@import\s+(?:url\()?\s*[\"']?(?:https?:)?//|\b(?:google-analytics|"
+    r"googletagmanager|algolia|docsearch|segment|mixpanel|amplitude|hotjar|"
+    r"tracking[_ -]?script|external search|cdn asset)\b)"
+)
+DOCS_SITE_PRIVATE_MATERIAL = re.compile(
+    r"(?i)(?:github_token|registry_token|package_registry_token|ci_secret|database_url|"
+    r"authorization|bearer|source_url|signed_url|presigned_url|storage_key|object_key|"
+    r"private_path|private_report_contents?|raw_report_contents?)"
+    r"\s*[:=]\s*[\"']?(?!placeholder\b|fake\b|none\b|false\b)[^\"'\s]+"
+)
+DOCS_SITE_UNSAFE_CLAIM = re.compile(
+    r"(?i)\b(?:docs (?:site )?(?:is )?(?:deployed|hosted)|github pages (?:is )?"
+    r"(?:enabled|deployed)|production[- ]ready|approved for (?:production|release|pilot|"
+    r"launch|deployment|docs hosting)|(?:production|release|pilot|launch|deployment) "
+    r"(?:is )?approved|(?:soc ?2|iso ?27001|hipaa|gdpr|ccpa|security|compliance) "
+    r"certified|(?:gdpr|ccpa|hipaa|privacy|legal) compliant)\b"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -441,6 +465,32 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if any(
+        marker in path.as_posix()
+        for marker in (
+            "docs-site-polish",
+            "docs_site_polish",
+            "docs-reader",
+            "docs-navigation",
+            "docs_navigation",
+        )
+    ):
+        excluded = any(part in path.parts for part in ("tests", "services", "schemas"))
+        lines = text.splitlines()
+        for index, line in enumerate(lines):
+            context = " ".join(lines[max(0, index - 2) : index + 1])
+            qualified = SETUP_SAFETY_QUALIFIER.search(context) or re.search(
+                r"(?i)\b(?:none|absent|not added|not present|excluded)\b", context
+            )
+            if DOCS_SITE_EXTERNAL_SERVICE.search(line) and not excluded and not qualified:
+                issues.append(SafetyIssue(path, "docs site references external services or assets"))
+                break
+            if DOCS_SITE_PRIVATE_MATERIAL.search(line) and not excluded:
+                issues.append(SafetyIssue(path, "docs-site guidance exposes private material"))
+                break
+            if DOCS_SITE_UNSAFE_CLAIM.search(line) and not excluded and not qualified:
+                issues.append(SafetyIssue(path, "docs-site guidance implies hosting or approval"))
+                break
     if path.suffix.casefold() == ".html" and "templates" in path.parts:
         if HOSTED_UI_EXTERNAL_ASSET.search(text):
             issues.append(SafetyIssue(path, "UI template references external assets or tracking"))
@@ -1070,6 +1120,28 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             continue
         if path.name.endswith((".smoke.json", ".smoke.log")):
             issues.append(SafetyIssue(path, "tracked sandbox smoke output"))
+            continue
+        if any(
+            part
+            in {
+                "docs-site-polish-output",
+                "docs-site-review-output",
+                "docs-navigation-output",
+                "docs-reader-path-output",
+                "docs-link-check-output",
+            }
+            for part in path.parts
+        ) or path.name.endswith(
+            (
+                ".docs-site-polish-report.json",
+                ".docs-site-polish-report.md",
+                ".docs-reader-paths.md",
+                ".docs-navigation-map.md",
+                ".docs-site-checklist.md",
+                ".docs-link-inventory.csv",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated docs-site polish output"))
             continue
         if any(
             part

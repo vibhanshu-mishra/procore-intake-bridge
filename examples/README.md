@@ -1,5 +1,10 @@
 # Examples
 
+Phase J5 placeholder-only navigation examples are in
+[`docs-site-polish/`](docs-site-polish/README.md). They demonstrate reader paths, topic groups,
+local preview labels, and link inventory structure without real URLs, private paths, deployment,
+external analytics, tracking, search, CDN assets, or approval claims.
+
 Phase I8 placeholder-only examples are in
 [`final-security-review/`](final-security-review/README.md). They model sanitized security-domain,
 gate, gap, and private-review references without real identities, infrastructure, evidence,

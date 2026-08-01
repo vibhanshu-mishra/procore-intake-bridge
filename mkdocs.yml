@@ -9,16 +9,21 @@ nav:
       - First-Run Checklist: first-run-checklist.md
       - Setup Troubleshooting Guide: setup-troubleshooting-guide.md
       - Setup Experience Review: setup-experience-review.md
+      - Documentation Site Polish: docs-site-polish.md
+      - Documentation Reader Paths: docs-reader-paths.md
+      - Documentation Navigation Map: docs-navigation-map.md
+      - Command Reference: command-reference.md
+      - Troubleshooting: troubleshooting.md
+  - Product UI and API:
       - API Documentation Review: api-docs-review.md
       - API Route Reference: api-route-reference.md
       - API Usage Examples: api-usage-examples.md
       - Local OpenAPI Guide: openapi-local-guide.md
+  - Hosted Preparation:
       - Hosted UI Preparation: hosted-ui-preparation.md
       - Hosted UI Page Inventory: hosted-ui-page-inventory.md
       - Hosted UI Readiness Checklist: hosted-ui-readiness-checklist.md
       - Hosted UI Private Gates: hosted-ui-private-gates.md
-      - Command Reference: command-reference.md
-      - Troubleshooting: troubleshooting.md
   - Choose Your Mode:
       - Usage Modes: usage-modes.md
       - Demo Walkthrough: walkthrough-demo.md

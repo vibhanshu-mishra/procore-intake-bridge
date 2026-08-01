@@ -1,5 +1,12 @@
 # Public usability audit
 
+## J5 coverage
+
+The audit checks three canonical J5 guides, five placeholder examples, five commands, audience
+paths, navigation groups, local preview guidance, internal links, ignored output boundaries, and
+MkDocs entries. It requires local-only/no-deployment/no-workflow/no-external
+analytics-tracking-search-CDN/no-approval language.
+
 ## J4 coverage
 
 The audit checks four hosted UI guides, five placeholder-only examples, five commands, ignored

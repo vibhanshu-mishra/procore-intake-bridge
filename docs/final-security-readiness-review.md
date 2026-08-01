@@ -1,5 +1,9 @@
 # Final Security Readiness Review
 
+J5 makes this page discoverable to Hosted and Security reviewers without changing its private-review
+decision. Documentation polish performs no deployment or external analytics/tracking/search/CDN
+operation and grants no production, Pilot, release, or deployment approval.
+
 J4 hosted UI candidates remain subject to this private-security boundary. The public review does
 not validate live infrastructure or convert local admin protection into hosted approval. It adds no
 external assets, frontend build, analytics, telemetry, deployment, or production/Pilot/release

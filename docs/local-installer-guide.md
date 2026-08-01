@@ -1,5 +1,9 @@
 # Local Installer Guide
 
+After local setup, use the J5 [reader paths](docs-reader-paths.md) or optionally run
+`make docs-serve` for a loopback preview. This does not publish documentation or add hosting
+automation, external analytics, tracking, search, or CDN assets.
+
 J4 remains part of the local maintainer workflow. It does not turn setup into hosted installation,
 run a frontend build, load external assets, add analytics/telemetry, or deploy. Any hosted Pilot
 requires separate private infrastructure and security review.

@@ -1,5 +1,11 @@
 # Project status
 
+## Phase J5: hosted documentation-site polish
+
+J5 organizes the local handbook around canonical reader paths and navigation groups, documents an
+optional loopback preview, and improves local link/safety review. It performs no docs deployment and
+adds no GitHub Pages workflow, external analytics, tracking, search service, CDN asset, or approval.
+
 ## Phase J4: hosted UI preparation
 
 J4 inventories existing UI pages and routes for future hosted evaluation without deploying them.

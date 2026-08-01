@@ -1,5 +1,11 @@
 # Roadmap
 
+## J5 hosted documentation-site polish
+
+J5 completes local handbook navigation for evaluator, Demo, Sandbox, Pilot, Hosted, security,
+operator, release, and contributor audiences. Future hosting remains separate work: J5 adds no
+deployment workflow, external analytics/tracking/search/CDN service, publication, or approval.
+
 ## J4 hosted UI preparation
 
 J4 establishes an offline page inventory, route matrix, readiness checklist, and private-gate map

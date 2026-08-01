@@ -1,5 +1,9 @@
 # Demo Product Walkthrough
 
+J5 places this fake-data walkthrough on the canonical Demo and evaluator reader paths. It remains a
+local guide, not a hosted tour; no docs deployment, analytics, tracking, search, CDN asset, or
+operational approval is added.
+
 J4 uses this fake/local walkthrough to identify Demo-ready pages. It does not make the walkthrough
 publicly hosted or suitable for real customer data. Protected pages stay protected, attachment
 review stays metadata-only, exports stay command-only, and private review precedes any hosted Pilot.

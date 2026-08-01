@@ -1,5 +1,14 @@
 # Changelog
 
+## Phase J5
+
+- Added canonical reader paths, a topic-owned navigation map, local preview guidance, and
+  placeholder-only docs-site review examples.
+- Improved handbook discovery for evaluator, Demo, Sandbox, Pilot, Hosted, security, operator,
+  release-reviewer, and contributor journeys while retaining one command-reference owner.
+- J5 performs no docs deployment and adds no GitHub Pages workflow, external analytics, tracking,
+  search service, CDN asset, publication, or production/Pilot/release/deployment approval.
+
 ## Phase J4
 
 - Added an offline hosted UI preparation guide, page inventory, readiness checklist, private-gate

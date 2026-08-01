@@ -1,5 +1,18 @@
 # Command reference
 
+## Phase J5 documentation-site polish
+
+| Command | Purpose | Writes? |
+| --- | --- | --- |
+| `make docs-site-polish-review` | Inspect local docs, reader paths, navigation, and safety. | No |
+| `make docs-reader-paths` | Print canonical audience reading paths. | No |
+| `make docs-navigation-map` | Print topic groups and primary page ownership. | No |
+| `make docs-site-checklist` | Print local documentation-readiness checks. | No |
+| `make docs-site-polish-artifact-check` | Validate sanitized artifacts in temporary storage. | Temporary only |
+
+`make docs-serve` is an optional loopback preview, not deployment. J5 adds no GitHub Pages workflow,
+external analytics, tracking, search, CDN asset, build/publish step, or approval.
+
 ## Phase J4 hosted UI preparation
 
 | Command | Purpose | Writes? |

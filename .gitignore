@@ -402,6 +402,17 @@ hosted-page-review-output/
 *.hosted-ui-route-matrix.csv
 *.hosted-ui-readiness-checklist.md
 *.hosted-ui-private-gates.md
+docs-site-polish-output/
+docs-site-review-output/
+docs-navigation-output/
+docs-reader-path-output/
+docs-link-check-output/
+*.docs-site-polish-report.json
+*.docs-site-polish-report.md
+*.docs-reader-paths.md
+*.docs-navigation-map.md
+*.docs-site-checklist.md
+*.docs-link-inventory.csv
 review-export-output/
 intake-export-output/
 lifecycle-export-output/

@@ -1,5 +1,9 @@
 # Demo Data Seed and Reset
 
+J5 links this guide from the setup, Demo, and first-time evaluator paths without changing J2 data
+behavior. Documentation preview remains local and performs no deployment, analytics, tracking,
+external search, or CDN load.
+
 J4 Demo-ready labels depend on J2's fake, demo-marked local SQLite records. They do not authorize
 hosting or customer data. Seed/reset boundaries remain local; J4 performs no deployment, frontend
 build, external asset load, analytics, telemetry, or approval.

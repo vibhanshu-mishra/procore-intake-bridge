@@ -8,6 +8,7 @@ PYTHON ?= .venv/bin/python
 .PHONY: demo-seed-plan demo-seed demo-reset-plan demo-reset demo-data-check demo-data-artifact-check
 .PHONY: api-docs-review api-route-reference api-usage-examples openapi-local-guide api-docs-artifact-check
 .PHONY: hosted-ui-review hosted-ui-page-inventory hosted-ui-readiness-checklist hosted-ui-private-gates hosted-ui-artifact-check
+.PHONY: docs-site-polish-review docs-reader-paths docs-navigation-map docs-site-checklist docs-site-polish-artifact-check
 
 .PHONY: security-threat-model security-boundary-map security-review-checklist security-threat-model-artifact-check auth-boundary-audit auth-boundary-map permission-boundary-checklist auth-boundary-artifact-check webhook-security-review webhook-signature-boundary webhook-replay-checklist webhook-security-artifact-check data-policy-review data-retention-map redaction-boundary-map data-handling-checklist data-policy-artifact-check infra-security-review secret-boundary-map storage-boundary-map database-boundary-map infra-security-checklist infra-security-artifact-check supply-chain-review dependency-boundary-map package-surface-map supply-chain-checklist supply-chain-artifact-check incident-response-review incident-runbook audit-log-boundary-map forensics-evidence-checklist incident-response-artifact-check demo-product-tour demo-product-check demo-evaluation-checklist demo-product-artifact-check product-dashboard-overview product-dashboard-check review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check operator-export-check operator-export-summary operator-export-artifact-check
 
@@ -75,6 +76,10 @@ help:
 	@echo "  make hosted-ui-page-inventory Print the classified local UI page inventory"
 	@echo "  make hosted-ui-readiness-checklist Print the offline hosted UI checklist"
 	@echo "  make hosted-ui-private-gates Print private review gates for hosted evaluation"
+	@echo "  make docs-site-polish-review Review the local docs handbook structure"
+	@echo "  make docs-reader-paths Print local evaluator and maintainer reading paths"
+	@echo "  make docs-navigation-map Print the classified MkDocs navigation map"
+	@echo "  make docs-site-checklist Print the offline docs-site readiness checklist"
 	@echo "  make product-dashboard-overview Sanitized local product cockpit summary"
 	@echo "  make product-dashboard-check Validate the read-only product cockpit"
 	@echo "  make review-workspace-summary Read-only local intake summary"
@@ -383,6 +388,16 @@ hosted-ui-private-gates:
 	$(PYTHON) scripts/print_hosted_ui_private_gates.py
 hosted-ui-artifact-check:
 	$(PYTHON) scripts/generate_hosted_ui_review_artifacts.py --temporary
+docs-site-polish-review:
+	$(PYTHON) scripts/run_docs_site_polish_review.py
+docs-reader-paths:
+	$(PYTHON) scripts/print_docs_reader_paths.py
+docs-navigation-map:
+	$(PYTHON) scripts/print_docs_navigation_map.py
+docs-site-checklist:
+	$(PYTHON) scripts/print_docs_site_checklist.py
+docs-site-polish-artifact-check:
+	$(PYTHON) scripts/generate_docs_site_polish_artifacts.py --temporary
 
 demo-product-tour:
 	$(PYTHON) scripts/print_demo_product_tour.py
@@ -774,4 +789,5 @@ quality: setup-experience-review first-run-checklist local-installer-guide setup
 quality: demo-seed-plan demo-data-check demo-reset-plan
 quality: api-docs-review api-route-reference api-usage-examples openapi-local-guide
 quality: hosted-ui-review hosted-ui-page-inventory hosted-ui-readiness-checklist hosted-ui-private-gates
+quality: docs-site-polish-review docs-reader-paths docs-navigation-map docs-site-checklist
 	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict

@@ -1,5 +1,9 @@
 # API Documentation Review
 
+J5 groups J3 under the handbook's API reference path while leaving this page as the route-review
+owner. Navigation polish performs no API or docs deployment and adds no external analytics,
+tracking, search, CDN asset, or approval.
+
 J4 reuses the J3 route classifications rather than creating a parallel route reference. Its hosted
 UI inventory adds page/readiness context while J3 remains the route-method/protection source of
 truth. No deployment, frontend build, external asset, analytics, telemetry, or operational approval

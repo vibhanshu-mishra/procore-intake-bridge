@@ -1,5 +1,11 @@
 # Release readiness
 
+## J5 relationship
+
+Documentation-site polish neither executes nor approves a release or deployment. Local preview is
+optional; J5 adds no GitHub Pages workflow, hosted publication, external analytics, tracking, search,
+CDN asset, or operational approval.
+
 ## J4 relationship
 
 Hosted UI preparation neither executes nor approves a release or deployment. It adds no frontend

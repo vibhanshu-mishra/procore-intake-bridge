@@ -1,5 +1,11 @@
 # Procore Intake Bridge
 
+Phase J5 polishes the repository's local documentation handbook with canonical
+[reader paths](docs/docs-reader-paths.md), a [navigation map](docs/docs-navigation-map.md), and
+[local preview guidance](docs/docs-site-polish.md). It performs no docs deployment and adds no
+GitHub Pages workflow, external analytics, tracking, search service, or CDN asset. Documentation
+polish grants no production, Pilot, release, deployment, hosting, or Procore approval.
+
 Phase J4 adds an offline [hosted UI preparation review](docs/hosted-ui-preparation.md),
 [page inventory](docs/hosted-ui-page-inventory.md), [readiness checklist](docs/hosted-ui-readiness-checklist.md),
 and [private gates](docs/hosted-ui-private-gates.md) for future hosted evaluation. It performs no

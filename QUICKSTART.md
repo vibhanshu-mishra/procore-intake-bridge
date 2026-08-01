@@ -1,5 +1,10 @@
 # Quickstart: start with Demo Mode
 
+For a coherent documentation tour, begin with the J5 [reader paths](docs/docs-reader-paths.md).
+Preview locally with `make docs-serve` only after local setup, or read the Markdown directly. J5
+performs no docs deployment and adds no GitHub Pages workflow, external analytics, tracking, search,
+CDN asset, or operational approval.
+
 Phase J4 reviews existing UI surfaces for possible future hosted evaluation without deploying
 anything. Run `make hosted-ui-review` for offline inspection. Demo pages use fake local SQLite data;
 dashboard/admin/review pages remain protected, attachment views are metadata-only, and export packs

@@ -1,5 +1,11 @@
 # Final public repository readiness
 
+## J5 relationship
+
+J5 improves local documentation discovery but is not final, production, Pilot, release, deployment,
+or docs-hosting approval. It performs no publication or deployment and adds no GitHub Pages workflow,
+external analytics, tracking, search, or CDN asset.
+
 ## J4 relationship
 
 J4 makes hosted-evaluation boundaries easier to inspect but does not deploy or approve the UI.

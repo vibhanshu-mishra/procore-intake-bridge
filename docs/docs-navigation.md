@@ -1,5 +1,11 @@
 # Documentation navigation map
 
+J5 consolidates audience-oriented entry points in [Documentation reader paths](docs-reader-paths.md)
+and topic ownership in the [Documentation navigation map](docs-navigation-map.md). Use those as the
+canonical discovery layer; the detailed journey links below remain the operational reading order.
+Local preview is optional. No docs deployment, workflow, analytics, tracking, external search, CDN
+asset, or approval is introduced.
+
 Phase J4 hosted UI preparation path:
 
 1. [Hosted UI preparation](hosted-ui-preparation.md)

@@ -1,5 +1,9 @@
 # Security Gap Closeout
 
+J5 links this public guidance from the Security reviewer path. Navigation does not read private
+reports, close private gaps, deploy documentation, add analytics/tracking/search/CDN services, or
+grant approval.
+
 J4 does not close private hosted-security gaps. Existing local admin protection is not a hosted
 identity platform, and authentication/authorization, infrastructure, secrets, storage, databases,
 monitoring, incident response, privacy, and operational ownership require private review. Hosted UI
