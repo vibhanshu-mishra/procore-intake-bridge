@@ -1,5 +1,7 @@
 # Command reference
 
+I6 commands are `make supply-chain-review`, `make dependency-boundary-map`, `make package-surface-map`, and `make supply-chain-checklist`. Artifact generation is separate and temporary.
+
 ## Phase I5 infrastructure review
 
 `make infra-security-review`, `make secret-boundary-map`, `make storage-boundary-map`, `make database-boundary-map`, and `make infra-security-checklist` are offline and non-writing. `make infra-security-artifact-check` uses an automatically cleaned temporary directory.

@@ -2,7 +2,7 @@
 
 PYTHON ?= .venv/bin/python
 
-.PHONY: security-threat-model security-boundary-map security-review-checklist security-threat-model-artifact-check auth-boundary-audit auth-boundary-map permission-boundary-checklist auth-boundary-artifact-check webhook-security-review webhook-signature-boundary webhook-replay-checklist webhook-security-artifact-check data-policy-review data-retention-map redaction-boundary-map data-handling-checklist data-policy-artifact-check infra-security-review secret-boundary-map storage-boundary-map database-boundary-map infra-security-checklist infra-security-artifact-check demo-product-tour demo-product-check demo-evaluation-checklist demo-product-artifact-check product-dashboard-overview product-dashboard-check review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check operator-export-check operator-export-summary operator-export-artifact-check
+.PHONY: security-threat-model security-boundary-map security-review-checklist security-threat-model-artifact-check auth-boundary-audit auth-boundary-map permission-boundary-checklist auth-boundary-artifact-check webhook-security-review webhook-signature-boundary webhook-replay-checklist webhook-security-artifact-check data-policy-review data-retention-map redaction-boundary-map data-handling-checklist data-policy-artifact-check infra-security-review secret-boundary-map storage-boundary-map database-boundary-map infra-security-checklist infra-security-artifact-check supply-chain-review dependency-boundary-map package-surface-map supply-chain-checklist supply-chain-artifact-check demo-product-tour demo-product-check demo-evaluation-checklist demo-product-artifact-check product-dashboard-overview product-dashboard-check review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check operator-export-check operator-export-summary operator-export-artifact-check
 
 help:
 	@echo "START HERE"
@@ -35,6 +35,10 @@ help:
 	@echo "  make storage-boundary-map     Print storage metadata boundaries"
 	@echo "  make database-boundary-map    Print database operation boundaries"
 	@echo "  make infra-security-checklist Print infrastructure security checklist"
+	@echo "  make supply-chain-review      Offline dependency/supply-chain review"
+	@echo "  make dependency-boundary-map  Print dependency and extras boundaries"
+	@echo "  make package-surface-map      Print package surface boundaries"
+	@echo "  make supply-chain-checklist   Print offline supply-chain checklist"
 	@echo "  make product-dashboard-overview Sanitized local product cockpit summary"
 	@echo "  make product-dashboard-check Validate the read-only product cockpit"
 	@echo "  make review-workspace-summary Read-only local intake summary"
@@ -259,6 +263,16 @@ infra-security-checklist:
 
 infra-security-artifact-check:
 	$(PYTHON) scripts/generate_infra_security_review_artifacts.py --temporary
+supply-chain-review:
+	$(PYTHON) scripts/run_supply_chain_review.py
+dependency-boundary-map:
+	$(PYTHON) scripts/print_dependency_boundary_map.py
+package-surface-map:
+	$(PYTHON) scripts/print_package_surface_map.py
+supply-chain-checklist:
+	$(PYTHON) scripts/print_supply_chain_checklist.py
+supply-chain-artifact-check:
+	$(PYTHON) scripts/generate_supply_chain_review_artifacts.py --temporary
 
 demo-product-tour:
 	$(PYTHON) scripts/print_demo_product_tour.py
@@ -642,4 +656,5 @@ quality: auth-boundary-audit auth-boundary-map permission-boundary-checklist
 quality: webhook-security-review webhook-signature-boundary webhook-replay-checklist
 quality: data-policy-review data-retention-map redaction-boundary-map data-handling-checklist
 quality: infra-security-review secret-boundary-map storage-boundary-map database-boundary-map infra-security-checklist
+quality: supply-chain-review dependency-boundary-map package-surface-map supply-chain-checklist
 	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict

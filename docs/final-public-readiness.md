@@ -1,5 +1,7 @@
 # Final public repository readiness
 
+I6 provides offline supply-chain review input, not certification or approval.
+
 I5 adds offline infrastructure-boundary evidence; it is not certification or production approval.
 
 I4 adds offline validation of data classifications and public/private output boundaries. It is review input, not legal compliance, certification, or production approval.

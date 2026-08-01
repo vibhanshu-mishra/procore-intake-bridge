@@ -1,5 +1,7 @@
 # Safety model
 
+I6 is offline-only and adds no scanner, dependency bot, workflow change, registry call, build, publish, release, Docker build, or deployment automation.
+
 I5 permits placeholder references and sanitized metadata, never secret values, database URLs, object keys, presigned URLs, contents, or live infrastructure operations.
 
 Phase I4 maps retention and redaction boundaries offline. It excludes raw payloads, secrets, URLs, paths, storage keys, original filenames, attachment contents, and private evidence contents; it adds no destructive deletion or purge jobs.

@@ -1,5 +1,7 @@
 # Security Boundary Map
 
+I6 adds [dependency](dependency-boundary-map.md) and [package surface](package-surface-map.md) boundaries.
+
 I5 adds dedicated [secret](secret-boundary-map.md), [storage](storage-boundary-map.md), and [database](database-boundary-map.md) maps.
 
 The [I4 retention map](data-retention-map.md) and [redaction map](redaction-boundary-map.md) document public/private data handling without reading private contents.

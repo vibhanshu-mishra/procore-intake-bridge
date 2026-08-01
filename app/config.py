@@ -882,6 +882,70 @@ class Settings(BaseSettings):
         le=1000,
         validation_alias="PROCORE_INTAKE_INFRA_SECURITY_REVIEW_MAX_FINDINGS",
     )
+    supply_chain_review_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_SUPPLY_CHAIN_REVIEW_ENABLED"
+    )
+    supply_chain_review_output_root: Path = Field(
+        default=Path("./supply-chain-review-output"),
+        validation_alias="PROCORE_INTAKE_SUPPLY_CHAIN_REVIEW_OUTPUT_ROOT",
+    )
+    supply_chain_review_require_placeholders: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_SUPPLY_CHAIN_REVIEW_REQUIRE_PLACEHOLDERS"
+    )
+    supply_chain_review_require_offline_only: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_SUPPLY_CHAIN_REVIEW_REQUIRE_OFFLINE_ONLY"
+    )
+    supply_chain_review_require_no_external_scanners: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SUPPLY_CHAIN_REVIEW_REQUIRE_NO_EXTERNAL_SCANNERS",
+    )
+    supply_chain_review_require_no_publish_automation: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SUPPLY_CHAIN_REVIEW_REQUIRE_NO_PUBLISH_AUTOMATION",
+    )
+    supply_chain_review_require_no_deploy_automation: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SUPPLY_CHAIN_REVIEW_REQUIRE_NO_DEPLOY_AUTOMATION",
+    )
+    supply_chain_review_require_no_workflow_changes: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SUPPLY_CHAIN_REVIEW_REQUIRE_NO_WORKFLOW_CHANGES",
+    )
+    supply_chain_review_require_optional_extras_boundaries: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SUPPLY_CHAIN_REVIEW_REQUIRE_OPTIONAL_EXTRAS_BOUNDARIES",
+    )
+    supply_chain_review_require_package_metadata: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_SUPPLY_CHAIN_REVIEW_REQUIRE_PACKAGE_METADATA"
+    )
+    supply_chain_review_require_generated_output_ignores: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SUPPLY_CHAIN_REVIEW_REQUIRE_GENERATED_OUTPUT_IGNORES",
+    )
+    supply_chain_review_allow_real_identities: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_SUPPLY_CHAIN_REVIEW_ALLOW_REAL_IDENTITIES"
+    )
+    supply_chain_review_allow_real_domains: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_SUPPLY_CHAIN_REVIEW_ALLOW_REAL_DOMAINS"
+    )
+    supply_chain_review_allow_real_urls: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_SUPPLY_CHAIN_REVIEW_ALLOW_REAL_URLS"
+    )
+    supply_chain_review_allow_report_contents: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_SUPPLY_CHAIN_REVIEW_ALLOW_REPORT_CONTENTS"
+    )
+    supply_chain_review_allow_private_paths: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_SUPPLY_CHAIN_REVIEW_ALLOW_PRIVATE_PATHS"
+    )
+    supply_chain_review_fail_closed: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_SUPPLY_CHAIN_REVIEW_FAIL_CLOSED"
+    )
+    supply_chain_review_max_findings: int = Field(
+        default=300,
+        ge=1,
+        le=1000,
+        validation_alias="PROCORE_INTAKE_SUPPLY_CHAIN_REVIEW_MAX_FINDINGS",
+    )
     intake_review_workspace_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_ENABLED",

@@ -1,5 +1,7 @@
 # Project status
 
+Phase I6 is implemented as an offline supply-chain review; private vulnerability and provenance review remains required.
+
 Phase I5 is implemented as an offline secrets/storage/database security review; private infrastructure authorization and operational evidence remain outstanding.
 
 Phase I4 is implemented as an offline data retention and redaction policy layer. Private retention periods, deletion operations, and legal/security review remain outside the public repository.

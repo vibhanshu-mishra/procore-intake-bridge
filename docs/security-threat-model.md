@@ -1,5 +1,7 @@
 # Security Threat Model
 
+I6 maps dependency declarations, optional extras, package surfaces, generated artifacts, and automation boundaries.
+
 I5 adds offline secret-provider, storage-provider, database-runtime, migration, and backup/restore planning boundaries without exercising them.
 
 Phase I4 extends this offline review with data classifications, retention boundaries, and redaction boundaries. It is not legal compliance certification and performs no live scan or deletion.

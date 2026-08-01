@@ -1,5 +1,7 @@
 # Quickstart: start with Demo Mode
 
+Run `make supply-chain-review` for the offline I6 dependency and package-surface review.
+
 Run `make infra-security-review` for the offline I5 reference, metadata, and operation-gate review. It makes no secret, storage, cloud, or database call.
 
 For the offline Phase I4 data boundary review, run `make data-policy-review`. It reads public repository evidence only and performs no live scan or destructive deletion.

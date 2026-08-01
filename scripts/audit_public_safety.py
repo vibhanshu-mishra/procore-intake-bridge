@@ -133,6 +133,11 @@ PRIVATE_PATH_PARTS = {
     "secret-storage-review-output",
     "database-security-review-output",
     "storage-security-review-output",
+    "supply-chain-review-output",
+    "dependency-security-output",
+    "dependency-review-output",
+    "package-security-output",
+    "sbom-review-output",
     "sandbox-output",
     "sandbox-pilot-output",
     "pilot-flow-output",
@@ -292,6 +297,16 @@ INFRA_UNSAFE_CLAIM = re.compile(
     r"\b(?:compliance|security) certified\b|\bproduction[- ]ready\b|"
     r"\b(?:launch|pilot) approved\b|\bprocore (?:endorsed|partner|certified)\b"
 )
+SUPPLY_CHAIN_PRIVATE_MATERIAL = re.compile(
+    r"(?i)(?:github_token|registry_token|publish_token|ci_secret|signing_key|"
+    r"registry_password)\s*[:=]\s*[\"']?(?!placeholder\b|fake\b)[^\"'\s]+"
+)
+SUPPLY_CHAIN_UNSAFE_CLAIM = re.compile(
+    r"(?i)\b(?:slsa|sbom|gdpr|ccpa|hipaa) compliant\b|"
+    r"\b(?:soc ?2|iso ?27001|security|compliance) certified\b|"
+    r"\bproduction[- ]ready\b|\b(?:launch|pilot) approved\b|"
+    r"\bprocore (?:endorsed|partner|certified)\b"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -301,6 +316,25 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if any(
+        marker in path.as_posix()
+        for marker in ("supply-chain", "supply_chain", "dependency-boundary", "package-surface")
+    ):
+        for line in text.splitlines():
+            excluded = any(part in path.parts for part in ("tests", "services", "schemas"))
+            negated = re.search(r"(?i)\b(?:no|not|never|does not|is not|must not)\b", line)
+            if SUPPLY_CHAIN_UNSAFE_CLAIM.search(line) and not excluded and not negated:
+                issues.append(
+                    SafetyIssue(path, "supply-chain review implies certification or approval")
+                )
+                break
+            if (
+                SUPPLY_CHAIN_PRIVATE_MATERIAL.search(line)
+                and not excluded
+                and not _safe_value(line)
+            ):
+                issues.append(SafetyIssue(path, "supply-chain review contains private material"))
+                break
     if any(
         marker in path.as_posix()
         for marker in (
@@ -875,6 +909,28 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             )
         ):
             issues.append(SafetyIssue(path, "tracked generated infrastructure-security output"))
+            continue
+        if any(
+            part
+            in {
+                "supply-chain-review-output",
+                "dependency-security-output",
+                "dependency-review-output",
+                "package-security-output",
+                "sbom-review-output",
+            }
+            for part in path.parts
+        ) or path.name.endswith(
+            (
+                ".supply-chain-review-report.json",
+                ".supply-chain-review-report.md",
+                ".dependency-boundary-map.md",
+                ".optional-extras-matrix.csv",
+                ".package-surface-map.md",
+                ".supply-chain-checklist.md",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated supply-chain output"))
             continue
         if path.name.endswith(
             (

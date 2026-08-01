@@ -70,6 +70,10 @@ nav:
       - Storage Boundary Map: storage-boundary-map.md
       - Database Boundary Map: database-boundary-map.md
       - Infrastructure Security Checklist: infra-security-checklist.md
+      - Dependency Supply Chain Security: dependency-supply-chain-security.md
+      - Dependency Boundary Map: dependency-boundary-map.md
+      - Package Surface Map: package-surface-map.md
+      - Supply Chain Checklist: supply-chain-checklist.md
       - PostgreSQL Readiness: postgres-readiness.md
       - PostgreSQL Runtime Operations: postgres-runtime-operations.md
       - PostgreSQL Connection Pooling: postgres-connection-pooling.md

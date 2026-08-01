@@ -1,5 +1,7 @@
 # Webhook Replay and Signature Hardening Review
 
+I6 treats dependency review as offline-only and does not call webhook or package services.
+
 I5 treats webhook signing configuration as a secret reference and never retrieves or prints its value.
 
 Phase I4 classifies the webhook payload and event-fingerprint boundary while continuing to exclude live payloads, headers, signatures, and replay reports from public output.

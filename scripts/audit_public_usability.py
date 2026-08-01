@@ -83,6 +83,10 @@ REQUIRED_DOCS = {
     "docs/storage-boundary-map.md",
     "docs/database-boundary-map.md",
     "docs/infra-security-checklist.md",
+    "docs/dependency-supply-chain-security.md",
+    "docs/dependency-boundary-map.md",
+    "docs/package-surface-map.md",
+    "docs/supply-chain-checklist.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -143,6 +147,11 @@ REQUIRED_SCRIPTS = {
     "scripts/print_database_boundary_map.py",
     "scripts/print_infra_security_checklist.py",
     "scripts/generate_infra_security_review_artifacts.py",
+    "scripts/run_supply_chain_review.py",
+    "scripts/print_dependency_boundary_map.py",
+    "scripts/print_package_surface_map.py",
+    "scripts/print_supply_chain_checklist.py",
+    "scripts/generate_supply_chain_review_artifacts.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -270,6 +279,11 @@ REQUIRED_EXAMPLES = {
     "examples/infra-security-review/example_database_boundary_map.md",
     "examples/infra-security-review/example_infra_security_checklist.md",
     "examples/infra-security-review/example_infra_provider_matrix.csv",
+    "examples/supply-chain-review/README.md",
+    "examples/supply-chain-review/example_dependency_boundary_map.md",
+    "examples/supply-chain-review/example_package_surface_map.md",
+    "examples/supply-chain-review/example_supply_chain_checklist.md",
+    "examples/supply-chain-review/example_optional_extras_matrix.csv",
 }
 REQUIRED_TARGETS = {
     "review-workspace-summary",
@@ -310,6 +324,11 @@ REQUIRED_TARGETS = {
     "database-boundary-map",
     "infra-security-checklist",
     "infra-security-artifact-check",
+    "supply-chain-review",
+    "dependency-boundary-map",
+    "package-surface-map",
+    "supply-chain-checklist",
+    "supply-chain-artifact-check",
     "webhook-replay-checklist",
     "webhook-security-artifact-check",
     "help",
@@ -533,6 +552,17 @@ IGNORED_OUTPUTS = {
     "*.database-boundary-map.md",
     "*.infra-security-checklist.md",
     "*.infra-provider-matrix.csv",
+    "supply-chain-review-output/",
+    "dependency-security-output/",
+    "dependency-review-output/",
+    "package-security-output/",
+    "sbom-review-output/",
+    "*.supply-chain-review-report.json",
+    "*.supply-chain-review-report.md",
+    "*.dependency-boundary-map.md",
+    "*.optional-extras-matrix.csv",
+    "*.package-surface-map.md",
+    "*.supply-chain-checklist.md",
 }
 GENERATED_PARTS = {
     "private-workspace",
@@ -596,6 +626,11 @@ GENERATED_PARTS = {
     "secret-storage-review-output",
     "database-security-review-output",
     "storage-security-review-output",
+    "supply-chain-review-output",
+    "dependency-security-output",
+    "dependency-review-output",
+    "package-security-output",
+    "sbom-review-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak",
@@ -999,6 +1034,31 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             in makefile
             and "quality: infra-security-artifact-check" not in makefile
         ),
+        "I6 review is offline without automation": all(
+            phrase in _read(root, "docs/dependency-supply-chain-security.md").casefold()
+            for phrase in (
+                "offline only",
+                "no scanners",
+                "package audit",
+                "github api",
+                "dependency bots",
+                "workflow changes",
+                "publishing",
+                "docker builds",
+                "releases",
+                "deployment",
+            )
+        ),
+        "I6 disclaims certification and approval": all(
+            phrase in _read(root, "docs/dependency-supply-chain-security.md").casefold()
+            for phrase in ("not slsa", "sbom", "certification", "no production", "pilot approval")
+        ),
+        "I6 checks included and artifacts excluded": (
+            "quality: supply-chain-review dependency-boundary-map package-surface-map "
+            "supply-chain-checklist"
+            in makefile
+            and "quality: supply-chain-artifact-check" not in makefile
+        ),
         "H3 workspace is read-only and local": all(
             phrase in _read(root, "docs/intake-review-workspace.md").casefold()
             for phrase in ("read-only", "local intake records only", "no procore")
@@ -1308,6 +1368,12 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 ".database-boundary-map.md",
                 ".infra-security-checklist.md",
                 ".infra-provider-matrix.csv",
+                ".supply-chain-review-report.json",
+                ".supply-chain-review-report.md",
+                ".dependency-boundary-map.md",
+                ".optional-extras-matrix.csv",
+                ".package-surface-map.md",
+                ".supply-chain-checklist.md",
             )
         ):
             add(

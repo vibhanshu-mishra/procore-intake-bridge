@@ -1,5 +1,7 @@
 # Procore Intake Bridge
 
+Phase I6 adds an [offline dependency and supply-chain review](docs/dependency-supply-chain-security.md). It runs no scanner, registry, build, publish, release, or deploy operation.
+
 Phase I5 adds an [offline secrets/storage/database security review](docs/secrets-storage-db-security-review.md). Run `make infra-security-review`; it retrieves nothing and contacts no infrastructure.
 
 Phase I4 adds an [offline data retention and redaction policy](docs/data-retention-redaction-policy.md). Run `make data-policy-review`; it performs no live scan, deletion, purge, or external call.

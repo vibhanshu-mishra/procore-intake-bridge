@@ -1,5 +1,7 @@
 # Release readiness
 
+I6 checks declarations and package surfaces without building, publishing, tagging, or releasing.
+
 I5 non-writing checks are included in quality; artifact generation remains separate, temporary, and ignored.
 
 Release review includes the non-writing I4 policy checks. Artifact generation stays separately gated and temporary; retention policy does not establish legal compliance.

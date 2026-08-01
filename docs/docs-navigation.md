@@ -1,5 +1,7 @@
 # Documentation navigation map
 
+Phase I6: [review](dependency-supply-chain-security.md), [dependency map](dependency-boundary-map.md), [package map](package-surface-map.md), and [checklist](supply-chain-checklist.md).
+
 Phase I5: [review](secrets-storage-db-security-review.md), [secret map](secret-boundary-map.md), [storage map](storage-boundary-map.md), [database map](database-boundary-map.md), and [checklist](infra-security-checklist.md).
 
 Phase I4: [policy](data-retention-redaction-policy.md), [retention map](data-retention-map.md), [redaction map](redaction-boundary-map.md), and [handling checklist](data-handling-checklist.md).

@@ -317,6 +317,17 @@ storage-security-review-output/
 *.database-boundary-map.md
 *.infra-security-checklist.md
 *.infra-provider-matrix.csv
+supply-chain-review-output/
+dependency-security-output/
+dependency-review-output/
+package-security-output/
+sbom-review-output/
+*.supply-chain-review-report.json
+*.supply-chain-review-report.md
+*.dependency-boundary-map.md
+*.optional-extras-matrix.csv
+*.package-surface-map.md
+*.supply-chain-checklist.md
 review-export-output/
 intake-export-output/
 lifecycle-export-output/

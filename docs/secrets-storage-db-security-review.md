@@ -1,5 +1,7 @@
 # Secrets / Storage / Database Security Review
 
+I6 never sends dependency or provider metadata to an external scanner or registry.
+
 Phase I5 is an offline secrets/storage/DB security review. It inspects curated public repository code, documentation, tests, and ignore rules only. It performs no secret retrieval, no storage access, no database connection, no migration, no backup, no restore, no DB dump inspection, no external call, and no Procore call.
 
 Secret references are allowed; secret values are not. Storage metadata and placeholder references are allowed; object keys, presigned URLs, private paths, original filenames, and contents are not. Database URL references are allowed; database URLs and live database calls are not.

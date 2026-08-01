@@ -1,5 +1,7 @@
 # Roadmap
 
+- Phase I6: Dependency and Supply Chain Security Pack — offline review only.
+
 - Phase I5: Secrets / Storage / DB Security Review — offline public-safe review layer; no live infrastructure operations.
 
 - Phase I4: Data Retention and Redaction Policy — offline public-safe mapping and validation; destructive enforcement remains out of scope.
