@@ -1,5 +1,7 @@
 # Operator Export Pack
 
+I4 treats exports as sanitized summary metadata. Raw payloads, URLs, storage keys, original filenames, private paths, and contents remain excluded; generated files stay ignored.
+
 Phase H7 renders local sanitized summaries of the H3–H6 operator views as JSON, Markdown, and
 CSV. It covers intake summary and bounded record rows, local lifecycle status and event metadata,
 triage buckets, attachment manifest metadata, and a combined operator packet.

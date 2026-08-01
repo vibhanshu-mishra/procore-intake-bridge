@@ -1,5 +1,7 @@
 # Attachment Review and Manifest UX
 
+I4 preserves the metadata-only boundary: attachment contents, signed URLs, storage keys, private paths, and original live filenames remain excluded from public output.
+
 Phase H6 adds a GET-only, metadata-only view of local attachment manifest rows connected to H3
 intake records. It summarizes manifest availability, planned and stored-metadata counts,
 skipped/blocked counts, safe content-type categories, known sizes, checksum presence, sanitized

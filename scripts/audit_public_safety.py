@@ -123,6 +123,11 @@ PRIVATE_PATH_PARTS = {
     "webhook-hardening-output",
     "webhook-replay-review-output",
     "webhook-signature-review-output",
+    "data-policy-review-output",
+    "data-retention-redaction-output",
+    "retention-redaction-output",
+    "redaction-review-output",
+    "data-classification-output",
     "sandbox-output",
     "sandbox-pilot-output",
     "pilot-flow-output",
@@ -260,6 +265,17 @@ WEBHOOK_LIVE_MATERIAL = re.compile(
     r"webhook[_ -]?registration[_ -]?(?:output|result))\s*[:=]\s*[\"']?"
     r"(?!false\b|none\b|placeholder\b|fake\b|synthetic\b)[^\"'\s]+"
 )
+DATA_POLICY_PRIVATE_MATERIAL = re.compile(
+    r"(?i)(?:raw[_ -]?(?:payload|headers?)|source_url|signed_url|storage_key|"
+    r"original_filename|attachment_content|deletion_log|private_report_contents?)"
+    r"\s*[:=]\s*[\"']?(?!false\b|none\b|placeholder\b|fake\b|synthetic\b)[^\"'\s]+"
+)
+DATA_POLICY_UNSAFE_CLAIM = re.compile(
+    r"(?i)\b(?:gdpr|ccpa|hipaa) compliant\b|\b(?:soc ?2|iso ?27001) certified\b|"
+    r"\b(?:compliance|security) certified\b|\bproduction[- ]ready\b|"
+    r"\b(?:launch|pilot) approved\b|\bprocore (?:endorsed|partner|certified)\b|"
+    r"\bpurge job (?:implemented|enabled|active)\b"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -269,15 +285,32 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if any(
+        marker in path.as_posix()
+        for marker in ("data-policy", "data_policy", "retention-redaction")
+    ):
+        for line in text.splitlines():
+            excluded_source = any(part in path.parts for part in ("tests", "services", "schemas"))
+            negated = re.search(r"(?i)\b(?:no|not|never|does not|is not|must not)\b", line)
+            if DATA_POLICY_UNSAFE_CLAIM.search(line) and not excluded_source and not negated:
+                issues.append(
+                    SafetyIssue(path, "data policy implies compliance, certification, or approval")
+                )
+                break
+            if (
+                DATA_POLICY_PRIVATE_MATERIAL.search(line)
+                and not excluded_source
+                and not _safe_value(line)
+            ):
+                issues.append(SafetyIssue(path, "data policy contains private material"))
+                break
     if "webhook-security" in path.as_posix() or "webhook_security" in path.as_posix():
         for line in text.splitlines():
             if (
                 SECURITY_REVIEW_CLAIM.search(line)
                 and "tests" not in path.parts
                 and "services" not in path.parts
-                and not re.search(
-                    r"(?i)\b(?:no|not|never|does not|is not|must not)\b", line
-                )
+                and not re.search(r"(?i)\b(?:no|not|never|does not|is not|must not)\b", line)
             ):
                 issues.append(
                     SafetyIssue(path, "webhook security review implies certification or approval")
@@ -301,9 +334,7 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
                 SECURITY_REVIEW_CLAIM.search(line)
                 and "tests" not in path.parts
                 and "services" not in path.parts
-                and not re.search(
-                    r"(?i)\b(?:no|not|never|does not|is not|must not)\b", line
-                )
+                and not re.search(r"(?i)\b(?:no|not|never|does not|is not|must not)\b", line)
             ):
                 issues.append(
                     SafetyIssue(path, "auth boundary audit implies certification or approval")
@@ -315,9 +346,7 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
                 SECURITY_REVIEW_CLAIM.search(line)
                 and "tests" not in path.parts
                 and "services" not in path.parts
-                and not re.search(
-                    r"(?i)\b(?:no|not|never|does not|is not|must not)\b", line
-                )
+                and not re.search(r"(?i)\b(?:no|not|never|does not|is not|must not)\b", line)
             ):
                 issues.append(
                     SafetyIssue(path, "security threat model implies certification or approval")
@@ -764,6 +793,28 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             )
         ):
             issues.append(SafetyIssue(path, "tracked generated webhook security-review output"))
+            continue
+        if any(
+            part
+            in {
+                "data-policy-review-output",
+                "data-retention-redaction-output",
+                "retention-redaction-output",
+                "redaction-review-output",
+                "data-classification-output",
+            }
+            for part in path.parts
+        ) or path.name.endswith(
+            (
+                ".data-policy-review-report.json",
+                ".data-policy-review-report.md",
+                ".data-retention-map.md",
+                ".redaction-boundary-map.md",
+                ".generated-output-inventory.csv",
+                ".data-handling-checklist.md",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated data-policy output"))
             continue
         if path.name.endswith(
             (

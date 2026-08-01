@@ -1,5 +1,7 @@
 # Security Boundary Map
 
+The [I4 retention map](data-retention-map.md) and [redaction map](redaction-boundary-map.md) document public/private data handling without reading private contents.
+
 The I1 boundary map lists public runtime, local data, administrative, provider, external API,
 hosted preparation, private review, and generated-output trust boundaries. Run
 `make security-boundary-map` for the sanitized offline projection.

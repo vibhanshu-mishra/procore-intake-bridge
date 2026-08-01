@@ -1,5 +1,7 @@
 # Permission boundary checklist
 
+- [ ] Confirm I4 public outputs remain placeholder-, metadata-, or reference-only and expose no private content.
+
 Use `make permission-boundary-checklist` for the generated offline checklist.
 
 - [ ] Intentionally public routes remain limited to health/readiness status.

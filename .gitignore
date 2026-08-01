@@ -294,6 +294,17 @@ webhook-signature-review-output/
 *.webhook-signature-boundary.md
 *.webhook-replay-checklist.md
 *.webhook-fixture-matrix.csv
+data-policy-review-output/
+data-retention-redaction-output/
+retention-redaction-output/
+redaction-review-output/
+data-classification-output/
+*.data-policy-review-report.json
+*.data-policy-review-report.md
+*.data-retention-map.md
+*.redaction-boundary-map.md
+*.generated-output-inventory.csv
+*.data-handling-checklist.md
 review-export-output/
 intake-export-output/
 lifecycle-export-output/

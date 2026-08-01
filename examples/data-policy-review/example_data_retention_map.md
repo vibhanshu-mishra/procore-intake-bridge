@@ -1,0 +1,6 @@
+# Example Data Retention Map
+
+- Classification: `DATA_CLASSIFICATION_PLACEHOLDER`
+- Boundary: `RETENTION_BOUNDARY_PLACEHOLDER`
+- Private review reference: `PRIVATE_DATA_POLICY_REVIEW_REF_PLACEHOLDER`
+- Limitation: `KNOWN_LIMITATION_PLACEHOLDER`

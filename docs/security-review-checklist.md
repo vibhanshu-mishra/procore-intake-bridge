@@ -1,5 +1,7 @@
 # Security Review Checklist
 
+- [ ] Review the I4 classifications, retention boundaries, redaction boundaries, generated-output ignores, and remaining private legal/security decisions.
+
 - [ ] Review all public trust boundaries and threat categories.
 - [ ] Confirm live operations remain separate and manually gated.
 - [ ] Confirm secrets, storage, PostgreSQL, and hosted values remain private.

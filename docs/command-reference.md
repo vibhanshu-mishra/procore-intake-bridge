@@ -1,5 +1,15 @@
 # Command reference
 
+## Phase I4 data policy commands
+
+| Command | Safety | Output |
+| --- | --- | --- |
+| `make data-policy-review` | Offline, no live scan or external call | Sanitized review on stdout |
+| `make data-retention-map` | Offline and non-writing | Retention boundary map |
+| `make redaction-boundary-map` | Offline and non-writing | Redaction boundary map |
+| `make data-handling-checklist` | Offline and non-writing | Public handling checklist |
+| `make data-policy-artifact-check` | Temporary local output only | Seven sanitized files, automatically cleaned |
+
 Optional cloud-storage commands are `make cloud-storage-template`,
 `make cloud-storage-check`, and `make cloud-storage-explain`. They perform no object or network
 operation. See [Optional cloud storage providers](cloud-storage-providers.md).

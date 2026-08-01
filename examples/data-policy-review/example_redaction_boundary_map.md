@@ -1,0 +1,5 @@
+# Example Redaction Boundary Map
+
+- Classification: `DATA_CLASSIFICATION_PLACEHOLDER`
+- Boundary: `REDACTION_BOUNDARY_PLACEHOLDER`
+- Limitation: `KNOWN_LIMITATION_PLACEHOLDER`

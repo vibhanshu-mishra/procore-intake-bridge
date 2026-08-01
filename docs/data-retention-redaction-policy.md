@@ -1,0 +1,21 @@
+# Data Retention and Redaction Policy
+
+Phase I4 is an offline data policy/redaction review for the public repository. It inspects a curated set of local source, documentation, test, and ignore-rule files. It performs no live scan, no external call, no Procore call, no cloud call, and no database connection.
+
+## Policy boundary
+
+The review classifies public placeholders, local demo and runtime metadata, private configuration and evidence references, webhook payload boundaries, attachment metadata, export and diagnostic summaries, and generated output. Raw payloads, headers, secrets, URLs, signed URLs, private paths, storage keys, original filenames, attachment contents, and private report contents are excluded from public outputs.
+
+Public examples remain placeholder-only. Sandbox and pilot evidence, provider configuration, and private workspace material remain reference-only. Generated review output is ignored by Git.
+
+## Retention and deletion
+
+This public layer documents boundaries; it implements no destructive deletion and no purge jobs. It does not add deletion endpoints, background retention workers, database cleanup, or cloud object deletion. Retention periods and operational deletion procedures remain decisions for private legal and security review.
+
+## Claims and limitations
+
+This review is not legal compliance certification. It makes no GDPR, CCPA, HIPAA, SOC 2, or ISO certification claim and provides no production, launch, hosted-pilot, or security approval. It is not Procore endorsement, partnership, certification, or official support.
+
+Run the non-writing review with `make data-policy-review`. The map and checklist commands are also non-writing. `make data-policy-artifact-check` is separate and writes only to an automatically cleaned temporary directory.
+
+See the [retention map](data-retention-map.md), [redaction boundary map](redaction-boundary-map.md), and [data handling checklist](data-handling-checklist.md).

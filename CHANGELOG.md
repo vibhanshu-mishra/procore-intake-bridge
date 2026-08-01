@@ -1,5 +1,7 @@
 # Changelog
 
+- Added Phase I4 offline Data Retention and Redaction Policy schemas, checks, maps, examples, documentation, audits, and sanitized temporary artifacts.
+
 ## Unreleased
 
 - Phase I3 adds an offline webhook replay/signature hardening review, public-safe artifacts,

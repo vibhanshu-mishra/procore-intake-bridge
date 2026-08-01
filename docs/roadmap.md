@@ -1,5 +1,7 @@
 # Roadmap
 
+- Phase I4: Data Retention and Redaction Policy — offline public-safe mapping and validation; destructive enforcement remains out of scope.
+
 Phases A1–H7 are implemented in the public repository. H3 provides local intake review, H4 adds
 audited local-only lifecycle state, H5 adds local triage, and H6 adds metadata-only attachment
 manifest review.

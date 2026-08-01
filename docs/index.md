@@ -1,5 +1,7 @@
 # Documentation
 
+Security review continues with the [Phase I4 Data Retention and Redaction Policy](data-retention-redaction-policy.md), an offline, non-destructive public repository check.
+
 Follow this beginner order: [Quickstart](../QUICKSTART.md), [usage modes](usage-modes.md),
 [command reference](command-reference.md), [Demo walkthrough](quickstart-demo.md), then
 [Sandbox](sandbox-mode.md) or [Pilot](pilot-mode.md). Start with `make start`.

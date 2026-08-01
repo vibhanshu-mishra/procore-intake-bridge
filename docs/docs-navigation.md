@@ -1,5 +1,7 @@
 # Documentation navigation map
 
+Phase I4: [policy](data-retention-redaction-policy.md), [retention map](data-retention-map.md), [redaction map](redaction-boundary-map.md), and [handling checklist](data-handling-checklist.md).
+
 Cloud storage guidance starts at [Optional cloud storage providers](cloud-storage-providers.md),
 with S3, Azure Blob, and GCS pages under **Providers and Infrastructure**.
 

@@ -1,5 +1,7 @@
 # Quickstart: start with Demo Mode
 
+For the offline Phase I4 data boundary review, run `make data-policy-review`. It reads public repository evidence only and performs no live scan or destructive deletion.
+
 For private Sandbox or Pilot storage, start local. Optional cloud storage is disabled and offline
 by default; see [docs/cloud-storage-providers.md](docs/cloud-storage-providers.md).
 

@@ -1,5 +1,7 @@
 # Auth / Permission Boundary Audit
 
+I4 adds an offline data-policy view of protected metadata and private references; it adds no auth provider, route, live scan, or deletion behavior.
+
 Phase I2 adds an offline, public-safe audit of existing route and command boundaries. It reads
 the local FastAPI route table, Makefile, scripts, documentation, route-audit rules, and existing
 admin/signature guard patterns. It makes no live permission check, Procore call, external call,

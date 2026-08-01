@@ -2,7 +2,7 @@
 
 PYTHON ?= .venv/bin/python
 
-.PHONY: security-threat-model security-boundary-map security-review-checklist security-threat-model-artifact-check auth-boundary-audit auth-boundary-map permission-boundary-checklist auth-boundary-artifact-check webhook-security-review webhook-signature-boundary webhook-replay-checklist webhook-security-artifact-check demo-product-tour demo-product-check demo-evaluation-checklist demo-product-artifact-check product-dashboard-overview product-dashboard-check review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check operator-export-check operator-export-summary operator-export-artifact-check
+.PHONY: security-threat-model security-boundary-map security-review-checklist security-threat-model-artifact-check auth-boundary-audit auth-boundary-map permission-boundary-checklist auth-boundary-artifact-check webhook-security-review webhook-signature-boundary webhook-replay-checklist webhook-security-artifact-check data-policy-review data-retention-map redaction-boundary-map data-handling-checklist data-policy-artifact-check demo-product-tour demo-product-check demo-evaluation-checklist demo-product-artifact-check product-dashboard-overview product-dashboard-check review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check operator-export-check operator-export-summary operator-export-artifact-check
 
 help:
 	@echo "START HERE"
@@ -26,6 +26,10 @@ help:
 	@echo "  make webhook-security-review Offline webhook hardening review"
 	@echo "  make webhook-signature-boundary Print signature expectations"
 	@echo "  make webhook-replay-checklist Print replay/deduplication checklist"
+	@echo "  make data-policy-review       Offline retention/redaction policy review"
+	@echo "  make data-retention-map       Print sanitized retention map"
+	@echo "  make redaction-boundary-map   Print sanitized redaction map"
+	@echo "  make data-handling-checklist  Print offline data-handling checklist"
 	@echo "  make product-dashboard-overview Sanitized local product cockpit summary"
 	@echo "  make product-dashboard-check Validate the read-only product cockpit"
 	@echo "  make review-workspace-summary Read-only local intake summary"
@@ -217,6 +221,21 @@ webhook-replay-checklist:
 
 webhook-security-artifact-check:
 	$(PYTHON) scripts/generate_webhook_security_review_artifacts.py --temporary
+
+data-policy-review:
+	$(PYTHON) scripts/run_data_policy_review.py
+
+data-retention-map:
+	$(PYTHON) scripts/print_data_retention_map.py
+
+redaction-boundary-map:
+	$(PYTHON) scripts/print_redaction_boundary_map.py
+
+data-handling-checklist:
+	$(PYTHON) scripts/print_data_handling_checklist.py
+
+data-policy-artifact-check:
+	$(PYTHON) scripts/generate_data_policy_review_artifacts.py --temporary
 
 demo-product-tour:
 	$(PYTHON) scripts/print_demo_product_tour.py
@@ -598,4 +617,5 @@ quality: demo-product-check demo-product-tour demo-evaluation-checklist
 quality: security-threat-model security-boundary-map security-review-checklist
 quality: auth-boundary-audit auth-boundary-map permission-boundary-checklist
 quality: webhook-security-review webhook-signature-boundary webhook-replay-checklist
+quality: data-policy-review data-retention-map redaction-boundary-map data-handling-checklist
 	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict

@@ -1,5 +1,7 @@
 # Webhook Replay and Signature Hardening Review
 
+Phase I4 classifies the webhook payload and event-fingerprint boundary while continuing to exclude live payloads, headers, signatures, and replay reports from public output.
+
 Phase I3 is an offline webhook security review using local code, documentation, tests, and fake
 fixtures. It makes no live webhook replay and no webhook registration. It makes no Procore call
 and no external call. It exposes no live payload, header, signature, endpoint, shared secret, or private

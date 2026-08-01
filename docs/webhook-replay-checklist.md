@@ -1,5 +1,7 @@
 # Webhook replay checklist
 
+- [ ] Apply I4 payload, identifier, diagnostics, and generated-output redaction boundaries to replay review material.
+
 - [ ] Require private authorization for any local replay operation.
 - [ ] Define timestamp, nonce, or freshness-window expectations.
 - [ ] Preserve event fingerprinting and database-backed deduplication.

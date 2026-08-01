@@ -1,5 +1,7 @@
 # Procore Intake Bridge
 
+Phase I4 adds an [offline data retention and redaction policy](docs/data-retention-redaction-policy.md). Run `make data-policy-review`; it performs no live scan, deletion, purge, or external call.
+
 Optional S3, Azure Blob, and GCS storage providers are documented in
 [docs/cloud-storage-providers.md](docs/cloud-storage-providers.md). They are disabled by default,
 use optional dependencies, and are never contacted by default checks. Start with local storage.

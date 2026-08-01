@@ -1,5 +1,7 @@
 # Release readiness
 
+Release review includes the non-writing I4 policy checks. Artifact generation stays separately gated and temporary; retention policy does not establish legal compliance.
+
 Phase E4 prepares a future public release for maintainer review. It does not publish anything,
 create a release or tag, build a package or image, upload to a registry, or deploy.
 

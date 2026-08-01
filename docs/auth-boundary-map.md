@@ -1,5 +1,7 @@
 # Auth boundary map
 
+Use the I4 redaction boundary map alongside this route map when reviewing what protected handlers may expose in public diagnostics and summaries.
+
 The I2 map assigns every local FastAPI route to a public, protected, local-only, webhook, or
 unknown class and records the expected protection and method risk.
 

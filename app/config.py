@@ -750,6 +750,65 @@ class Settings(BaseSettings):
         le=1000,
         validation_alias="PROCORE_INTAKE_WEBHOOK_SECURITY_REVIEW_MAX_FINDINGS",
     )
+    data_policy_review_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DATA_POLICY_REVIEW_ENABLED"
+    )
+    data_policy_review_output_root: Path = Field(
+        default=Path("./data-policy-review-output"),
+        validation_alias="PROCORE_INTAKE_DATA_POLICY_REVIEW_OUTPUT_ROOT",
+    )
+    data_policy_review_require_placeholders: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DATA_POLICY_REVIEW_REQUIRE_PLACEHOLDERS"
+    )
+    data_policy_review_require_raw_payload_redaction: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_DATA_POLICY_REVIEW_REQUIRE_RAW_PAYLOAD_REDACTION",
+    )
+    data_policy_review_require_secret_redaction: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DATA_POLICY_REVIEW_REQUIRE_SECRET_REDACTION"
+    )
+    data_policy_review_require_url_redaction: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DATA_POLICY_REVIEW_REQUIRE_URL_REDACTION"
+    )
+    data_policy_review_require_path_redaction: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DATA_POLICY_REVIEW_REQUIRE_PATH_REDACTION"
+    )
+    data_policy_review_require_attachment_content_exclusion: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_DATA_POLICY_REVIEW_REQUIRE_ATTACHMENT_CONTENT_EXCLUSION",
+    )
+    data_policy_review_require_export_safety_flags: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_DATA_POLICY_REVIEW_REQUIRE_EXPORT_SAFETY_FLAGS",
+    )
+    data_policy_review_require_generated_output_ignores: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_DATA_POLICY_REVIEW_REQUIRE_GENERATED_OUTPUT_IGNORES",
+    )
+    data_policy_review_allow_real_identities: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_DATA_POLICY_REVIEW_ALLOW_REAL_IDENTITIES"
+    )
+    data_policy_review_allow_real_domains: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_DATA_POLICY_REVIEW_ALLOW_REAL_DOMAINS"
+    )
+    data_policy_review_allow_real_urls: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_DATA_POLICY_REVIEW_ALLOW_REAL_URLS"
+    )
+    data_policy_review_allow_report_contents: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_DATA_POLICY_REVIEW_ALLOW_REPORT_CONTENTS"
+    )
+    data_policy_review_allow_private_paths: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_DATA_POLICY_REVIEW_ALLOW_PRIVATE_PATHS"
+    )
+    data_policy_review_fail_closed: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DATA_POLICY_REVIEW_FAIL_CLOSED"
+    )
+    data_policy_review_max_findings: int = Field(
+        default=300,
+        ge=1,
+        le=1000,
+        validation_alias="PROCORE_INTAKE_DATA_POLICY_REVIEW_MAX_FINDINGS",
+    )
     intake_review_workspace_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_ENABLED",

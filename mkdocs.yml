@@ -32,6 +32,10 @@ nav:
       - Webhook Replay and Signature Hardening: webhook-replay-signature-hardening.md
       - Webhook Signature Boundary: webhook-signature-boundary.md
       - Webhook Replay Checklist: webhook-replay-checklist.md
+      - Data Retention and Redaction Policy: data-retention-redaction-policy.md
+      - Data Retention Map: data-retention-map.md
+      - Redaction Boundary Map: redaction-boundary-map.md
+      - Data Handling Checklist: data-handling-checklist.md
   - Sandbox Mode:
       - Sandbox Mode: sandbox-mode.md
       - Sandbox Onboarding: sandbox-onboarding.md

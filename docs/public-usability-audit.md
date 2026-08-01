@@ -1,5 +1,7 @@
 # Public usability audit
 
+The audit verifies I4 docs, commands, examples, ignored outputs, offline guidance, non-destructive boundaries, and certification/approval disclaimers.
+
 H3 checks require the Intake Review Workspace documentation, local summary/check scripts, Make
 targets, GET-only routes, docs navigation, and explicit no-Procore-write/no-lifecycle-transition
 language. Safety checks also guard against workspace examples exposing raw payloads, source URLs,

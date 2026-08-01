@@ -1,5 +1,7 @@
 # Safety model
 
+Phase I4 maps retention and redaction boundaries offline. It excludes raw payloads, secrets, URLs, paths, storage keys, original filenames, attachment contents, and private evidence contents; it adds no destructive deletion or purge jobs.
+
 The H3 Intake Review Workspace is GET-only and local-database-only. Its response validator blocks
 raw payload keys, source URLs, signed URLs, private paths, storage keys, secrets, and raw source
 IDs. Attachment bytes are never downloaded or read. Priority signals are informational and do
