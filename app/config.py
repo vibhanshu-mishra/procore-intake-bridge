@@ -1215,6 +1215,69 @@ class Settings(BaseSettings):
         le=300,
         validation_alias="PROCORE_INTAKE_SETUP_EXPERIENCE_MAX_FINDINGS",
     )
+    demo_data_experience_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DEMO_DATA_EXPERIENCE_ENABLED"
+    )
+    demo_data_output_root: Path = Field(
+        default=Path("./demo-data-output"),
+        validation_alias="PROCORE_INTAKE_DEMO_DATA_OUTPUT_ROOT",
+    )
+    demo_data_require_fake_only: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DEMO_DATA_REQUIRE_FAKE_ONLY"
+    )
+    demo_data_require_local_sqlite_only: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_DEMO_DATA_REQUIRE_LOCAL_SQLITE_ONLY",
+    )
+    demo_data_require_idempotent_seed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_DEMO_DATA_REQUIRE_IDEMPOTENT_SEED",
+    )
+    demo_data_require_reset_confirmation: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_DEMO_DATA_REQUIRE_RESET_CONFIRMATION",
+    )
+    demo_data_reset_confirmation: str = Field(
+        default="RESET DEMO DATA",
+        validation_alias="PROCORE_INTAKE_DEMO_DATA_RESET_CONFIRMATION",
+    )
+    demo_data_allow_private_workspace_reset: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_DEMO_DATA_ALLOW_PRIVATE_WORKSPACE_RESET",
+    )
+    demo_data_allow_sandbox_reset: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_DEMO_DATA_ALLOW_SANDBOX_RESET"
+    )
+    demo_data_allow_pilot_reset: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_DEMO_DATA_ALLOW_PILOT_RESET"
+    )
+    demo_data_allow_hosted_reset: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_DEMO_DATA_ALLOW_HOSTED_RESET"
+    )
+    demo_data_allow_real_identities: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_DEMO_DATA_ALLOW_REAL_IDENTITIES"
+    )
+    demo_data_allow_real_domains: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_DEMO_DATA_ALLOW_REAL_DOMAINS"
+    )
+    demo_data_allow_real_urls: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_DEMO_DATA_ALLOW_REAL_URLS"
+    )
+    demo_data_allow_report_contents: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_DEMO_DATA_ALLOW_REPORT_CONTENTS"
+    )
+    demo_data_allow_private_paths: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_DEMO_DATA_ALLOW_PRIVATE_PATHS"
+    )
+    demo_data_fail_closed: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_DEMO_DATA_FAIL_CLOSED"
+    )
+    demo_data_max_records: int = Field(
+        default=50,
+        ge=1,
+        le=50,
+        validation_alias="PROCORE_INTAKE_DEMO_DATA_MAX_RECORDS",
+    )
     intake_review_workspace_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_ENABLED",

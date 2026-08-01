@@ -1,5 +1,11 @@
 # Product Dashboard
 
+J2 can populate dashboard-friendly counts with deterministic fake, demo-marked records in local
+SQLite. Run `make demo-seed-plan`, `make demo-seed`, and `make demo-data-check`; no Procore call,
+cloud service, external database, or customer data is involved. `make try-demo` is
+non-destructive. The confirmed `make demo-reset` affects only demo-marked local records and never
+private workspace, Sandbox, Pilot, Hosted, cloud, or customer data. It grants no approval.
+
 For Phase J1 local setup, follow the [local installer guide](local-installer-guide.md) and run
 `make start` before `make try-demo`. Demo requires no Procore credentials, other secrets, cloud
 services, or external database. Sandbox, Pilot, and Hosted remain separate and gated; setup

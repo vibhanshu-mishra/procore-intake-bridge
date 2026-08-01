@@ -1,5 +1,18 @@
 # Setup Troubleshooting Guide
 
+## J2 demo-data troubleshooting
+
+- Preview unexpected seed contents with `make demo-seed-plan`; planning does not write.
+- Re-run `make demo-seed` safely: deterministic demo markers make seeding idempotent.
+- Use `make demo-data-check` to verify fake-only, local-SQLite-only boundaries.
+- Preview cleanup with `make demo-reset-plan`. Reset refuses a missing or inexact
+  `RESET DEMO DATA` confirmation and refuses non-local databases.
+- Never use reset for private workspace, Sandbox, Pilot, Hosted, cloud, external-database, or
+  customer data; those scopes are intentionally untouched.
+
+J2 makes no Procore call and grants no production, Pilot, release, deployment, or Procore
+approval. `make try-demo` and `make first-run` remain non-destructive.
+
 This Phase J1 guide covers local setup only. Its remedies do not contact Procore, cloud services,
 or an external database, and they do not build, publish, release, or deploy anything.
 

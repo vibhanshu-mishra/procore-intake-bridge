@@ -373,6 +373,15 @@ setup-diagnostics-output/
 *.local-installer-guide.md
 *.setup-troubleshooting-guide.md
 *.setup-command-map.csv
+demo-data-output/
+demo-seed-output/
+demo-reset-output/
+demo-db-output/
+*.demo-data-report.json
+*.demo-data-report.md
+*.demo-seed-plan.md
+*.demo-reset-plan.md
+*.demo-data-inventory.csv
 review-export-output/
 intake-export-output/
 lifecycle-export-output/

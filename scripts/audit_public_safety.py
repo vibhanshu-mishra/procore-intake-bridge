@@ -387,6 +387,13 @@ SETUP_SAFETY_QUALIFIER = re.compile(
     r"(?i)\b(?:no|not|never|does not|do not|is not|are not|must not|without|"
     r"doesn't|isn't|aren't|requires no|not required|not needed|not implied)\b"
 )
+DEMO_DATA_UNSAFE_CLAIM = re.compile(
+    r"(?i)\b(?:reset|remove|delete|purge)\b.*\b(?:customer data|private workspace|"
+    r"sandbox|pilot|hosted)\b|\b(?:production[- ]ready|approved for (?:production|"
+    r"release|pilot|launch)|(?:production|release|pilot|launch) (?:is )?approved|"
+    r"(?:soc ?2|iso ?27001|hipaa|gdpr|ccpa|slsa|sbom|security|compliance) certified|"
+    r"(?:gdpr|ccpa|hipaa|privacy|legal) compliant)\b"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -396,6 +403,18 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if any(
+        marker in path.as_posix()
+        for marker in ("demo-data", "demo_data", "demo-seed", "demo-reset")
+    ):
+        excluded = any(part in path.parts for part in ("tests", "services", "schemas"))
+        for line in text.splitlines():
+            qualified = SETUP_SAFETY_QUALIFIER.search(line)
+            if DEMO_DATA_UNSAFE_CLAIM.search(line) and not excluded and not qualified:
+                issues.append(
+                    SafetyIssue(path, "demo data guidance implies unsafe reset or approval")
+                )
+                break
     if any(
         marker in path.as_posix()
         for marker in (
@@ -1150,6 +1169,26 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             )
         ):
             issues.append(SafetyIssue(path, "tracked generated security-gap closeout output"))
+            continue
+        if any(
+            part
+            in {
+                "demo-data-output",
+                "demo-seed-output",
+                "demo-reset-output",
+                "demo-db-output",
+            }
+            for part in path.parts
+        ) or path.name.endswith(
+            (
+                ".demo-data-report.json",
+                ".demo-data-report.md",
+                ".demo-seed-plan.md",
+                ".demo-reset-plan.md",
+                ".demo-data-inventory.csv",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated demo-data output"))
             continue
         if any(
             part

@@ -1,5 +1,13 @@
 # Release readiness
 
+## J2 relationship
+
+The J2 local Demo seed/reset experience does not execute or approve a release. It uses
+deterministic fake records and local SQLite only, makes no Procore, cloud, or external-database
+call, and keeps `make try-demo` non-destructive. Confirmed reset affects only demo-marked local
+records and cannot touch private workspace, Sandbox, Pilot, Hosted, cloud, or customer data. J2
+grants no production, Pilot, release, deployment, or Procore approval.
+
 ## J1 relationship
 
 The J1 installer experience is local-only and outside release execution. It performs no package

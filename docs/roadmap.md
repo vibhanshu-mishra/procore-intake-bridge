@@ -1,5 +1,13 @@
 # Roadmap
 
+## J2 local Demo data experience
+
+J2 makes local Demo Mode repeatable through deterministic fake-only seed data, idempotent seeding,
+non-destructive plans and inventory checks, and exact-confirmation reset of demo-marked local
+SQLite records. It leaves private workspace, Sandbox, Pilot, Hosted, cloud, external databases,
+and customer data untouched. `make try-demo` remains non-destructive. J2 makes no Procore call and
+grants no production, Pilot, release, deployment, or Procore approval.
+
 ## J1 local setup experience
 
 J1 improves public maintainer onboarding without changing product behavior. It documents Git,

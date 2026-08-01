@@ -19,6 +19,9 @@ nav:
       - Sandbox to Pilot Flow: sandbox-to-pilot-flow.md
   - Demo Mode:
       - Quickstart Demo: quickstart-demo.md
+      - Demo Data Seed and Reset: demo-data-seed-reset.md
+      - Demo Seed Plan: demo-seed-plan.md
+      - Demo Reset Guide: demo-reset-guide.md
       - Intake Review Workspace: intake-review-workspace.md
       - Intake Lifecycle Status Flow: intake-lifecycle-status-flow.md
       - Operator Triage Queue: operator-triage-queue.md

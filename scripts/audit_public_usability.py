@@ -104,6 +104,9 @@ REQUIRED_DOCS = {
     "docs/first-run-checklist.md",
     "docs/setup-troubleshooting-guide.md",
     "docs/setup-experience-review.md",
+    "docs/demo-data-seed-reset.md",
+    "docs/demo-seed-plan.md",
+    "docs/demo-reset-guide.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -190,6 +193,12 @@ REQUIRED_SCRIPTS = {
     "scripts/print_local_installer_guide.py",
     "scripts/print_setup_troubleshooting_guide.py",
     "scripts/generate_setup_experience_artifacts.py",
+    "scripts/plan_demo_seed.py",
+    "scripts/seed_demo_data.py",
+    "scripts/plan_demo_reset.py",
+    "scripts/reset_demo_data.py",
+    "scripts/check_demo_data.py",
+    "scripts/generate_demo_data_experience_artifacts.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -343,6 +352,10 @@ REQUIRED_EXAMPLES = {
     "examples/setup-experience/example_local_installer_guide.md",
     "examples/setup-experience/example_setup_troubleshooting_guide.md",
     "examples/setup-experience/example_setup_command_map.csv",
+    "examples/demo-data-experience/README.md",
+    "examples/demo-data-experience/example_demo_seed_plan.md",
+    "examples/demo-data-experience/example_demo_reset_plan.md",
+    "examples/demo-data-experience/example_demo_data_inventory.csv",
 }
 REQUIRED_TARGETS = {
     "review-workspace-summary",
@@ -409,6 +422,12 @@ REQUIRED_TARGETS = {
     "local-installer-guide",
     "setup-troubleshooting-guide",
     "setup-experience-artifact-check",
+    "demo-seed-plan",
+    "demo-seed",
+    "demo-reset-plan",
+    "demo-reset",
+    "demo-data-check",
+    "demo-data-artifact-check",
     "webhook-replay-checklist",
     "webhook-security-artifact-check",
     "help",
@@ -483,6 +502,15 @@ REQUIRED_TARGETS = {
     "final-readiness-artifact-check",
 }
 IGNORED_OUTPUTS = {
+    "demo-data-output/",
+    "demo-seed-output/",
+    "demo-reset-output/",
+    "demo-db-output/",
+    "*.demo-data-report.json",
+    "*.demo-data-report.md",
+    "*.demo-seed-plan.md",
+    "*.demo-reset-plan.md",
+    "*.demo-data-inventory.csv",
     "demo-walkthrough-output/",
     "demo-product-output/",
     "demo-tour-output/",
@@ -775,6 +803,10 @@ GENERATED_PARTS = {
     "installer-review-output",
     "local-setup-output",
     "setup-diagnostics-output",
+    "demo-data-output",
+    "demo-seed-output",
+    "demo-reset-output",
+    "demo-db-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak",
@@ -1335,6 +1367,32 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             )
             and "setup-experience-artifact-check" not in quality_headers
         ),
+        "J2 demo data is fake-only and local-only": all(
+            phrase in _read(root, "docs/demo-data-seed-reset.md").casefold()
+            for phrase in ("fake", "local", "sqlite", "procore", "cloud", "external database")
+        ),
+        "J2 reset is confirmed and demo-scoped": all(
+            phrase in _read(root, "docs/demo-reset-guide.md").casefold()
+            for phrase in (
+                "reset demo data",
+                "confirmation",
+                "demo marker",
+                "private workspace",
+                "sandbox",
+                "pilot",
+                "hosted",
+                "customer data",
+            )
+        ),
+        "J2 friendly demo path is non-destructive": (
+            "try-demo:" in makefile
+            and "demo-reset" not in next(
+                (line for line in makefile.splitlines() if line.startswith("try-demo:")), ""
+            )
+        ),
+        "J2 quality excludes destructive reset": "demo-reset" not in quality_headers.replace(
+            "demo-reset-plan", ""
+        ),
         "H3 workspace is read-only and local": all(
             phrase in _read(root, "docs/intake-review-workspace.md").casefold()
             for phrase in ("read-only", "local intake records only", "no procore")
@@ -1675,6 +1733,11 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 ".local-installer-guide.md",
                 ".setup-troubleshooting-guide.md",
                 ".setup-command-map.csv",
+                ".demo-data-report.json",
+                ".demo-data-report.md",
+                ".demo-seed-plan.md",
+                ".demo-reset-plan.md",
+                ".demo-data-inventory.csv",
             )
         ):
             add(

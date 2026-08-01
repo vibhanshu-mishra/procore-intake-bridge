@@ -1,5 +1,21 @@
 # Command reference
 
+## Phase J2 local Demo data
+
+| Command | Purpose | Writes? |
+| --- | --- | --- |
+| `make demo-seed-plan` | Preview deterministic fake datasets for local SQLite. | No |
+| `make demo-seed` | Idempotently seed demo-marked fake records in local Demo Mode SQLite. | Local demo DB only |
+| `make demo-data-check` | Validate fake-only inventory and safe boundaries. | No |
+| `make demo-reset-plan` | Preview only the demo-marked records eligible for reset. | No |
+| `make demo-reset DEMO_RESET_CONFIRMATION="RESET DEMO DATA"` | Remove only demo-marked local records after exact confirmation. | Local demo DB only |
+| `make demo-data-artifact-check` | Generate and validate sanitized artifacts in temporary storage. | Temporary output only |
+
+`make try-demo` and `make first-run` never reset data. J2 uses no Procore call, cloud service, or
+external database. Reset cannot touch private workspace, Sandbox, Pilot, Hosted, cloud, or
+customer data. These commands imply no production, Pilot, release, deployment, or Procore
+approval.
+
 ## Phase J1 local setup experience
 
 For a new clone, first create `.venv`, second activate it, and third install local development

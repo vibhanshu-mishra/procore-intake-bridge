@@ -1,5 +1,12 @@
 # Local Installer Guide
 
+After J1 setup, J2 offers repeatable deterministic fake Demo Mode data in local SQLite:
+`make demo-seed-plan`, `make demo-seed`, then `make demo-data-check`. It needs no Procore
+credential or call, cloud service, or external database. `make first-run` and `make try-demo` are
+non-destructive. Reset only demo-marked local records with the exact confirmation described in
+the [reset guide](demo-reset-guide.md); private workspace, Sandbox, Pilot, Hosted, cloud, and
+customer data remain untouched. No production, Pilot, or release approval is implied.
+
 Phase J1 improves the local setup experience for maintainers. It does not install a cloud
 service, build or publish a package or image, create a release, deploy the application, or imply
 production, Pilot, release, or Procore approval.

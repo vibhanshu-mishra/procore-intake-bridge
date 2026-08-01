@@ -1,5 +1,12 @@
 # Demo Product Walkthrough
 
+For a repeatable J2 walkthrough, preview and seed deterministic fake local data with
+`make demo-seed-plan`, `make demo-seed`, and `make demo-data-check`. The data is local SQLite only
+and needs no Procore credential or call, cloud service, or external database. `make try-demo`
+remains non-destructive. Reset is optional, affects only demo-marked local records, and requires
+`make demo-reset DEMO_RESET_CONFIRMATION="RESET DEMO DATA"`; it cannot touch private workspace,
+Sandbox, Pilot, Hosted, cloud, or customer data. No operational approval is implied.
+
 Phase J1 setup for this walkthrough is local-only: first create `.venv`, second activate it, and
 third install local development dependencies. Demo requires no Procore credentials, other
 secrets, cloud services, or external database. Sandbox, Pilot, and Hosted are separate private,

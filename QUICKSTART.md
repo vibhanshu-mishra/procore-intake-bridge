@@ -1,5 +1,14 @@
 # Quickstart: start with Demo Mode
 
+Phase J2 makes Demo Mode repeatable with deterministic fake data in local SQLite. Preview with
+`make demo-seed-plan`, seed idempotently with `make demo-seed`, and verify with
+`make demo-data-check`. Demo needs no Procore credentials or calls, cloud service, or external
+database. `make try-demo` and `make first-run` are non-destructive. To remove only demo-marked
+local records, first run `make demo-reset-plan`, then explicitly run
+`make demo-reset DEMO_RESET_CONFIRMATION="RESET DEMO DATA"`. The reset never touches private
+workspace, Sandbox, Pilot, Hosted, cloud, external-database, or customer data and implies no
+production, Pilot, release, deployment, or Procore approval.
+
 Phase J1's local setup order is explicit: first `python3 -m venv .venv`, second activate it with
 `source .venv/bin/activate`, and third run `python -m pip install -e ".[dev]"`. Next run
 `make start`, then `make try-demo`. Demo requires no Procore credentials, other secrets, cloud

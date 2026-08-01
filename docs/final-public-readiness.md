@@ -1,5 +1,13 @@
 # Final public repository readiness
 
+## J2 relationship
+
+J2 is a local fake-data convenience layer, not a readiness approval. Deterministic seeding and
+exact-confirmation reset are limited to demo-marked records in local SQLite. No Procore, cloud, or
+external-database call is made, and private workspace, Sandbox, Pilot, Hosted, cloud, and customer
+data remain untouched. `make try-demo` remains non-destructive. J2 grants no production, Pilot,
+release, deployment, or Procore approval.
+
 ## J1 relationship
 
 J1 makes local maintainer setup easier to review but does not establish final public, production,

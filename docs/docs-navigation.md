@@ -1,5 +1,16 @@
 # Documentation navigation map
 
+Phase J2 Demo data path:
+
+1. [Demo data seed and reset](demo-data-seed-reset.md)
+2. [Demo seed plan](demo-seed-plan.md)
+3. [Demo reset guide](demo-reset-guide.md)
+
+These guides cover deterministic fake-only data in local SQLite. No Procore credential or call,
+cloud service, or external database is needed. `make try-demo` is non-destructive; only the exact-
+confirmation reset affects demo-marked records. Private workspace, Sandbox, Pilot, Hosted, cloud,
+and customer data remain untouched, and no production, Pilot, or release approval is implied.
+
 Phase J1 local setup path:
 
 1. [Local installer guide](local-installer-guide.md)

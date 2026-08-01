@@ -1,5 +1,13 @@
 # Procore Intake Bridge
 
+Phase J2 adds a safe [local Demo seed and reset experience](docs/demo-data-seed-reset.md), with a
+non-writing [seed plan](docs/demo-seed-plan.md) and fail-closed [reset guide](docs/demo-reset-guide.md).
+It uses deterministic fake records and local SQLite only—no Procore credential or call, cloud
+service, external database, customer data, private path, or private workspace. `make try-demo`
+remains non-destructive. Only `make demo-reset` resets data, and only demo-marked local records
+after the exact confirmation `RESET DEMO DATA`; Sandbox, Pilot, Hosted, cloud, and customer data
+remain untouched. J2 implies no production, Pilot, release, deployment, or Procore approval.
+
 Phase J1 adds a [local installer guide](docs/local-installer-guide.md), expanded
 [first-run checklist](docs/first-run-checklist.md),
 [setup troubleshooting guide](docs/setup-troubleshooting-guide.md), and offline

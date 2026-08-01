@@ -1,5 +1,13 @@
 # Setup Experience Review
 
+## J2 relationship
+
+J2 extends local setup with deterministic fake Demo Mode seed, inventory, and reset planning for
+local SQLite only. It makes no Procore, cloud, or external-database call. `make try-demo` and
+`make first-run` remain non-destructive; the sole reset command requires the exact confirmation
+and affects only demo-marked records. Private workspace, Sandbox, Pilot, Hosted, cloud, and
+customer data are outside its boundary. No production, Pilot, or release approval is implied.
+
 Phase J1 is an offline, local-only maintainer review of prerequisites, setup documentation,
 commands, mode boundaries, ignored generated outputs, and troubleshooting guidance. It reads
 curated public repository files only.

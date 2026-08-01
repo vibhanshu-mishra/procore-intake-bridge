@@ -1,5 +1,14 @@
 # Public usability audit
 
+## J2 coverage
+
+The audit verifies the three Demo seed/reset guides, four placeholder-only example files, J2
+commands and Make targets, ignored generated-output patterns, and fake-only/local-SQLite-only
+language. It also checks that documentation says no Procore, cloud, or external-database call is
+needed; reset requires the exact confirmation and affects only demo-marked records; private
+workspace, Sandbox, Pilot, Hosted, cloud, and customer data remain untouched; `make try-demo` is
+non-destructive; and no production, Pilot, release, deployment, or Procore approval is implied.
+
 ## J1 coverage
 
 The public usability audit checks the four setup guides, five placeholder-only examples, J1

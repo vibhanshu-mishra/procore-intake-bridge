@@ -1,5 +1,17 @@
 # First-run checklist
 
+## Optional J2 fake demo data
+
+- [ ] Run `make demo-seed-plan` to inspect the non-writing deterministic seed plan.
+- [ ] Run `make demo-seed` and `make demo-data-check` for fake local SQLite records.
+- [ ] Confirm that no Procore credentials, cloud service, or external database are needed.
+- [ ] Treat `make first-run` and `make try-demo` as non-destructive; neither resets data.
+- [ ] If cleanup is intentional, read the [reset guide](demo-reset-guide.md), preview with
+  `make demo-reset-plan`, and use only `make demo-reset` with the exact confirmation phrase.
+
+Reset is restricted to demo-marked local records. It cannot touch private workspace, Sandbox,
+Pilot, Hosted, cloud, external databases, or customer data and implies no operational approval.
+
 Phase J1 makes this the canonical local-only checklist. Demo Mode is the default safe starting
 point and requires no Procore credentials, other secrets, cloud services, or external database.
 

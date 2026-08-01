@@ -1,5 +1,15 @@
 # Project status
 
+## Phase J2: local Demo seed and reset experience
+
+J2 provides deterministic fake records for dashboard, review, lifecycle, triage, attachment
+metadata, and export demonstrations in local SQLite. Seeding is idempotent; planning and checking
+are non-destructive. `make try-demo` remains non-destructive. Reset is limited to demo-marked
+local records, requires the exact `RESET DEMO DATA` confirmation, and cannot touch private
+workspace, Sandbox, Pilot, Hosted, cloud, external databases, or customer data. J2 makes no
+Procore or external call and grants no production, Pilot, release, deployment, or Procore
+approval.
+
 ## Phase J1: better installer and setup experience
 
 J1 adds local prerequisite, virtual-environment, dependency-install, Demo safety, next-command,

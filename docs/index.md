@@ -1,5 +1,12 @@
 # Documentation
 
+Phase J2 provides [local Demo data seed/reset guidance](demo-data-seed-reset.md), a
+[non-destructive seed plan](demo-seed-plan.md), and a [fail-closed reset guide](demo-reset-guide.md).
+The experience uses deterministic fake data in local SQLite only, with no Procore call, cloud
+service, external database, private workspace, or customer data. `make try-demo` is
+non-destructive; only `make demo-reset` can remove demo-marked records and it requires the exact
+confirmation phrase. No production, Pilot, or release approval is implied.
+
 Phase J1 provides a [local installer guide](local-installer-guide.md), canonical
 [first-run checklist](first-run-checklist.md), [setup troubleshooting](setup-troubleshooting-guide.md),
 and an offline [setup experience review](setup-experience-review.md). First create `.venv`, second

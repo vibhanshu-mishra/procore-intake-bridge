@@ -1,5 +1,15 @@
 # Changelog
 
+## Phase J2
+
+- Added local Demo Mode seed/reset guidance, a non-writing seed plan, a fail-closed reset guide,
+  and placeholder-only examples for deterministic fake data in local SQLite.
+- Documented idempotent seeding, non-destructive `make try-demo`, inventory checking, and reset
+  limited to demo-marked records after the exact `RESET DEMO DATA` confirmation.
+- J2 performs no Procore, cloud, or external-database call; touches no private workspace,
+  Sandbox, Pilot, Hosted, cloud, or customer data; and grants no production, Pilot, release,
+  deployment, or Procore approval.
+
 ## Phase J1
 
 - Added a local installer guide, canonical first-run checklist, setup troubleshooting guide, and
