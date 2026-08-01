@@ -107,6 +107,10 @@ REQUIRED_DOCS = {
     "docs/demo-data-seed-reset.md",
     "docs/demo-seed-plan.md",
     "docs/demo-reset-guide.md",
+    "docs/api-route-reference.md",
+    "docs/api-usage-examples.md",
+    "docs/openapi-local-guide.md",
+    "docs/api-docs-review.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -199,6 +203,11 @@ REQUIRED_SCRIPTS = {
     "scripts/reset_demo_data.py",
     "scripts/check_demo_data.py",
     "scripts/generate_demo_data_experience_artifacts.py",
+    "scripts/run_api_docs_review.py",
+    "scripts/print_api_route_reference.py",
+    "scripts/print_api_usage_examples.py",
+    "scripts/print_openapi_local_guide.py",
+    "scripts/generate_api_docs_artifacts.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -356,6 +365,11 @@ REQUIRED_EXAMPLES = {
     "examples/demo-data-experience/example_demo_seed_plan.md",
     "examples/demo-data-experience/example_demo_reset_plan.md",
     "examples/demo-data-experience/example_demo_data_inventory.csv",
+    "examples/api-docs-review/README.md",
+    "examples/api-docs-review/example_api_route_reference.md",
+    "examples/api-docs-review/example_api_usage_examples.md",
+    "examples/api-docs-review/example_openapi_local_guide.md",
+    "examples/api-docs-review/example_api_route_matrix.csv",
 }
 REQUIRED_TARGETS = {
     "review-workspace-summary",
@@ -428,6 +442,11 @@ REQUIRED_TARGETS = {
     "demo-reset",
     "demo-data-check",
     "demo-data-artifact-check",
+    "api-docs-review",
+    "api-route-reference",
+    "api-usage-examples",
+    "openapi-local-guide",
+    "api-docs-artifact-check",
     "webhook-replay-checklist",
     "webhook-security-artifact-check",
     "help",
@@ -502,6 +521,16 @@ REQUIRED_TARGETS = {
     "final-readiness-artifact-check",
 }
 IGNORED_OUTPUTS = {
+    "api-docs-output/",
+    "api-reference-output/",
+    "route-reference-output/",
+    "openapi-review-output/",
+    "*.api-docs-report.json",
+    "*.api-docs-report.md",
+    "*.api-route-reference.md",
+    "*.api-route-matrix.csv",
+    "*.api-usage-examples.md",
+    "*.openapi-local-guide.md",
     "demo-data-output/",
     "demo-seed-output/",
     "demo-reset-output/",
@@ -807,6 +836,10 @@ GENERATED_PARTS = {
     "demo-seed-output",
     "demo-reset-output",
     "demo-db-output",
+    "api-docs-output",
+    "api-reference-output",
+    "route-reference-output",
+    "openapi-review-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak",
@@ -1386,12 +1419,45 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         ),
         "J2 friendly demo path is non-destructive": (
             "try-demo:" in makefile
-            and "demo-reset" not in next(
+            and "demo-reset"
+            not in next(
                 (line for line in makefile.splitlines() if line.startswith("try-demo:")), ""
             )
         ),
-        "J2 quality excludes destructive reset": "demo-reset" not in quality_headers.replace(
-            "demo-reset-plan", ""
+        "J2 quality excludes destructive reset": "demo-reset"
+        not in quality_headers.replace("demo-reset-plan", ""),
+        "J3 API docs are local-only and non-approving": all(
+            phrase in _read(root, "docs/api-docs-review.md").casefold()
+            for phrase in (
+                "local-only",
+                "no live api calls",
+                "no external openapi tooling",
+                "production approval",
+            )
+        ),
+        "J3 documents route safety boundaries": all(
+            phrase in _read(root, "docs/api-route-reference.md").casefold()
+            for phrase in (
+                "webhook",
+                "signature",
+                "lifecycle",
+                "local-only",
+                "export download",
+                "file-serving",
+                "procore write",
+            )
+        ),
+        "J3 checks included and artifacts excluded": (
+            all(
+                target in quality_headers
+                for target in (
+                    "api-docs-review",
+                    "api-route-reference",
+                    "api-usage-examples",
+                    "openapi-local-guide",
+                )
+            )
+            and "api-docs-artifact-check" not in quality_headers
         ),
         "H3 workspace is read-only and local": all(
             phrase in _read(root, "docs/intake-review-workspace.md").casefold()
@@ -1738,6 +1804,12 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 ".demo-seed-plan.md",
                 ".demo-reset-plan.md",
                 ".demo-data-inventory.csv",
+                ".api-docs-report.json",
+                ".api-docs-report.md",
+                ".api-route-reference.md",
+                ".api-route-matrix.csv",
+                ".api-usage-examples.md",
+                ".openapi-local-guide.md",
             )
         ):
             add(

@@ -1,5 +1,12 @@
 # Quickstart: start with Demo Mode
 
+Phase J3 documents all 81 local routes in the [API route reference](docs/api-route-reference.md).
+Run `make api-docs-review` or `make api-route-reference` for offline inspection. Local OpenAPI is
+available only after starting the local app; use fake Demo data and no external OpenAPI tooling.
+These docs make no live call, add no route, and grant no production, Pilot, release, or deployment
+approval. Lifecycle POST routes are local-only, webhook POST routes are signature-bound, and no
+public export download, attachment file-serving, or Procore write-back route exists.
+
 Phase J2 makes Demo Mode repeatable with deterministic fake data in local SQLite. Preview with
 `make demo-seed-plan`, seed idempotently with `make demo-seed`, and verify with
 `make demo-data-check`. Demo needs no Procore credentials or calls, cloud service, or external

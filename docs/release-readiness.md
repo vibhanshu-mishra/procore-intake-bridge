@@ -1,5 +1,12 @@
 # Release readiness
 
+## J3 relationship
+
+The J3 route reference is documentation only. It inspects 81 local routes without live calls or
+external OpenAPI tooling and neither executes nor approves a release. It adds no public export
+download, file-serving endpoint, or Procore write-back; production, Pilot, release, and deployment
+approval remain outside J3.
+
 ## J2 relationship
 
 The J2 local Demo seed/reset experience does not execute or approve a release. It uses

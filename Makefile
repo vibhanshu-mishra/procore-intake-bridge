@@ -6,6 +6,7 @@ PYTHON ?= .venv/bin/python
 .PHONY: security-gap-closeout privacy-review-template encryption-at-rest-guidance private-security-action-register known-limitations-closeout security-gap-artifact-check
 .PHONY: setup-experience-review first-run-checklist local-installer-guide setup-troubleshooting-guide setup-experience-artifact-check
 .PHONY: demo-seed-plan demo-seed demo-reset-plan demo-reset demo-data-check demo-data-artifact-check
+.PHONY: api-docs-review api-route-reference api-usage-examples openapi-local-guide api-docs-artifact-check
 
 .PHONY: security-threat-model security-boundary-map security-review-checklist security-threat-model-artifact-check auth-boundary-audit auth-boundary-map permission-boundary-checklist auth-boundary-artifact-check webhook-security-review webhook-signature-boundary webhook-replay-checklist webhook-security-artifact-check data-policy-review data-retention-map redaction-boundary-map data-handling-checklist data-policy-artifact-check infra-security-review secret-boundary-map storage-boundary-map database-boundary-map infra-security-checklist infra-security-artifact-check supply-chain-review dependency-boundary-map package-surface-map supply-chain-checklist supply-chain-artifact-check incident-response-review incident-runbook audit-log-boundary-map forensics-evidence-checklist incident-response-artifact-check demo-product-tour demo-product-check demo-evaluation-checklist demo-product-artifact-check product-dashboard-overview product-dashboard-check review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check operator-export-check operator-export-summary operator-export-artifact-check
 
@@ -65,6 +66,10 @@ help:
 	@echo "  make demo-seed Seed only demo-marked records in local SQLite"
 	@echo "  make demo-reset-plan Print the non-destructive reset plan"
 	@echo "  make demo-data-check Validate fake-only local Demo records"
+	@echo "  make api-docs-review Review all local FastAPI route boundaries"
+	@echo "  make api-route-reference Print the classified local route table"
+	@echo "  make api-usage-examples Print fake/local-only API examples"
+	@echo "  make openapi-local-guide Print local OpenAPI viewing guidance"
 	@echo "  make product-dashboard-overview Sanitized local product cockpit summary"
 	@echo "  make product-dashboard-check Validate the read-only product cockpit"
 	@echo "  make review-workspace-summary Read-only local intake summary"
@@ -353,6 +358,16 @@ demo-data-check:
 	$(PYTHON) scripts/check_demo_data.py
 demo-data-artifact-check:
 	$(PYTHON) scripts/generate_demo_data_experience_artifacts.py --temporary
+api-docs-review:
+	$(PYTHON) scripts/run_api_docs_review.py
+api-route-reference:
+	$(PYTHON) scripts/print_api_route_reference.py
+api-usage-examples:
+	$(PYTHON) scripts/print_api_usage_examples.py
+openapi-local-guide:
+	$(PYTHON) scripts/print_openapi_local_guide.py
+api-docs-artifact-check:
+	$(PYTHON) scripts/generate_api_docs_artifacts.py --temporary
 
 demo-product-tour:
 	$(PYTHON) scripts/print_demo_product_tour.py
@@ -742,4 +757,5 @@ quality: final-security-review security-readiness-summary security-gap-register 
 quality: security-gap-closeout privacy-review-template encryption-at-rest-guidance private-security-action-register known-limitations-closeout
 quality: setup-experience-review first-run-checklist local-installer-guide setup-troubleshooting-guide
 quality: demo-seed-plan demo-data-check demo-reset-plan
+quality: api-docs-review api-route-reference api-usage-examples openapi-local-guide
 	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict

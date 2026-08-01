@@ -1,5 +1,9 @@
 # Demo Product Walkthrough
 
+Use the J3 [API usage examples](api-usage-examples.md) only with fake/local Demo data. Route-table
+inspection makes no live call and uses no external OpenAPI tooling. It adds no public export
+download, file-serving, or Procore write-back route and grants no operational approval.
+
 For a repeatable J2 walkthrough, preview and seed deterministic fake local data with
 `make demo-seed-plan`, `make demo-seed`, and `make demo-data-check`. The data is local SQLite only
 and needs no Procore credential or call, cloud service, or external database. `make try-demo`

@@ -382,6 +382,16 @@ demo-db-output/
 *.demo-seed-plan.md
 *.demo-reset-plan.md
 *.demo-data-inventory.csv
+api-docs-output/
+api-reference-output/
+route-reference-output/
+openapi-review-output/
+*.api-docs-report.json
+*.api-docs-report.md
+*.api-route-reference.md
+*.api-route-matrix.csv
+*.api-usage-examples.md
+*.openapi-local-guide.md
 review-export-output/
 intake-export-output/
 lifecycle-export-output/

@@ -1,5 +1,13 @@
 # Procore Intake Bridge
 
+Phase J3 adds an offline [API documentation review](docs/api-docs-review.md), complete local
+[route reference](docs/api-route-reference.md), [Demo-safe examples](docs/api-usage-examples.md),
+and [local OpenAPI guide](docs/openapi-local-guide.md) for all 81 existing application routes.
+It documents public, protected, lifecycle, webhook, dashboard, Demo/intake/sync, and attachment
+metadata boundaries without adding product behavior. J3 makes no live call and uses no external
+OpenAPI tooling. No public export download, attachment file-serving, or Procore write-back route
+exists, and route documentation grants no production, Pilot, release, or deployment approval.
+
 Phase J2 adds a safe [local Demo seed and reset experience](docs/demo-data-seed-reset.md), with a
 non-writing [seed plan](docs/demo-seed-plan.md) and fail-closed [reset guide](docs/demo-reset-guide.md).
 It uses deterministic fake records and local SQLite only—no Procore credential or call, cloud

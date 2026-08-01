@@ -1,5 +1,17 @@
 # Documentation navigation map
 
+Phase J3 API documentation path:
+
+1. [API documentation review](api-docs-review.md)
+2. [API route reference](api-route-reference.md)
+3. [API usage examples](api-usage-examples.md)
+4. [Local OpenAPI guide](openapi-local-guide.md)
+
+These guides cover all 81 existing routes through local inspection only. They make no live call,
+use no external OpenAPI tooling, and add no product behavior. Public status, protected surfaces,
+local lifecycle mutations, signature-bound webhooks, and metadata-only attachment boundaries stay
+explicit. No export download, file-serving, Procore write-back, or operational approval is added.
+
 Phase J2 Demo data path:
 
 1. [Demo data seed and reset](demo-data-seed-reset.md)

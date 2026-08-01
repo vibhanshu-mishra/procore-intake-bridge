@@ -1,5 +1,19 @@
 # Command reference
 
+## Phase J3 API documentation
+
+| Command | Purpose | Writes? |
+| --- | --- | --- |
+| `make api-docs-review` | Inspect and validate all 81 local FastAPI routes offline. | No |
+| `make api-route-reference` | Print route method, class, protection, risk, and purpose. | No |
+| `make api-usage-examples` | Print fake/local Demo-safe usage guidance. | No |
+| `make openapi-local-guide` | Print guidance for viewing OpenAPI after starting the local app. | No |
+| `make api-docs-artifact-check` | Validate sanitized artifacts in temporary storage. | Temporary only |
+
+These commands make no live API or Procore call and use no external OpenAPI tooling. They add no
+route and grant no production, Pilot, release, or deployment approval. Generated outputs belong
+only in ignored roots.
+
 ## Phase J2 local Demo data
 
 | Command | Purpose | Writes? |

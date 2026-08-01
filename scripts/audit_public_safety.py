@@ -166,6 +166,10 @@ PRIVATE_PATH_PARTS = {
     ".local-secrets",
     "sync-output",
     "tokens",
+    "api-docs-output",
+    "api-reference-output",
+    "route-reference-output",
+    "openapi-review-output",
 }
 
 
@@ -394,6 +398,18 @@ DEMO_DATA_UNSAFE_CLAIM = re.compile(
     r"(?:soc ?2|iso ?27001|hipaa|gdpr|ccpa|slsa|sbom|security|compliance) certified|"
     r"(?:gdpr|ccpa|hipaa|privacy|legal) compliant)\b"
 )
+API_DOCS_PRIVATE_MATERIAL = re.compile(
+    r"(?i)(?:github_token|registry_token|package_registry_token|ci_secret|database_url|"
+    r"authorization|bearer|source_url|signed_url|presigned_url|storage_key|object_key|"
+    r"private_path|private_report_contents?|raw_report_contents?)"
+    r"\s*[:=]\s*[\"']?(?!placeholder\b|fake\b|none\b|false\b)[^\"'\s]+"
+)
+API_DOCS_UNSAFE_CLAIM = re.compile(
+    r"(?i)\b(?:production[- ]ready|approved for (?:production|release|pilot|launch|"
+    r"deployment)|(?:production|release|pilot|launch|deployment) (?:is )?approved|"
+    r"(?:soc ?2|iso ?27001|hipaa|gdpr|ccpa|security|compliance) certified|"
+    r"(?:gdpr|ccpa|hipaa|privacy|legal) compliant)\b"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -403,6 +419,19 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if any(
+        marker in path.as_posix()
+        for marker in ("api-docs", "api_docs", "api-route", "api_route", "openapi-local")
+    ):
+        excluded = any(part in path.parts for part in ("tests", "services", "schemas"))
+        for line in text.splitlines():
+            qualified = SETUP_SAFETY_QUALIFIER.search(line)
+            if API_DOCS_PRIVATE_MATERIAL.search(line) and not excluded:
+                issues.append(SafetyIssue(path, "API docs expose private material"))
+                break
+            if API_DOCS_UNSAFE_CLAIM.search(line) and not excluded and not qualified:
+                issues.append(SafetyIssue(path, "API docs imply approval or certification"))
+                break
     if any(
         marker in path.as_posix()
         for marker in ("demo-data", "demo_data", "demo-seed", "demo-reset")
@@ -978,6 +1007,27 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             continue
         if path.name.endswith((".smoke.json", ".smoke.log")):
             issues.append(SafetyIssue(path, "tracked sandbox smoke output"))
+            continue
+        if any(
+            part
+            in {
+                "api-docs-output",
+                "api-reference-output",
+                "route-reference-output",
+                "openapi-review-output",
+            }
+            for part in path.parts
+        ) or path.name.endswith(
+            (
+                ".api-docs-report.json",
+                ".api-docs-report.md",
+                ".api-route-reference.md",
+                ".api-route-matrix.csv",
+                ".api-usage-examples.md",
+                ".openapi-local-guide.md",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated API docs output"))
             continue
         if any(
             part

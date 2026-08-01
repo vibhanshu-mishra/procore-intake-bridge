@@ -1,5 +1,12 @@
 # Documentation
 
+Phase J3 provides an offline [API documentation review](api-docs-review.md), an all-81-route
+[reference](api-route-reference.md), [Demo-safe examples](api-usage-examples.md), and a
+[local OpenAPI guide](openapi-local-guide.md). It adds no product behavior, makes no live call,
+and uses no external OpenAPI tooling. Lifecycle mutations remain local-only, webhook POST routes
+remain signature-bound, protected surfaces stay protected, and no export download, file-serving,
+or Procore write-back route is introduced. Documentation grants no operational approval.
+
 Phase J2 provides [local Demo data seed/reset guidance](demo-data-seed-reset.md), a
 [non-destructive seed plan](demo-seed-plan.md), and a [fail-closed reset guide](demo-reset-guide.md).
 The experience uses deterministic fake data in local SQLite only, with no Procore call, cloud

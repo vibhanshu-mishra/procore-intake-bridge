@@ -1,5 +1,13 @@
 # Project status
 
+## Phase J3: API documentation and route reference
+
+J3 documents all 81 existing application routes through offline local inspection. It covers public
+health/readiness, protected admin/dashboard/review/deployment, local lifecycle POST, signature-bound
+webhook, Demo/intake/sync, and metadata-only attachment boundaries. It adds no product route, live
+call, external OpenAPI tooling, public export/file-serving route, or Procore write-back and grants
+no production, Pilot, release, or deployment approval.
+
 ## Phase J2: local Demo seed and reset experience
 
 J2 provides deterministic fake records for dashboard, review, lifecycle, triage, attachment

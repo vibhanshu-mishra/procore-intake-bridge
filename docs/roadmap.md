@@ -1,5 +1,12 @@
 # Roadmap
 
+## J3 API documentation and route reference
+
+J3 completes a public-safe offline reference for all 81 current routes, including method, purpose,
+class, protection, and method risk. Local OpenAPI guidance uses fake data after starting the local
+app. No live call, external tooling, new product behavior, public export/file serving, Procore
+write-back, or operational approval is included.
+
 ## J2 local Demo data experience
 
 J2 makes local Demo Mode repeatable through deterministic fake-only seed data, idempotent seeding,

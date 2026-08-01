@@ -1,5 +1,13 @@
 # Auth / Permission Boundary Audit
 
+## J3 route-reference relationship
+
+J3 documents all 81 existing routes using the I2 protection vocabulary. Health/readiness status
+is deliberately limited and public; admin, dashboard, deployment, review-workspace, and review API
+surfaces remain protected. H4 lifecycle POST routes are protected local-only mutations, and
+webhook POST routes remain signature-bound. This offline inspection makes no live call, adds no
+auth or route behavior, and grants no production, Pilot, release, or deployment approval.
+
 ## I9 closeout
 
 Auth findings are public guidance inputs to the offline I9 closeout, not verification of live

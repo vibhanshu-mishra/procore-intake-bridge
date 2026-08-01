@@ -1,5 +1,9 @@
 # Product Dashboard
 
+J3 classifies the existing dashboard routes as protected product/admin surfaces in the all-81-route
+reference. The reference makes no live call and adds no route. Dashboard documentation does not
+create an export download, file-serving endpoint, Procore write-back, or operational approval.
+
 J2 can populate dashboard-friendly counts with deterministic fake, demo-marked records in local
 SQLite. Run `make demo-seed-plan`, `make demo-seed`, and `make demo-data-check`; no Procore call,
 cloud service, external database, or customer data is involved. `make try-demo` is

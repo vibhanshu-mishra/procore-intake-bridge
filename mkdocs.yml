@@ -9,6 +9,10 @@ nav:
       - First-Run Checklist: first-run-checklist.md
       - Setup Troubleshooting Guide: setup-troubleshooting-guide.md
       - Setup Experience Review: setup-experience-review.md
+      - API Documentation Review: api-docs-review.md
+      - API Route Reference: api-route-reference.md
+      - API Usage Examples: api-usage-examples.md
+      - Local OpenAPI Guide: openapi-local-guide.md
       - Command Reference: command-reference.md
       - Troubleshooting: troubleshooting.md
   - Choose Your Mode:

@@ -1,5 +1,13 @@
 # Public usability audit
 
+## J3 coverage
+
+The audit checks the four canonical API guides, five placeholder-only examples, five commands,
+ignored generated-output patterns, and the complete 81-route classification. It requires local-only
+inspection, no live call or external OpenAPI tooling, safe Demo examples, protected lifecycle and
+webhook boundaries, no public export/file-serving/Procore-write route, and no production, Pilot,
+release, or deployment approval claim.
+
 ## J2 coverage
 
 The audit verifies the three Demo seed/reset guides, four placeholder-only example files, J2

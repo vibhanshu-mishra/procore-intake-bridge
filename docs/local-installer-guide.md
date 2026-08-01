@@ -1,5 +1,9 @@
 # Local Installer Guide
 
+After starting the app locally, J3's OpenAPI UI may be viewed on the loopback `/docs` path described
+in the [local OpenAPI guide](openapi-local-guide.md). Do not use external OpenAPI tooling or live
+customer values. Viewing documentation adds no behavior and grants no operational approval.
+
 After J1 setup, J2 offers repeatable deterministic fake Demo Mode data in local SQLite:
 `make demo-seed-plan`, `make demo-seed`, then `make demo-data-check`. It needs no Procore
 credential or call, cloud service, or external database. `make first-run` and `make try-demo` are

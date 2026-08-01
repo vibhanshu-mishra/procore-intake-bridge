@@ -1,5 +1,12 @@
 # Final public repository readiness
 
+## J3 relationship
+
+J3 improves maintainer understanding of all 81 existing routes but is not a readiness approval.
+It performs local inspection only, makes no live call, uses no external OpenAPI tooling, and adds
+no route, export download, file serving, or Procore write-back. Production, Pilot, release, and
+deployment decisions remain separate private gates.
+
 ## J2 relationship
 
 J2 is a local fake-data convenience layer, not a readiness approval. Deterministic seeding and

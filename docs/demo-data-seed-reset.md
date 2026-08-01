@@ -1,5 +1,9 @@
 # Demo Data Seed and Reset
 
+J3 documents the existing Demo/intake/sync route boundaries without changing J2 seed/reset
+behavior. Examples remain fake and local; API documentation makes no live call, uses no external
+OpenAPI tooling, and grants no production, Pilot, release, or deployment approval.
+
 Phase J2 provides a repeatable, local-only Demo Mode data experience. It seeds deterministic
 fake records into the local SQLite demo database so the dashboard, intake review workspace,
 lifecycle views, triage queue, attachment metadata views, and export summaries have useful data.

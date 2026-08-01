@@ -1,5 +1,15 @@
 # Changelog
 
+## Phase J3
+
+- Added a complete offline reference for all 81 current FastAPI application routes, Demo-safe API
+  examples, local OpenAPI viewing guidance, and placeholder-only public examples.
+- Documented deliberately public health/readiness routes, protected admin/dashboard/review and
+  deployment surfaces, local-only lifecycle mutations, signature-bound webhook routes, and
+  Demo/intake/sync and metadata-only attachment boundaries.
+- J3 adds no product route, live call, external OpenAPI tooling, public export download,
+  attachment file serving, Procore write-back, or production/Pilot/release/deployment approval.
+
 ## Phase J2
 
 - Added local Demo Mode seed/reset guidance, a non-writing seed plan, a fail-closed reset guide,

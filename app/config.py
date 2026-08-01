@@ -1278,6 +1278,65 @@ class Settings(BaseSettings):
         le=50,
         validation_alias="PROCORE_INTAKE_DEMO_DATA_MAX_RECORDS",
     )
+    api_docs_review_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_API_DOCS_REVIEW_ENABLED"
+    )
+    api_docs_output_root: Path = Field(
+        default=Path("./api-docs-output"),
+        validation_alias="PROCORE_INTAKE_API_DOCS_OUTPUT_ROOT",
+    )
+    api_docs_require_route_reference: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_API_DOCS_REQUIRE_ROUTE_REFERENCE"
+    )
+    api_docs_require_auth_boundary: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_API_DOCS_REQUIRE_AUTH_BOUNDARY"
+    )
+    api_docs_require_demo_safe_examples: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_API_DOCS_REQUIRE_DEMO_SAFE_EXAMPLES"
+    )
+    api_docs_require_no_private_data: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_API_DOCS_REQUIRE_NO_PRIVATE_DATA"
+    )
+    api_docs_require_no_file_serving: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_API_DOCS_REQUIRE_NO_FILE_SERVING"
+    )
+    api_docs_require_no_export_downloads: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_API_DOCS_REQUIRE_NO_EXPORT_DOWNLOADS",
+    )
+    api_docs_require_no_procore_writes: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_API_DOCS_REQUIRE_NO_PROCORE_WRITES"
+    )
+    api_docs_allow_real_identities: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_API_DOCS_ALLOW_REAL_IDENTITIES"
+    )
+    api_docs_allow_real_domains: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_API_DOCS_ALLOW_REAL_DOMAINS"
+    )
+    api_docs_allow_real_urls: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_API_DOCS_ALLOW_REAL_URLS"
+    )
+    api_docs_allow_report_contents: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_API_DOCS_ALLOW_REPORT_CONTENTS"
+    )
+    api_docs_allow_private_paths: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_API_DOCS_ALLOW_PRIVATE_PATHS"
+    )
+    api_docs_fail_closed: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_API_DOCS_FAIL_CLOSED"
+    )
+    api_docs_max_routes: int = Field(
+        default=300,
+        ge=1,
+        le=300,
+        validation_alias="PROCORE_INTAKE_API_DOCS_MAX_ROUTES",
+    )
+    api_docs_max_findings: int = Field(
+        default=300,
+        ge=1,
+        le=300,
+        validation_alias="PROCORE_INTAKE_API_DOCS_MAX_FINDINGS",
+    )
     intake_review_workspace_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_ENABLED",

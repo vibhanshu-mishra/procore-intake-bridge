@@ -79,6 +79,7 @@ def audit_routes() -> list[RouteIssue]:
         AuthBoundaryProtectionType,
         AuthBoundaryRouteClass,
     )
+    from app.services.api_docs_review import classify_api_route
     from app.services.auth_boundary_audit import classify_route_auth_boundary
 
     issues: list[RouteIssue] = []
@@ -103,6 +104,15 @@ def audit_routes() -> list[RouteIssue]:
         methods = route.methods or set()
         for method in sorted(methods - {"HEAD", "OPTIONS"}):
             classified = classify_route_auth_boundary(route)
+            documented = classify_api_route(route)
+            documented_values = {
+                str(getattr(getattr(documented, field, None), "value", "unknown"))
+                for field in ("route_class", "protection_type", "method_risk")
+            }
+            if "unknown" in documented_values:
+                issues.append(
+                    RouteIssue(route.path, method, "route has an unknown API-doc classification")
+                )
             if route.path in WEBHOOK_SIGNATURE_POST_PATHS and (
                 classified.route_class is not AuthBoundaryRouteClass.WEBHOOK_SIGNATURE_REQUIRED
                 or classified.protection_type
