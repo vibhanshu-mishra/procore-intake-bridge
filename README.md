@@ -568,3 +568,11 @@ session system and performs no live permission check.
 Phase I3 adds an [offline Webhook Replay and Signature Hardening Review](docs/webhook-replay-signature-hardening.md).
 It uses fake fixtures only, performs no live replay or registration, and records signature,
 deduplication, replay, and redaction expectations without a Procore or external call.
+
+Phase I8 adds the [Final Security Readiness Review](docs/final-security-readiness-review.md), an
+offline aggregation of I1–I7 and the repository safety/readiness boundaries. Run
+`make final-security-review`, `make security-readiness-summary`, `make security-gap-register`,
+and `make private-security-review-checklist`. These commands make no live scanner, external,
+Procore, deployment, release, or build call. Public maintainer-review readiness grants no
+production, pilot, release, legal, compliance, or security-certification approval; authorized
+private security review remains required.

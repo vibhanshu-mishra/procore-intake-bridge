@@ -2,6 +2,12 @@
 
 I7 is planning input, not incident readiness certification, legal advice, or approval.
 
+I8 aggregates I1–I7 and the public safety, route, docs-site, Demo, Sandbox/Pilot,
+generated-output, final-readiness, and release boundaries offline. It runs no live scanner and
+makes no external or Procore call, deployment, release, or build. A clear I8 public result means
+ready for maintainer review only: private security review remains required, and no production,
+pilot, release, legal, compliance, or certification approval is granted.
+
 I6 provides offline supply-chain review input, not certification or approval.
 
 I5 adds offline infrastructure-boundary evidence; it is not certification or production approval.

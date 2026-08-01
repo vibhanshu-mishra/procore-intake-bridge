@@ -339,6 +339,17 @@ security-incident-output/
 *.audit-log-boundary-map.md
 *.forensics-evidence-checklist.md
 *.incident-scenario-matrix.csv
+final-security-review-output/
+security-readiness-output/
+final-security-output/
+private-security-review-output/
+security-gate-output/
+*.final-security-review-report.json
+*.final-security-review-report.md
+*.security-readiness-summary.md
+*.security-gap-register.md
+*.private-security-review-checklist.md
+*.security-domain-matrix.csv
 review-export-output/
 intake-export-output/
 lifecycle-export-output/

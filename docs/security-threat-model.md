@@ -38,3 +38,9 @@ OAuth, RBAC, account, cookie, or session capability.
 
 I3 deepens the webhook-ingress and event-queue scenarios through an
 [offline hardening review](webhook-replay-signature-hardening.md).
+
+I8 aggregates this model with I2–I7 and the repository safety/readiness checks in the
+[Final Security Readiness Review](final-security-readiness-review.md). The aggregation remains
+offline: no scanner, external call, Procore call, deployment, release, or build occurs. Public
+maintainer-review readiness is not production approval or certification, and private security
+review remains required.

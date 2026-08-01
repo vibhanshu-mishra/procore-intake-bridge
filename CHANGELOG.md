@@ -196,3 +196,13 @@ No release tag or package publication is claimed.
 - Added local, non-writing dashboard check and overview commands.
 - Connected review, lifecycle, triage, attachment metadata, export-command, and safety guidance.
 - Added no external calls, mutations, downloads, file serving, or new Procore behavior.
+
+## Phase I8
+
+- Added an offline final security readiness review that aggregates I1–I7 and the public safety,
+  route, docs-site, Demo, Sandbox/Pilot, generated-output, final-readiness, and release boundaries.
+- Added sanitized readiness, gap-register, private-review checklist, and domain-matrix artifacts
+  with placeholder-only examples and ignored generated output.
+- I8 runs no live scanner, external or Procore call, deployment, release, or build. It grants no
+  production, pilot, release, legal, compliance, or security-certification approval; private
+  security review remains required.

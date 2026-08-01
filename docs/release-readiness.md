@@ -2,6 +2,12 @@
 
 I7 non-writing checks validate public incident-response boundaries without collecting evidence.
 
+I8 adds a separate offline [Final Security Readiness Review](final-security-readiness-review.md)
+that aggregates I1–I7 and repository safety boundaries. It is not a release gate or approval: no
+live scanner, external/Procore call, deployment, release, or build occurs, and private security
+review remains required. It grants no production, pilot, release, legal, compliance, or
+security-certification approval.
+
 I6 checks declarations and package surfaces without building, publishing, tagging, or releasing.
 
 I5 non-writing checks are included in quality; artifact generation remains separate, temporary, and ignored.

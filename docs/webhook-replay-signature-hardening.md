@@ -34,3 +34,8 @@ I3 is not production approval, security certification, compliance certification,
 approval, or Pilot approval. Private security review must still cover runtime signature
 enforcement, replay authorization, freshness policy, ingress limits, queue capacity, retention,
 source restrictions, secret rotation, logging, monitoring, and hosted network exposure.
+
+I8 aggregates this review with I1, I2, and I4–I7 in the
+[Final Security Readiness Review](final-security-readiness-review.md). I8 performs no live scanner,
+webhook, external, or Procore call and grants no production, pilot, release, legal, compliance,
+or certification approval. Live ingress and credential evidence remain private-review inputs.

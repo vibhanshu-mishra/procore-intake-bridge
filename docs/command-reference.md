@@ -2,6 +2,18 @@
 
 I7 provides `make incident-response-review`, `make incident-runbook`, `make audit-log-boundary-map`, and `make forensics-evidence-checklist`; artifact generation is separate and temporary.
 
+## Phase I8 final security review
+
+- `make final-security-review` — aggregate I1–I7 and public repository boundaries offline.
+- `make security-readiness-summary` — print the sanitized readiness summary without writing.
+- `make security-gap-register` — print sanitized public/private review gaps without writing.
+- `make private-security-review-checklist` — print the private-review handoff checklist.
+- `make final-security-artifact-check` — generate and clean contained temporary artifacts.
+
+I8 runs no live scanner, external or Procore call, deployment, release, or build. Its output is
+maintainer-review input only; it grants no production, pilot, release, legal, compliance, or
+security-certification approval, and private security review remains required.
+
 I6 commands are `make supply-chain-review`, `make dependency-boundary-map`, `make package-surface-map`, and `make supply-chain-checklist`. Artifact generation is separate and temporary.
 
 ## Phase I5 infrastructure review

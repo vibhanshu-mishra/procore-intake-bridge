@@ -2,6 +2,11 @@
 
 Phase I7: [review](incident-response-forensics.md), [runbook](incident-runbook.md), [audit map](audit-log-boundary-map.md), and [evidence checklist](forensics-evidence-checklist.md).
 
+Phase I8: [final review](final-security-readiness-review.md),
+[readiness summary](security-readiness-summary.md), [gap register](security-gap-register.md), and
+[private review checklist](private-security-review-checklist.md). I8 aggregates I1–I7 offline;
+private security review remains required and no approval or certification is granted.
+
 Phase I6: [review](dependency-supply-chain-security.md), [dependency map](dependency-boundary-map.md), [package map](package-surface-map.md), and [checklist](supply-chain-checklist.md).
 
 Phase I5: [review](secrets-storage-db-security-review.md), [secret map](secret-boundary-map.md), [storage map](storage-boundary-map.md), [database map](database-boundary-map.md), and [checklist](infra-security-checklist.md).

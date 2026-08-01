@@ -20,3 +20,8 @@ method-risk projection.
 
 See the I3 [webhook signature boundary](webhook-signature-boundary.md) for exact-request-byte,
 digest-comparison, secret, queue, and replay expectations.
+
+I8 summarizes these boundaries with I1–I7, Demo Mode, Sandbox/Pilot, route, generated-output,
+final-readiness, and release boundaries. The [I8 review](final-security-readiness-review.md) is an
+offline maintainer aid, not a live scanner, approval, legal determination, compliance claim, or
+security certification; private environment review remains required.

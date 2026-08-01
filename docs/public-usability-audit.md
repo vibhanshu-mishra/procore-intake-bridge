@@ -2,6 +2,12 @@
 
 The audit verifies I7 docs, scripts, examples, targets, ignores, and non-operational guidance.
 
+I8 coverage verifies the final-security readiness docs, scripts, placeholder-only examples, Make
+targets, generated-output ignores, and docs navigation. It requires explicit offline/no-scanner,
+no-external/Procore-call, no-approval, no-certification, no-production-claim, and private-review
+language. Public maintainer-review readiness must remain distinct from production, pilot,
+release, legal, compliance, and security-certification decisions.
+
 The audit verifies I6 docs, scripts, examples, targets, ignores, and offline/certification guidance.
 
 The audit verifies I5 docs, scripts, examples, targets, ignored outputs, offline guidance, and certification/approval disclaimers.

@@ -2,6 +2,14 @@
 
 I7 adds no monitoring, notification, SIEM, log/evidence collection, packet capture, forensics tool, deletion, or purge behavior.
 
+I8 only aggregates the offline I1–I7 and repository readiness boundaries. It runs no live
+security scanner and makes no external or Procore call, deployment, release, package build,
+notification, evidence collection, or private-report read. Public maintainer-review readiness
+does not grant production, pilot, release, legal, compliance, or security-certification approval.
+Live infrastructure, credentials, customer data, legal obligations, provider permissions,
+release process, incident contacts, evidence custody, and operational controls require authorized
+private review.
+
 I6 is offline-only and adds no scanner, dependency bot, workflow change, registry call, build, publish, release, Docker build, or deployment automation.
 
 I5 permits placeholder references and sanitized metadata, never secret values, database URLs, object keys, presigned URLs, contents, or live infrastructure operations.

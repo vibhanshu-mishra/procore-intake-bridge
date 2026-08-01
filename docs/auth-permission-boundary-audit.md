@@ -39,3 +39,8 @@ network exposure, runtime enforcement, provider permissions, evidence, and risk 
 
 I3 reviews the webhook-signature and local replay classifications in more detail without changing
 their runtime behavior. See the [webhook hardening review](webhook-replay-signature-hardening.md).
+
+I8 includes this audit in the [offline final security review](final-security-readiness-review.md).
+It adds no identity or permission system, makes no live/external/Procore call, and grants no
+production, pilot, release, legal, compliance, or security-certification approval. Real identities,
+provider permissions, and runtime enforcement remain private-review work.

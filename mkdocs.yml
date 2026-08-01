@@ -76,6 +76,10 @@ nav:
       - Supply Chain Checklist: supply-chain-checklist.md
       - Incident Response and Forensics: incident-response-forensics.md
       - Incident Runbook: incident-runbook.md
+      - Final Security Readiness Review: final-security-readiness-review.md
+      - Security Readiness Summary: security-readiness-summary.md
+      - Security Gap Register: security-gap-register.md
+      - Private Security Review Checklist: private-security-review-checklist.md
       - Audit Log Boundary Map: audit-log-boundary-map.md
       - Forensics Evidence Checklist: forensics-evidence-checklist.md
       - PostgreSQL Readiness: postgres-readiness.md

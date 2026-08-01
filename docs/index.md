@@ -2,6 +2,12 @@
 
 See the [I7 incident-response/forensics readiness review](incident-response-forensics.md).
 
+See the [I8 Final Security Readiness Review](final-security-readiness-review.md),
+[security readiness summary](security-readiness-summary.md),
+[security gap register](security-gap-register.md), and
+[private security review checklist](private-security-review-checklist.md). I8 aggregates I1–I7
+offline and grants no production, pilot, release, legal, compliance, or certification approval.
+
 See the [I6 dependency and supply-chain security review](dependency-supply-chain-security.md).
 
 See the [I5 secrets/storage/database security review](secrets-storage-db-security-review.md) for offline provider and operation boundaries.

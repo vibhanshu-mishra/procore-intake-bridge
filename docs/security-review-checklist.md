@@ -23,3 +23,8 @@ guard review without a live permission check.
 
 The I3 [webhook replay checklist](webhook-replay-checklist.md) records freshness, deduplication,
 replay authorization, redaction, and fake-fixture follow-up.
+
+The I8 [private security review checklist](private-security-review-checklist.md) hands off the
+remaining live-infrastructure, credential, customer-data, legal-obligation, provider-permission,
+release-process, incident-contact, evidence-custody, and operational-control review. I8 is
+offline and grants no production, pilot, release, legal, compliance, or certification approval.

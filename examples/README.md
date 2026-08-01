@@ -1,5 +1,10 @@
 # Examples
 
+Phase I8 placeholder-only examples are in
+[`final-security-review/`](final-security-review/README.md). They model sanitized security-domain,
+gate, gap, and private-review references without real identities, infrastructure, evidence,
+approval records, legal determinations, or certification claims.
+
 The `postgres-runtime/` examples are placeholder-only private-operation planning aids. They perform
 no database connection, migration, backup, or restore.
 

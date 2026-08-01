@@ -91,6 +91,10 @@ REQUIRED_DOCS = {
     "docs/incident-runbook.md",
     "docs/audit-log-boundary-map.md",
     "docs/forensics-evidence-checklist.md",
+    "docs/final-security-readiness-review.md",
+    "docs/security-readiness-summary.md",
+    "docs/security-gap-register.md",
+    "docs/private-security-review-checklist.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -161,6 +165,11 @@ REQUIRED_SCRIPTS = {
     "scripts/print_audit_log_boundary_map.py",
     "scripts/print_forensics_evidence_checklist.py",
     "scripts/generate_incident_response_review_artifacts.py",
+    "scripts/run_final_security_review.py",
+    "scripts/print_security_readiness_summary.py",
+    "scripts/print_security_gap_register.py",
+    "scripts/print_private_security_review_checklist.py",
+    "scripts/generate_final_security_review_artifacts.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -298,6 +307,11 @@ REQUIRED_EXAMPLES = {
     "examples/incident-response-review/example_audit_log_boundary_map.md",
     "examples/incident-response-review/example_forensics_evidence_checklist.md",
     "examples/incident-response-review/example_incident_scenario_matrix.csv",
+    "examples/final-security-review/README.md",
+    "examples/final-security-review/example_security_readiness_summary.md",
+    "examples/final-security-review/example_security_gap_register.md",
+    "examples/final-security-review/example_private_security_review_checklist.md",
+    "examples/final-security-review/example_security_domain_matrix.csv",
 }
 REQUIRED_TARGETS = {
     "review-workspace-summary",
@@ -348,6 +362,11 @@ REQUIRED_TARGETS = {
     "audit-log-boundary-map",
     "forensics-evidence-checklist",
     "incident-response-artifact-check",
+    "final-security-review",
+    "security-readiness-summary",
+    "security-gap-register",
+    "private-security-review-checklist",
+    "final-security-artifact-check",
     "webhook-replay-checklist",
     "webhook-security-artifact-check",
     "help",
@@ -593,6 +612,17 @@ IGNORED_OUTPUTS = {
     "*.audit-log-boundary-map.md",
     "*.forensics-evidence-checklist.md",
     "*.incident-scenario-matrix.csv",
+    "final-security-review-output/",
+    "security-readiness-output/",
+    "final-security-output/",
+    "private-security-review-output/",
+    "security-gate-output/",
+    "*.final-security-review-report.json",
+    "*.final-security-review-report.md",
+    "*.security-readiness-summary.md",
+    "*.security-gap-register.md",
+    "*.private-security-review-checklist.md",
+    "*.security-domain-matrix.csv",
 }
 GENERATED_PARTS = {
     "private-workspace",
@@ -666,6 +696,11 @@ GENERATED_PARTS = {
     "forensics-review-output",
     "audit-log-review-output",
     "security-incident-output",
+    "final-security-review-output",
+    "security-readiness-output",
+    "final-security-output",
+    "private-security-review-output",
+    "security-gate-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak",
@@ -1125,6 +1160,36 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             in makefile
             and "quality: incident-response-artifact-check" not in makefile
         ),
+        "I8 review is offline and aggregates I1-I7": all(
+            phrase in _read(root, "docs/final-security-readiness-review.md").casefold()
+            for phrase in (
+                "offline",
+                "i1",
+                "i7",
+                "live security scanner",
+                "no external call",
+                "procore call",
+            )
+        ),
+        "I8 grants no approval or certification": all(
+            phrase in _read(root, "docs/final-security-readiness-review.md").casefold()
+            for phrase in (
+                "grants no",
+                "production",
+                "pilot",
+                "release",
+                "claims no",
+                "security",
+                "certification",
+                "private security review",
+            )
+        ),
+        "I8 checks included and artifacts excluded": (
+            "quality: final-security-review security-readiness-summary security-gap-register "
+            "private-security-review-checklist"
+            in makefile
+            and "quality: final-security-artifact-check" not in makefile
+        ),
         "H3 workspace is read-only and local": all(
             phrase in _read(root, "docs/intake-review-workspace.md").casefold()
             for phrase in ("read-only", "local intake records only", "no procore")
@@ -1446,6 +1511,12 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 ".audit-log-boundary-map.md",
                 ".forensics-evidence-checklist.md",
                 ".incident-scenario-matrix.csv",
+                ".final-security-review-report.json",
+                ".final-security-review-report.md",
+                ".security-readiness-summary.md",
+                ".security-gap-register.md",
+                ".private-security-review-checklist.md",
+                ".security-domain-matrix.csv",
             )
         ):
             add(

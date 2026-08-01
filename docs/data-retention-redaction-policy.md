@@ -25,3 +25,8 @@ This review is not legal compliance certification. It makes no GDPR, CCPA, HIPAA
 Run the non-writing review with `make data-policy-review`. The map and checklist commands are also non-writing. `make data-policy-artifact-check` is separate and writes only to an automatically cleaned temporary directory.
 
 See the [retention map](data-retention-map.md), [redaction boundary map](redaction-boundary-map.md), and [data handling checklist](data-handling-checklist.md).
+
+I8 carries these boundaries into the [offline final security review](final-security-readiness-review.md).
+No live scanner, external/Procore call, deletion, deployment, release, or build occurs. Actual
+legal obligations and real customer-data handling require private review; the public summary is
+not legal compliance, certification, or production/pilot/release approval.

@@ -13,3 +13,8 @@ Cloud providers remain optional, disabled by default, and separately gated. Gene
 This review is not legal, security, or compliance certification. It makes no GDPR, CCPA, HIPAA, SOC 2, or ISO certification claim and grants no production, launch, or pilot approval. It is not Procore endorsement, partnership, certification, or official support.
 
 Run `make infra-security-review`. The map and checklist targets are non-writing; artifact generation is separate and temporary.
+
+I8 aggregates this review in the [offline final security review](final-security-readiness-review.md).
+It retrieves no real credential, calls no provider, Procore, cloud, or database service, and runs
+no deployment, release, build, migration, backup, or restore. Real provider permissions and
+operational controls remain private-review work; no approval or certification is granted.

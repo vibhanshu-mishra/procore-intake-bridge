@@ -2,6 +2,10 @@
 
 - Phase I7: Incident Response / Audit Log / Forensics Pack — offline boundaries only.
 
+- Phase I8: Final Security Readiness Review — offline I1–I7 aggregation complete; authorized
+  private security review remains required, with no production, pilot, release, legal,
+  compliance, or certification approval.
+
 - Phase I6: Dependency and Supply Chain Security Pack — offline review only.
 
 - Phase I5: Secrets / Storage / DB Security Review — offline public-safe review layer; no live infrastructure operations.

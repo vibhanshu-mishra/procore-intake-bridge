@@ -1014,6 +1014,87 @@ class Settings(BaseSettings):
         le=1000,
         validation_alias="PROCORE_INTAKE_INCIDENT_RESPONSE_REVIEW_MAX_FINDINGS",
     )
+    final_security_review_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_FINAL_SECURITY_REVIEW_ENABLED"
+    )
+    final_security_review_output_root: Path = Field(
+        default=Path("./final-security-review-output"),
+        validation_alias="PROCORE_INTAKE_FINAL_SECURITY_REVIEW_OUTPUT_ROOT",
+    )
+    final_security_review_require_placeholders: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_FINAL_SECURITY_REVIEW_REQUIRE_PLACEHOLDERS",
+    )
+    final_security_review_require_i1_threat_model: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_FINAL_SECURITY_REVIEW_REQUIRE_I1_THREAT_MODEL",
+    )
+    final_security_review_require_i2_auth_boundary: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_FINAL_SECURITY_REVIEW_REQUIRE_I2_AUTH_BOUNDARY",
+    )
+    final_security_review_require_i3_webhook_security: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_FINAL_SECURITY_REVIEW_REQUIRE_I3_WEBHOOK_SECURITY",
+    )
+    final_security_review_require_i4_data_policy: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_FINAL_SECURITY_REVIEW_REQUIRE_I4_DATA_POLICY",
+    )
+    final_security_review_require_i5_infra_security: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_FINAL_SECURITY_REVIEW_REQUIRE_I5_INFRA_SECURITY",
+    )
+    final_security_review_require_i6_supply_chain: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_FINAL_SECURITY_REVIEW_REQUIRE_I6_SUPPLY_CHAIN",
+    )
+    final_security_review_require_i7_incident_response: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_FINAL_SECURITY_REVIEW_REQUIRE_I7_INCIDENT_RESPONSE",
+    )
+    final_security_review_require_public_safety_audit: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_FINAL_SECURITY_REVIEW_REQUIRE_PUBLIC_SAFETY_AUDIT",
+    )
+    final_security_review_require_route_audit: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_FINAL_SECURITY_REVIEW_REQUIRE_ROUTE_AUDIT",
+    )
+    final_security_review_require_private_review_gaps: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_FINAL_SECURITY_REVIEW_REQUIRE_PRIVATE_REVIEW_GAPS",
+    )
+    final_security_review_allow_real_identities: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_FINAL_SECURITY_REVIEW_ALLOW_REAL_IDENTITIES",
+    )
+    final_security_review_allow_real_domains: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_FINAL_SECURITY_REVIEW_ALLOW_REAL_DOMAINS",
+    )
+    final_security_review_allow_real_urls: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_FINAL_SECURITY_REVIEW_ALLOW_REAL_URLS",
+    )
+    final_security_review_allow_report_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_FINAL_SECURITY_REVIEW_ALLOW_REPORT_CONTENTS",
+    )
+    final_security_review_allow_private_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_FINAL_SECURITY_REVIEW_ALLOW_PRIVATE_PATHS",
+    )
+    final_security_review_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_FINAL_SECURITY_REVIEW_FAIL_CLOSED",
+    )
+    final_security_review_max_findings: int = Field(
+        default=400,
+        ge=1,
+        le=400,
+        validation_alias="PROCORE_INTAKE_FINAL_SECURITY_REVIEW_MAX_FINDINGS",
+    )
     intake_review_workspace_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_ENABLED",

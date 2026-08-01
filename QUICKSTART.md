@@ -215,3 +215,19 @@ permission or external check.
 
 Run `make webhook-security-review` for I3’s offline fake-fixture hardening review. It performs no
 live webhook replay, webhook registration, Procore call, or external call.
+
+## Run the final offline security review
+
+```bash
+make final-security-review
+make security-readiness-summary
+make security-gap-register
+make private-security-review-checklist
+```
+
+I8 aggregates the I1–I7 public-repository reviews without a live scanner, external call, Procore
+call, deployment, release, or build. A clear public review means ready for maintainer review only;
+it grants no production, pilot, release, legal, compliance, or certification approval. Private
+review of live infrastructure, credentials, customer data, legal obligations, provider
+permissions, release process, incident contacts, evidence custody, and operational controls is
+still required. See the [I8 guide](docs/final-security-readiness-review.md).

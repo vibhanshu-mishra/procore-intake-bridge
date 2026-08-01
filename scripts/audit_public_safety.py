@@ -143,6 +143,11 @@ PRIVATE_PATH_PARTS = {
     "forensics-review-output",
     "audit-log-review-output",
     "security-incident-output",
+    "final-security-review-output",
+    "security-readiness-output",
+    "final-security-output",
+    "private-security-review-output",
+    "security-gate-output",
     "sandbox-output",
     "sandbox-pilot-output",
     "pilot-flow-output",
@@ -324,6 +329,22 @@ INCIDENT_UNSAFE_CLAIM = re.compile(
     r"\bproduction[- ]ready\b|\b(?:launch|pilot) approved\b|"
     r"\bbreach notification completed\b|\bprocore (?:endorsed|partner|certified)\b"
 )
+FINAL_SECURITY_PRIVATE_MATERIAL = re.compile(
+    r"(?i)(?:raw_log|raw_payload|live_webhook_headers?|webhook_signature|webhook_secret|"
+    r"authorization|bearer|github_token|registry_token|ci_secret|signing_key|admin_token|"
+    r"dmsa_client_(?:id|secret)|database_url|source_url|signed_url|presigned_url|"
+    r"storage_key|object_key|packet_capture|har_file|memory_dump|core_dump|forensic_image|"
+    r"legal_notice_content|regulator_notice_content|law_enforcement_report_content|"
+    r"breach_notification_content|private_report_contents?)"
+    r"\s*[:=]\s*[\"']?(?!placeholder\b|fake\b|none\b|false\b)[^\"'\s]+"
+)
+FINAL_SECURITY_UNSAFE_CLAIM = re.compile(
+    r"(?i)\b(?:gdpr|ccpa|hipaa|slsa|sbom) compliant\b|"
+    r"\b(?:soc ?2|iso ?27001|security|compliance|breach readiness) certified\b|"
+    r"\bproduction[- ]ready\b|\bapproved for (?:production|launch|pilot|release)\b|"
+    r"\b(?:production|launch|pilot|release) (?:is )?approved\b|"
+    r"\bbreach notification completed\b|\bprocore (?:endorsed|partner|certified)\b"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -333,6 +354,32 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if any(
+        marker in path.as_posix()
+        for marker in (
+            "final-security",
+            "final_security",
+            "security-readiness",
+            "security-gap-register",
+            "private-security-review",
+            "security-domain-matrix",
+        )
+    ):
+        for line in text.splitlines():
+            excluded = any(part in path.parts for part in ("tests", "services", "schemas"))
+            negated = re.search(r"(?i)\b(?:no|not|never|does not|is not|must not)\b", line)
+            if FINAL_SECURITY_UNSAFE_CLAIM.search(line) and not excluded and not negated:
+                issues.append(
+                    SafetyIssue(path, "final security review implies certification or approval")
+                )
+                break
+            if (
+                FINAL_SECURITY_PRIVATE_MATERIAL.search(line)
+                and not excluded
+                and not _safe_value(line)
+            ):
+                issues.append(SafetyIssue(path, "final security review contains private material"))
+                break
     if any(
         marker in path.as_posix()
         for marker in (
@@ -991,6 +1038,28 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             )
         ):
             issues.append(SafetyIssue(path, "tracked generated incident-response output"))
+            continue
+        if any(
+            part
+            in {
+                "final-security-review-output",
+                "security-readiness-output",
+                "final-security-output",
+                "private-security-review-output",
+                "security-gate-output",
+            }
+            for part in path.parts
+        ) or path.name.endswith(
+            (
+                ".final-security-review-report.json",
+                ".final-security-review-report.md",
+                ".security-readiness-summary.md",
+                ".security-gap-register.md",
+                ".private-security-review-checklist.md",
+                ".security-domain-matrix.csv",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated final-security output"))
             continue
         if path.name.endswith(
             (

@@ -2,6 +2,11 @@
 
 Phase I7 is implemented as offline incident-response/forensics readiness input; private operational planning remains required.
 
+Phase I8 is implemented as an offline final security readiness review that aggregates I1–I7 and
+public repository safety/readiness boundaries. The public repository can be ready for maintainer
+review while private security review remains required. I8 grants no production, pilot, release,
+deployment, legal, compliance, or security-certification approval.
+
 Phase I6 is implemented as an offline supply-chain review; private vulnerability and provenance review remains required.
 
 Phase I5 is implemented as an offline secrets/storage/database security review; private infrastructure authorization and operational evidence remain outstanding.
