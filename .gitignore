@@ -413,6 +413,17 @@ docs-link-check-output/
 *.docs-navigation-map.md
 *.docs-site-checklist.md
 *.docs-link-inventory.csv
+version-prep-output/
+package-metadata-output/
+release-prep-output/
+version-review-output/
+package-review-output/
+*.version-prep-report.json
+*.version-prep-report.md
+*.package-metadata-summary.md
+*.version-source-map.md
+*.release-boundary-checklist.md
+*.version-readiness-matrix.csv
 review-export-output/
 intake-export-output/
 lifecycle-export-output/

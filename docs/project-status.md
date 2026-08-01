@@ -1,5 +1,12 @@
 # Project status
 
+## Phase J6: package metadata and version preparation
+
+J6 records `0.1.0` as a prepared target for later release-candidate review. The canonical version
+source and package metadata are checked for consistency, while changelog/readiness pages remain
+descriptive consumers. No package/Docker build, publish, tag, release, deployment, workflow change,
+GitHub/registry call, or approval occurs.
+
 ## Phase J5: hosted documentation-site polish
 
 J5 organizes the local handbook around canonical reader paths and navigation groups, documents an

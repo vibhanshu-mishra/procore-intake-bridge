@@ -1,5 +1,15 @@
 # Documentation navigation map
 
+Phase J6 release-metadata path:
+
+1. [Version preparation review](version-prep-review.md)
+2. [Package metadata summary](package-metadata-summary.md)
+3. [Version source map](version-source-map.md)
+4. [Release boundary checklist](release-boundary-checklist.md)
+
+The prepared `0.1.0` target is release-candidate metadata, not a release. This path performs no
+build, publish, tag, release, deployment, workflow change, external call, or approval.
+
 J5 consolidates audience-oriented entry points in [Documentation reader paths](docs-reader-paths.md)
 and topic ownership in the [Documentation navigation map](docs-navigation-map.md). Use those as the
 canonical discovery layer; the detailed journey links below remain the operational reading order.

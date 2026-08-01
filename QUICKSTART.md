@@ -1,5 +1,9 @@
 # Quickstart: start with Demo Mode
 
+J6 records `0.1.0` as prepared target/release-candidate metadata, not a released version. Use
+`make version-prep-review` for the offline consistency review. It performs no build, publish, tag,
+release, deployment, external registry/GitHub call, workflow change, or approval.
+
 For a coherent documentation tour, begin with the J5 [reader paths](docs/docs-reader-paths.md).
 Preview locally with `make docs-serve` only after local setup, or read the Markdown directly. J5
 performs no docs deployment and adds no GitHub Pages workflow, external analytics, tracking, search,

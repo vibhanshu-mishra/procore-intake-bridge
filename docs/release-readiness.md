@@ -1,5 +1,12 @@
 # Release readiness
 
+## J6 relationship
+
+The `0.1.0` value is a prepared target, not a released version. J6 checks local version/package,
+changelog, and boundary metadata without building a package/image, publishing, tagging, releasing,
+deploying, calling GitHub/registries, or changing workflows. A later human release-candidate review
+and explicit release authorization remain required; J6 grants no approval.
+
 ## J5 relationship
 
 Documentation-site polish neither executes nor approves a release or deployment. Local preview is

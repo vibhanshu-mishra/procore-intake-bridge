@@ -1,5 +1,11 @@
 # Roadmap
 
+## J6 package metadata and version preparation
+
+J6 prepares `0.1.0` metadata and the inputs for a future maintainer release-candidate review. A real
+build, artifact inspection, signing decision, registry/publishing decision, tag, release, and
+deployment remain future private actions. J6 adds no workflow automation and grants no approval.
+
 ## J5 hosted documentation-site polish
 
 J5 completes local handbook navigation for evaluator, Demo, Sandbox, Pilot, Hosted, security,

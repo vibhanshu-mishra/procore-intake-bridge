@@ -1,5 +1,18 @@
 # Command reference
 
+## Phase J6 version and package metadata preparation
+
+| Command | Purpose | Writes? |
+| --- | --- | --- |
+| `make version-prep-review` | Check prepared target/version/package consistency offline. | No |
+| `make package-metadata-summary` | Print existing and review-needed package metadata. | No |
+| `make version-source-map` | Print canonical version ownership and descriptive consumers. | No |
+| `make release-boundary-checklist` | Print later release-candidate review boundaries. | No |
+| `make version-prep-artifact-check` | Validate sanitized artifacts in temporary storage. | Temporary only |
+
+J6 adds no Make target that builds, publishes, tags, releases, or deploys. These checks make no
+GitHub/package-registry call, change no workflow, and grant no approval.
+
 ## Phase J5 documentation-site polish
 
 | Command | Purpose | Writes? |

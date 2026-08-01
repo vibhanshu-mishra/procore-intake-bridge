@@ -1,5 +1,11 @@
 # Documentation
 
+Phase J6 documents the prepared `0.1.0` target through the
+[version preparation review](version-prep-review.md), [package metadata summary](package-metadata-summary.md),
+[version source map](version-source-map.md), and [release boundary checklist](release-boundary-checklist.md).
+This is release-candidate metadata, not a release. No build, publish, tag, release, deployment,
+workflow automation, external call, or approval is included.
+
 ## Start here
 
 Choose a canonical [reader path](docs-reader-paths.md), use the

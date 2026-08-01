@@ -1,5 +1,12 @@
 # Final public repository readiness
 
+## J6 relationship
+
+Consistent prepared `0.1.0` metadata improves maintainability but does not establish release or
+production readiness. J6 performs no build, publish, tag, release, deployment, external call, or
+workflow change. Release-candidate review and all production/Pilot/release/deployment approvals
+remain separate.
+
 ## J5 relationship
 
 J5 improves local documentation discovery but is not final, production, Pilot, release, deployment,

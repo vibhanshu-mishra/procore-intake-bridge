@@ -1,5 +1,10 @@
 # Documentation Site Polish
 
+J6 joins the Release and Maintenance reader path through four metadata-preparation pages. J5 keeps
+navigation ownership here while version values remain owned by the canonical version source and
+commands remain owned by the command reference. No build, publication, tag, release, deployment,
+workflow, or approval is introduced.
+
 Phase J5 organizes the repository documentation as a coherent local product handbook. It improves
 the landing page, reader paths, navigation map, and safety checks without publishing or hosting the
 site. This work is local-only: no docs deployment is performed.

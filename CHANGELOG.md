@@ -1,5 +1,14 @@
 # Changelog
 
+## Prepared target 0.1.0 — Phase J6
+
+- Prepared release-candidate metadata, a package summary, version source map, release boundary
+  checklist, and placeholder-only examples for later maintainer review.
+- The `0.1.0` target is prepared/unreleased metadata. J6 performs no package or Docker build,
+  publish, upload, tag, release, deployment, registry/GitHub call, or workflow change.
+- No production, Pilot, release, deployment, publication, certification, or Procore approval is
+  granted; release-candidate review remains a later maintainer action.
+
 ## Phase J5
 
 - Added canonical reader paths, a topic-owned navigation map, local preview guidance, and

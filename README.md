@@ -1,5 +1,11 @@
 # Procore Intake Bridge
 
+Phase J6 prepares `0.1.0` as [target/release-candidate metadata](docs/version-prep-review.md), with a
+[package summary](docs/package-metadata-summary.md), [version source map](docs/version-source-map.md),
+and [release boundary checklist](docs/release-boundary-checklist.md). The target is not released.
+J6 performs no package or Docker build, publish, upload, tag, release, deployment, registry/GitHub
+call, or workflow change and grants no production, Pilot, release, or deployment approval.
+
 Phase J5 polishes the repository's local documentation handbook with canonical
 [reader paths](docs/docs-reader-paths.md), a [navigation map](docs/docs-navigation-map.md), and
 [local preview guidance](docs/docs-site-polish.md). It performs no docs deployment and adds no

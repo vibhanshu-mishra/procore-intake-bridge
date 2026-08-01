@@ -1470,6 +1470,68 @@ class Settings(BaseSettings):
         le=300,
         validation_alias="PROCORE_INTAKE_DOCS_SITE_POLISH_MAX_FINDINGS",
     )
+    version_prep_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_VERSION_PREP_ENABLED"
+    )
+    version_prep_output_root: Path = Field(
+        default=Path("./version-prep-output"),
+        validation_alias="PROCORE_INTAKE_VERSION_PREP_OUTPUT_ROOT",
+    )
+    version_prep_target_version: str = Field(
+        default="0.1.0", validation_alias="PROCORE_INTAKE_VERSION_PREP_TARGET_VERSION"
+    )
+    version_prep_require_version_source: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_VERSION_PREP_REQUIRE_VERSION_SOURCE"
+    )
+    version_prep_require_package_metadata: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_VERSION_PREP_REQUIRE_PACKAGE_METADATA"
+    )
+    version_prep_require_changelog_entry: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_VERSION_PREP_REQUIRE_CHANGELOG_ENTRY"
+    )
+    version_prep_require_release_boundary: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_VERSION_PREP_REQUIRE_RELEASE_BOUNDARY"
+    )
+    version_prep_require_no_build: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_VERSION_PREP_REQUIRE_NO_BUILD"
+    )
+    version_prep_require_no_publish: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_VERSION_PREP_REQUIRE_NO_PUBLISH"
+    )
+    version_prep_require_no_tag: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_VERSION_PREP_REQUIRE_NO_TAG"
+    )
+    version_prep_require_no_deploy: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_VERSION_PREP_REQUIRE_NO_DEPLOY"
+    )
+    version_prep_require_no_workflow_changes: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_VERSION_PREP_REQUIRE_NO_WORKFLOW_CHANGES",
+    )
+    version_prep_allow_real_identities: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_VERSION_PREP_ALLOW_REAL_IDENTITIES"
+    )
+    version_prep_allow_real_domains: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_VERSION_PREP_ALLOW_REAL_DOMAINS"
+    )
+    version_prep_allow_real_urls: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_VERSION_PREP_ALLOW_REAL_URLS"
+    )
+    version_prep_allow_report_contents: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_VERSION_PREP_ALLOW_REPORT_CONTENTS"
+    )
+    version_prep_allow_private_paths: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_VERSION_PREP_ALLOW_PRIVATE_PATHS"
+    )
+    version_prep_fail_closed: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_VERSION_PREP_FAIL_CLOSED"
+    )
+    version_prep_max_findings: int = Field(
+        default=300,
+        ge=1,
+        le=300,
+        validation_alias="PROCORE_INTAKE_VERSION_PREP_MAX_FINDINGS",
+    )
     intake_review_workspace_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_ENABLED",

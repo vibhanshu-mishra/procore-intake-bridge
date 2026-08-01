@@ -1,5 +1,10 @@
 # Examples
 
+Phase J6 placeholder-only release-candidate metadata examples are in
+[`version-prep/`](version-prep/README.md). They demonstrate summaries, source maps, boundaries, and
+matrix shape without real registry values, tokens, signing material, builds, publication, tags,
+releases, deployments, workflow changes, or approval claims.
+
 Phase J5 placeholder-only navigation examples are in
 [`docs-site-polish/`](docs-site-polish/README.md). They demonstrate reader paths, topic groups,
 local preview labels, and link inventory structure without real URLs, private paths, deployment,

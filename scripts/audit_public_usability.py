@@ -118,6 +118,10 @@ REQUIRED_DOCS = {
     "docs/docs-site-polish.md",
     "docs/docs-reader-paths.md",
     "docs/docs-navigation-map.md",
+    "docs/package-metadata-summary.md",
+    "docs/version-source-map.md",
+    "docs/release-boundary-checklist.md",
+    "docs/version-prep-review.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -225,6 +229,11 @@ REQUIRED_SCRIPTS = {
     "scripts/print_docs_navigation_map.py",
     "scripts/print_docs_site_checklist.py",
     "scripts/generate_docs_site_polish_artifacts.py",
+    "scripts/run_version_prep_review.py",
+    "scripts/print_package_metadata_summary.py",
+    "scripts/print_version_source_map.py",
+    "scripts/print_release_boundary_checklist.py",
+    "scripts/generate_version_prep_artifacts.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -397,6 +406,11 @@ REQUIRED_EXAMPLES = {
     "examples/docs-site-polish/example_docs_navigation_map.md",
     "examples/docs-site-polish/example_docs_site_checklist.md",
     "examples/docs-site-polish/example_docs_link_inventory.csv",
+    "examples/version-prep/README.md",
+    "examples/version-prep/example_package_metadata_summary.md",
+    "examples/version-prep/example_version_source_map.md",
+    "examples/version-prep/example_release_boundary_checklist.md",
+    "examples/version-prep/example_version_readiness_matrix.csv",
 }
 REQUIRED_TARGETS = {
     "review-workspace-summary",
@@ -484,6 +498,11 @@ REQUIRED_TARGETS = {
     "docs-navigation-map",
     "docs-site-checklist",
     "docs-site-polish-artifact-check",
+    "version-prep-review",
+    "package-metadata-summary",
+    "version-source-map",
+    "release-boundary-checklist",
+    "version-prep-artifact-check",
     "webhook-replay-checklist",
     "webhook-security-artifact-check",
     "help",
@@ -558,6 +577,17 @@ REQUIRED_TARGETS = {
     "final-readiness-artifact-check",
 }
 IGNORED_OUTPUTS = {
+    "version-prep-output/",
+    "package-metadata-output/",
+    "release-prep-output/",
+    "version-review-output/",
+    "package-review-output/",
+    "*.version-prep-report.json",
+    "*.version-prep-report.md",
+    "*.package-metadata-summary.md",
+    "*.version-source-map.md",
+    "*.release-boundary-checklist.md",
+    "*.version-readiness-matrix.csv",
     "docs-site-polish-output/",
     "docs-site-review-output/",
     "docs-navigation-output/",
@@ -907,6 +937,11 @@ GENERATED_PARTS = {
     "docs-navigation-output",
     "docs-reader-path-output",
     "docs-link-check-output",
+    "version-prep-output",
+    "package-metadata-output",
+    "release-prep-output",
+    "version-review-output",
+    "package-review-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak",
@@ -1577,6 +1612,30 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             )
             and "docs-site-polish-artifact-check" not in quality_headers
         ),
+        "J6 version metadata is preparation only": all(
+            phrase in _read(root, "docs/version-prep-review.md").casefold()
+            for phrase in (
+                "prepared",
+                "no package build",
+                "no publish",
+                "no tag",
+                "no release",
+                "no deploy",
+                "production approval",
+            )
+        ),
+        "J6 checks included and artifacts excluded": (
+            all(
+                target in quality_headers
+                for target in (
+                    "version-prep-review",
+                    "package-metadata-summary",
+                    "version-source-map",
+                    "release-boundary-checklist",
+                )
+            )
+            and "version-prep-artifact-check" not in quality_headers
+        ),
         "H3 workspace is read-only and local": all(
             phrase in _read(root, "docs/intake-review-workspace.md").casefold()
             for phrase in ("read-only", "local intake records only", "no procore")
@@ -1940,6 +1999,12 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 ".docs-navigation-map.md",
                 ".docs-site-checklist.md",
                 ".docs-link-inventory.csv",
+                ".version-prep-report.json",
+                ".version-prep-report.md",
+                ".package-metadata-summary.md",
+                ".version-source-map.md",
+                ".release-boundary-checklist.md",
+                ".version-readiness-matrix.csv",
             )
         ):
             add(

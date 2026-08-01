@@ -9,6 +9,7 @@ PYTHON ?= .venv/bin/python
 .PHONY: api-docs-review api-route-reference api-usage-examples openapi-local-guide api-docs-artifact-check
 .PHONY: hosted-ui-review hosted-ui-page-inventory hosted-ui-readiness-checklist hosted-ui-private-gates hosted-ui-artifact-check
 .PHONY: docs-site-polish-review docs-reader-paths docs-navigation-map docs-site-checklist docs-site-polish-artifact-check
+.PHONY: version-prep-review package-metadata-summary version-source-map release-boundary-checklist version-prep-artifact-check
 
 .PHONY: security-threat-model security-boundary-map security-review-checklist security-threat-model-artifact-check auth-boundary-audit auth-boundary-map permission-boundary-checklist auth-boundary-artifact-check webhook-security-review webhook-signature-boundary webhook-replay-checklist webhook-security-artifact-check data-policy-review data-retention-map redaction-boundary-map data-handling-checklist data-policy-artifact-check infra-security-review secret-boundary-map storage-boundary-map database-boundary-map infra-security-checklist infra-security-artifact-check supply-chain-review dependency-boundary-map package-surface-map supply-chain-checklist supply-chain-artifact-check incident-response-review incident-runbook audit-log-boundary-map forensics-evidence-checklist incident-response-artifact-check demo-product-tour demo-product-check demo-evaluation-checklist demo-product-artifact-check product-dashboard-overview product-dashboard-check review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check operator-export-check operator-export-summary operator-export-artifact-check
 
@@ -80,6 +81,10 @@ help:
 	@echo "  make docs-reader-paths Print local evaluator and maintainer reading paths"
 	@echo "  make docs-navigation-map Print the classified MkDocs navigation map"
 	@echo "  make docs-site-checklist Print the offline docs-site readiness checklist"
+	@echo "  make version-prep-review Review release-candidate metadata offline"
+	@echo "  make package-metadata-summary Print the local package metadata summary"
+	@echo "  make version-source-map Print prepared-version source consistency"
+	@echo "  make release-boundary-checklist Print the no-build/no-release boundary"
 	@echo "  make product-dashboard-overview Sanitized local product cockpit summary"
 	@echo "  make product-dashboard-check Validate the read-only product cockpit"
 	@echo "  make review-workspace-summary Read-only local intake summary"
@@ -398,6 +403,16 @@ docs-site-checklist:
 	$(PYTHON) scripts/print_docs_site_checklist.py
 docs-site-polish-artifact-check:
 	$(PYTHON) scripts/generate_docs_site_polish_artifacts.py --temporary
+version-prep-review:
+	$(PYTHON) scripts/run_version_prep_review.py
+package-metadata-summary:
+	$(PYTHON) scripts/print_package_metadata_summary.py
+version-source-map:
+	$(PYTHON) scripts/print_version_source_map.py
+release-boundary-checklist:
+	$(PYTHON) scripts/print_release_boundary_checklist.py
+version-prep-artifact-check:
+	$(PYTHON) scripts/generate_version_prep_artifacts.py --temporary
 
 demo-product-tour:
 	$(PYTHON) scripts/print_demo_product_tour.py
@@ -790,4 +805,5 @@ quality: demo-seed-plan demo-data-check demo-reset-plan
 quality: api-docs-review api-route-reference api-usage-examples openapi-local-guide
 quality: hosted-ui-review hosted-ui-page-inventory hosted-ui-readiness-checklist hosted-ui-private-gates
 quality: docs-site-polish-review docs-reader-paths docs-navigation-map docs-site-checklist
+quality: version-prep-review package-metadata-summary version-source-map release-boundary-checklist
 	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict

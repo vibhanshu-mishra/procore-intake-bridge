@@ -179,6 +179,11 @@ PRIVATE_PATH_PARTS = {
     "docs-navigation-output",
     "docs-reader-path-output",
     "docs-link-check-output",
+    "version-prep-output",
+    "package-metadata-output",
+    "release-prep-output",
+    "version-review-output",
+    "package-review-output",
 }
 
 
@@ -456,6 +461,20 @@ DOCS_SITE_UNSAFE_CLAIM = re.compile(
     r"(?:is )?approved|(?:soc ?2|iso ?27001|hipaa|gdpr|ccpa|security|compliance) "
     r"certified|(?:gdpr|ccpa|hipaa|privacy|legal) compliant)\b"
 )
+VERSION_PREP_PRIVATE_MATERIAL = re.compile(
+    r"(?i)(?:github_token|registry_token|package_registry_token|publish_token|ci_secret|"
+    r"release_signing_key|signing_key|registry_password|database_url|authorization|"
+    r"bearer|signed_url|storage_key|private_path|private_report_contents?)"
+    r"\s*[:=]\s*[\"']?(?!placeholder\b|fake\b|none\b|false\b)[^\"'\s]+"
+)
+VERSION_PREP_UNSAFE_CLAIM = re.compile(
+    r"(?i)\b(?:package (?:was |is )?(?:built|published|uploaded)|docker image "
+    r"(?:was |is )?(?:built|pushed)|(?:tag|release) (?:was |is )?created|"
+    r"(?:application|app|docs) (?:was |is )?deployed|production[- ]ready|approved for "
+    r"(?:production|release|pilot|launch|deployment)|(?:production|release|pilot|launch|"
+    r"deployment) (?:is )?approved|procore (?:endorsed|partner|certified|officially "
+    r"supported))\b"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -465,6 +484,34 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if any(
+        marker in path.as_posix()
+        for marker in (
+            "version-prep",
+            "version_prep",
+            "version-source",
+            "package-metadata",
+            "release-boundary",
+        )
+    ):
+        excluded = any(part in path.parts for part in ("tests", "services", "schemas"))
+        lines = text.splitlines()
+        for index, line in enumerate(lines):
+            context = " ".join(lines[max(0, index - 2) : index + 1])
+            qualified = SETUP_SAFETY_QUALIFIER.search(context) or re.search(
+                r"(?i)\b(?:none|absent|not added|not present|did not|has not|excluded)\b",
+                context,
+            )
+            if VERSION_PREP_PRIVATE_MATERIAL.search(line) and not excluded:
+                issues.append(
+                    SafetyIssue(path, "version prep exposes publishing or private material")
+                )
+                break
+            if VERSION_PREP_UNSAFE_CLAIM.search(line) and not excluded and not qualified:
+                issues.append(
+                    SafetyIssue(path, "version prep implies build, publication, or approval")
+                )
+                break
     if any(
         marker in path.as_posix()
         for marker in (
@@ -506,11 +553,7 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
             hosted_ui_qualified = qualified or re.search(
                 r"(?i)\b(?:none|absent|not added|not present|excluded)\b", line
             )
-            if (
-                HOSTED_UI_EXTERNAL_ASSET.search(line)
-                and not excluded
-                and not hosted_ui_qualified
-            ):
+            if HOSTED_UI_EXTERNAL_ASSET.search(line) and not excluded and not hosted_ui_qualified:
                 issues.append(SafetyIssue(path, "hosted UI references external assets or tracking"))
                 break
             if HOSTED_UI_PRIVATE_MATERIAL.search(line) and not excluded:
@@ -1120,6 +1163,28 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             continue
         if path.name.endswith((".smoke.json", ".smoke.log")):
             issues.append(SafetyIssue(path, "tracked sandbox smoke output"))
+            continue
+        if any(
+            part
+            in {
+                "version-prep-output",
+                "package-metadata-output",
+                "release-prep-output",
+                "version-review-output",
+                "package-review-output",
+            }
+            for part in path.parts
+        ) or path.name.endswith(
+            (
+                ".version-prep-report.json",
+                ".version-prep-report.md",
+                ".package-metadata-summary.md",
+                ".version-source-map.md",
+                ".release-boundary-checklist.md",
+                ".version-readiness-matrix.csv",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated version-prep output"))
             continue
         if any(
             part
