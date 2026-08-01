@@ -1,5 +1,7 @@
 # Changelog
 
+- Added Phase I7 offline incident-response, audit-log, and forensics readiness pack.
+
 - Added Phase I6 offline dependency and supply-chain review, maps, checklist, examples, and sanitized artifacts.
 
 - Added Phase I5 offline secrets/storage/database security review, maps, checklist, provider matrix, examples, audits, and sanitized artifacts.

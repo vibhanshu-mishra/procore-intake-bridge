@@ -74,6 +74,10 @@ nav:
       - Dependency Boundary Map: dependency-boundary-map.md
       - Package Surface Map: package-surface-map.md
       - Supply Chain Checklist: supply-chain-checklist.md
+      - Incident Response and Forensics: incident-response-forensics.md
+      - Incident Runbook: incident-runbook.md
+      - Audit Log Boundary Map: audit-log-boundary-map.md
+      - Forensics Evidence Checklist: forensics-evidence-checklist.md
       - PostgreSQL Readiness: postgres-readiness.md
       - PostgreSQL Runtime Operations: postgres-runtime-operations.md
       - PostgreSQL Connection Pooling: postgres-connection-pooling.md

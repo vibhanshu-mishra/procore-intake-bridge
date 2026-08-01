@@ -87,6 +87,10 @@ REQUIRED_DOCS = {
     "docs/dependency-boundary-map.md",
     "docs/package-surface-map.md",
     "docs/supply-chain-checklist.md",
+    "docs/incident-response-forensics.md",
+    "docs/incident-runbook.md",
+    "docs/audit-log-boundary-map.md",
+    "docs/forensics-evidence-checklist.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -152,6 +156,11 @@ REQUIRED_SCRIPTS = {
     "scripts/print_package_surface_map.py",
     "scripts/print_supply_chain_checklist.py",
     "scripts/generate_supply_chain_review_artifacts.py",
+    "scripts/run_incident_response_review.py",
+    "scripts/print_incident_runbook.py",
+    "scripts/print_audit_log_boundary_map.py",
+    "scripts/print_forensics_evidence_checklist.py",
+    "scripts/generate_incident_response_review_artifacts.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -284,6 +293,11 @@ REQUIRED_EXAMPLES = {
     "examples/supply-chain-review/example_package_surface_map.md",
     "examples/supply-chain-review/example_supply_chain_checklist.md",
     "examples/supply-chain-review/example_optional_extras_matrix.csv",
+    "examples/incident-response-review/README.md",
+    "examples/incident-response-review/example_incident_runbook.md",
+    "examples/incident-response-review/example_audit_log_boundary_map.md",
+    "examples/incident-response-review/example_forensics_evidence_checklist.md",
+    "examples/incident-response-review/example_incident_scenario_matrix.csv",
 }
 REQUIRED_TARGETS = {
     "review-workspace-summary",
@@ -329,6 +343,11 @@ REQUIRED_TARGETS = {
     "package-surface-map",
     "supply-chain-checklist",
     "supply-chain-artifact-check",
+    "incident-response-review",
+    "incident-runbook",
+    "audit-log-boundary-map",
+    "forensics-evidence-checklist",
+    "incident-response-artifact-check",
     "webhook-replay-checklist",
     "webhook-security-artifact-check",
     "help",
@@ -563,6 +582,17 @@ IGNORED_OUTPUTS = {
     "*.optional-extras-matrix.csv",
     "*.package-surface-map.md",
     "*.supply-chain-checklist.md",
+    "incident-response-review-output/",
+    "incident-review-output/",
+    "forensics-review-output/",
+    "audit-log-review-output/",
+    "security-incident-output/",
+    "*.incident-response-review-report.json",
+    "*.incident-response-review-report.md",
+    "*.incident-runbook.md",
+    "*.audit-log-boundary-map.md",
+    "*.forensics-evidence-checklist.md",
+    "*.incident-scenario-matrix.csv",
 }
 GENERATED_PARTS = {
     "private-workspace",
@@ -631,6 +661,11 @@ GENERATED_PARTS = {
     "dependency-review-output",
     "package-security-output",
     "sbom-review-output",
+    "incident-response-review-output",
+    "incident-review-output",
+    "forensics-review-output",
+    "audit-log-review-output",
+    "security-incident-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak",
@@ -1059,6 +1094,37 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             in makefile
             and "quality: supply-chain-artifact-check" not in makefile
         ),
+        "I7 review is offline and non-operational": all(
+            phrase in _read(root, "docs/incident-response-forensics.md").casefold()
+            for phrase in (
+                "offline incident-response/forensics readiness review",
+                "no live incident response",
+                "notification",
+                "siem",
+                "log collection",
+                "evidence collection",
+                "packet capture",
+                "forensics tooling",
+                "deletion",
+                "purge",
+                "no procore",
+            )
+        ),
+        "I7 disclaims legal certification and approval": all(
+            phrase in _read(root, "docs/incident-response-forensics.md").casefold()
+            for phrase in (
+                "not legal compliance",
+                "breach readiness certification",
+                "security certification",
+                "production approval",
+            )
+        ),
+        "I7 checks included and artifacts excluded": (
+            "quality: incident-response-review incident-runbook audit-log-boundary-map "
+            "forensics-evidence-checklist"
+            in makefile
+            and "quality: incident-response-artifact-check" not in makefile
+        ),
         "H3 workspace is read-only and local": all(
             phrase in _read(root, "docs/intake-review-workspace.md").casefold()
             for phrase in ("read-only", "local intake records only", "no procore")
@@ -1374,6 +1440,12 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 ".optional-extras-matrix.csv",
                 ".package-surface-map.md",
                 ".supply-chain-checklist.md",
+                ".incident-response-review-report.json",
+                ".incident-response-review-report.md",
+                ".incident-runbook.md",
+                ".audit-log-boundary-map.md",
+                ".forensics-evidence-checklist.md",
+                ".incident-scenario-matrix.csv",
             )
         ):
             add(

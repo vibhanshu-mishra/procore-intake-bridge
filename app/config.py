@@ -946,6 +946,74 @@ class Settings(BaseSettings):
         le=1000,
         validation_alias="PROCORE_INTAKE_SUPPLY_CHAIN_REVIEW_MAX_FINDINGS",
     )
+    incident_response_review_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_INCIDENT_RESPONSE_REVIEW_ENABLED"
+    )
+    incident_response_review_output_root: Path = Field(
+        default=Path("./incident-response-review-output"),
+        validation_alias="PROCORE_INTAKE_INCIDENT_RESPONSE_REVIEW_OUTPUT_ROOT",
+    )
+    incident_response_review_require_placeholders: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_INCIDENT_RESPONSE_REVIEW_REQUIRE_PLACEHOLDERS",
+    )
+    incident_response_review_require_private_evidence_references: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_INCIDENT_RESPONSE_REVIEW_REQUIRE_PRIVATE_EVIDENCE_REFERENCES",
+    )
+    incident_response_review_require_no_raw_logs: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_INCIDENT_RESPONSE_REVIEW_REQUIRE_NO_RAW_LOGS"
+    )
+    incident_response_review_require_no_secret_values: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_INCIDENT_RESPONSE_REVIEW_REQUIRE_NO_SECRET_VALUES",
+    )
+    incident_response_review_require_no_payload_dumps: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_INCIDENT_RESPONSE_REVIEW_REQUIRE_NO_PAYLOAD_DUMPS",
+    )
+    incident_response_review_require_audit_log_boundary_map: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_INCIDENT_RESPONSE_REVIEW_REQUIRE_AUDIT_LOG_BOUNDARY_MAP",
+    )
+    incident_response_review_require_chain_of_custody_placeholders: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_INCIDENT_RESPONSE_REVIEW_REQUIRE_CHAIN_OF_CUSTODY_PLACEHOLDERS",
+    )
+    incident_response_review_require_runbooks: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_INCIDENT_RESPONSE_REVIEW_REQUIRE_RUNBOOKS"
+    )
+    incident_response_review_require_generated_output_ignores: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_INCIDENT_RESPONSE_REVIEW_REQUIRE_GENERATED_OUTPUT_IGNORES",
+    )
+    incident_response_review_allow_real_identities: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_INCIDENT_RESPONSE_REVIEW_ALLOW_REAL_IDENTITIES",
+    )
+    incident_response_review_allow_real_domains: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_INCIDENT_RESPONSE_REVIEW_ALLOW_REAL_DOMAINS"
+    )
+    incident_response_review_allow_real_urls: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_INCIDENT_RESPONSE_REVIEW_ALLOW_REAL_URLS"
+    )
+    incident_response_review_allow_report_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_INCIDENT_RESPONSE_REVIEW_ALLOW_REPORT_CONTENTS",
+    )
+    incident_response_review_allow_private_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_INCIDENT_RESPONSE_REVIEW_ALLOW_PRIVATE_PATHS",
+    )
+    incident_response_review_fail_closed: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_INCIDENT_RESPONSE_REVIEW_FAIL_CLOSED"
+    )
+    incident_response_review_max_findings: int = Field(
+        default=300,
+        ge=1,
+        le=1000,
+        validation_alias="PROCORE_INTAKE_INCIDENT_RESPONSE_REVIEW_MAX_FINDINGS",
+    )
     intake_review_workspace_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_ENABLED",

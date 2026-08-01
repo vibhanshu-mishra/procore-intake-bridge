@@ -1,5 +1,7 @@
 # Public usability audit
 
+The audit verifies I7 docs, scripts, examples, targets, ignores, and non-operational guidance.
+
 The audit verifies I6 docs, scripts, examples, targets, ignores, and offline/certification guidance.
 
 The audit verifies I5 docs, scripts, examples, targets, ignored outputs, offline guidance, and certification/approval disclaimers.

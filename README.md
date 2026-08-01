@@ -1,5 +1,7 @@
 # Procore Intake Bridge
 
+Phase I7 adds an [offline incident-response and forensics readiness review](docs/incident-response-forensics.md) with no monitoring or collection behavior.
+
 Phase I6 adds an [offline dependency and supply-chain review](docs/dependency-supply-chain-security.md). It runs no scanner, registry, build, publish, release, or deploy operation.
 
 Phase I5 adds an [offline secrets/storage/database security review](docs/secrets-storage-db-security-review.md). Run `make infra-security-review`; it retrieves nothing and contacts no infrastructure.

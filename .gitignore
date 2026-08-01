@@ -328,6 +328,17 @@ sbom-review-output/
 *.optional-extras-matrix.csv
 *.package-surface-map.md
 *.supply-chain-checklist.md
+incident-response-review-output/
+incident-review-output/
+forensics-review-output/
+audit-log-review-output/
+security-incident-output/
+*.incident-response-review-report.json
+*.incident-response-review-report.md
+*.incident-runbook.md
+*.audit-log-boundary-map.md
+*.forensics-evidence-checklist.md
+*.incident-scenario-matrix.csv
 review-export-output/
 intake-export-output/
 lifecycle-export-output/

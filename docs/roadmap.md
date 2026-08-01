@@ -1,5 +1,7 @@
 # Roadmap
 
+- Phase I7: Incident Response / Audit Log / Forensics Pack — offline boundaries only.
+
 - Phase I6: Dependency and Supply Chain Security Pack — offline review only.
 
 - Phase I5: Secrets / Storage / DB Security Review — offline public-safe review layer; no live infrastructure operations.

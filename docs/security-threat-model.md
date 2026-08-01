@@ -1,5 +1,7 @@
 # Security Threat Model
 
+I7 maps offline incident scenarios, audit-log metadata boundaries, and private evidence references.
+
 I6 maps dependency declarations, optional extras, package surfaces, generated artifacts, and automation boundaries.
 
 I5 adds offline secret-provider, storage-provider, database-runtime, migration, and backup/restore planning boundaries without exercising them.

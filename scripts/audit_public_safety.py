@@ -138,6 +138,11 @@ PRIVATE_PATH_PARTS = {
     "dependency-review-output",
     "package-security-output",
     "sbom-review-output",
+    "incident-response-review-output",
+    "incident-review-output",
+    "forensics-review-output",
+    "audit-log-review-output",
+    "security-incident-output",
     "sandbox-output",
     "sandbox-pilot-output",
     "pilot-flow-output",
@@ -307,6 +312,18 @@ SUPPLY_CHAIN_UNSAFE_CLAIM = re.compile(
     r"\bproduction[- ]ready\b|\b(?:launch|pilot) approved\b|"
     r"\bprocore (?:endorsed|partner|certified)\b"
 )
+INCIDENT_PRIVATE_MATERIAL = re.compile(
+    r"(?i)(?:raw_log|packet_capture|har_file|memory_dump|core_dump|forensic_image|"
+    r"legal_notice_content|regulator_notice_content|law_enforcement_report_content|"
+    r"breach_notification_content|incident_timeline|secret_rotation_log|rollback_log)"
+    r"\s*[:=]\s*[\"']?(?!placeholder\b|fake\b|none\b)[^\"'\s]+"
+)
+INCIDENT_UNSAFE_CLAIM = re.compile(
+    r"(?i)\b(?:gdpr|ccpa|hipaa) compliant\b|"
+    r"\b(?:soc ?2|iso ?27001|security|compliance|breach readiness) certified\b|"
+    r"\bproduction[- ]ready\b|\b(?:launch|pilot) approved\b|"
+    r"\bbreach notification completed\b|\bprocore (?:endorsed|partner|certified)\b"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -316,6 +333,27 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if any(
+        marker in path.as_posix()
+        for marker in (
+            "incident-response",
+            "incident_response",
+            "incident-runbook",
+            "audit-log-boundary",
+            "forensics-evidence",
+        )
+    ):
+        for line in text.splitlines():
+            excluded = any(part in path.parts for part in ("tests", "services", "schemas"))
+            negated = re.search(r"(?i)\b(?:no|not|never|does not|is not|must not)\b", line)
+            if INCIDENT_UNSAFE_CLAIM.search(line) and not excluded and not negated:
+                issues.append(
+                    SafetyIssue(path, "incident review implies certification or approval")
+                )
+                break
+            if INCIDENT_PRIVATE_MATERIAL.search(line) and not excluded and not _safe_value(line):
+                issues.append(SafetyIssue(path, "incident review contains private evidence"))
+                break
     if any(
         marker in path.as_posix()
         for marker in ("supply-chain", "supply_chain", "dependency-boundary", "package-surface")
@@ -931,6 +969,28 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             )
         ):
             issues.append(SafetyIssue(path, "tracked generated supply-chain output"))
+            continue
+        if any(
+            part
+            in {
+                "incident-response-review-output",
+                "incident-review-output",
+                "forensics-review-output",
+                "audit-log-review-output",
+                "security-incident-output",
+            }
+            for part in path.parts
+        ) or path.name.endswith(
+            (
+                ".incident-response-review-report.json",
+                ".incident-response-review-report.md",
+                ".incident-runbook.md",
+                ".audit-log-boundary-map.md",
+                ".forensics-evidence-checklist.md",
+                ".incident-scenario-matrix.csv",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated incident-response output"))
             continue
         if path.name.endswith(
             (

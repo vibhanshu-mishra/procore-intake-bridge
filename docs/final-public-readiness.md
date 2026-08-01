@@ -1,5 +1,7 @@
 # Final public repository readiness
 
+I7 is planning input, not incident readiness certification, legal advice, or approval.
+
 I6 provides offline supply-chain review input, not certification or approval.
 
 I5 adds offline infrastructure-boundary evidence; it is not certification or production approval.

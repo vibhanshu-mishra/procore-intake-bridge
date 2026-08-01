@@ -1,5 +1,7 @@
 # Quickstart: start with Demo Mode
 
+Run `make incident-response-review` for the offline I7 boundary review.
+
 Run `make supply-chain-review` for the offline I6 dependency and package-surface review.
 
 Run `make infra-security-review` for the offline I5 reference, metadata, and operation-gate review. It makes no secret, storage, cloud, or database call.

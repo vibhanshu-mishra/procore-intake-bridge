@@ -1,5 +1,7 @@
 # Security Boundary Map
 
+I7 adds the [audit-log boundary map](audit-log-boundary-map.md).
+
 I6 adds [dependency](dependency-boundary-map.md) and [package surface](package-surface-map.md) boundaries.
 
 I5 adds dedicated [secret](secret-boundary-map.md), [storage](storage-boundary-map.md), and [database](database-boundary-map.md) maps.

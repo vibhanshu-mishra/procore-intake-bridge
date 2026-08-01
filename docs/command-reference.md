@@ -1,5 +1,7 @@
 # Command reference
 
+I7 provides `make incident-response-review`, `make incident-runbook`, `make audit-log-boundary-map`, and `make forensics-evidence-checklist`; artifact generation is separate and temporary.
+
 I6 commands are `make supply-chain-review`, `make dependency-boundary-map`, `make package-surface-map`, and `make supply-chain-checklist`. Artifact generation is separate and temporary.
 
 ## Phase I5 infrastructure review

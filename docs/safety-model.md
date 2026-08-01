@@ -1,5 +1,7 @@
 # Safety model
 
+I7 adds no monitoring, notification, SIEM, log/evidence collection, packet capture, forensics tool, deletion, or purge behavior.
+
 I6 is offline-only and adds no scanner, dependency bot, workflow change, registry call, build, publish, release, Docker build, or deployment automation.
 
 I5 permits placeholder references and sanitized metadata, never secret values, database URLs, object keys, presigned URLs, contents, or live infrastructure operations.

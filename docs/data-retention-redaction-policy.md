@@ -1,5 +1,7 @@
 # Data Retention and Redaction Policy
 
+I7 excludes raw logs, payloads, evidence contents, notices, dumps, captures, and forensic images from public outputs.
+
 I6 generated reports follow the ignored-output and private-content exclusion policy.
 
 I5 applies these redaction requirements to secret, storage, database, migration, backup, and provider-review output.

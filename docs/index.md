@@ -1,5 +1,7 @@
 # Documentation
 
+See the [I7 incident-response/forensics readiness review](incident-response-forensics.md).
+
 See the [I6 dependency and supply-chain security review](dependency-supply-chain-security.md).
 
 See the [I5 secrets/storage/database security review](secrets-storage-db-security-review.md) for offline provider and operation boundaries.

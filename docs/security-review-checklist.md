@@ -1,5 +1,7 @@
 # Security Review Checklist
 
+- [ ] Complete private incident authority, contacts, custody, notification, legal, and recovery decisions after I7.
+
 - [ ] Complete private vulnerability, license, provenance, signing, and release-process review after I6.
 
 - [ ] Run the offline I5 review and complete provider permissions, resource policies, database roles, and operational evidence review privately.

@@ -1,5 +1,7 @@
 # Webhook Replay and Signature Hardening Review
 
+I7 maps signature failure and suspected replay to private response references only.
+
 I6 treats dependency review as offline-only and does not call webhook or package services.
 
 I5 treats webhook signing configuration as a secret reference and never retrieves or prints its value.

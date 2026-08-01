@@ -1,5 +1,7 @@
 # Auth / Permission Boundary Audit
 
+I7 treats admin-auth failure and token exposure as private incident scenarios without collecting values.
+
 I6 adds no workflow, publishing, or deployment authorization automation.
 
 I5 documents admin-token and provider-permission references without retrieving values or adding authorization behavior.
