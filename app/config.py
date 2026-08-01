@@ -1337,6 +1337,74 @@ class Settings(BaseSettings):
         le=300,
         validation_alias="PROCORE_INTAKE_API_DOCS_MAX_FINDINGS",
     )
+    hosted_ui_review_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_HOSTED_UI_REVIEW_ENABLED"
+    )
+    hosted_ui_output_root: Path = Field(
+        default=Path("./hosted-ui-review-output"),
+        validation_alias="PROCORE_INTAKE_HOSTED_UI_OUTPUT_ROOT",
+    )
+    hosted_ui_require_route_inventory: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_HOSTED_UI_REQUIRE_ROUTE_INVENTORY"
+    )
+    hosted_ui_require_page_inventory: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_HOSTED_UI_REQUIRE_PAGE_INVENTORY"
+    )
+    hosted_ui_require_admin_protection: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_HOSTED_UI_REQUIRE_ADMIN_PROTECTION"
+    )
+    hosted_ui_require_demo_safe_labels: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_HOSTED_UI_REQUIRE_DEMO_SAFE_LABELS"
+    )
+    hosted_ui_require_metadata_only_attachments: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_HOSTED_UI_REQUIRE_METADATA_ONLY_ATTACHMENTS",
+    )
+    hosted_ui_require_no_file_serving: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_HOSTED_UI_REQUIRE_NO_FILE_SERVING"
+    )
+    hosted_ui_require_no_export_downloads: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_HOSTED_UI_REQUIRE_NO_EXPORT_DOWNLOADS",
+    )
+    hosted_ui_require_no_external_frontend_assets: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_HOSTED_UI_REQUIRE_NO_EXTERNAL_FRONTEND_ASSETS",
+    )
+    hosted_ui_require_private_review_gates: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_HOSTED_UI_REQUIRE_PRIVATE_REVIEW_GATES",
+    )
+    hosted_ui_allow_real_identities: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_HOSTED_UI_ALLOW_REAL_IDENTITIES"
+    )
+    hosted_ui_allow_real_domains: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_HOSTED_UI_ALLOW_REAL_DOMAINS"
+    )
+    hosted_ui_allow_real_urls: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_HOSTED_UI_ALLOW_REAL_URLS"
+    )
+    hosted_ui_allow_report_contents: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_HOSTED_UI_ALLOW_REPORT_CONTENTS"
+    )
+    hosted_ui_allow_private_paths: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_HOSTED_UI_ALLOW_PRIVATE_PATHS"
+    )
+    hosted_ui_fail_closed: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_HOSTED_UI_FAIL_CLOSED"
+    )
+    hosted_ui_max_pages: int = Field(
+        default=200,
+        ge=1,
+        le=200,
+        validation_alias="PROCORE_INTAKE_HOSTED_UI_MAX_PAGES",
+    )
+    hosted_ui_max_findings: int = Field(
+        default=300,
+        ge=1,
+        le=300,
+        validation_alias="PROCORE_INTAKE_HOSTED_UI_MAX_FINDINGS",
+    )
     intake_review_workspace_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_ENABLED",

@@ -13,6 +13,10 @@ nav:
       - API Route Reference: api-route-reference.md
       - API Usage Examples: api-usage-examples.md
       - Local OpenAPI Guide: openapi-local-guide.md
+      - Hosted UI Preparation: hosted-ui-preparation.md
+      - Hosted UI Page Inventory: hosted-ui-page-inventory.md
+      - Hosted UI Readiness Checklist: hosted-ui-readiness-checklist.md
+      - Hosted UI Private Gates: hosted-ui-private-gates.md
       - Command Reference: command-reference.md
       - Troubleshooting: troubleshooting.md
   - Choose Your Mode:

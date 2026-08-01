@@ -1,5 +1,10 @@
 # Security Gap Closeout
 
+J4 does not close private hosted-security gaps. Existing local admin protection is not a hosted
+identity platform, and authentication/authorization, infrastructure, secrets, storage, databases,
+monitoring, incident response, privacy, and operational ownership require private review. Hosted UI
+preparation performs no deployment and grants no production, Pilot, release, or deployment approval.
+
 Phase J1 improves local setup documentation only. Its Demo path requires no Procore credentials,
 other secrets, cloud services, or external database. Sandbox, Pilot, and Hosted remain separate
 private, gated paths. J1 performs no package build, publish, release, or deployment and does not

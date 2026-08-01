@@ -1,5 +1,18 @@
 # Command reference
 
+## Phase J4 hosted UI preparation
+
+| Command | Purpose | Writes? |
+| --- | --- | --- |
+| `make hosted-ui-review` | Inspect existing routes, templates, and guidance offline. | No |
+| `make hosted-ui-page-inventory` | Print page class, protection, and mode readiness. | No |
+| `make hosted-ui-readiness-checklist` | Print public-safe hosted-evaluation checks. | No |
+| `make hosted-ui-private-gates` | Print the private infrastructure/security gates. | No |
+| `make hosted-ui-artifact-check` | Validate sanitized artifacts in temporary storage. | Temporary only |
+
+These commands deploy nothing, run no frontend build, load no external assets, analytics, or
+telemetry, and grant no production, Pilot, release, or deployment approval.
+
 ## Phase J3 API documentation
 
 | Command | Purpose | Writes? |

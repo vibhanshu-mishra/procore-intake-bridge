@@ -1,5 +1,10 @@
 # API Documentation Review
 
+J4 reuses the J3 route classifications rather than creating a parallel route reference. Its hosted
+UI inventory adds page/readiness context while J3 remains the route-method/protection source of
+truth. No deployment, frontend build, external asset, analytics, telemetry, or operational approval
+is introduced.
+
 Phase J3 adds an offline, public-safe reference for all 81 current application routes. The review
 inspects the local FastAPI route table and repository documentation only. It makes no live API,
 Procore, cloud, or external database call and uses no external OpenAPI tooling.

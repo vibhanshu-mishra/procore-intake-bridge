@@ -1,5 +1,9 @@
 # Product Dashboard
 
+J4 treats the product dashboard as a future hosted candidate that remains admin protected and
+requires private review. Demo evaluation uses fake local SQLite data only. No deployment, frontend
+build, external asset, analytics, telemetry, export download, or file-serving behavior is added.
+
 J3 classifies the existing dashboard routes as protected product/admin surfaces in the all-81-route
 reference. The reference makes no live call and adds no route. Dashboard documentation does not
 create an export download, file-serving endpoint, Procore write-back, or operational approval.

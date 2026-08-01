@@ -1,5 +1,12 @@
 # Roadmap
 
+## J4 hosted UI preparation
+
+J4 establishes an offline page inventory, route matrix, readiness checklist, and private-gate map
+for a possible future hosted evaluation. No hosting, frontend build, external asset, analytics,
+telemetry, download, or file-serving behavior is added. Hosted operation remains future private work
+and receives no production, Pilot, release, or deployment approval.
+
 ## J3 API documentation and route reference
 
 J3 completes a public-safe offline reference for all 81 current routes, including method, purpose,

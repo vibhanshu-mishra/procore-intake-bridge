@@ -1,5 +1,16 @@
 # Documentation navigation map
 
+Phase J4 hosted UI preparation path:
+
+1. [Hosted UI preparation](hosted-ui-preparation.md)
+2. [Hosted UI page inventory](hosted-ui-page-inventory.md)
+3. [Hosted UI readiness checklist](hosted-ui-readiness-checklist.md)
+4. [Hosted UI private gates](hosted-ui-private-gates.md)
+
+This offline path deploys nothing. Admin/dashboard/review surfaces remain protected, attachment UI
+is metadata-only, exports stay command-only, and private infrastructure/security review is required.
+No frontend build, external assets, analytics, telemetry, download route, or approval is added.
+
 Phase J3 API documentation path:
 
 1. [API documentation review](api-docs-review.md)

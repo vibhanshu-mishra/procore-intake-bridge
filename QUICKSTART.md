@@ -1,5 +1,11 @@
 # Quickstart: start with Demo Mode
 
+Phase J4 reviews existing UI surfaces for possible future hosted evaluation without deploying
+anything. Run `make hosted-ui-review` for offline inspection. Demo pages use fake local SQLite data;
+dashboard/admin/review pages remain protected, attachment views are metadata-only, and export packs
+remain command-only. No frontend build, external asset, analytics, telemetry, public download, or
+approval is added. Hosted use requires private infrastructure and security review.
+
 Phase J3 documents all 81 local routes in the [API route reference](docs/api-route-reference.md).
 Run `make api-docs-review` or `make api-route-reference` for offline inspection. Local OpenAPI is
 available only after starting the local app; use fake Demo data and no external OpenAPI tooling.

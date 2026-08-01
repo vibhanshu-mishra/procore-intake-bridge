@@ -1,5 +1,10 @@
 # Final Security Readiness Review
 
+J4 hosted UI candidates remain subject to this private-security boundary. The public review does
+not validate live infrastructure or convert local admin protection into hosted approval. It adds no
+external assets, frontend build, analytics, telemetry, deployment, or production/Pilot/release
+approval.
+
 Phase I9 follows this review with an [offline security gap closeout](security-gap-closeout.md).
 It clarifies policy versus implementation for privacy, encryption at rest, retention, audit
 logging, notifications, and private actions. The closeout adds no live scanner, external or

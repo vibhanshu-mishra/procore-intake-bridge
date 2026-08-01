@@ -111,6 +111,10 @@ REQUIRED_DOCS = {
     "docs/api-usage-examples.md",
     "docs/openapi-local-guide.md",
     "docs/api-docs-review.md",
+    "docs/hosted-ui-preparation.md",
+    "docs/hosted-ui-page-inventory.md",
+    "docs/hosted-ui-readiness-checklist.md",
+    "docs/hosted-ui-private-gates.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -208,6 +212,11 @@ REQUIRED_SCRIPTS = {
     "scripts/print_api_usage_examples.py",
     "scripts/print_openapi_local_guide.py",
     "scripts/generate_api_docs_artifacts.py",
+    "scripts/run_hosted_ui_review.py",
+    "scripts/print_hosted_ui_page_inventory.py",
+    "scripts/print_hosted_ui_readiness_checklist.py",
+    "scripts/print_hosted_ui_private_gates.py",
+    "scripts/generate_hosted_ui_review_artifacts.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -370,6 +379,11 @@ REQUIRED_EXAMPLES = {
     "examples/api-docs-review/example_api_usage_examples.md",
     "examples/api-docs-review/example_openapi_local_guide.md",
     "examples/api-docs-review/example_api_route_matrix.csv",
+    "examples/hosted-ui-review/README.md",
+    "examples/hosted-ui-review/example_hosted_ui_page_inventory.md",
+    "examples/hosted-ui-review/example_hosted_ui_readiness_checklist.md",
+    "examples/hosted-ui-review/example_hosted_ui_private_gates.md",
+    "examples/hosted-ui-review/example_hosted_ui_route_matrix.csv",
 }
 REQUIRED_TARGETS = {
     "review-workspace-summary",
@@ -447,6 +461,11 @@ REQUIRED_TARGETS = {
     "api-usage-examples",
     "openapi-local-guide",
     "api-docs-artifact-check",
+    "hosted-ui-review",
+    "hosted-ui-page-inventory",
+    "hosted-ui-readiness-checklist",
+    "hosted-ui-private-gates",
+    "hosted-ui-artifact-check",
     "webhook-replay-checklist",
     "webhook-security-artifact-check",
     "help",
@@ -521,6 +540,16 @@ REQUIRED_TARGETS = {
     "final-readiness-artifact-check",
 }
 IGNORED_OUTPUTS = {
+    "hosted-ui-review-output/",
+    "hosted-ui-output/",
+    "ui-readiness-output/",
+    "hosted-page-review-output/",
+    "*.hosted-ui-review-report.json",
+    "*.hosted-ui-review-report.md",
+    "*.hosted-ui-page-inventory.md",
+    "*.hosted-ui-route-matrix.csv",
+    "*.hosted-ui-readiness-checklist.md",
+    "*.hosted-ui-private-gates.md",
     "api-docs-output/",
     "api-reference-output/",
     "route-reference-output/",
@@ -840,6 +869,10 @@ GENERATED_PARTS = {
     "api-reference-output",
     "route-reference-output",
     "openapi-review-output",
+    "hosted-ui-review-output",
+    "hosted-ui-output",
+    "ui-readiness-output",
+    "hosted-page-review-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak",
@@ -1459,6 +1492,32 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             )
             and "api-docs-artifact-check" not in quality_headers
         ),
+        "J4 hosted UI prep is offline and non-approving": all(
+            phrase in _read(root, "docs/hosted-ui-preparation.md").casefold()
+            for phrase in (
+                "no hosted deployment",
+                "no external",
+                "no frontend",
+                "production approval",
+                "private",
+            )
+        ),
+        "J4 preserves metadata and command-only boundaries": all(
+            phrase in _read(root, "docs/hosted-ui-preparation.md").casefold()
+            for phrase in ("metadata-only", "command-only", "no public", "download")
+        ),
+        "J4 checks included and artifacts excluded": (
+            all(
+                target in quality_headers
+                for target in (
+                    "hosted-ui-review",
+                    "hosted-ui-page-inventory",
+                    "hosted-ui-readiness-checklist",
+                    "hosted-ui-private-gates",
+                )
+            )
+            and "hosted-ui-artifact-check" not in quality_headers
+        ),
         "H3 workspace is read-only and local": all(
             phrase in _read(root, "docs/intake-review-workspace.md").casefold()
             for phrase in ("read-only", "local intake records only", "no procore")
@@ -1810,6 +1869,12 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 ".api-route-matrix.csv",
                 ".api-usage-examples.md",
                 ".openapi-local-guide.md",
+                ".hosted-ui-review-report.json",
+                ".hosted-ui-review-report.md",
+                ".hosted-ui-page-inventory.md",
+                ".hosted-ui-route-matrix.csv",
+                ".hosted-ui-readiness-checklist.md",
+                ".hosted-ui-private-gates.md",
             )
         ):
             add(

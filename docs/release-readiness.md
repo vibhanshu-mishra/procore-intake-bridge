@@ -1,5 +1,11 @@
 # Release readiness
 
+## J4 relationship
+
+Hosted UI preparation neither executes nor approves a release or deployment. It adds no frontend
+build, external assets, analytics, telemetry, downloads, or file-serving routes. Existing protected
+surfaces remain protected, and hosted evaluation requires private infrastructure/security review.
+
 ## J3 relationship
 
 The J3 route reference is documentation only. It inspects 81 local routes without live calls or

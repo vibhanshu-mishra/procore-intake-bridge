@@ -1,5 +1,13 @@
 # Project status
 
+## Phase J4: hosted UI preparation
+
+J4 inventories existing UI pages and routes for future hosted evaluation without deploying them.
+Admin/dashboard/review surfaces remain protected, lifecycle controls remain local-only, attachment
+UI remains metadata-only, and export guidance remains command-only. It adds no frontend build,
+external assets, analytics, telemetry, download route, or approval. Private infrastructure and
+security review remains required before any hosted Pilot.
+
 ## Phase J3: API documentation and route reference
 
 J3 documents all 81 existing application routes through offline local inspection. It covers public

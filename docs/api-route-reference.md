@@ -1,5 +1,10 @@
 # API Route Reference
 
+J4 consumes this local route inventory when reviewing hosted UI candidates. Admin, dashboard, and
+review routes stay protected; lifecycle controls remain protected local-only mutations; attachment
+routes remain metadata-only; and exports remain command-only with no public download route. J4
+deploys nothing and adds no external asset, frontend build, analytics, telemetry, or approval.
+
 This Phase J3 reference covers all 81 routes currently reported by the local read-only route audit.
 It is generated from local FastAPI metadata; it performs no live call and adds no route.
 

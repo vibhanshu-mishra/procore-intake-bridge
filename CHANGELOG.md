@@ -1,5 +1,14 @@
 # Changelog
 
+## Phase J4
+
+- Added an offline hosted UI preparation guide, page inventory, readiness checklist, private-gate
+  guide, and placeholder-only examples for future hosted evaluation.
+- Documented protected admin/dashboard/review surfaces, local lifecycle controls, metadata-only
+  attachments, command-only exports, fake-local Demo dependencies, and private review gates.
+- J4 performs no deployment and adds no frontend build system, external assets, analytics,
+  telemetry, public download, file serving, or production/Pilot/release/deployment approval.
+
 ## Phase J3
 
 - Added a complete offline reference for all 81 current FastAPI application routes, Demo-safe API

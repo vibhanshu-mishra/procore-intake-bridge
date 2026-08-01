@@ -1,5 +1,9 @@
 # Demo Data Seed and Reset
 
+J4 Demo-ready labels depend on J2's fake, demo-marked local SQLite records. They do not authorize
+hosting or customer data. Seed/reset boundaries remain local; J4 performs no deployment, frontend
+build, external asset load, analytics, telemetry, or approval.
+
 J3 documents the existing Demo/intake/sync route boundaries without changing J2 seed/reset
 behavior. Examples remain fake and local; API documentation makes no live call, uses no external
 OpenAPI tooling, and grants no production, Pilot, release, or deployment approval.

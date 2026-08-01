@@ -1,5 +1,12 @@
 # Public usability audit
 
+## J4 coverage
+
+The audit checks four hosted UI guides, five placeholder-only examples, five commands, ignored
+generated-output patterns, page/route classifications, protected admin/review/dashboard surfaces,
+metadata-only attachments, and command-only exports. It requires explicit no-deployment,
+no-frontend-build, no-external-assets/analytics/telemetry, private-review, and no-approval language.
+
 ## J3 coverage
 
 The audit checks the four canonical API guides, five placeholder-only examples, five commands,

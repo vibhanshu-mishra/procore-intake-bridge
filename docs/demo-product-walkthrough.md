@@ -1,5 +1,9 @@
 # Demo Product Walkthrough
 
+J4 uses this fake/local walkthrough to identify Demo-ready pages. It does not make the walkthrough
+publicly hosted or suitable for real customer data. Protected pages stay protected, attachment
+review stays metadata-only, exports stay command-only, and private review precedes any hosted Pilot.
+
 Use the J3 [API usage examples](api-usage-examples.md) only with fake/local Demo data. Route-table
 inspection makes no live call and uses no external OpenAPI tooling. It adds no public export
 download, file-serving, or Procore write-back route and grants no operational approval.

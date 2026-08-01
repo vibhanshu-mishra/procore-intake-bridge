@@ -170,6 +170,10 @@ PRIVATE_PATH_PARTS = {
     "api-reference-output",
     "route-reference-output",
     "openapi-review-output",
+    "hosted-ui-review-output",
+    "hosted-ui-output",
+    "ui-readiness-output",
+    "hosted-page-review-output",
 }
 
 
@@ -410,6 +414,24 @@ API_DOCS_UNSAFE_CLAIM = re.compile(
     r"(?:soc ?2|iso ?27001|hipaa|gdpr|ccpa|security|compliance) certified|"
     r"(?:gdpr|ccpa|hipaa|privacy|legal) compliant)\b"
 )
+HOSTED_UI_EXTERNAL_ASSET = re.compile(
+    r"(?i)(?:<(?:script|link)\b[^>]*(?:src|href)\s*=\s*[\"'](?:https?:)?//|"
+    r"@import\s+(?:url\()?\s*[\"']?(?:https?:)?//|"
+    r"\b(?:google-analytics|googletagmanager|segment|mixpanel|amplitude|hotjar|"
+    r"telemetry|tracking[_ -]?script)\b)"
+)
+HOSTED_UI_PRIVATE_MATERIAL = re.compile(
+    r"(?i)(?:github_token|registry_token|package_registry_token|ci_secret|database_url|"
+    r"authorization|bearer|source_url|signed_url|presigned_url|storage_key|object_key|"
+    r"private_path|private_report_contents?|raw_report_contents?)"
+    r"\s*[:=]\s*[\"']?(?!placeholder\b|fake\b|none\b|false\b)[^\"'\s]+"
+)
+HOSTED_UI_UNSAFE_CLAIM = re.compile(
+    r"(?i)\b(?:hosted (?:ui )?(?:is )?deployed|production[- ]ready|approved for "
+    r"(?:production|release|pilot|launch|deployment)|(?:production|release|pilot|launch|"
+    r"deployment) (?:is )?approved|(?:soc ?2|iso ?27001|hipaa|gdpr|ccpa|security|"
+    r"compliance) certified|(?:gdpr|ccpa|hipaa|privacy|legal) compliant)\b"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -419,6 +441,36 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if path.suffix.casefold() == ".html" and "templates" in path.parts:
+        if HOSTED_UI_EXTERNAL_ASSET.search(text):
+            issues.append(SafetyIssue(path, "UI template references external assets or tracking"))
+    if any(
+        marker in path.as_posix()
+        for marker in ("hosted-ui", "hosted_ui", "hosted-page", "hosted_page")
+    ):
+        excluded = any(part in path.parts for part in ("tests", "services", "schemas"))
+        lines = text.splitlines()
+        for index, line in enumerate(lines):
+            context = " ".join(lines[max(0, index - 2) : index + 1])
+            qualified = SETUP_SAFETY_QUALIFIER.search(context)
+            hosted_ui_qualified = qualified or re.search(
+                r"(?i)\b(?:none|absent|not added|not present|excluded)\b", line
+            )
+            if (
+                HOSTED_UI_EXTERNAL_ASSET.search(line)
+                and not excluded
+                and not hosted_ui_qualified
+            ):
+                issues.append(SafetyIssue(path, "hosted UI references external assets or tracking"))
+                break
+            if HOSTED_UI_PRIVATE_MATERIAL.search(line) and not excluded:
+                issues.append(SafetyIssue(path, "hosted UI guidance exposes private material"))
+                break
+            if HOSTED_UI_UNSAFE_CLAIM.search(line) and not excluded and not qualified:
+                issues.append(
+                    SafetyIssue(path, "hosted UI guidance implies deployment or approval")
+                )
+                break
     if any(
         marker in path.as_posix()
         for marker in ("api-docs", "api_docs", "api-route", "api_route", "openapi-local")
@@ -984,6 +1036,17 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
     for path in paths:
         if path.name in SKIP_NAMES or not path.is_file():
             continue
+        if path.name in {
+            "package.json",
+            "package-lock.json",
+            "yarn.lock",
+            "pnpm-lock.yaml",
+            "vite.config.js",
+            "vite.config.ts",
+            "webpack.config.js",
+        }:
+            issues.append(SafetyIssue(path, "tracked frontend package or build-system file"))
+            continue
         if path.parts[:2] == (".github", "workflows"):
             issues.append(SafetyIssue(path, "tracked GitHub Actions automation"))
             continue
@@ -1007,6 +1070,27 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             continue
         if path.name.endswith((".smoke.json", ".smoke.log")):
             issues.append(SafetyIssue(path, "tracked sandbox smoke output"))
+            continue
+        if any(
+            part
+            in {
+                "hosted-ui-review-output",
+                "hosted-ui-output",
+                "ui-readiness-output",
+                "hosted-page-review-output",
+            }
+            for part in path.parts
+        ) or path.name.endswith(
+            (
+                ".hosted-ui-review-report.json",
+                ".hosted-ui-review-report.md",
+                ".hosted-ui-page-inventory.md",
+                ".hosted-ui-route-matrix.csv",
+                ".hosted-ui-readiness-checklist.md",
+                ".hosted-ui-private-gates.md",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated hosted UI output"))
             continue
         if any(
             part

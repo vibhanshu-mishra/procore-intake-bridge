@@ -1,5 +1,12 @@
 # Final public repository readiness
 
+## J4 relationship
+
+J4 makes hosted-evaluation boundaries easier to inspect but does not deploy or approve the UI.
+It adds no frontend build, external asset, analytics, telemetry, public download, or file serving.
+Admin/review/dashboard protection and private infrastructure/security review remain mandatory;
+production, Pilot, release, and deployment decisions remain separate.
+
 ## J3 relationship
 
 J3 improves maintainer understanding of all 81 existing routes but is not a readiness approval.

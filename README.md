@@ -1,5 +1,14 @@
 # Procore Intake Bridge
 
+Phase J4 adds an offline [hosted UI preparation review](docs/hosted-ui-preparation.md),
+[page inventory](docs/hosted-ui-page-inventory.md), [readiness checklist](docs/hosted-ui-readiness-checklist.md),
+and [private gates](docs/hosted-ui-private-gates.md) for future hosted evaluation. It performs no
+deployment and adds no frontend build system, external assets, analytics, or telemetry. Dashboard,
+admin, and review surfaces remain protected; attachment UI stays metadata-only; exports remain
+command-only with no public download route. A hosted Pilot still requires private infrastructure
+and security review, and J4 grants no production, Pilot, release, or deployment approval.
+Demo Mode, Sandbox Mode, and Pilot Mode remain distinct; J4 does not change their gates.
+
 Phase J3 adds an offline [API documentation review](docs/api-docs-review.md), complete local
 [route reference](docs/api-route-reference.md), [Demo-safe examples](docs/api-usage-examples.md),
 and [local OpenAPI guide](docs/openapi-local-guide.md) for all 81 existing application routes.

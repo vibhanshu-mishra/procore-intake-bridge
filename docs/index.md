@@ -1,5 +1,12 @@
 # Documentation
 
+Phase J4 provides [hosted UI preparation](hosted-ui-preparation.md), a
+[page inventory](hosted-ui-page-inventory.md), [readiness checklist](hosted-ui-readiness-checklist.md),
+and [private gates](hosted-ui-private-gates.md). The review is offline and non-deploying. It adds no
+frontend build, external assets, analytics, or telemetry; protected pages stay protected,
+attachments stay metadata-only, and exports remain command-only. Hosted evaluation still requires
+private infrastructure/security review and receives no operational approval from J4.
+
 Phase J3 provides an offline [API documentation review](api-docs-review.md), an all-81-route
 [reference](api-route-reference.md), [Demo-safe examples](api-usage-examples.md), and a
 [local OpenAPI guide](openapi-local-guide.md). It adds no product behavior, makes no live call,

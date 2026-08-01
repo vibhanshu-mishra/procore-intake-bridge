@@ -392,6 +392,16 @@ openapi-review-output/
 *.api-route-matrix.csv
 *.api-usage-examples.md
 *.openapi-local-guide.md
+hosted-ui-review-output/
+hosted-ui-output/
+ui-readiness-output/
+hosted-page-review-output/
+*.hosted-ui-review-report.json
+*.hosted-ui-review-report.md
+*.hosted-ui-page-inventory.md
+*.hosted-ui-route-matrix.csv
+*.hosted-ui-readiness-checklist.md
+*.hosted-ui-private-gates.md
 review-export-output/
 intake-export-output/
 lifecycle-export-output/

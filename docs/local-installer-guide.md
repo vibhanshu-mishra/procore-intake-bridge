@@ -1,5 +1,9 @@
 # Local Installer Guide
 
+J4 remains part of the local maintainer workflow. It does not turn setup into hosted installation,
+run a frontend build, load external assets, add analytics/telemetry, or deploy. Any hosted Pilot
+requires separate private infrastructure and security review.
+
 After starting the app locally, J3's OpenAPI UI may be viewed on the loopback `/docs` path described
 in the [local OpenAPI guide](openapi-local-guide.md). Do not use external OpenAPI tooling or live
 customer values. Viewing documentation adds no behavior and grants no operational approval.

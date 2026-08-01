@@ -81,6 +81,7 @@ def audit_routes() -> list[RouteIssue]:
     )
     from app.services.api_docs_review import classify_api_route
     from app.services.auth_boundary_audit import classify_route_auth_boundary
+    from app.services.hosted_ui_review import classify_hosted_ui_route
 
     issues: list[RouteIssue] = []
     routes = application_routes()
@@ -113,6 +114,25 @@ def audit_routes() -> list[RouteIssue]:
                 issues.append(
                     RouteIssue(route.path, method, "route has an unknown API-doc classification")
                 )
+            if route.path.startswith(("/admin", "/dashboard", "/review", "/deployment")):
+                hosted_ui = classify_hosted_ui_route(documented)
+                hosted_values = {
+                    str(getattr(getattr(hosted_ui, field, None), "value", "unknown"))
+                    for field in (
+                        "surface",
+                        "page_class",
+                        "protection_type",
+                        "mode_readiness",
+                    )
+                }
+                if "unknown" in hosted_values:
+                    issues.append(
+                        RouteIssue(
+                            route.path,
+                            method,
+                            "route has an unknown hosted UI classification",
+                        )
+                    )
             if route.path in WEBHOOK_SIGNATURE_POST_PATHS and (
                 classified.route_class is not AuthBoundaryRouteClass.WEBHOOK_SIGNATURE_REQUIRED
                 or classified.protection_type
