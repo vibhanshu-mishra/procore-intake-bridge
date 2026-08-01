@@ -1,5 +1,13 @@
 # Final public repository readiness
 
+## I9 relationship
+
+The offline I9 security gap closeout can support public maintainer review. It does not make the
+application ready for production, Pilot, release, deployment, or live use. Privacy and encryption
+materials are template/guidance only; no retention enforcement, deletion/purge, notification,
+scanner, external call, or Procore call is added. Private security, legal, privacy, and
+infrastructure review remains required, with no compliance or certification claim.
+
 I7 is planning input, not incident readiness certification, legal advice, or approval.
 
 I8 aggregates I1–I7 and the public safety, route, docs-site, Demo, Sandbox/Pilot,

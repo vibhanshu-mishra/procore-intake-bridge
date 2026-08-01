@@ -1,5 +1,12 @@
 # Security Threat Model
 
+## I9 closeout
+
+The threat model feeds the offline [security gap closeout](security-gap-closeout.md). That layer
+records policy-versus-implementation status but performs no scan, encryption, retention
+enforcement, deletion/purge, or notification. It makes no compliance, certification, or approval
+claim, and private review remains required.
+
 I7 maps offline incident scenarios, audit-log metadata boundaries, and private evidence references.
 
 I6 maps dependency declarations, optional extras, package surfaces, generated artifacts, and automation boundaries.

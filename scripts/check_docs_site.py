@@ -99,6 +99,11 @@ REQUIRED_NAV_DOCS = {
     "security-readiness-summary.md",
     "security-gap-register.md",
     "private-security-review-checklist.md",
+    "security-gap-closeout.md",
+    "privacy-review-template.md",
+    "encryption-at-rest-guidance.md",
+    "private-security-action-register.md",
+    "known-limitations-closeout.md",
     "release-readiness.md",
     "release-checklist.md",
     "release-notes-template.md",
@@ -213,17 +218,13 @@ def main() -> int:
     args = parser.parse_args()
     findings = check_docs_site(args.root.resolve())
     counts = {
-        level: sum(item.level == level for item in findings)
-        for level in ("PASS", "WARN", "FAIL")
+        level: sum(item.level == level for item in findings) for level in ("PASS", "WARN", "FAIL")
     }
     print("Documentation site check")
     print("========================")
     for item in findings:
         print(f"{item.level}: {item.check} — {item.message}")
-    print(
-        f"\nSummary: {counts['PASS']} passed, {counts['WARN']} warned, "
-        f"{counts['FAIL']} failed."
-    )
+    print(f"\nSummary: {counts['PASS']} passed, {counts['WARN']} warned, {counts['FAIL']} failed.")
     return 1 if counts["FAIL"] else 0
 
 

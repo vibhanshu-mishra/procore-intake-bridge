@@ -1,5 +1,11 @@
 # Final Security Readiness Review
 
+Phase I9 follows this review with an [offline security gap closeout](security-gap-closeout.md).
+It clarifies policy versus implementation for privacy, encryption at rest, retention, audit
+logging, notifications, and private actions. The closeout adds no live scanner, external or
+Procore call, encryption, retention enforcement, deletion/purge, or notification. It is not a
+compliance, certification, or operational approval; private review remains required.
+
 Phase I8 is an offline, public-safe final security readiness review. It aggregates the repository
 evidence and boundaries established by I1 through I7: threat modeling, auth and permission
 boundaries, webhook security, data retention and redaction, secrets/storage/database security,

@@ -1,5 +1,12 @@
 # Procore Intake Bridge
 
+Phase I9 adds an [offline security gap closeout](docs/security-gap-closeout.md),
+[privacy review template](docs/privacy-review-template.md), and
+[encryption-at-rest guidance](docs/encryption-at-rest-guidance.md). The pack is guidance and
+maintainer-review material only: it implements no encryption, retention enforcement,
+deletion/purge, notification, or compliance workflow. Private security, legal, privacy, and
+infrastructure review remains required before private Sandbox, Pilot, hosted, or live use.
+
 Phase I7 adds an [offline incident-response and forensics readiness review](docs/incident-response-forensics.md) with no monitoring or collection behavior.
 
 Phase I6 adds an [offline dependency and supply-chain review](docs/dependency-supply-chain-security.md). It runs no scanner, registry, build, publish, release, or deploy operation.

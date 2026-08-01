@@ -1,5 +1,12 @@
 # Webhook Replay and Signature Hardening Review
 
+## I9 closeout
+
+I9 records webhook safeguards and limitations offline. It does not call, register, replay, or
+inspect a live webhook; send notifications; or implement encryption, retention enforcement, or
+deletion. Private infrastructure and security review remains required, with no approval or
+certification implied.
+
 I7 maps signature failure and suspected replay to private response references only.
 
 I6 treats dependency review as offline-only and does not call webhook or package services.

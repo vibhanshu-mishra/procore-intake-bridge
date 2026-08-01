@@ -1,5 +1,12 @@
 # Secrets / Storage / Database Security Review
 
+## I9 closeout
+
+I9 treats encryption at rest as guidance unless authorized private infrastructure implements and
+verifies it. The public closeout retrieves no secret, contacts no provider or database, and adds
+no encryption, retention enforcement, deletion/purge, or notification behavior. Private review
+remains required and no compliance, certification, or approval is implied.
+
 I7 maps exposure and provider-failure scenarios without retrieving secrets or accessing infrastructure.
 
 I6 never sends dependency or provider metadata to an external scanner or registry.

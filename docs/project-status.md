@@ -1,5 +1,14 @@
 # Project status
 
+## Phase I9: security gap closeout
+
+I9 adds an offline policy-versus-implementation closeout, privacy review template,
+encryption-at-rest guidance, private security action register, and known-limitations summary.
+These are guidance/checklist artifacts only. No encryption, retention enforcement,
+deletion/purge, notification, scanner, external call, or Procore call was added. Private security,
+legal, privacy, and infrastructure review remains required; no compliance, certification, or
+operational approval is granted.
+
 Phase I7 is implemented as offline incident-response/forensics readiness input; private operational planning remains required.
 
 Phase I8 is implemented as an offline final security readiness review that aggregates I1–I7 and

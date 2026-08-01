@@ -1,5 +1,22 @@
 # Command reference
 
+## Phase I9 security gap closeout
+
+```bash
+make security-gap-closeout
+make privacy-review-template
+make encryption-at-rest-guidance
+make private-security-action-register
+make known-limitations-closeout
+make security-gap-artifact-check
+```
+
+The first five commands print sanitized offline review material. Artifact generation is a
+separate contained check. None runs a live scanner, calls an external service or Procore,
+implements encryption or retention enforcement, deletes/purges data, or sends notifications.
+Outputs are guidance and maintainer-review aids, not compliance, certification, production,
+pilot, release, or deployment approval. Private review remains required.
+
 I7 provides `make incident-response-review`, `make incident-runbook`, `make audit-log-boundary-map`, and `make forensics-evidence-checklist`; artifact generation is separate and temporary.
 
 ## Phase I8 final security review

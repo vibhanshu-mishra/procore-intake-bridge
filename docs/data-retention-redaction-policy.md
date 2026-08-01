@@ -1,5 +1,12 @@
 # Data Retention and Redaction Policy
 
+## I9 policy-versus-enforcement clarification
+
+This document is policy and review guidance. Phase I9 does not add general retention enforcement,
+deletion endpoints, or purge jobs. Any private retention schedule, legal obligation, execution
+mechanism, and evidence requires authorized private legal, privacy, security, and infrastructure
+review. No compliance, certification, or operational approval is granted.
+
 I7 excludes raw logs, payloads, evidence contents, notices, dumps, captures, and forensic images from public outputs.
 
 I6 generated reports follow the ignored-output and private-content exclusion policy.

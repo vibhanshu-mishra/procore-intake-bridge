@@ -1,5 +1,11 @@
 # Documentation
 
+Phase I9 provides an [offline security gap closeout](security-gap-closeout.md) that distinguishes
+implemented behavior from policy, guidance, intentional omissions, private review, and future
+work. Its privacy template and encryption-at-rest guidance are review aids only. I9 performs no
+live scan, external or Procore call, encryption, retention enforcement, deletion/purge, or
+notification and grants no compliance, certification, or operational approval.
+
 See the [I7 incident-response/forensics readiness review](incident-response-forensics.md).
 
 See the [I8 Final Security Readiness Review](final-security-readiness-review.md),

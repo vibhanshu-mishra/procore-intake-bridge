@@ -80,6 +80,11 @@ nav:
       - Security Readiness Summary: security-readiness-summary.md
       - Security Gap Register: security-gap-register.md
       - Private Security Review Checklist: private-security-review-checklist.md
+      - Security Gap Closeout: security-gap-closeout.md
+      - Privacy Review Template: privacy-review-template.md
+      - Encryption at Rest Guidance: encryption-at-rest-guidance.md
+      - Private Security Action Register: private-security-action-register.md
+      - Known Limitations Closeout: known-limitations-closeout.md
       - Audit Log Boundary Map: audit-log-boundary-map.md
       - Forensics Evidence Checklist: forensics-evidence-checklist.md
       - PostgreSQL Readiness: postgres-readiness.md

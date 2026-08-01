@@ -1095,6 +1095,73 @@ class Settings(BaseSettings):
         le=400,
         validation_alias="PROCORE_INTAKE_FINAL_SECURITY_REVIEW_MAX_FINDINGS",
     )
+    security_gap_closeout_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_SECURITY_GAP_CLOSEOUT_ENABLED"
+    )
+    security_gap_closeout_output_root: Path = Field(
+        default=Path("./security-gap-closeout-output"),
+        validation_alias="PROCORE_INTAKE_SECURITY_GAP_CLOSEOUT_OUTPUT_ROOT",
+    )
+    security_gap_closeout_require_placeholders: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SECURITY_GAP_CLOSEOUT_REQUIRE_PLACEHOLDERS",
+    )
+    security_gap_closeout_require_privacy_template: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SECURITY_GAP_CLOSEOUT_REQUIRE_PRIVACY_TEMPLATE",
+    )
+    security_gap_closeout_require_encryption_guidance: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SECURITY_GAP_CLOSEOUT_REQUIRE_ENCRYPTION_GUIDANCE",
+    )
+    security_gap_closeout_require_policy_implementation_matrix: bool = Field(
+        default=True,
+        validation_alias=(
+            "PROCORE_INTAKE_SECURITY_GAP_CLOSEOUT_REQUIRE_POLICY_IMPLEMENTATION_MATRIX"
+        ),
+    )
+    security_gap_closeout_require_private_action_register: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SECURITY_GAP_CLOSEOUT_REQUIRE_PRIVATE_ACTION_REGISTER",
+    )
+    security_gap_closeout_require_no_compliance_claims: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SECURITY_GAP_CLOSEOUT_REQUIRE_NO_COMPLIANCE_CLAIMS",
+    )
+    security_gap_closeout_require_no_approval_claims: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SECURITY_GAP_CLOSEOUT_REQUIRE_NO_APPROVAL_CLAIMS",
+    )
+    security_gap_closeout_allow_real_identities: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SECURITY_GAP_CLOSEOUT_ALLOW_REAL_IDENTITIES",
+    )
+    security_gap_closeout_allow_real_domains: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SECURITY_GAP_CLOSEOUT_ALLOW_REAL_DOMAINS",
+    )
+    security_gap_closeout_allow_real_urls: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SECURITY_GAP_CLOSEOUT_ALLOW_REAL_URLS",
+    )
+    security_gap_closeout_allow_report_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SECURITY_GAP_CLOSEOUT_ALLOW_REPORT_CONTENTS",
+    )
+    security_gap_closeout_allow_private_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SECURITY_GAP_CLOSEOUT_ALLOW_PRIVATE_PATHS",
+    )
+    security_gap_closeout_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SECURITY_GAP_CLOSEOUT_FAIL_CLOSED",
+    )
+    security_gap_closeout_max_findings: int = Field(
+        default=400,
+        ge=1,
+        le=400,
+        validation_alias="PROCORE_INTAKE_SECURITY_GAP_CLOSEOUT_MAX_FINDINGS",
+    )
     intake_review_workspace_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_ENABLED",

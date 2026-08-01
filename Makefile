@@ -3,6 +3,7 @@
 PYTHON ?= .venv/bin/python
 
 .PHONY: final-security-review security-readiness-summary security-gap-register private-security-review-checklist final-security-artifact-check
+.PHONY: security-gap-closeout privacy-review-template encryption-at-rest-guidance private-security-action-register known-limitations-closeout security-gap-artifact-check
 
 .PHONY: security-threat-model security-boundary-map security-review-checklist security-threat-model-artifact-check auth-boundary-audit auth-boundary-map permission-boundary-checklist auth-boundary-artifact-check webhook-security-review webhook-signature-boundary webhook-replay-checklist webhook-security-artifact-check data-policy-review data-retention-map redaction-boundary-map data-handling-checklist data-policy-artifact-check infra-security-review secret-boundary-map storage-boundary-map database-boundary-map infra-security-checklist infra-security-artifact-check supply-chain-review dependency-boundary-map package-surface-map supply-chain-checklist supply-chain-artifact-check incident-response-review incident-runbook audit-log-boundary-map forensics-evidence-checklist incident-response-artifact-check demo-product-tour demo-product-check demo-evaluation-checklist demo-product-artifact-check product-dashboard-overview product-dashboard-check review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check operator-export-check operator-export-summary operator-export-artifact-check
 
@@ -49,6 +50,11 @@ help:
 	@echo "  make security-readiness-summary Print final security summary"
 	@echo "  make security-gap-register Print private-review security gaps"
 	@echo "  make private-security-review-checklist Print private review checklist"
+	@echo "  make security-gap-closeout Offline policy-versus-implementation closeout"
+	@echo "  make privacy-review-template Print public-safe privacy review template"
+	@echo "  make encryption-at-rest-guidance Print infrastructure guidance only"
+	@echo "  make private-security-action-register Print private review actions"
+	@echo "  make known-limitations-closeout Print explicit security limitations"
 	@echo "  make product-dashboard-overview Sanitized local product cockpit summary"
 	@echo "  make product-dashboard-check Validate the read-only product cockpit"
 	@echo "  make review-workspace-summary Read-only local intake summary"
@@ -303,6 +309,18 @@ private-security-review-checklist:
 	$(PYTHON) scripts/print_private_security_review_checklist.py
 final-security-artifact-check:
 	$(PYTHON) scripts/generate_final_security_review_artifacts.py --temporary
+security-gap-closeout:
+	$(PYTHON) scripts/run_security_gap_closeout.py
+privacy-review-template:
+	$(PYTHON) scripts/print_privacy_review_template.py
+encryption-at-rest-guidance:
+	$(PYTHON) scripts/print_encryption_at_rest_guidance.py
+private-security-action-register:
+	$(PYTHON) scripts/print_private_security_action_register.py
+known-limitations-closeout:
+	$(PYTHON) scripts/print_known_limitations_closeout.py
+security-gap-artifact-check:
+	$(PYTHON) scripts/generate_security_gap_closeout_artifacts.py --temporary
 
 demo-product-tour:
 	$(PYTHON) scripts/print_demo_product_tour.py
@@ -689,4 +707,5 @@ quality: infra-security-review secret-boundary-map storage-boundary-map database
 quality: supply-chain-review dependency-boundary-map package-surface-map supply-chain-checklist
 quality: incident-response-review incident-runbook audit-log-boundary-map forensics-evidence-checklist
 quality: final-security-review security-readiness-summary security-gap-register private-security-review-checklist
+quality: security-gap-closeout privacy-review-template encryption-at-rest-guidance private-security-action-register known-limitations-closeout
 	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict

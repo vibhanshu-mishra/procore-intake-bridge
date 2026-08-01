@@ -1,5 +1,12 @@
 # Safety model
 
+## Phase I9 closeout boundary
+
+The I9 security gap closeout reads curated public evidence offline. It adds no scanner, external
+or Procore call, encryption implementation, retention enforcement, deletion/purge, notification,
+SIEM, legal workflow, or operational approval. Generated output is ignored and placeholder-only;
+private security, legal, privacy, and infrastructure review remains required.
+
 I7 adds no monitoring, notification, SIEM, log/evidence collection, packet capture, forensics tool, deletion, or purge behavior.
 
 I8 only aggregates the offline I1–I7 and repository readiness boundaries. It runs no live

@@ -1,5 +1,12 @@
 # Auth / Permission Boundary Audit
 
+## I9 closeout
+
+Auth findings are public guidance inputs to the offline I9 closeout, not verification of live
+roles or provider permissions. No external or Procore call occurs. Private permission review is
+required, and the closeout grants no compliance, certification, production, pilot, release, or
+deployment approval.
+
 I7 treats admin-auth failure and token exposure as private incident scenarios without collecting values.
 
 I6 adds no workflow, publishing, or deployment authorization automation.

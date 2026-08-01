@@ -95,6 +95,11 @@ REQUIRED_DOCS = {
     "docs/security-readiness-summary.md",
     "docs/security-gap-register.md",
     "docs/private-security-review-checklist.md",
+    "docs/security-gap-closeout.md",
+    "docs/privacy-review-template.md",
+    "docs/encryption-at-rest-guidance.md",
+    "docs/private-security-action-register.md",
+    "docs/known-limitations-closeout.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -170,6 +175,12 @@ REQUIRED_SCRIPTS = {
     "scripts/print_security_gap_register.py",
     "scripts/print_private_security_review_checklist.py",
     "scripts/generate_final_security_review_artifacts.py",
+    "scripts/run_security_gap_closeout.py",
+    "scripts/print_privacy_review_template.py",
+    "scripts/print_encryption_at_rest_guidance.py",
+    "scripts/print_private_security_action_register.py",
+    "scripts/print_known_limitations_closeout.py",
+    "scripts/generate_security_gap_closeout_artifacts.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -312,6 +323,12 @@ REQUIRED_EXAMPLES = {
     "examples/final-security-review/example_security_gap_register.md",
     "examples/final-security-review/example_private_security_review_checklist.md",
     "examples/final-security-review/example_security_domain_matrix.csv",
+    "examples/security-gap-closeout/README.md",
+    "examples/security-gap-closeout/example_privacy_review_template.md",
+    "examples/security-gap-closeout/example_encryption_at_rest_guidance.md",
+    "examples/security-gap-closeout/example_private_security_action_register.md",
+    "examples/security-gap-closeout/example_known_limitations_closeout.md",
+    "examples/security-gap-closeout/example_policy_implementation_matrix.csv",
 }
 REQUIRED_TARGETS = {
     "review-workspace-summary",
@@ -367,6 +384,12 @@ REQUIRED_TARGETS = {
     "security-gap-register",
     "private-security-review-checklist",
     "final-security-artifact-check",
+    "security-gap-closeout",
+    "privacy-review-template",
+    "encryption-at-rest-guidance",
+    "private-security-action-register",
+    "known-limitations-closeout",
+    "security-gap-artifact-check",
     "webhook-replay-checklist",
     "webhook-security-artifact-check",
     "help",
@@ -623,6 +646,18 @@ IGNORED_OUTPUTS = {
     "*.security-gap-register.md",
     "*.private-security-review-checklist.md",
     "*.security-domain-matrix.csv",
+    "security-gap-closeout-output/",
+    "security-closeout-output/",
+    "privacy-review-output/",
+    "encryption-guidance-output/",
+    "private-security-action-output/",
+    "*.security-gap-closeout-report.json",
+    "*.security-gap-closeout-report.md",
+    "*.privacy-review-template.md",
+    "*.encryption-at-rest-guidance.md",
+    "*.policy-implementation-matrix.csv",
+    "*.private-security-action-register.md",
+    "*.known-limitations-closeout.md",
 }
 GENERATED_PARTS = {
     "private-workspace",
@@ -701,6 +736,11 @@ GENERATED_PARTS = {
     "final-security-output",
     "private-security-review-output",
     "security-gate-output",
+    "security-gap-closeout-output",
+    "security-closeout-output",
+    "privacy-review-output",
+    "encryption-guidance-output",
+    "private-security-action-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak",
@@ -1190,6 +1230,43 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             in makefile
             and "quality: final-security-artifact-check" not in makefile
         ),
+        "I9 closeout is offline and non-operational": all(
+            phrase in _read(root, "docs/security-gap-closeout.md").casefold()
+            for phrase in (
+                "offline",
+                "no live scanner",
+                "no external call",
+                "no procore call",
+                "no encryption implementation",
+                "no retention enforcement",
+                "no notifications",
+            )
+        ),
+        "I9 disclaims compliance certification and approval": all(
+            phrase in _read(root, "docs/security-gap-closeout.md").casefold()
+            for phrase in (
+                "no compliance claims",
+                "no approval claims",
+                "no certification claims",
+                "maintainer/legal review aid",
+                "private security",
+            )
+        ),
+        "I9 checks included and artifacts excluded": (
+            all(
+                target
+                in " ".join(line for line in makefile.splitlines() if line.startswith("quality:"))
+                for target in (
+                    "security-gap-closeout",
+                    "privacy-review-template",
+                    "encryption-at-rest-guidance",
+                    "private-security-action-register",
+                    "known-limitations-closeout",
+                )
+            )
+            and "security-gap-artifact-check"
+            not in " ".join(line for line in makefile.splitlines() if line.startswith("quality:"))
+        ),
         "H3 workspace is read-only and local": all(
             phrase in _read(root, "docs/intake-review-workspace.md").casefold()
             for phrase in ("read-only", "local intake records only", "no procore")
@@ -1517,6 +1594,13 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 ".security-gap-register.md",
                 ".private-security-review-checklist.md",
                 ".security-domain-matrix.csv",
+                ".security-gap-closeout-report.json",
+                ".security-gap-closeout-report.md",
+                ".privacy-review-template.md",
+                ".encryption-at-rest-guidance.md",
+                ".policy-implementation-matrix.csv",
+                ".private-security-action-register.md",
+                ".known-limitations-closeout.md",
             )
         ):
             add(

@@ -1,5 +1,13 @@
 # Public usability audit
 
+## I9 coverage
+
+The audit verifies discovery of the offline closeout, privacy template, encryption guidance,
+private-action register, known-limitations guide, placeholder-only examples, commands, and ignored
+generated output. Documentation must state that I9 runs no live scanner or external/Procore call,
+adds no encryption, retention enforcement, deletion/purge, or notification, claims no compliance,
+certification, or approval, and still requires private review.
+
 The audit verifies I7 docs, scripts, examples, targets, ignores, and non-operational guidance.
 
 I8 coverage verifies the final-security readiness docs, scripts, placeholder-only examples, Make

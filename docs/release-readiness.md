@@ -1,5 +1,12 @@
 # Release readiness
 
+## I9 relationship
+
+I9 supplies offline closeout guidance but does not grant release, production, pilot, deployment,
+launch, legal, privacy, compliance, certification, or Procore approval. Release maintainers must
+resolve the private action register through authorized private review. I9 performs no build,
+publish, scanner, encryption, retention enforcement, deletion/purge, or notification operation.
+
 I7 non-writing checks validate public incident-response boundaries without collecting evidence.
 
 I8 adds a separate offline [Final Security Readiness Review](final-security-readiness-review.md)

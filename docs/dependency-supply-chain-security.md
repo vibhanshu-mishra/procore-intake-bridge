@@ -1,5 +1,11 @@
 # Dependency and Supply Chain Security
 
+## I9 closeout
+
+Supply-chain evidence is a curated offline input to I9. The closeout runs no registry query,
+external scanner, build, publish, release, or deployment. It provides no certification,
+compliance, or operational approval; private release-security review remains required.
+
 I7 maps dependency incidents without scanners, registry calls, builds, or external evidence collection.
 
 I6 is offline only: no scanners, package audit, GitHub API, dependency bots, workflow changes, builds, Docker builds, registry calls, publishing, releases, tags, or deployment. Optional extras remain gated. This is not SLSA, SBOM, security, or compliance certification and grants no production or pilot approval. Private vulnerability, license, and provenance review remains required.

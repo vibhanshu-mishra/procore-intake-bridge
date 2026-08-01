@@ -1,5 +1,13 @@
 # Private Security Review Checklist
 
+## I9 handoff
+
+Use the [private security action register](private-security-action-register.md) to transfer
+placeholder-only I9 gaps into an approved private system. Review live infrastructure, encryption
+at rest, retention, audit requirements, notifications, privacy/legal duties, customer data, and
+release controls privately. The public template performs none of those operations and grants no
+compliance, certification, or operational approval.
+
 Use this checklist only as a public-safe handoff to authorized private reviewers. Run
 `make private-security-review-checklist` for the sanitized offline version.
 

@@ -1,5 +1,17 @@
 # Documentation navigation map
 
+Phase I9 closeout path:
+
+1. [Security gap closeout](security-gap-closeout.md)
+2. [Privacy review template](privacy-review-template.md)
+3. [Encryption-at-rest guidance](encryption-at-rest-guidance.md)
+4. [Private security action register](private-security-action-register.md)
+5. [Known limitations closeout](known-limitations-closeout.md)
+
+This path is offline guidance only. It performs no scanner, external or Procore call, encryption,
+retention enforcement, deletion/purge, or notification and grants no compliance, certification,
+or operational approval. Private review remains required.
+
 Phase I7: [review](incident-response-forensics.md), [runbook](incident-runbook.md), [audit map](audit-log-boundary-map.md), and [evidence checklist](forensics-evidence-checklist.md).
 
 Phase I8: [final review](final-security-readiness-review.md),

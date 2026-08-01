@@ -1,5 +1,11 @@
 # Quickstart: start with Demo Mode
 
+Run `make security-gap-closeout` for the offline I9 policy-versus-implementation review. It is a
+guidance/checklist layer only: no scanner, external or Procore call, encryption, retention
+enforcement, deletion/purge, or notification occurs. It grants no compliance, certification, or
+operational approval; private security, legal, privacy, and infrastructure review remains
+required.
+
 Run `make incident-response-review` for the offline I7 boundary review.
 
 Run `make supply-chain-review` for the offline I6 dependency and package-surface review.

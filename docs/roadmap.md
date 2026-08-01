@@ -1,5 +1,13 @@
 # Roadmap
 
+## I9 closeout and future work
+
+The public I9 closeout documents remaining gaps without implementing them. Future work may include
+retention enforcement, a complete audit-log design, notifications/alerting, and deployment-specific
+encryption verification, but only through separately reviewed product or private-infrastructure
+work. The privacy template remains a legal-review aid. I9 itself is offline and grants no
+compliance, certification, production, pilot, release, or deployment approval.
+
 - Phase I7: Incident Response / Audit Log / Forensics Pack — offline boundaries only.
 
 - Phase I8: Final Security Readiness Review — offline I1–I7 aggregation complete; authorized

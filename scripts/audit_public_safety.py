@@ -148,6 +148,11 @@ PRIVATE_PATH_PARTS = {
     "final-security-output",
     "private-security-review-output",
     "security-gate-output",
+    "security-gap-closeout-output",
+    "security-closeout-output",
+    "privacy-review-output",
+    "encryption-guidance-output",
+    "private-security-action-output",
     "sandbox-output",
     "sandbox-pilot-output",
     "pilot-flow-output",
@@ -339,11 +344,28 @@ FINAL_SECURITY_PRIVATE_MATERIAL = re.compile(
     r"\s*[:=]\s*[\"']?(?!placeholder\b|fake\b|none\b|false\b)[^\"'\s]+"
 )
 FINAL_SECURITY_UNSAFE_CLAIM = re.compile(
-    r"(?i)\b(?:gdpr|ccpa|hipaa|slsa|sbom) compliant\b|"
+    r"(?i)\b(?:gdpr|ccpa|hipaa|slsa|sbom|privacy|legal) compliant\b|"
     r"\b(?:soc ?2|iso ?27001|security|compliance|breach readiness) certified\b|"
     r"\bproduction[- ]ready\b|\bapproved for (?:production|launch|pilot|release)\b|"
     r"\b(?:production|launch|pilot|release) (?:is )?approved\b|"
     r"\bbreach notification completed\b|\bprocore (?:endorsed|partner|certified)\b"
+)
+SECURITY_GAP_UNSAFE_CLAIM = re.compile(
+    r"(?i)\b(?:gdpr|ccpa|hipaa|slsa|sbom|privacy|legal) compliant\b|"
+    r"\b(?:soc ?2|iso ?27001|security|privacy|legal|compliance|breach readiness) "
+    r"certified\b|\bproduction[- ]ready\b|"
+    r"\bapproved for (?:production|launch|pilot|release|deployment)\b|"
+    r"\b(?:production|launch|pilot|release|deployment) (?:is )?approved\b|"
+    r"\bbreach notification completed\b|\bprocore (?:endorsed|partner|certified)\b"
+)
+SECURITY_GAP_IMPLEMENTATION_CLAIM = re.compile(
+    r"(?i)\b(?:encryption(?: at rest)?|retention enforcement|notifications?) "
+    r"(?:is |are )?(?:implemented|enabled|operational|complete)\b"
+)
+SECURITY_GAP_QUALIFIER = re.compile(
+    r"(?i)\b(?:no|not|never|does not|is not|are not|must not|guidance(?: only)?|"
+    r"future work|future product work|private infrastructure|privately implemented|"
+    r"intentionally not implemented)\b"
 )
 
 
@@ -354,6 +376,31 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if any(
+        marker in path.as_posix()
+        for marker in (
+            "security-gap-closeout",
+            "security_gap_closeout",
+            "privacy-review-template",
+            "encryption-at-rest-guidance",
+            "private-security-action-register",
+            "known-limitations-closeout",
+            "policy-implementation-matrix",
+        )
+    ):
+        for line in text.splitlines():
+            excluded = any(part in path.parts for part in ("tests", "services", "schemas"))
+            qualified = SECURITY_GAP_QUALIFIER.search(line)
+            if SECURITY_GAP_UNSAFE_CLAIM.search(line) and not excluded and not qualified:
+                issues.append(
+                    SafetyIssue(path, "security gap closeout implies certification or approval")
+                )
+                break
+            if SECURITY_GAP_IMPLEMENTATION_CLAIM.search(line) and not excluded and not qualified:
+                issues.append(
+                    SafetyIssue(path, "security gap closeout makes an implementation claim")
+                )
+                break
     if any(
         marker in path.as_posix()
         for marker in (
@@ -1038,6 +1085,29 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             )
         ):
             issues.append(SafetyIssue(path, "tracked generated incident-response output"))
+            continue
+        if any(
+            part
+            in {
+                "security-gap-closeout-output",
+                "security-closeout-output",
+                "privacy-review-output",
+                "encryption-guidance-output",
+                "private-security-action-output",
+            }
+            for part in path.parts
+        ) or path.name.endswith(
+            (
+                ".security-gap-closeout-report.json",
+                ".security-gap-closeout-report.md",
+                ".privacy-review-template.md",
+                ".encryption-at-rest-guidance.md",
+                ".policy-implementation-matrix.csv",
+                ".private-security-action-register.md",
+                ".known-limitations-closeout.md",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated security-gap closeout output"))
             continue
         if any(
             part

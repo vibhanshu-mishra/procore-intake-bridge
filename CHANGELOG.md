@@ -1,5 +1,15 @@
 # Changelog
 
+## Phase I9
+
+- Added an offline security gap closeout, policy-versus-implementation guidance, privacy review
+  template, encryption-at-rest guidance, private security action register, known-limitations
+  closeout, and placeholder-only examples.
+- I9 adds no live scanner, external or Procore call, encryption, retention enforcement,
+  deletion/purge, notification, legal workflow, release, or deployment behavior.
+- The pack grants no compliance, certification, production, pilot, release, deployment, or
+  Procore approval; private security, legal, privacy, and infrastructure review remains required.
+
 - Added Phase I7 offline incident-response, audit-log, and forensics readiness pack.
 
 - Added Phase I6 offline dependency and supply-chain review, maps, checklist, examples, and sanitized artifacts.
