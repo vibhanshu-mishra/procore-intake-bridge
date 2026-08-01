@@ -100,6 +100,10 @@ REQUIRED_DOCS = {
     "docs/encryption-at-rest-guidance.md",
     "docs/private-security-action-register.md",
     "docs/known-limitations-closeout.md",
+    "docs/local-installer-guide.md",
+    "docs/first-run-checklist.md",
+    "docs/setup-troubleshooting-guide.md",
+    "docs/setup-experience-review.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -181,6 +185,11 @@ REQUIRED_SCRIPTS = {
     "scripts/print_private_security_action_register.py",
     "scripts/print_known_limitations_closeout.py",
     "scripts/generate_security_gap_closeout_artifacts.py",
+    "scripts/run_setup_experience_review.py",
+    "scripts/print_first_run_checklist.py",
+    "scripts/print_local_installer_guide.py",
+    "scripts/print_setup_troubleshooting_guide.py",
+    "scripts/generate_setup_experience_artifacts.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -329,6 +338,11 @@ REQUIRED_EXAMPLES = {
     "examples/security-gap-closeout/example_private_security_action_register.md",
     "examples/security-gap-closeout/example_known_limitations_closeout.md",
     "examples/security-gap-closeout/example_policy_implementation_matrix.csv",
+    "examples/setup-experience/README.md",
+    "examples/setup-experience/example_first_run_checklist.md",
+    "examples/setup-experience/example_local_installer_guide.md",
+    "examples/setup-experience/example_setup_troubleshooting_guide.md",
+    "examples/setup-experience/example_setup_command_map.csv",
 }
 REQUIRED_TARGETS = {
     "review-workspace-summary",
@@ -390,6 +404,11 @@ REQUIRED_TARGETS = {
     "private-security-action-register",
     "known-limitations-closeout",
     "security-gap-artifact-check",
+    "setup-experience-review",
+    "first-run-checklist",
+    "local-installer-guide",
+    "setup-troubleshooting-guide",
+    "setup-experience-artifact-check",
     "webhook-replay-checklist",
     "webhook-security-artifact-check",
     "help",
@@ -658,6 +677,17 @@ IGNORED_OUTPUTS = {
     "*.policy-implementation-matrix.csv",
     "*.private-security-action-register.md",
     "*.known-limitations-closeout.md",
+    "setup-experience-output/",
+    "installer-review-output/",
+    "first-run-output/",
+    "local-setup-output/",
+    "setup-diagnostics-output/",
+    "*.setup-experience-report.json",
+    "*.setup-experience-report.md",
+    "*.first-run-checklist.md",
+    "*.local-installer-guide.md",
+    "*.setup-troubleshooting-guide.md",
+    "*.setup-command-map.csv",
 }
 GENERATED_PARTS = {
     "private-workspace",
@@ -741,6 +771,10 @@ GENERATED_PARTS = {
     "privacy-review-output",
     "encryption-guidance-output",
     "private-security-action-output",
+    "setup-experience-output",
+    "installer-review-output",
+    "local-setup-output",
+    "setup-diagnostics-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak",
@@ -895,6 +929,10 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         (line for line in makefile.splitlines() if line.startswith("quality:")),
         "",
     )
+    quality_headers = " ".join(
+        line for line in makefile.splitlines() if line.startswith("quality:")
+    )
+    setup_review = _read(root, "docs/setup-experience-review.md").casefold()
     prepare_sandbox_header = next(
         (line for line in makefile.splitlines() if line.startswith("prepare-sandbox:")),
         "",
@@ -1267,6 +1305,36 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             and "security-gap-artifact-check"
             not in " ".join(line for line in makefile.splitlines() if line.startswith("quality:"))
         ),
+        "J1 setup guidance is local and Demo-safe": (
+            all(phrase in setup_review for phrase in ("local", "demo mode", "secrets"))
+            and any(
+                phrase in setup_review
+                for phrase in ("no secrets", "requires no", "does not require")
+            )
+            and any(phrase in setup_review for phrase in ("no deploy", "does not deploy"))
+            and any(phrase in setup_review for phrase in ("no release", "does not release"))
+            and "production approval" in setup_review
+            and any(phrase in setup_review for phrase in ("no production", "not production"))
+        ),
+        "J1 separates gated setup paths": all(
+            phrase in docs for phrase in ("sandbox", "pilot", "hosted", "gated")
+        ),
+        "J1 documents prerequisite troubleshooting": all(
+            phrase in _read(root, "docs/setup-troubleshooting-guide.md").casefold()
+            for phrase in ("path", "git", "python", "pip", "make")
+        ),
+        "J1 checks included and artifacts excluded": (
+            all(
+                target in quality_headers
+                for target in (
+                    "setup-experience-review",
+                    "first-run-checklist",
+                    "local-installer-guide",
+                    "setup-troubleshooting-guide",
+                )
+            )
+            and "setup-experience-artifact-check" not in quality_headers
+        ),
         "H3 workspace is read-only and local": all(
             phrase in _read(root, "docs/intake-review-workspace.md").casefold()
             for phrase in ("read-only", "local intake records only", "no procore")
@@ -1601,6 +1669,12 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 ".policy-implementation-matrix.csv",
                 ".private-security-action-register.md",
                 ".known-limitations-closeout.md",
+                ".setup-experience-report.json",
+                ".setup-experience-report.md",
+                ".first-run-checklist.md",
+                ".local-installer-guide.md",
+                ".setup-troubleshooting-guide.md",
+                ".setup-command-map.csv",
             )
         ):
             add(

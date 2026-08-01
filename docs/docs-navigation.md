@@ -1,5 +1,17 @@
 # Documentation navigation map
 
+Phase J1 local setup path:
+
+1. [Local installer guide](local-installer-guide.md)
+2. [First-run checklist](first-run-checklist.md)
+3. [Setup troubleshooting guide](setup-troubleshooting-guide.md)
+4. [Setup experience review](setup-experience-review.md)
+
+First create `.venv`, second activate it, and third install local development dependencies; next
+run `make start` and `make try-demo`. Demo requires no Procore credentials, other secrets, cloud
+service, or external database. Sandbox, Pilot, and Hosted are separate gated paths. Setup does no
+build, publish, release, or deployment and grants no operational approval.
+
 Phase I9 closeout path:
 
 1. [Security gap closeout](security-gap-closeout.md)

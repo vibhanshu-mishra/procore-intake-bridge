@@ -1,0 +1,7 @@
+# Example Local Installer Guide
+
+- Step: SETUP_STEP_PLACEHOLDER
+- Command: COMMAND_PLACEHOLDER
+- Mode: MODE_PATH_PLACEHOLDER
+- Local endpoint: LOCALHOST_PLACEHOLDER
+- Review reference: MAINTAINER_REVIEW_REF_PLACEHOLDER

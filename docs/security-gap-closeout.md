@@ -1,5 +1,10 @@
 # Security Gap Closeout
 
+Phase J1 improves local setup documentation only. Its Demo path requires no Procore credentials,
+other secrets, cloud services, or external database. Sandbox, Pilot, and Hosted remain separate
+private, gated paths. J1 performs no package build, publish, release, or deployment and does not
+close or approve any I9 private-security action.
+
 Phase I9 is an offline, public-safe documentation and checklist layer that closes out the public
 security review after I1–I8. It separates implemented repository behavior from partial
 implementation, policy-only material, guidance-only material, intentionally absent behavior,

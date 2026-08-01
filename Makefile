@@ -4,6 +4,7 @@ PYTHON ?= .venv/bin/python
 
 .PHONY: final-security-review security-readiness-summary security-gap-register private-security-review-checklist final-security-artifact-check
 .PHONY: security-gap-closeout privacy-review-template encryption-at-rest-guidance private-security-action-register known-limitations-closeout security-gap-artifact-check
+.PHONY: setup-experience-review first-run-checklist local-installer-guide setup-troubleshooting-guide setup-experience-artifact-check
 
 .PHONY: security-threat-model security-boundary-map security-review-checklist security-threat-model-artifact-check auth-boundary-audit auth-boundary-map permission-boundary-checklist auth-boundary-artifact-check webhook-security-review webhook-signature-boundary webhook-replay-checklist webhook-security-artifact-check data-policy-review data-retention-map redaction-boundary-map data-handling-checklist data-policy-artifact-check infra-security-review secret-boundary-map storage-boundary-map database-boundary-map infra-security-checklist infra-security-artifact-check supply-chain-review dependency-boundary-map package-surface-map supply-chain-checklist supply-chain-artifact-check incident-response-review incident-runbook audit-log-boundary-map forensics-evidence-checklist incident-response-artifact-check demo-product-tour demo-product-check demo-evaluation-checklist demo-product-artifact-check product-dashboard-overview product-dashboard-check review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check operator-export-check operator-export-summary operator-export-artifact-check
 
@@ -55,6 +56,10 @@ help:
 	@echo "  make encryption-at-rest-guidance Print infrastructure guidance only"
 	@echo "  make private-security-action-register Print private review actions"
 	@echo "  make known-limitations-closeout Print explicit security limitations"
+	@echo "  make setup-experience-review Review the local-only setup path"
+	@echo "  make first-run-checklist Print the safe first-run sequence"
+	@echo "  make local-installer-guide Print local dependency setup guidance"
+	@echo "  make setup-troubleshooting-guide Print git/python/pip/make/PATH help"
 	@echo "  make product-dashboard-overview Sanitized local product cockpit summary"
 	@echo "  make product-dashboard-check Validate the read-only product cockpit"
 	@echo "  make review-workspace-summary Read-only local intake summary"
@@ -321,6 +326,16 @@ known-limitations-closeout:
 	$(PYTHON) scripts/print_known_limitations_closeout.py
 security-gap-artifact-check:
 	$(PYTHON) scripts/generate_security_gap_closeout_artifacts.py --temporary
+setup-experience-review:
+	$(PYTHON) scripts/run_setup_experience_review.py
+first-run-checklist:
+	$(PYTHON) scripts/print_first_run_checklist.py
+local-installer-guide:
+	$(PYTHON) scripts/print_local_installer_guide.py
+setup-troubleshooting-guide:
+	$(PYTHON) scripts/print_setup_troubleshooting_guide.py
+setup-experience-artifact-check:
+	$(PYTHON) scripts/generate_setup_experience_artifacts.py --temporary
 
 demo-product-tour:
 	$(PYTHON) scripts/print_demo_product_tour.py
@@ -708,4 +723,5 @@ quality: supply-chain-review dependency-boundary-map package-surface-map supply-
 quality: incident-response-review incident-runbook audit-log-boundary-map forensics-evidence-checklist
 quality: final-security-review security-readiness-summary security-gap-register private-security-review-checklist
 quality: security-gap-closeout privacy-review-template encryption-at-rest-guidance private-security-action-register known-limitations-closeout
+quality: setup-experience-review first-run-checklist local-installer-guide setup-troubleshooting-guide
 	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict

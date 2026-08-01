@@ -1,5 +1,12 @@
 # Release readiness
 
+## J1 relationship
+
+The J1 installer experience is local-only and outside release execution. It performs no package
+or Docker build, publish, tag, release, or deployment and grants no production, Pilot, release,
+deployment, or Procore approval. Demo needs no credentials, cloud service, or external database;
+Sandbox, Pilot, and Hosted remain separate gated paths.
+
 ## I9 relationship
 
 I9 supplies offline closeout guidance but does not grant release, production, pilot, deployment,

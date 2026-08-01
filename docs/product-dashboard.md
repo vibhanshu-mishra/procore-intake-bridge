@@ -1,5 +1,10 @@
 # Product Dashboard
 
+For Phase J1 local setup, follow the [local installer guide](local-installer-guide.md) and run
+`make start` before `make try-demo`. Demo requires no Procore credentials, other secrets, cloud
+services, or external database. Sandbox, Pilot, and Hosted remain separate and gated; setup
+performs no package build, release, or deployment and grants no operational approval.
+
 Phase H8 polishes the existing local admin and review UI into a product cockpit at
 `GET /dashboard`. It adds visibility and navigation across existing capabilities; it does not
 add a product workflow.

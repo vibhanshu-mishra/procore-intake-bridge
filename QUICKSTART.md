@@ -1,5 +1,14 @@
 # Quickstart: start with Demo Mode
 
+Phase J1's local setup order is explicit: first `python3 -m venv .venv`, second activate it with
+`source .venv/bin/activate`, and third run `python -m pip install -e ".[dev]"`. Next run
+`make start`, then `make try-demo`. Demo requires no Procore credentials, other secrets, cloud
+services, or external database. See the [local installer guide](docs/local-installer-guide.md),
+[first-run checklist](docs/first-run-checklist.md), and
+[setup troubleshooting guide](docs/setup-troubleshooting-guide.md). Sandbox, Pilot, and Hosted
+are separate private, gated paths. Setup performs no package or Docker build, publish, release,
+or deployment and grants no production, Pilot, or release approval.
+
 Run `make security-gap-closeout` for the offline I9 policy-versus-implementation review. It is a
 guidance/checklist layer only: no scanner, external or Procore call, encryption, retention
 enforcement, deletion/purge, or notification occurs. It grants no compliance, certification, or

@@ -1,5 +1,13 @@
 # Documentation
 
+Phase J1 provides a [local installer guide](local-installer-guide.md), canonical
+[first-run checklist](first-run-checklist.md), [setup troubleshooting](setup-troubleshooting-guide.md),
+and an offline [setup experience review](setup-experience-review.md). First create `.venv`, second
+activate it, and third install local development dependencies; then run `make start` and
+`make try-demo`. Demo needs no credentials, cloud service, or external database. Sandbox, Pilot,
+and Hosted are separate gated paths. Setup builds, publishes, releases, and deploys nothing and
+grants no operational approval.
+
 Phase I9 provides an [offline security gap closeout](security-gap-closeout.md) that distinguishes
 implemented behavior from policy, guidance, intentional omissions, private review, and future
 work. Its privacy template and encryption-at-rest guidance are review aids only. I9 performs no
@@ -48,6 +56,9 @@ changes only. Local status does not update Procore and is not an approval, compl
 or external communication.
 
 - [First-run checklist](first-run-checklist.md)
+- [Local installer guide](local-installer-guide.md)
+- [Setup troubleshooting guide](setup-troubleshooting-guide.md)
+- [Setup experience review](setup-experience-review.md)
 - [Command reference](command-reference.md)
 - [Troubleshooting](troubleshooting.md)
 - [Public usability audit](public-usability-audit.md)

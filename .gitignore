@@ -362,6 +362,17 @@ private-security-action-output/
 *.policy-implementation-matrix.csv
 *.private-security-action-register.md
 *.known-limitations-closeout.md
+setup-experience-output/
+installer-review-output/
+first-run-output/
+local-setup-output/
+setup-diagnostics-output/
+*.setup-experience-report.json
+*.setup-experience-report.md
+*.first-run-checklist.md
+*.local-installer-guide.md
+*.setup-troubleshooting-guide.md
+*.setup-command-map.csv
 review-export-output/
 intake-export-output/
 lifecycle-export-output/

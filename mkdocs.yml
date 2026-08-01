@@ -5,6 +5,10 @@ nav:
   - Start Here:
       - Home: index.md
       - Quickstart: quickstart-site.md
+      - Local Installer Guide: local-installer-guide.md
+      - First-Run Checklist: first-run-checklist.md
+      - Setup Troubleshooting Guide: setup-troubleshooting-guide.md
+      - Setup Experience Review: setup-experience-review.md
       - Command Reference: command-reference.md
       - Troubleshooting: troubleshooting.md
   - Choose Your Mode:

@@ -1,5 +1,16 @@
 # Changelog
 
+## Phase J1
+
+- Added a local installer guide, canonical first-run checklist, setup troubleshooting guide, and
+  offline setup experience review for Git, Python 3.12+, pip, Make, virtual environments, local
+  dependency installation, Demo safety, and next-command guidance.
+- Added five placeholder-only setup examples and documented separate gated Sandbox, Pilot, and
+  Hosted paths. Demo requires no Procore credentials, other secrets, cloud services, or external
+  database.
+- J1 performs no package or Docker build, publish, tag, release, deployment, or live external
+  operation and grants no production, Pilot, release, deployment, or Procore approval.
+
 ## Phase I9
 
 - Added an offline security gap closeout, policy-versus-implementation guidance, privacy review

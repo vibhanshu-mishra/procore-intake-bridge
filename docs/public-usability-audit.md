@@ -1,5 +1,14 @@
 # Public usability audit
 
+## J1 coverage
+
+The public usability audit checks the four setup guides, five placeholder-only examples, J1
+commands, ignored generated output patterns, and explicit local-only Demo guidance. It expects
+missing Git, Python, pip, Make, and PATH troubleshooting; an exact first/second/third setup order;
+and a clear next command. Demo must require no secrets, cloud service, or external database.
+Sandbox, Pilot, and Hosted must remain separate and gated. J1 must perform no build, publish,
+release, or deployment and make no production, Pilot, or release approval claim.
+
 ## I9 coverage
 
 The audit verifies discovery of the offline closeout, privacy template, encryption guidance,

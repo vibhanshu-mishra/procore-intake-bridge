@@ -1,5 +1,13 @@
 # Roadmap
 
+## J1 local setup experience
+
+J1 improves public maintainer onboarding without changing product behavior. It documents Git,
+Python 3.12+, pip, Make, `.venv`, local dependency installation, and the exact first/second/third
+commands. Demo remains credential-free, cloud-free, and external-database-free; Sandbox, Pilot,
+and Hosted remain separate and gated. J1 adds no package or Docker build, publish, release,
+deployment, or operational approval.
+
 ## I9 closeout and future work
 
 The public I9 closeout documents remaining gaps without implementing them. Future work may include

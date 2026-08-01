@@ -153,6 +153,10 @@ PRIVATE_PATH_PARTS = {
     "privacy-review-output",
     "encryption-guidance-output",
     "private-security-action-output",
+    "setup-experience-output",
+    "installer-review-output",
+    "local-setup-output",
+    "setup-diagnostics-output",
     "sandbox-output",
     "sandbox-pilot-output",
     "pilot-flow-output",
@@ -367,6 +371,22 @@ SECURITY_GAP_QUALIFIER = re.compile(
     r"future work|future product work|private infrastructure|privately implemented|"
     r"intentionally not implemented)\b"
 )
+SETUP_UNSAFE_CLAIM = re.compile(
+    r"(?i)\b(?:production[- ]ready|approved for (?:production|release|pilot|launch)|"
+    r"(?:production|release|pilot|launch) (?:is )?approved|"
+    r"(?:soc ?2|iso ?27001|hipaa|gdpr|ccpa|slsa|sbom|security|compliance) certified|"
+    r"(?:gdpr|ccpa|hipaa|privacy|legal) compliant)\b"
+)
+SETUP_DEMO_SECRET_REQUIREMENT = re.compile(
+    r"(?i)\bdemo(?: mode)?\b.*\b(?:requires?|must (?:provide|set|use)|needs?)\b.*"
+    r"\b(?:real )?(?:secrets?|credentials?|tokens?|dmsa|webhook secret|admin token)\b|"
+    r"\b(?:secrets?|credentials?|tokens?|dmsa|webhook secret|admin token)\b.*"
+    r"\b(?:required|needed|mandatory)\b.*\bdemo(?: mode)?\b"
+)
+SETUP_SAFETY_QUALIFIER = re.compile(
+    r"(?i)\b(?:no|not|never|does not|do not|is not|are not|must not|without|"
+    r"doesn't|isn't|aren't|requires no|not required|not needed|not implied)\b"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -376,6 +396,28 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if any(
+        marker in path.as_posix()
+        for marker in (
+            "setup-experience",
+            "setup_experience",
+            "local-installer-guide",
+            "first-run-checklist",
+            "setup-troubleshooting-guide",
+            "setup-command-map",
+        )
+    ):
+        excluded = any(part in path.parts for part in ("tests", "services", "schemas"))
+        for line in text.splitlines():
+            qualified = SETUP_SAFETY_QUALIFIER.search(line)
+            if SETUP_UNSAFE_CLAIM.search(line) and not excluded and not qualified:
+                issues.append(SafetyIssue(path, "setup guidance implies approval or certification"))
+                break
+            if SETUP_DEMO_SECRET_REQUIREMENT.search(line) and not excluded and not qualified:
+                issues.append(
+                    SafetyIssue(path, "setup guidance requires real secrets for Demo Mode")
+                )
+                break
     if any(
         marker in path.as_posix()
         for marker in (
@@ -1108,6 +1150,28 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             )
         ):
             issues.append(SafetyIssue(path, "tracked generated security-gap closeout output"))
+            continue
+        if any(
+            part
+            in {
+                "setup-experience-output",
+                "installer-review-output",
+                "first-run-output",
+                "local-setup-output",
+                "setup-diagnostics-output",
+            }
+            for part in path.parts
+        ) or path.name.endswith(
+            (
+                ".setup-experience-report.json",
+                ".setup-experience-report.md",
+                ".first-run-checklist.md",
+                ".local-installer-guide.md",
+                ".setup-troubleshooting-guide.md",
+                ".setup-command-map.csv",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated setup-experience output"))
             continue
         if any(
             part

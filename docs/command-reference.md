@@ -1,5 +1,24 @@
 # Command reference
 
+## Phase J1 local setup experience
+
+For a new clone, first create `.venv`, second activate it, and third install local development
+dependencies as shown in the [local installer guide](local-installer-guide.md). Demo Mode needs no
+Procore credentials, other secrets, cloud service, or external database. Sandbox, Pilot, and
+Hosted remain separate private, gated paths.
+
+| Command | Purpose |
+| --- | --- |
+| `make setup-experience-review` | Run the offline, non-writing public setup review. |
+| `make first-run-checklist` | Print the sanitized first-run checklist. |
+| `make local-installer-guide` | Print the sanitized local installer guide. |
+| `make setup-troubleshooting-guide` | Print missing Git/Python/pip/Make/PATH guidance. |
+| `make setup-experience-artifact-check` | Generate only temporary, ignored artifacts and check them. |
+
+These commands make no Procore, cloud, external database, registry, release, or deployment call.
+They perform no package or Docker build, publish, tag, release, or deployment and imply no
+production, Pilot, release, deployment, or Procore approval.
+
 ## Phase I9 security gap closeout
 
 ```bash

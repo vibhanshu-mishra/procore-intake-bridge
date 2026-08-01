@@ -1,5 +1,12 @@
 # Final public repository readiness
 
+## J1 relationship
+
+J1 makes local maintainer setup easier to review but does not establish final public, production,
+Pilot, release, deployment, or Procore approval. Demo requires no credentials, cloud service, or
+external database; Sandbox, Pilot, and Hosted remain separate and gated. Setup runs no package
+build, publish, release, or deployment.
+
 ## I9 relationship
 
 The offline I9 security gap closeout can support public maintainer review. It does not make the

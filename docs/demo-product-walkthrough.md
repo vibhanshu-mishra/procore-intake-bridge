@@ -1,5 +1,10 @@
 # Demo Product Walkthrough
 
+Phase J1 setup for this walkthrough is local-only: first create `.venv`, second activate it, and
+third install local development dependencies. Demo requires no Procore credentials, other
+secrets, cloud services, or external database. Sandbox, Pilot, and Hosted are separate private,
+gated paths. Setup performs no build, publish, release, or deployment and grants no approval.
+
 Phase H9 is a Demo Mode-only maintainer tour built entirely from committed fake data. It performs
 no Procore call, external call, live Sandbox validation, external database connection, cloud or
 storage-provider operation, attachment file access, webhook operation, deployment, release, or

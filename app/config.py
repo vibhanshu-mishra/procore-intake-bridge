@@ -1162,6 +1162,59 @@ class Settings(BaseSettings):
         le=400,
         validation_alias="PROCORE_INTAKE_SECURITY_GAP_CLOSEOUT_MAX_FINDINGS",
     )
+    setup_experience_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_SETUP_EXPERIENCE_ENABLED"
+    )
+    setup_experience_output_root: Path = Field(
+        default=Path("./setup-experience-output"),
+        validation_alias="PROCORE_INTAKE_SETUP_EXPERIENCE_OUTPUT_ROOT",
+    )
+    setup_experience_require_demo_safe_defaults: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SETUP_EXPERIENCE_REQUIRE_DEMO_SAFE_DEFAULTS",
+    )
+    setup_experience_require_no_secrets: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SETUP_EXPERIENCE_REQUIRE_NO_SECRETS",
+    )
+    setup_experience_require_ignored_outputs: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SETUP_EXPERIENCE_REQUIRE_IGNORED_OUTPUTS",
+    )
+    setup_experience_require_local_only: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SETUP_EXPERIENCE_REQUIRE_LOCAL_ONLY",
+    )
+    setup_experience_allow_real_identities: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SETUP_EXPERIENCE_ALLOW_REAL_IDENTITIES",
+    )
+    setup_experience_allow_real_domains: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SETUP_EXPERIENCE_ALLOW_REAL_DOMAINS",
+    )
+    setup_experience_allow_real_urls: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SETUP_EXPERIENCE_ALLOW_REAL_URLS",
+    )
+    setup_experience_allow_report_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SETUP_EXPERIENCE_ALLOW_REPORT_CONTENTS",
+    )
+    setup_experience_allow_private_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_SETUP_EXPERIENCE_ALLOW_PRIVATE_PATHS",
+    )
+    setup_experience_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_SETUP_EXPERIENCE_FAIL_CLOSED",
+    )
+    setup_experience_max_findings: int = Field(
+        default=300,
+        ge=1,
+        le=300,
+        validation_alias="PROCORE_INTAKE_SETUP_EXPERIENCE_MAX_FINDINGS",
+    )
     intake_review_workspace_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_ENABLED",

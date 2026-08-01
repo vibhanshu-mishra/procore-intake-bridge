@@ -1,5 +1,15 @@
 # Procore Intake Bridge
 
+Phase J1 adds a [local installer guide](docs/local-installer-guide.md), expanded
+[first-run checklist](docs/first-run-checklist.md),
+[setup troubleshooting guide](docs/setup-troubleshooting-guide.md), and offline
+[setup experience review](docs/setup-experience-review.md). For a new clone, first create
+`.venv`, second activate it, and third run `python -m pip install -e ".[dev]"`; then run
+`make start` and `make try-demo`. Demo needs no Procore credentials, other secrets, cloud
+services, or external database. Sandbox, Pilot, and Hosted paths remain separate and gated.
+Setup builds, publishes, releases, and deploys nothing and implies no production, Pilot,
+release, deployment, or Procore approval.
+
 Phase I9 adds an [offline security gap closeout](docs/security-gap-closeout.md),
 [privacy review template](docs/privacy-review-template.md), and
 [encryption-at-rest guidance](docs/encryption-at-rest-guidance.md). The pack is guidance and
@@ -60,7 +70,8 @@ make commands
 
 Most users should begin with these Make targets. Existing deeper targets and scripts remain
 available in the [command reference](docs/command-reference.md). See the
-[first-run checklist](docs/first-run-checklist.md), [troubleshooting](docs/troubleshooting.md),
+[first-run checklist](docs/first-run-checklist.md),
+[setup troubleshooting](docs/setup-troubleshooting-guide.md), [troubleshooting](docs/troubleshooting.md),
 and [usage modes](docs/usage-modes.md).
 
 Phase H5 adds a [GET-only Operator Triage Queue](docs/operator-triage-queue.md) over sanitized H3

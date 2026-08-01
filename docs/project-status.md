@@ -1,5 +1,14 @@
 # Project status
 
+## Phase J1: better installer and setup experience
+
+J1 adds local prerequisite, virtual-environment, dependency-install, Demo safety, next-command,
+and missing Git/Python/pip/Make/PATH guidance. The exact initial order is: first create `.venv`,
+second activate it, and third install local development dependencies; then run `make start` and
+`make try-demo`. Demo needs no credentials, cloud service, or external database. Sandbox, Pilot,
+and Hosted remain separate private, gated paths. J1 performs no build, publish, release, or
+deployment and grants no production, Pilot, release, deployment, or Procore approval.
+
 ## Phase I9: security gap closeout
 
 I9 adds an offline policy-versus-implementation closeout, privacy review template,
@@ -60,6 +69,7 @@ traversal protection, and CSV formula neutralization. It adds no public export r
 
 - **A1–A9:** backend foundation, credential profiles, polling, webhooks, attachments, onboarding,
   admin UI, deployment hardening, and public repository polish.
+- **J1:** local setup and installer guidance with offline review and safe Demo boundaries.
 - **B1–B9:** manually gated Sandbox smoke, provider contracts, migrations, admin access, storage,
   synthetic webhook verification, customer planning, diagnostics, and pilot readiness.
 - **C1–C5:** private evidence patterns, review/expiry, approval packets, three-mode onboarding,
