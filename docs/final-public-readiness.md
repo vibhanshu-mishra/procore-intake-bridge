@@ -1,5 +1,11 @@
 # Final public repository readiness
 
+## J7 relationship
+
+Final public readiness is an input to J7, not release approval. J7 may report that the public repo is
+ready for later release-candidate maintainer review, but prepared `0.1.0` remains metadata and no
+build, publish, tag, release, deployment, workflow change, or approval occurs.
+
 ## J6 relationship
 
 Consistent prepared `0.1.0` metadata improves maintainability but does not establish release or

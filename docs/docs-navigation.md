@@ -1,5 +1,15 @@
 # Documentation navigation map
 
+Phase J7 release-candidate review path:
+
+1. [Release-candidate review](release-candidate-review.md)
+2. [Release-candidate checklist](release-candidate-checklist.md)
+3. [Release-candidate gap register](release-candidate-gap-register.md)
+4. [Release-candidate command plan](release-candidate-command-plan.md)
+
+This is a checklist for later maintainer review of prepared `0.1.0` metadata. It performs no
+package/Docker build, publish, tag, release, deployment, workflow change, or approval.
+
 Phase J6 release-metadata path:
 
 1. [Version preparation review](version-prep-review.md)

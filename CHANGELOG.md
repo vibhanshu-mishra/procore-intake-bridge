@@ -1,5 +1,14 @@
 # Changelog
 
+## Phase J7 — prepared 0.1.0 release-candidate checklist
+
+- Added an offline release-candidate review, checklist, gap register, command plan, and
+  placeholder-only examples that aggregate existing public readiness inputs.
+- `0.1.0` remains prepared metadata, not a released version; the checklist may support later
+  maintainer review but cannot create or approve a release candidate.
+- J7 performs no package/Docker build, publish, tag, release, deployment, external call, or workflow
+  change and grants no production, Pilot, release, deployment, publication, or Procore approval.
+
 ## Prepared target 0.1.0 — Phase J6
 
 - Prepared release-candidate metadata, a package summary, version source map, release boundary

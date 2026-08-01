@@ -1,5 +1,10 @@
 # Examples
 
+Phase J7 placeholder-only checklist examples are in
+[`release-candidate-review/`](release-candidate-review/README.md). They model domains, gates, gaps,
+and command-plan structure without builds, publication, tags, releases, deployments, workflow
+changes, private values, or approval claims.
+
 Phase J6 placeholder-only release-candidate metadata examples are in
 [`version-prep/`](version-prep/README.md). They demonstrate summaries, source maps, boundaries, and
 matrix shape without real registry values, tokens, signing material, builds, publication, tags,

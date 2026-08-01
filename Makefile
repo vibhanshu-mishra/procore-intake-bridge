@@ -10,6 +10,7 @@ PYTHON ?= .venv/bin/python
 .PHONY: hosted-ui-review hosted-ui-page-inventory hosted-ui-readiness-checklist hosted-ui-private-gates hosted-ui-artifact-check
 .PHONY: docs-site-polish-review docs-reader-paths docs-navigation-map docs-site-checklist docs-site-polish-artifact-check
 .PHONY: version-prep-review package-metadata-summary version-source-map release-boundary-checklist version-prep-artifact-check
+.PHONY: release-candidate-review release-candidate-checklist release-candidate-gap-register release-candidate-command-plan release-candidate-artifact-check
 
 .PHONY: security-threat-model security-boundary-map security-review-checklist security-threat-model-artifact-check auth-boundary-audit auth-boundary-map permission-boundary-checklist auth-boundary-artifact-check webhook-security-review webhook-signature-boundary webhook-replay-checklist webhook-security-artifact-check data-policy-review data-retention-map redaction-boundary-map data-handling-checklist data-policy-artifact-check infra-security-review secret-boundary-map storage-boundary-map database-boundary-map infra-security-checklist infra-security-artifact-check supply-chain-review dependency-boundary-map package-surface-map supply-chain-checklist supply-chain-artifact-check incident-response-review incident-runbook audit-log-boundary-map forensics-evidence-checklist incident-response-artifact-check demo-product-tour demo-product-check demo-evaluation-checklist demo-product-artifact-check product-dashboard-overview product-dashboard-check review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check operator-export-check operator-export-summary operator-export-artifact-check
 
@@ -85,6 +86,10 @@ help:
 	@echo "  make package-metadata-summary Print the local package metadata summary"
 	@echo "  make version-source-map Print prepared-version source consistency"
 	@echo "  make release-boundary-checklist Print the no-build/no-release boundary"
+	@echo "  make release-candidate-review Aggregate the offline candidate review"
+	@echo "  make release-candidate-checklist Print candidate gates and statuses"
+	@echo "  make release-candidate-gap-register Print unresolved maintainer-review gaps"
+	@echo "  make release-candidate-command-plan Print safe local review commands"
 	@echo "  make product-dashboard-overview Sanitized local product cockpit summary"
 	@echo "  make product-dashboard-check Validate the read-only product cockpit"
 	@echo "  make review-workspace-summary Read-only local intake summary"
@@ -413,6 +418,16 @@ release-boundary-checklist:
 	$(PYTHON) scripts/print_release_boundary_checklist.py
 version-prep-artifact-check:
 	$(PYTHON) scripts/generate_version_prep_artifacts.py --temporary
+release-candidate-review:
+	$(PYTHON) scripts/run_release_candidate_review.py
+release-candidate-checklist:
+	$(PYTHON) scripts/print_release_candidate_checklist.py
+release-candidate-gap-register:
+	$(PYTHON) scripts/print_release_candidate_gap_register.py
+release-candidate-command-plan:
+	$(PYTHON) scripts/print_release_candidate_command_plan.py
+release-candidate-artifact-check:
+	$(PYTHON) scripts/generate_release_candidate_artifacts.py --temporary
 
 demo-product-tour:
 	$(PYTHON) scripts/print_demo_product_tour.py
@@ -806,4 +821,5 @@ quality: api-docs-review api-route-reference api-usage-examples openapi-local-gu
 quality: hosted-ui-review hosted-ui-page-inventory hosted-ui-readiness-checklist hosted-ui-private-gates
 quality: docs-site-polish-review docs-reader-paths docs-navigation-map docs-site-checklist
 quality: version-prep-review package-metadata-summary version-source-map release-boundary-checklist
+quality: release-candidate-review release-candidate-checklist release-candidate-gap-register release-candidate-command-plan
 	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict

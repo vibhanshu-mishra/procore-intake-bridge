@@ -1,5 +1,10 @@
 # Version Preparation Review
 
+J7 consumes J6 as the canonical version/package-preparation input. J7 does not create another
+version owner: `0.1.0` remains prepared metadata, and the release-candidate checklist only evaluates
+whether later maintainer review can begin. No build, publish, tag, release, deploy, workflow, or
+approval occurs.
+
 Phase J6 prepares package and version metadata for a later release-candidate review. The prepared
 target version is `0.1.0`; it is release-candidate metadata, not a released version.
 

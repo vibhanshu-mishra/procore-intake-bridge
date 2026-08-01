@@ -184,6 +184,11 @@ PRIVATE_PATH_PARTS = {
     "release-prep-output",
     "version-review-output",
     "package-review-output",
+    "release-candidate-output",
+    "release-candidate-review-output",
+    "rc-checklist-output",
+    "rc-readiness-output",
+    "candidate-release-output",
 }
 
 
@@ -475,6 +480,20 @@ VERSION_PREP_UNSAFE_CLAIM = re.compile(
     r"deployment) (?:is )?approved|procore (?:endorsed|partner|certified|officially "
     r"supported))\b"
 )
+RELEASE_CANDIDATE_PRIVATE_MATERIAL = re.compile(
+    r"(?i)(?:github_token|registry_token|package_registry_token|publish_token|ci_secret|"
+    r"release_signing_key|signing_key|registry_password|database_url|authorization|"
+    r"bearer|signed_url|storage_key|private_path|private_report_contents?)"
+    r"\s*[:=]\s*[\"']?(?!placeholder\b|fake\b|none\b|false\b)[^\"'\s]+"
+)
+RELEASE_CANDIDATE_UNSAFE_CLAIM = re.compile(
+    r"(?i)\b(?:package (?:was |is )?(?:built|published|uploaded)|docker image "
+    r"(?:was |is )?(?:built|pushed)|(?:tag|release) (?:was |is )?created|"
+    r"(?:application|app|docs) (?:was |is )?deployed|release candidate (?:is )?approved|"
+    r"production[- ]ready|approved for (?:production|release|pilot|launch|deployment)|"
+    r"(?:production|release|pilot|launch|deployment) (?:is )?approved|procore "
+    r"(?:endorsed|partner|certified|officially supported))\b"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -484,6 +503,26 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if any(
+        marker in path.as_posix()
+        for marker in ("release-candidate", "release_candidate", "rc-checklist", "rc-readiness")
+    ):
+        excluded = any(part in path.parts for part in ("tests", "services", "schemas"))
+        lines = text.splitlines()
+        for index, line in enumerate(lines):
+            context = " ".join(lines[max(0, index - 2) : index + 1])
+            qualified = SETUP_SAFETY_QUALIFIER.search(context) or re.search(
+                r"(?i)\b(?:none|absent|not added|not present|did not|has not|excluded)\b",
+                context,
+            )
+            if RELEASE_CANDIDATE_PRIVATE_MATERIAL.search(line) and not excluded:
+                issues.append(SafetyIssue(path, "release candidate exposes publishing material"))
+                break
+            if RELEASE_CANDIDATE_UNSAFE_CLAIM.search(line) and not excluded and not qualified:
+                issues.append(
+                    SafetyIssue(path, "release candidate implies live release or approval")
+                )
+                break
     if any(
         marker in path.as_posix()
         for marker in (
@@ -1163,6 +1202,28 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             continue
         if path.name.endswith((".smoke.json", ".smoke.log")):
             issues.append(SafetyIssue(path, "tracked sandbox smoke output"))
+            continue
+        if any(
+            part
+            in {
+                "release-candidate-output",
+                "release-candidate-review-output",
+                "rc-checklist-output",
+                "rc-readiness-output",
+                "candidate-release-output",
+            }
+            for part in path.parts
+        ) or path.name.endswith(
+            (
+                ".release-candidate-report.json",
+                ".release-candidate-report.md",
+                ".release-candidate-checklist.md",
+                ".release-candidate-gap-register.md",
+                ".release-candidate-command-plan.md",
+                ".release-candidate-matrix.csv",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated release-candidate output"))
             continue
         if any(
             part

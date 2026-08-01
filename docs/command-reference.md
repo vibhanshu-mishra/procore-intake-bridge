@@ -1,5 +1,18 @@
 # Command reference
 
+## Phase J7 release-candidate checklist
+
+| Command | Purpose | Writes? |
+| --- | --- | --- |
+| `make release-candidate-review` | Aggregate public release-candidate readiness inputs. | No |
+| `make release-candidate-checklist` | Print gates for prepared `0.1.0` metadata. | No |
+| `make release-candidate-gap-register` | Print private/maintainer review gaps. | No |
+| `make release-candidate-command-plan` | Print an ordered plan of existing non-writing checks. | No |
+| `make release-candidate-artifact-check` | Validate sanitized artifacts in temporary storage. | Temporary only |
+
+J7 adds no build, publish, tag, release, or deployment target. Maintainer review comes later, and
+these commands grant no approval.
+
 ## Phase J6 version and package metadata preparation
 
 | Command | Purpose | Writes? |

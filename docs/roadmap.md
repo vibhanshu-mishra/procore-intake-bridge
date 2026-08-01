@@ -1,5 +1,11 @@
 # Roadmap
 
+## J7 release-candidate checklist
+
+J7 completes a public, offline checklist for later maintainer review of prepared `0.1.0` metadata.
+Artifact build/inspection, signing, publication, tagging, release authorization, and deployment
+remain later controlled work. No workflow or approval is added.
+
 ## J6 package metadata and version preparation
 
 J6 prepares `0.1.0` metadata and the inputs for a future maintainer release-candidate review. A real

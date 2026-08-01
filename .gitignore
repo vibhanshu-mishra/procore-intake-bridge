@@ -424,6 +424,17 @@ package-review-output/
 *.version-source-map.md
 *.release-boundary-checklist.md
 *.version-readiness-matrix.csv
+release-candidate-output/
+release-candidate-review-output/
+rc-checklist-output/
+rc-readiness-output/
+candidate-release-output/
+*.release-candidate-report.json
+*.release-candidate-report.md
+*.release-candidate-checklist.md
+*.release-candidate-gap-register.md
+*.release-candidate-command-plan.md
+*.release-candidate-matrix.csv
 review-export-output/
 intake-export-output/
 lifecycle-export-output/

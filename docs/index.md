@@ -1,5 +1,11 @@
 # Documentation
 
+Phase J7 aggregates existing public checks in the [release-candidate review](release-candidate-review.md),
+[checklist](release-candidate-checklist.md), [gap register](release-candidate-gap-register.md), and
+[command plan](release-candidate-command-plan.md). Prepared `0.1.0` remains metadata, not a release.
+J7 is checklist only, with later maintainer review and no build, publish, tag, release, deployment,
+workflow automation, or approval.
+
 Phase J6 documents the prepared `0.1.0` target through the
 [version preparation review](version-prep-review.md), [package metadata summary](package-metadata-summary.md),
 [version source map](version-source-map.md), and [release boundary checklist](release-boundary-checklist.md).

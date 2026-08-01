@@ -1,5 +1,11 @@
 # Procore Intake Bridge
 
+Phase J7 adds an offline [release-candidate review](docs/release-candidate-review.md),
+[checklist](docs/release-candidate-checklist.md), [gap register](docs/release-candidate-gap-register.md),
+and [safe command plan](docs/release-candidate-command-plan.md) for prepared `0.1.0` metadata. It is
+checklist only; maintainer review comes later. No package/Docker build, publish, tag, release,
+deployment, workflow change, or production/Pilot/release/deployment approval occurs.
+
 Phase J6 prepares `0.1.0` as [target/release-candidate metadata](docs/version-prep-review.md), with a
 [package summary](docs/package-metadata-summary.md), [version source map](docs/version-source-map.md),
 and [release boundary checklist](docs/release-boundary-checklist.md). The target is not released.

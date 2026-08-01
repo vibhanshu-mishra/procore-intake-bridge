@@ -1,5 +1,8 @@
 # Documentation Site Polish
 
+J7 consumes the J5 local navigation audit as one release-candidate gate. It does not publish or
+deploy documentation, add a workflow, or imply that prepared `0.1.0` has been released or approved.
+
 J6 joins the Release and Maintenance reader path through four metadata-preparation pages. J5 keeps
 navigation ownership here while version values remain owned by the canonical version source and
 commands remain owned by the command reference. No build, publication, tag, release, deployment,

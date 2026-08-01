@@ -145,6 +145,10 @@ nav:
       - Package Metadata Summary: package-metadata-summary.md
       - Version Source Map: version-source-map.md
       - Release Boundary Checklist: release-boundary-checklist.md
+      - Release Candidate Review: release-candidate-review.md
+      - Release Candidate Checklist: release-candidate-checklist.md
+      - Release Candidate Gap Register: release-candidate-gap-register.md
+      - Release Candidate Command Plan: release-candidate-command-plan.md
       - Release Readiness: release-readiness.md
       - Release Checklist: release-checklist.md
       - Release Notes Template: release-notes-template.md

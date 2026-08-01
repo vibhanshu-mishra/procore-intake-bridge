@@ -1532,6 +1532,95 @@ class Settings(BaseSettings):
         le=300,
         validation_alias="PROCORE_INTAKE_VERSION_PREP_MAX_FINDINGS",
     )
+    release_candidate_review_enabled: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_REVIEW_ENABLED"
+    )
+    release_candidate_output_root: Path = Field(
+        default=Path("./release-candidate-output"),
+        validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_OUTPUT_ROOT",
+    )
+    release_candidate_target_version: str = Field(
+        default="0.1.0",
+        validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_TARGET_VERSION",
+    )
+    release_candidate_require_version_prep: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_REQUIRE_VERSION_PREP",
+    )
+    release_candidate_require_setup_experience: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_REQUIRE_SETUP_EXPERIENCE",
+    )
+    release_candidate_require_demo_data: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_REQUIRE_DEMO_DATA"
+    )
+    release_candidate_require_api_docs: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_REQUIRE_API_DOCS"
+    )
+    release_candidate_require_hosted_ui_review: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_REQUIRE_HOSTED_UI_REVIEW",
+    )
+    release_candidate_require_docs_site_polish: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_REQUIRE_DOCS_SITE_POLISH",
+    )
+    release_candidate_require_security_closeout: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_REQUIRE_SECURITY_CLOSEOUT",
+    )
+    release_candidate_require_final_readiness: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_REQUIRE_FINAL_READINESS",
+    )
+    release_candidate_require_release_boundary: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_REQUIRE_RELEASE_BOUNDARY",
+    )
+    release_candidate_require_no_build: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_REQUIRE_NO_BUILD"
+    )
+    release_candidate_require_no_publish: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_REQUIRE_NO_PUBLISH"
+    )
+    release_candidate_require_no_tag: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_REQUIRE_NO_TAG"
+    )
+    release_candidate_require_no_deploy: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_REQUIRE_NO_DEPLOY"
+    )
+    release_candidate_require_no_workflow_changes: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_REQUIRE_NO_WORKFLOW_CHANGES",
+    )
+    release_candidate_allow_real_identities: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_ALLOW_REAL_IDENTITIES",
+    )
+    release_candidate_allow_real_domains: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_ALLOW_REAL_DOMAINS",
+    )
+    release_candidate_allow_real_urls: bool = Field(
+        default=False, validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_ALLOW_REAL_URLS"
+    )
+    release_candidate_allow_report_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_ALLOW_REPORT_CONTENTS",
+    )
+    release_candidate_allow_private_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_ALLOW_PRIVATE_PATHS",
+    )
+    release_candidate_fail_closed: bool = Field(
+        default=True, validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_FAIL_CLOSED"
+    )
+    release_candidate_max_findings: int = Field(
+        default=400,
+        ge=1,
+        le=400,
+        validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_MAX_FINDINGS",
+    )
     intake_review_workspace_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_ENABLED",

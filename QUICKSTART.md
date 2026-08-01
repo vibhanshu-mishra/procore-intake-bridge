@@ -1,5 +1,9 @@
 # Quickstart: start with Demo Mode
 
+J7 offers `make release-candidate-review` as a non-writing checklist for prepared `0.1.0` metadata.
+It does not create or approve a release candidate. No package/Docker build, publish, tag, release,
+deployment, workflow automation, or approval occurs; maintainer review remains later.
+
 J6 records `0.1.0` as prepared target/release-candidate metadata, not a released version. Use
 `make version-prep-review` for the offline consistency review. It performs no build, publish, tag,
 release, deployment, external registry/GitHub call, workflow change, or approval.

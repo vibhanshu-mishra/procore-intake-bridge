@@ -1,5 +1,11 @@
 # Release readiness
 
+## J7 relationship
+
+J7 consumes this readiness guidance as one checklist input; it does not replace its decision model
+or execute release work. Prepared `0.1.0` remains metadata. No package/Docker build, publish, tag,
+release, deployment, workflow change, or approval occurs, and maintainer review remains later.
+
 ## J6 relationship
 
 The `0.1.0` value is a prepared target, not a released version. J6 checks local version/package,

@@ -122,6 +122,10 @@ REQUIRED_DOCS = {
     "docs/version-source-map.md",
     "docs/release-boundary-checklist.md",
     "docs/version-prep-review.md",
+    "docs/release-candidate-review.md",
+    "docs/release-candidate-checklist.md",
+    "docs/release-candidate-gap-register.md",
+    "docs/release-candidate-command-plan.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -234,6 +238,11 @@ REQUIRED_SCRIPTS = {
     "scripts/print_version_source_map.py",
     "scripts/print_release_boundary_checklist.py",
     "scripts/generate_version_prep_artifacts.py",
+    "scripts/run_release_candidate_review.py",
+    "scripts/print_release_candidate_checklist.py",
+    "scripts/print_release_candidate_gap_register.py",
+    "scripts/print_release_candidate_command_plan.py",
+    "scripts/generate_release_candidate_artifacts.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -411,6 +420,11 @@ REQUIRED_EXAMPLES = {
     "examples/version-prep/example_version_source_map.md",
     "examples/version-prep/example_release_boundary_checklist.md",
     "examples/version-prep/example_version_readiness_matrix.csv",
+    "examples/release-candidate-review/README.md",
+    "examples/release-candidate-review/example_release_candidate_checklist.md",
+    "examples/release-candidate-review/example_release_candidate_gap_register.md",
+    "examples/release-candidate-review/example_release_candidate_command_plan.md",
+    "examples/release-candidate-review/example_release_candidate_matrix.csv",
 }
 REQUIRED_TARGETS = {
     "review-workspace-summary",
@@ -503,6 +517,11 @@ REQUIRED_TARGETS = {
     "version-source-map",
     "release-boundary-checklist",
     "version-prep-artifact-check",
+    "release-candidate-review",
+    "release-candidate-checklist",
+    "release-candidate-gap-register",
+    "release-candidate-command-plan",
+    "release-candidate-artifact-check",
     "webhook-replay-checklist",
     "webhook-security-artifact-check",
     "help",
@@ -577,6 +596,17 @@ REQUIRED_TARGETS = {
     "final-readiness-artifact-check",
 }
 IGNORED_OUTPUTS = {
+    "release-candidate-output/",
+    "release-candidate-review-output/",
+    "rc-checklist-output/",
+    "rc-readiness-output/",
+    "candidate-release-output/",
+    "*.release-candidate-report.json",
+    "*.release-candidate-report.md",
+    "*.release-candidate-checklist.md",
+    "*.release-candidate-gap-register.md",
+    "*.release-candidate-command-plan.md",
+    "*.release-candidate-matrix.csv",
     "version-prep-output/",
     "package-metadata-output/",
     "release-prep-output/",
@@ -942,6 +972,11 @@ GENERATED_PARTS = {
     "release-prep-output",
     "version-review-output",
     "package-review-output",
+    "release-candidate-output",
+    "release-candidate-review-output",
+    "rc-checklist-output",
+    "rc-readiness-output",
+    "candidate-release-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak",
@@ -1636,6 +1671,31 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             )
             and "version-prep-artifact-check" not in quality_headers
         ),
+        "J7 release candidate is review-only": all(
+            phrase in _read(root, "docs/release-candidate-review.md").casefold()
+            for phrase in (
+                "checklist",
+                "no package build",
+                "no docker build",
+                "no publish",
+                "no tag",
+                "no release",
+                "no deploy",
+                "approval",
+            )
+        ),
+        "J7 checks included and artifacts excluded": (
+            all(
+                target in quality_headers
+                for target in (
+                    "release-candidate-review",
+                    "release-candidate-checklist",
+                    "release-candidate-gap-register",
+                    "release-candidate-command-plan",
+                )
+            )
+            and "release-candidate-artifact-check" not in quality_headers
+        ),
         "H3 workspace is read-only and local": all(
             phrase in _read(root, "docs/intake-review-workspace.md").casefold()
             for phrase in ("read-only", "local intake records only", "no procore")
@@ -2005,6 +2065,12 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 ".version-source-map.md",
                 ".release-boundary-checklist.md",
                 ".version-readiness-matrix.csv",
+                ".release-candidate-report.json",
+                ".release-candidate-report.md",
+                ".release-candidate-checklist.md",
+                ".release-candidate-gap-register.md",
+                ".release-candidate-command-plan.md",
+                ".release-candidate-matrix.csv",
             )
         ):
             add(

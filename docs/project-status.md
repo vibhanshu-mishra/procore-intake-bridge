@@ -1,5 +1,11 @@
 # Project status
 
+## Phase J7: release-candidate checklist
+
+J7 aggregates 15 public release-candidate domains around prepared `0.1.0` metadata. It can report
+readiness for later maintainer review while preserving private security/release gaps. It is checklist
+only: no package/Docker build, publish, tag, release, deployment, workflow change, or approval occurs.
+
 ## Phase J6: package metadata and version preparation
 
 J6 records `0.1.0` as a prepared target for later release-candidate review. The canonical version

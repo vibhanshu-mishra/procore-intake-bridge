@@ -1,5 +1,9 @@
 # Security Gap Closeout
 
+J7 carries I9 private gaps forward rather than treating public checklist success as security or
+release approval. Private security, legal, infrastructure, privacy, and operational review remains
+required before any release or deployment.
+
 J5 links this public guidance from the Security reviewer path. Navigation does not read private
 reports, close private gaps, deploy documentation, add analytics/tracking/search/CDN services, or
 grant approval.
