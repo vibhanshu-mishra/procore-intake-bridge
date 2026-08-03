@@ -252,4 +252,5 @@ def test_docs_and_example_disclaim_real_approval():
     assert "no procore calls" in docs
     assert "not production deployment approval" in docs
     assert "must never be committed" in example_docs
-    assert "phase b9" in readme
+    assert "pilot" in readme
+    assert "not automatically approved" in readme

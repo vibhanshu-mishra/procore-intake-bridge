@@ -208,5 +208,6 @@ def test_documentation_and_examples_state_safety_boundaries():
     assert "no terraform" in docs
     assert "secret values" in docs
     assert "must not be committed" in docs
-    assert "phase b7" in readme
+    assert "deployment recipes" in readme
+    assert "private review" in readme
     assert "fake" in examples and "deploy" in examples

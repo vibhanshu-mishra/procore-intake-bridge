@@ -238,7 +238,8 @@ def test_docs_and_public_examples_state_boundaries():
     assert "no procore calls" in docs
     assert "fake examples only" in docs
     assert "generated artifacts are ignored" in docs
-    assert "phase c1" in readme
+    assert "private operations" in readme
+    assert "evidence" in readme
     assert "must never be committed" in example_docs
 
 

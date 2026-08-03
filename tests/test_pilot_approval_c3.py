@@ -424,7 +424,8 @@ def test_docs_and_example_state_public_boundaries():
     assert "fake examples only" in docs
     assert "generated artifacts are ignored" in docs
     assert "not legal or compliance approval" in docs
-    assert "phase c3" in readme
+    assert "usage modes" in readme
+    assert "pilot" in readme
     assert "must never be committed" in examples
 
 
