@@ -33,10 +33,11 @@
 </div>
 
 Procore Intake Bridge is an independent open-source application for GC and Owner teams that want a
-controlled local review surface around their Procore intake. PyProcore is the SDK boundary, while
-connection profiles express the DMSA permissions and project scope controlled by the GC or Owner.
+controlled local review surface around their Procore intake. [PyProcore](https://github.com/vibhanshu-mishra/pyprocore) is the SDK boundary, while connection profiles express the DMSA permissions and project scope controlled by the GC or Owner.
+
 Demo Mode works entirely with synthetic local data. Live or private access is a separate, manually
 gated path. Live mode is disabled by default and is never enabled by the default configuration.
+
 The three usage modes are Demo Mode, Sandbox Mode, and Pilot Mode.
 
 ## Why this exists
