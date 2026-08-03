@@ -103,7 +103,8 @@ Open these local pages after the server starts:
 - [Intake review workspace](http://localhost:8000/review)
 - [Admin dashboard](http://localhost:8000/admin)
 - [OpenAPI docs](http://localhost:8000/docs)
-- [Health](http://localhost:8000/health) and [readiness](http://localhost:8000/ready)
+- [Health](http://localhost:8000/health)
+- [Readiness](http://localhost:8000/ready)
 
 Demo Mode requires no Procore credentials, no cloud service, and no external database. It uses
 synthetic records and local SQLite. `make demo-reset CONFIRM="RESET DEMO DATA"` resets only
@@ -231,6 +232,6 @@ URLs or IDs, logs, reports, or attachment contents in issues or pull requests.
 
 This project is released under the [MIT License](LICENSE). 
 
-Procore Intake Bridge is an independent
+> Procore Intake Bridge is an independent
 open-source project, not affiliated with, endorsed by, certified by, or supported by Procore
 Technologies. “Procore” is used only to describe interoperability.
