@@ -200,6 +200,8 @@ URLs or IDs, logs, reports, or attachment contents in issues or pull requests.
 
 ## License and independence
 
-This project is released under the [MIT License](LICENSE). Procore Intake Bridge is an independent
+This project is released under the [MIT License](LICENSE). 
+
+Procore Intake Bridge is an independent
 open-source project, not affiliated with, endorsed by, certified by, or supported by Procore
 Technologies. “Procore” is used only to describe interoperability.
