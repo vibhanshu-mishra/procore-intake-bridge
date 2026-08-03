@@ -1,9 +1,13 @@
-<p align="center">
-    
-# Procore Intake Bridge
+<div align="center">
 
-A local-first, read-only intake workspace for reviewing Procore RFIs, Submittals, attachment metadata, lifecycle status, and triage signals without writing back to Procore.
+<h1>Procore Intake Bridge</h1>
 
+<p>
+  A local-first, read-only intake workspace for reviewing Procore RFIs, Submittals,
+  attachment metadata, lifecycle status, and triage signals without writing back to Procore.
+</p>
+
+<p>
   <img
     alt="Python 3.12+"
     src="https://img.shields.io/badge/Python-3.12%2B-3776AB?style=flat-square&logo=python&logoColor=white"
@@ -25,6 +29,8 @@ A local-first, read-only intake workspace for reviewing Procore RFIs, Submittals
     src="https://img.shields.io/badge/License-MIT-F7DF1E?style=flat-square"
   >
 </p>
+
+</div>
 
 Procore Intake Bridge is an independent open-source application for GC and Owner teams that want a
 controlled local review surface around their Procore intake. PyProcore is the SDK boundary, while
