@@ -1,8 +1,30 @@
+<p align="center">
+    
 # Procore Intake Bridge
 
 A local-first, read-only intake workspace for reviewing Procore RFIs, Submittals, attachment metadata, lifecycle status, and triage signals without writing back to Procore.
 
-Python 3.12+ · FastAPI · PyProcore boundary · Read-only by design · MIT License
+  <img
+    alt="Python 3.12+"
+    src="https://img.shields.io/badge/Python-3.12%2B-3776AB?style=flat-square&logo=python&logoColor=white"
+  >
+  <img
+    alt="FastAPI"
+    src="https://img.shields.io/badge/FastAPI-Backend-009688?style=flat-square&logo=fastapi&logoColor=white"
+  >
+  <img
+    alt="PyProcore boundary"
+    src="https://img.shields.io/badge/PyProcore-SDK%20Boundary-6C63FF?style=flat-square"
+  >
+  <img
+    alt="Read-only by design"
+    src="https://img.shields.io/badge/Procore%20Access-Read--Only-2E7D32?style=flat-square"
+  >
+  <img
+    alt="MIT License"
+    src="https://img.shields.io/badge/License-MIT-F7DF1E?style=flat-square"
+  >
+</p>
 
 Procore Intake Bridge is an independent open-source application for GC and Owner teams that want a
 controlled local review surface around their Procore intake. PyProcore is the SDK boundary, while
