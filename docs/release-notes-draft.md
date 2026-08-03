@@ -1,5 +1,12 @@
 # Release Notes Draft — 0.1.0
 
+## J9 relationship
+
+This draft is linked by the public maintainer handoff and remains editorial material only. No
+release happened in J9: no build, tag, publish/upload, or deployment occurred. Maintainer review
+and private review remain required, and no production, Pilot, release, or deployment approval is
+granted.
+
 This is an editorial draft for a possible future release. It is not a release announcement and
 does not assert that a package, image, tag, publication, upload, or deployment exists. Replace
 only with maintainer-approved public wording; keep private evidence outside the repository.

@@ -1707,6 +1707,81 @@ class Settings(BaseSettings):
         le=400,
         validation_alias="PROCORE_INTAKE_VERSIONED_RELEASE_HANDOFF_MAX_FINDINGS",
     )
+    # Phase J9: offline, public-safe maintainer handoff (no release action).
+    maintainer_handoff_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_MAINTAINER_HANDOFF_ENABLED",
+    )
+    maintainer_handoff_output_root: Path = Field(
+        default=Path("./maintainer-handoff-output"),
+        validation_alias="PROCORE_INTAKE_MAINTAINER_HANDOFF_OUTPUT_ROOT",
+    )
+    maintainer_handoff_target_version: str = Field(
+        default="0.1.0",
+        validation_alias="PROCORE_INTAKE_MAINTAINER_HANDOFF_TARGET_VERSION",
+    )
+    maintainer_handoff_require_release_handoff: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_MAINTAINER_HANDOFF_REQUIRE_RELEASE_HANDOFF",
+    )
+    maintainer_handoff_require_safe_command_plan: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_MAINTAINER_HANDOFF_REQUIRE_SAFE_COMMAND_PLAN",
+    )
+    maintainer_handoff_require_private_review_boundary: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_MAINTAINER_HANDOFF_REQUIRE_PRIVATE_REVIEW_BOUNDARY",
+    )
+    maintainer_handoff_require_no_release_actions: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_MAINTAINER_HANDOFF_REQUIRE_NO_RELEASE_ACTIONS",
+    )
+    maintainer_handoff_require_no_build: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_MAINTAINER_HANDOFF_REQUIRE_NO_BUILD",
+    )
+    maintainer_handoff_require_no_publish: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_MAINTAINER_HANDOFF_REQUIRE_NO_PUBLISH",
+    )
+    maintainer_handoff_require_no_tag: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_MAINTAINER_HANDOFF_REQUIRE_NO_TAG",
+    )
+    maintainer_handoff_require_no_deploy: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_MAINTAINER_HANDOFF_REQUIRE_NO_DEPLOY",
+    )
+    maintainer_handoff_allow_real_identities: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_MAINTAINER_HANDOFF_ALLOW_REAL_IDENTITIES",
+    )
+    maintainer_handoff_allow_real_domains: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_MAINTAINER_HANDOFF_ALLOW_REAL_DOMAINS",
+    )
+    maintainer_handoff_allow_real_urls: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_MAINTAINER_HANDOFF_ALLOW_REAL_URLS",
+    )
+    maintainer_handoff_allow_report_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_MAINTAINER_HANDOFF_ALLOW_REPORT_CONTENTS",
+    )
+    maintainer_handoff_allow_private_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_MAINTAINER_HANDOFF_ALLOW_PRIVATE_PATHS",
+    )
+    maintainer_handoff_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_MAINTAINER_HANDOFF_FAIL_CLOSED",
+    )
+    maintainer_handoff_max_findings: int = Field(
+        default=400,
+        ge=1,
+        le=400,
+        validation_alias="PROCORE_INTAKE_MAINTAINER_HANDOFF_MAX_FINDINGS",
+    )
     intake_review_workspace_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_ENABLED",

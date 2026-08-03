@@ -135,6 +135,11 @@ REQUIRED_NAV_DOCS = {
     "release-scope-summary.md",
     "maintainer-release-decision-checklist.md",
     "post-release-checklist.md",
+    "maintainer-handoff.md",
+    "maintainer-quickstart.md",
+    "maintainer-review-checklist.md",
+    "maintainer-command-plan.md",
+    "maintainer-decision-log-template.md",
     "release-readiness.md",
     "release-checklist.md",
     "release-notes-template.md",
@@ -217,6 +222,18 @@ def check_docs_site(root: Path) -> list[Finding]:
         "J8 docs navigation",
         "versioned release handoff docs are not in the local nav",
     )
+    j9_nav_docs = {
+        "maintainer-handoff.md",
+        "maintainer-quickstart.md",
+        "maintainer-review-checklist.md",
+        "maintainer-command-plan.md",
+        "maintainer-decision-log-template.md",
+    }
+    add(
+        j9_nav_docs <= nav_docs,
+        "J9 docs navigation",
+        "maintainer handoff docs are not in the local nav",
+    )
 
     missing = sorted(name for name in nav_docs if not (root / "docs" / name).is_file())
     add(not missing, "nav targets", "one or more nav targets do not exist")
@@ -257,6 +274,34 @@ def check_docs_site(root: Path) -> list[Finding]:
         ),
         "J8 public safety guidance",
         "J8 docs must disclaim live operations and approval",
+    )
+    j9_docs = [root / "docs" / name for name in sorted(j9_nav_docs)]
+    j9_text = "\n".join(_read(path).casefold() for path in j9_docs if path.is_file())
+    add(
+        all(path.is_file() for path in j9_docs),
+        "J9 docs present",
+        "maintainer handoff docs are missing",
+    )
+    add(
+        all(
+            phrase in j9_text
+            for phrase in (
+                "no release happened",
+                "no build happened",
+                "no tag happened",
+                "no publish happened",
+                "upload happened",
+                "no deployment happened",
+                "offline",
+                "no procore",
+                "workflows",
+                "maintainer review",
+                "private review",
+                "not approval",
+            )
+        ),
+        "J9 public safety guidance",
+        "J9 docs must disclaim live operations and approval",
     )
 
     links = {

@@ -238,3 +238,12 @@ protections without adding an auth provider or performing live permission checks
 Use the [Webhook Replay and Signature Hardening Review](webhook-replay-signature-hardening.md),
 [signature boundary](webhook-signature-boundary.md), and
 [replay checklist](webhook-replay-checklist.md) for offline fake-fixture review.
+
+## J9 public maintainer handoff
+
+Use the [public maintainer handoff](maintainer-handoff.md), [quickstart](maintainer-quickstart.md),
+[review checklist](maintainer-review-checklist.md), [command plan](maintainer-command-plan.md), and
+[decision-log template](maintainer-decision-log-template.md) for a concise offline review of the
+prepared `0.1.0` handoff. No release happened, no build happened, no tag happened, no publish
+happened, and no deployment happened. Maintainer review is still required; private review remains
+required, and production/Pilot/release/deployment approval is not granted.

@@ -293,3 +293,12 @@ No release tag or package publication is claimed.
 - I8 runs no live scanner, external or Procore call, deployment, release, or build. It grants no
   production, pilot, release, legal, compliance, or security-certification approval; private
   security review remains required.
+
+## Phase J9
+
+- Added a concise public maintainer handoff, quickstart, review checklist, command plan, decision
+  log template, matrix examples, and local documentation links for prepared `0.1.0` metadata.
+- Added no product route, mutation, file serving, export download, workflow, build, package/image,
+  publication, tag, release, deployment, external call, or approval.
+- J9 is handoff/checklist/docs only. No release, build, tag, publish, or deployment happened;
+  maintainer review and private review remain required.

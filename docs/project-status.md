@@ -169,6 +169,16 @@ make final-readiness
 ```
 
 Private values, generated operational outputs, and real reports stay outside Git.
+
+## Phase J9 — public maintainer handoff
+
+J9 adds a concise offline handoff layer for prepared `0.1.0` metadata: repository overview,
+quickstart, public/private review checklist, safe command plan, decision-log template, and
+placeholder-only examples. No release happened, no package or Docker build happened, no publish,
+upload, tag, or deployment happened, and no workflow or route changed. Maintainer review is still
+required; private security, legal, infrastructure, and ownership review remains required before
+Sandbox, Pilot, Hosted, or live use. Production, Pilot, release, and deployment approval is not
+granted.
 # Phase H8
 
 Admin Dashboard Product Polish is implemented as a protected GET-only local cockpit. It adds

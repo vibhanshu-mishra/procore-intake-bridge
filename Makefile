@@ -12,6 +12,7 @@ PYTHON ?= .venv/bin/python
 .PHONY: version-prep-review package-metadata-summary version-source-map release-boundary-checklist version-prep-artifact-check
 .PHONY: release-candidate-review release-candidate-checklist release-candidate-gap-register release-candidate-command-plan release-candidate-artifact-check
 .PHONY: versioned-release-handoff release-notes-draft release-scope-summary maintainer-release-decision-checklist post-release-checklist versioned-release-artifact-check
+.PHONY: maintainer-handoff maintainer-quickstart maintainer-review-checklist maintainer-command-plan maintainer-decision-log-template maintainer-handoff-artifact-check
 
 .PHONY: security-threat-model security-boundary-map security-review-checklist security-threat-model-artifact-check auth-boundary-audit auth-boundary-map permission-boundary-checklist auth-boundary-artifact-check webhook-security-review webhook-signature-boundary webhook-replay-checklist webhook-security-artifact-check data-policy-review data-retention-map redaction-boundary-map data-handling-checklist data-policy-artifact-check infra-security-review secret-boundary-map storage-boundary-map database-boundary-map infra-security-checklist infra-security-artifact-check supply-chain-review dependency-boundary-map package-surface-map supply-chain-checklist supply-chain-artifact-check incident-response-review incident-runbook audit-log-boundary-map forensics-evidence-checklist incident-response-artifact-check demo-product-tour demo-product-check demo-evaluation-checklist demo-product-artifact-check product-dashboard-overview product-dashboard-check review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check operator-export-check operator-export-summary operator-export-artifact-check
 
@@ -96,6 +97,11 @@ help:
 	@echo "  make release-scope-summary Print included scope and limitations"
 	@echo "  make maintainer-release-decision-checklist Print manual decision gates"
 	@echo "  make post-release-checklist Print the non-executing follow-up plan"
+	@echo "  make maintainer-handoff     Review the concise public maintainer handoff"
+	@echo "  make maintainer-quickstart Print the safest local review sequence"
+	@echo "  make maintainer-review-checklist Print maintainer decisions and boundaries"
+	@echo "  make maintainer-command-plan Print the ordered local command plan"
+	@echo "  make maintainer-decision-log-template Print the decision log template"
 	@echo "  make product-dashboard-overview Sanitized local product cockpit summary"
 	@echo "  make product-dashboard-check Validate the read-only product cockpit"
 	@echo "  make review-workspace-summary Read-only local intake summary"
@@ -444,6 +450,18 @@ post-release-checklist:
 	$(PYTHON) scripts/print_post_release_checklist.py
 versioned-release-artifact-check:
 	$(PYTHON) scripts/generate_versioned_release_handoff_artifacts.py --temporary
+maintainer-handoff:
+	$(PYTHON) scripts/run_maintainer_handoff.py
+maintainer-quickstart:
+	$(PYTHON) scripts/print_maintainer_quickstart.py
+maintainer-review-checklist:
+	$(PYTHON) scripts/print_maintainer_review_checklist.py
+maintainer-command-plan:
+	$(PYTHON) scripts/print_maintainer_command_plan.py
+maintainer-decision-log-template:
+	$(PYTHON) scripts/print_maintainer_decision_log_template.py
+maintainer-handoff-artifact-check:
+	$(PYTHON) scripts/generate_maintainer_handoff_artifacts.py --temporary
 
 demo-product-tour:
 	$(PYTHON) scripts/print_demo_product_tour.py
@@ -839,4 +857,5 @@ quality: docs-site-polish-review docs-reader-paths docs-navigation-map docs-site
 quality: version-prep-review package-metadata-summary version-source-map release-boundary-checklist
 quality: release-candidate-review release-candidate-checklist release-candidate-gap-register release-candidate-command-plan
 quality: versioned-release-handoff release-notes-draft release-scope-summary maintainer-release-decision-checklist post-release-checklist
+quality: maintainer-handoff maintainer-quickstart maintainer-review-checklist maintainer-command-plan maintainer-decision-log-template
 	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict

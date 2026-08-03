@@ -1,5 +1,12 @@
 # Versioned 0.1.0 Release Handoff (J8)
 
+## J9 relationship
+
+J9 supplies a concise public maintainer handoff around this J8 material. It does not change the
+boundary: no release happened, no package/Docker build happened, no tag happened, no publish or
+upload happened, and no deployment happened. Maintainer review and private review remain required;
+production, Pilot, release, and deployment approval is not granted.
+
 Phase J8 prepares a public, offline handoff for the target version `0.1.0`. **0.1.0 is
 prepared as release metadata; it is not released by this phase.** A maintainer must review the
 evidence and provide explicit authorization before any real release decision.

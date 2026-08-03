@@ -52,3 +52,13 @@ They contain placeholders only and do not represent release, production, or pilo
 Provider, PostgreSQL, hosted-template, webhook-planning, dry-run, and final-readiness examples are
 conceptual inputs—not ready-to-deploy configuration. Private values and generated outputs stay
 outside Git.
+
+The `maintainer-handoff/` examples are J9 placeholder-only quickstart, checklist, command-plan,
+decision-log, and matrix shapes. No release happened, no build/tag/publish/deploy happened, and
+the examples grant no production, Pilot, release, or deployment approval. Maintainer review and
+private review remain required.
+
+See the [maintainer-handoff example index](maintainer-handoff/README.md), [quickstart](maintainer-handoff/example_maintainer_quickstart.md),
+[review checklist](maintainer-handoff/example_maintainer_review_checklist.md), [command plan](maintainer-handoff/example_maintainer_command_plan.md),
+[decision log](maintainer-handoff/example_maintainer_decision_log_template.md), and
+[matrix](maintainer-handoff/example_maintainer_handoff_matrix.csv).

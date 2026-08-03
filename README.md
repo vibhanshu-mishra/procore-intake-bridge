@@ -645,3 +645,17 @@ and `make private-security-review-checklist`. These commands make no live scanne
 Procore, deployment, release, or build call. Public maintainer-review readiness grants no
 production, pilot, release, legal, compliance, or security-certification approval; authorized
 private security review remains required.
+
+## Phase J9: public maintainer handoff
+
+The [public maintainer handoff pack](docs/maintainer-handoff.md) is the concise entry point for
+reviewing prepared `0.1.0` metadata. Start with the [maintainer quickstart](docs/maintainer-quickstart.md),
+[review checklist](docs/maintainer-review-checklist.md), [command plan](docs/maintainer-command-plan.md),
+and [decision-log template](docs/maintainer-decision-log-template.md). J9 is a handoff/checklist/docs
+layer only: no release happened, no build happened, no tag happened, no publish happened, and no
+deployment happened. Maintainer review is still required; private review remains required, and no
+production, Pilot, release, or deployment approval is granted.
+
+J9 commands inspect local files or print sanitized guidance only. They make no external calls and
+must not be used to build, publish, tag, release, or deploy. Keep real values, private evidence,
+approval records, and generated handoff output outside Git.

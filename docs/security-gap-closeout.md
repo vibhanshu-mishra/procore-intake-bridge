@@ -1,5 +1,12 @@
 # Security Gap Closeout
 
+## J9 relationship
+
+J9 links this offline security guidance into the maintainer handoff without closing private gaps
+or granting approval. No release, build, tag, publish/upload, or deployment happened. Maintainer
+review and private security/legal/infrastructure review remain required; no production, Pilot,
+release, or deployment approval is granted.
+
 ## J8 relationship
 
 J8 carries this offline security guidance into the `0.1.0` release handoff; it does not close

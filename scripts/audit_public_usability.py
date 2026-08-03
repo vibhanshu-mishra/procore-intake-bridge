@@ -131,6 +131,12 @@ REQUIRED_DOCS = {
     "docs/release-scope-summary.md",
     "docs/maintainer-release-decision-checklist.md",
     "docs/post-release-checklist.md",
+    # J9: concise offline maintainer handoff guidance.
+    "docs/maintainer-handoff.md",
+    "docs/maintainer-quickstart.md",
+    "docs/maintainer-review-checklist.md",
+    "docs/maintainer-command-plan.md",
+    "docs/maintainer-decision-log-template.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -254,6 +260,12 @@ REQUIRED_SCRIPTS = {
     "scripts/print_maintainer_release_decision_checklist.py",
     "scripts/print_post_release_checklist.py",
     "scripts/generate_versioned_release_handoff_artifacts.py",
+    "scripts/run_maintainer_handoff.py",
+    "scripts/print_maintainer_quickstart.py",
+    "scripts/print_maintainer_review_checklist.py",
+    "scripts/print_maintainer_command_plan.py",
+    "scripts/print_maintainer_decision_log_template.py",
+    "scripts/generate_maintainer_handoff_artifacts.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -442,6 +454,12 @@ REQUIRED_EXAMPLES = {
     "examples/versioned-release-handoff/example_maintainer_release_decision_checklist.md",
     "examples/versioned-release-handoff/example_post_release_checklist.md",
     "examples/versioned-release-handoff/example_release_evidence_matrix.csv",
+    "examples/maintainer-handoff/README.md",
+    "examples/maintainer-handoff/example_maintainer_quickstart.md",
+    "examples/maintainer-handoff/example_maintainer_review_checklist.md",
+    "examples/maintainer-handoff/example_maintainer_command_plan.md",
+    "examples/maintainer-handoff/example_maintainer_decision_log_template.md",
+    "examples/maintainer-handoff/example_maintainer_handoff_matrix.csv",
 }
 REQUIRED_TARGETS = {
     "review-workspace-summary",
@@ -612,6 +630,12 @@ REQUIRED_TARGETS = {
     "public-handoff-summary",
     "final-readiness-artifact-check",
     "versioned-release-handoff",
+    "maintainer-handoff",
+    "maintainer-quickstart",
+    "maintainer-review-checklist",
+    "maintainer-command-plan",
+    "maintainer-decision-log-template",
+    "maintainer-handoff-artifact-check",
     "release-notes-draft",
     "release-scope-summary",
     "maintainer-release-decision-checklist",
@@ -779,11 +803,21 @@ IGNORED_OUTPUTS = {
     "public-readiness-output/",
     "repo-readiness-output/",
     "maintainer-handoff-output/",
+    "handoff-output/",
+    "maintainer-review-output/",
+    "release-handoff-review-output/",
     "*.final-readiness-report.json",
     "*.final-readiness-report.md",
     "*.public-readiness-report.json",
     "*.public-readiness-report.md",
     "*.maintainer-handoff.md",
+    "*.maintainer-handoff-report.json",
+    "*.maintainer-handoff-report.md",
+    "*.maintainer-quickstart.md",
+    "*.maintainer-review-checklist.md",
+    "*.maintainer-command-plan.md",
+    "*.maintainer-decision-log-template.md",
+    "*.maintainer-handoff-matrix.csv",
     "*.public-repo-checklist.md",
     "*.final-audit-summary.md",
     "*.webhook-ingress-plan.md",
@@ -1131,6 +1165,14 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         ),
         "README walkthrough link": "docs/walkthrough-index.md" in readme,
         "README docs-site link": "docs/docs-site.md" in readme,
+        "README J9 handoff link": all(
+            link in readme
+            for link in (
+                "docs/maintainer-handoff.md",
+                "docs/maintainer-quickstart.md",
+                "docs/maintainer-review-checklist.md",
+            )
+        ),
     }
     for name, passed in readme_checks.items():
         add(
@@ -1934,7 +1976,31 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
             and "maintainer" in _read(root, "docs/release-checklist.md").casefold()
         ),
         "QUICKSTART docs-site link": "docs/docs-site.md" in quickstart,
+        "QUICKSTART J9 handoff link": all(
+            link in quickstart
+            for link in (
+                "docs/maintainer-handoff.md",
+            )
+        ),
         "docs index docs-site link": ("docs-site.md" in _read(root, "docs/index.md").casefold()),
+        "docs index J9 handoff link": all(
+            link in _read(root, "docs/index.md").casefold()
+            for link in (
+                "maintainer-handoff.md",
+                "maintainer-quickstart.md",
+            )
+        ),
+        "command reference J9 handoff commands": all(
+            command in _read(root, "docs/command-reference.md").casefold()
+            for command in (
+                "make maintainer-handoff",
+                "make maintainer-quickstart",
+                "make maintainer-review-checklist",
+                "make maintainer-command-plan",
+                "make maintainer-decision-log-template",
+                "make maintainer-handoff-artifact-check",
+            )
+        ),
         "docs site is local-only and unpublished": all(
             phrase in _read(root, "docs/docs-site.md").casefold()
             for phrase in ("local-only", "not published", "no github pages automation")
@@ -2028,6 +2094,88 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         ),
         "J8 artifact generation is excluded from quality": (
             "versioned-release-artifact-check" not in quality_headers
+        ),
+        # J9 maintainer handoff is a documentation/reporting layer only.  Keep
+        # each requirement explicit so a shortened page cannot accidentally
+        # imply a release or approval.
+        "J9 maintainer handoff docs are offline and non-operational": all(
+            phrase in _read(root, "docs/maintainer-handoff.md").casefold()
+            for phrase in (
+                "prepared `0.1.0` metadata",
+                "no release happened",
+                "no package or docker build happened",
+                "no tag happened",
+                "no publish or",
+                "upload happened",
+                "no deployment happened",
+                "no procore",
+                "workflows",
+                "external call",
+                "maintainer review is still required",
+                "private review remains",
+            )
+        ),
+        "J9 maintainer docs preserve private and approval boundaries": all(
+            phrase in "\n".join(
+                _read(root, name).casefold()
+                for name in (
+                    "docs/maintainer-handoff.md",
+                    "docs/maintainer-quickstart.md",
+                    "docs/maintainer-review-checklist.md",
+                    "docs/maintainer-command-plan.md",
+                    "docs/maintainer-decision-log-template.md",
+                )
+            )
+            for phrase in (
+                "outside git",
+                "production",
+                "pilot",
+                "release",
+                "deployment",
+                "approval",
+                "private review",
+            )
+        ),
+        "J9 quickstart uses only local review commands": all(
+            phrase in _read(root, "docs/maintainer-quickstart.md").casefold()
+            for phrase in (
+                "make quality",
+                "make safety-check",
+                "make docs-site-check",
+                "make maintainer-handoff",
+                "make maintainer-quickstart",
+                "make maintainer-review-checklist",
+                "make maintainer-command-plan",
+                "make maintainer-decision-log-template",
+                "make try-demo",
+                "no external calls",
+                "no release happened",
+            )
+        ),
+        "J9 command plan keeps artifact validation temporary": all(
+            phrase in _read(root, "docs/maintainer-command-plan.md").casefold()
+            for phrase in (
+                "offline and advisory",
+                "no release happened",
+                "external services",
+                "temporary only",
+                "temporary ignored directory",
+                "not approval",
+            )
+        ),
+        "J9 decision log is placeholder-only and private": all(
+            phrase in _read(root, "docs/maintainer-decision-log-template.md").casefold()
+            for phrase in (
+                "blank, public-safe shape",
+                "outside git",
+                "review_decision_placeholder",
+                "private review",
+                "stop",
+                "build packages or images",
+            )
+        ),
+        "J9 artifact generation is excluded from quality": (
+            "maintainer-handoff-artifact-check" not in quality_headers
         ),
     }
     for name, passed in guidance_checks.items():
@@ -2150,6 +2298,13 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 ".release-candidate-matrix.csv",
                 ".versioned-release-handoff-report.json",
                 ".versioned-release-handoff-report.md",
+                ".maintainer-handoff-report.json",
+                ".maintainer-handoff-report.md",
+                ".maintainer-quickstart.md",
+                ".maintainer-review-checklist.md",
+                ".maintainer-command-plan.md",
+                ".maintainer-decision-log-template.md",
+                ".maintainer-handoff-matrix.csv",
                 ".release-evidence-matrix.csv",
             )
         ):

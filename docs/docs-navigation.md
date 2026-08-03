@@ -209,3 +209,11 @@ performed after H1. It adds no runtime or live capability.
 - [Webhook Signature Boundary](webhook-signature-boundary.md): exact-request-byte and digest
   comparison expectations.
 - [Webhook Replay Checklist](webhook-replay-checklist.md): private hardening follow-up.
+
+## J9 public maintainer handoff
+
+Start with [Maintainer Handoff](maintainer-handoff.md), then read the [Maintainer Quickstart](maintainer-quickstart.md),
+[Review Checklist](maintainer-review-checklist.md), [Command Plan](maintainer-command-plan.md), and
+[Decision Log Template](maintainer-decision-log-template.md). This layer is offline and public-safe:
+no release, build, tag, publish, or deployment happened. Maintainer review and private review remain
+required, and it grants no production, Pilot, release, or deployment approval.

@@ -287,3 +287,20 @@ it grants no production, pilot, release, legal, compliance, or certification app
 review of live infrastructure, credentials, customer data, legal obligations, provider
 permissions, release process, incident contacts, evidence custody, and operational controls is
 still required. See the [I8 guide](docs/final-security-readiness-review.md).
+
+## J9 maintainer handoff
+
+After the safe Demo and offline security review, use the [public maintainer handoff](docs/maintainer-handoff.md)
+as the concise map of prepared `0.1.0` metadata. Run:
+
+```bash
+make maintainer-quickstart
+make maintainer-review-checklist
+make maintainer-command-plan
+make maintainer-decision-log-template
+make maintainer-handoff
+```
+
+J9 performs no release, package/Docker build, tag, publish/upload, or deployment. It makes no
+external call, reads no private report, and grants no production, Pilot, release, or deployment
+approval. Maintainer review and private security/legal/infrastructure review remain required.

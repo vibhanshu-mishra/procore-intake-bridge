@@ -1,5 +1,12 @@
 # Release Candidate Review
 
+## J9 relationship
+
+J9 presents this J7/J8 review in a shorter public handoff. It remains checklist material only: no
+release happened, no package/Docker build happened, no tag happened, no publish/upload happened,
+and no deployment happened. Maintainer review and private review remain required; no production,
+Pilot, release, or deployment approval is granted.
+
 ## J8 relationship
 
 J8 packages this review as an offline handoff for a future human decision. It does not convert

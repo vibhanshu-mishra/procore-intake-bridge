@@ -125,6 +125,11 @@ nav:
       - Public Repository Handoff: public-repository-handoff.md
       - Final Readiness Checklist: final-readiness-checklist.md
       - Maintainer Review Fix Pack: maintainer-review-fix-pack.md
+      - Maintainer Handoff: maintainer-handoff.md
+      - Maintainer Quickstart: maintainer-quickstart.md
+      - Maintainer Review Checklist: maintainer-review-checklist.md
+      - Maintainer Command Plan: maintainer-command-plan.md
+      - Maintainer Decision Log Template: maintainer-decision-log-template.md
       - Webhook Ingress Planning: webhook-ingress-planning.md
       - TLS and DNS Planning: tls-dns-planning.md
       - Backup and Restore: backup-restore-plan.md

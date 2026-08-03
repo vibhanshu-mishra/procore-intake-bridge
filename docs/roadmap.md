@@ -149,3 +149,11 @@ authentication provider, live permission integration, external call, certificati
 
 Webhook Replay and Signature Hardening Review documents existing local/demo controls and private
 hardening gaps without live replay, registration, runtime behavior changes, or approval claims.
+
+## J9 — public maintainer handoff (completed)
+
+J9 supplies the concise public handoff pack for prepared `0.1.0` metadata. It documents what is
+included, what is intentionally absent, the safest local commands, private review gates, and the
+later manual release decision boundary. No release, package/Docker build, publish/upload, tag, or
+deployment happened; no workflow or external integration was added. Maintainer review and private
+review remain required, and no production, Pilot, release, or deployment approval is granted.

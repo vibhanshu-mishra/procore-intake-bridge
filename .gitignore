@@ -475,6 +475,17 @@ post-release-checklist-output/
 *.post-release-checklist.md
 *.release-evidence-matrix.csv
 *.release-scope-summary.md
+maintainer-handoff-output/
+handoff-output/
+maintainer-review-output/
+release-handoff-review-output/
+*.maintainer-handoff-report.json
+*.maintainer-handoff-report.md
+*.maintainer-quickstart.md
+*.maintainer-review-checklist.md
+*.maintainer-command-plan.md
+*.maintainer-decision-log-template.md
+*.maintainer-handoff-matrix.csv
 sandbox-pilot-output/
 pilot-flow-output/
 flow-output/

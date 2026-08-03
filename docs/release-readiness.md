@@ -1,5 +1,12 @@
 # Release readiness
 
+## J9 relationship
+
+J9 provides a concise maintainer handoff on top of this offline readiness guidance. It does not
+perform or approve a release: no release happened, no build happened, no tag happened, no publish
+happened, and no deployment happened. Maintainer review is still required; private review remains
+required, and production/Pilot/release/deployment approval is not granted.
+
 ## J8 relationship
 
 J8 is a versioned `0.1.0` release handoff only. The target is prepared release metadata, not a

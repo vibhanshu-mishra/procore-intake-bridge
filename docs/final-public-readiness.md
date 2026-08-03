@@ -1,5 +1,12 @@
 # Final public repository readiness
 
+## J9 relationship
+
+J9 turns the public readiness inputs into a short maintainer handoff and decision path. It is
+offline review material only: no release happened, no package/Docker build happened, no tag,
+publish/upload, or deployment happened. Maintainer review and private review remain required;
+production, Pilot, release, and deployment approval is not granted.
+
 ## J8 relationship
 
 J8 supplies an offline handoff for prepared `0.1.0` metadata. It does not mean the version was

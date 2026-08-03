@@ -414,6 +414,22 @@ These commands run no live scanner/external call and claim no certification or a
 These commands inspect local code structure only. They add no auth provider and perform no live
 permission, Procore, database, cloud, deployment, or external check.
 
+## Phase J9 public maintainer handoff
+
+| Command | Purpose | Writes? |
+|---|---|---:|
+| `make maintainer-handoff` | Print the sanitized public handoff report. | No |
+| `make maintainer-quickstart` | Print the safest maintainer review path. | No |
+| `make maintainer-review-checklist` | Print public/private review gates. | No |
+| `make maintainer-command-plan` | Print the ordered offline command plan. | No |
+| `make maintainer-decision-log-template` | Print a placeholder decision record shape. | No |
+| `make maintainer-handoff-artifact-check` | Validate disposable sanitized handoff artifacts. | Temporary only |
+
+J9 commands read local public files or print placeholders only. No release happened, no package or
+Docker build happened, no publish/upload happened, no tag happened, and no deployment happened.
+They make no external call and grant no production, Pilot, release, or deployment approval;
+maintainer review and private review remain required.
+
 ## Offline webhook security review
 
 - `make webhook-security-review`

@@ -77,6 +77,9 @@ PRIVATE_PATH_PARTS = {
     "public-readiness-output",
     "repo-readiness-output",
     "maintainer-handoff-output",
+    "handoff-output",
+    "maintainer-review-output",
+    "release-handoff-review-output",
     "deployment-output",
     "deploy-output",
     "release-output",
@@ -521,6 +524,17 @@ VERSIONED_RELEASE_UNSAFE_CLAIM = re.compile(
     r"approved for (?:production|pilot|release|deployment)|production[- ]ready|"
     r"procore (?:endorsement|endorsed|partner|certified|officially supported))\b"
 )
+# J9 uses the same sanitized, metadata-only vocabulary as J8, but has its own
+# output names.  Keep a path-scoped check so public handoff examples cannot
+# accidentally become a release or approval claim.
+MAINTAINER_HANDOFF_PRIVATE_MATERIAL = VERSIONED_RELEASE_PRIVATE_MATERIAL
+MAINTAINER_HANDOFF_UNSAFE_CLAIM = VERSIONED_RELEASE_UNSAFE_CLAIM
+MAINTAINER_HANDOFF_PRIVATE_RECORD = re.compile(
+    r"(?i)(?:private[_ -]?review[_ -]?(?:ref(?:erence)?|record)|"
+    r"approval[_ -]?record|decision[_ -]?record|customer[_ -]?id|"
+    r"project[_ -]?id|company[_ -]?id|real[_ -]?domain)"
+    r"\s*[:=]\s*[\"']?(?!placeholder\b|fake\b|none\b|false\b)[^\"'\s]+"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -566,6 +580,60 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
                     SafetyIssue(path, "versioned release handoff implies live release or approval")
                 )
                 break
+    if any(
+        marker in path.as_posix()
+        for marker in (
+            "maintainer-handoff",
+            "maintainer_handoff",
+            "maintainer-quickstart",
+            "maintainer_quickstart",
+            "maintainer-review-checklist",
+            "maintainer_review_checklist",
+            "maintainer-command-plan",
+            "maintainer_command_plan",
+            "maintainer-decision-log-template",
+            "maintainer_decision_log_template",
+        )
+    ):
+        excluded = any(part in path.parts for part in ("tests", "services", "schemas"))
+        lines = text.splitlines()
+        for index, line in enumerate(lines):
+            context = " ".join(lines[max(0, index - 2) : index + 1])
+            qualified = SETUP_SAFETY_QUALIFIER.search(context) or re.search(
+                r"(?i)\b(?:none|absent|not added|not present|excluded|outside|prepared)\b",
+                context,
+            )
+            if (
+                MAINTAINER_HANDOFF_PRIVATE_MATERIAL.search(line)
+                and not excluded
+                and not _safe_value(line)
+            ):
+                issues.append(SafetyIssue(path, "maintainer handoff contains private material"))
+                break
+            if (
+                MAINTAINER_HANDOFF_PRIVATE_RECORD.search(line)
+                and not excluded
+                and not _safe_value(line)
+            ):
+                issues.append(SafetyIssue(path, "maintainer handoff contains a private record"))
+                break
+            if (
+                MAINTAINER_HANDOFF_UNSAFE_CLAIM.search(line)
+                and not excluded
+                and not qualified
+            ):
+                issues.append(
+                    SafetyIssue(path, "maintainer handoff implies live release or approval")
+                )
+                break
+        if ABSOLUTE_LOCAL_PATH.search(text) and not excluded:
+            issues.append(SafetyIssue(path, "maintainer handoff contains an absolute local path"))
+        for match in CUSTOMER_URL.finditer(text):
+            host = match.group(1).casefold()
+            if not host.endswith((".local", ".invalid")) and not excluded:
+                issues.append(
+                    SafetyIssue(path, "maintainer handoff contains a non-placeholder URL")
+                )
     if any(
         marker in path.as_posix()
         for marker in ("release-candidate", "release_candidate", "rc-checklist", "rc-readiness")
@@ -1204,6 +1272,34 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
                 issues.append(SafetyIssue(path, "approval example contains a reviewer identity"))
         if GENERIC_SIGNED_URL.search(text):
             issues.append(SafetyIssue(path, "approval example contains a signed URL"))
+    if "examples/maintainer-handoff" in path.as_posix():
+        if CUSTOMER_EMAIL.search(text):
+            issues.append(SafetyIssue(path, "maintainer handoff example contains an email address"))
+        for match in CUSTOMER_URL.finditer(text):
+            host = match.group(1).casefold()
+            if not host.endswith((".local", ".invalid")):
+                issues.append(
+                    SafetyIssue(path, "maintainer handoff example contains a non-placeholder URL")
+                )
+        if GENERIC_SIGNED_URL.search(text):
+            issues.append(SafetyIssue(path, "maintainer handoff example contains a signed URL"))
+        if RAW_PRIVATE_CONTENT.search(text):
+            issues.append(
+                SafetyIssue(path, "maintainer handoff example contains raw private content")
+            )
+        if ABSOLUTE_LOCAL_PATH.search(text):
+            issues.append(
+                SafetyIssue(path, "maintainer handoff example contains an absolute local path")
+            )
+        if BINARY_EVIDENCE_REFERENCE.search(text):
+            issues.append(
+                SafetyIssue(path, "maintainer handoff example contains a binary reference")
+            )
+        for match in REVIEWER_IDENTITY.finditer(text):
+            if not _safe_value(match.group(1)):
+                issues.append(
+                    SafetyIssue(path, "maintainer handoff example contains a reviewer identity")
+                )
     if (
         "examples/private-evidence" in path.as_posix()
         or "examples/evidence-review" in path.as_posix()
@@ -1280,6 +1376,13 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             (
                 ".versioned-release-handoff-report.json",
                 ".versioned-release-handoff-report.md",
+                ".maintainer-handoff-report.json",
+                ".maintainer-handoff-report.md",
+                ".maintainer-handoff-matrix.csv",
+                ".maintainer-quickstart.md",
+                ".maintainer-review-checklist.md",
+                ".maintainer-command-plan.md",
+                ".maintainer-decision-log-template.md",
                 ".release-notes-draft.md",
                 ".release-scope-summary.md",
                 ".maintainer-release-decision-checklist.md",
