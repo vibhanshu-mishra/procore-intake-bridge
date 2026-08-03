@@ -1,5 +1,14 @@
 # Project status
 
+## J8 — completed as offline versioned release handoff
+
+J8 documents a human handoff for prepared target `0.1.0`: release notes, included scope, known
+limitations, maintainer decision, evidence, and conditional post-release guidance. `0.1.0` is
+prepared release metadata, not a released version. J8 performs no package/Docker build, publish,
+upload, tag, release, docs deployment, application deployment, external call, or workflow change.
+Maintainer authorization and private security/legal/infrastructure review remain required; no
+production, Pilot, hosted, release, or deployment approval is granted.
+
 ## Phase J7: release-candidate checklist
 
 J7 aggregates 15 public release-candidate domains around prepared `0.1.0` metadata. It can report

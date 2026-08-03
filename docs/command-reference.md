@@ -1,5 +1,22 @@
 # Command reference
 
+## Phase J8 versioned 0.1.0 release handoff
+
+| Command | Purpose | Writes? |
+| --- | --- | --- |
+| `make versioned-release-handoff` | Print the sanitized offline handoff review. | No |
+| `make release-notes-draft` | Print the release-notes draft. | No |
+| `make release-scope-summary` | Print included scope and known limitations. | No |
+| `make maintainer-release-decision-checklist` | Print the human decision checklist. | No |
+| `make post-release-checklist` | Print the conditional post-release checklist. | No |
+| `make versioned-release-artifact-check` | Validate disposable handoff artifacts in temporary output. | Temporary only |
+
+These commands do not build packages or Docker images, publish or upload artifacts, create tags or
+releases, deploy documentation or the application, call GitHub/registries, or change workflows.
+`0.1.0` remains prepared metadata; maintainer authorization and private security/legal/
+infrastructure review are required, and no production, Pilot, hosted, release, or deployment
+approval is granted.
+
 ## Phase J7 release-candidate checklist
 
 | Command | Purpose | Writes? |

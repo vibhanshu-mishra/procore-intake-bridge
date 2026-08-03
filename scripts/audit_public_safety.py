@@ -189,6 +189,11 @@ PRIVATE_PATH_PARTS = {
     "rc-checklist-output",
     "rc-readiness-output",
     "candidate-release-output",
+    "versioned-release-handoff-output",
+    "versioned-release-output",
+    "release-handoff-output",
+    "release-notes-draft-output",
+    "post-release-checklist-output",
 }
 
 
@@ -494,6 +499,28 @@ RELEASE_CANDIDATE_UNSAFE_CLAIM = re.compile(
     r"(?:production|release|pilot|launch|deployment) (?:is )?approved|procore "
     r"(?:endorsed|partner|certified|officially supported))\b"
 )
+VERSIONED_RELEASE_PRIVATE_MATERIAL = re.compile(
+    r"(?i)(?:package[_ -]?registry[_ -]?token|registry[_ -]?token|github[_ -]?token|"
+    r"ci[_ -]?secret|release[_ -]?signing[_ -]?key|signing[_ -]?key|publish[_ -]?token|"
+    r"database[_ -]?url|authorization|bearer|signed[_ -]?url|storage[_ -]?key|"
+    r"private[_ -]?path|private[_ -]?report[_ -]?contents?)"
+    r"\s*[:=]\s*[\"']?(?!placeholder\b|fake\b|none\b|false\b)[^\"'\s]+"
+)
+VERSIONED_RELEASE_UNSAFE_CLAIM = re.compile(
+    r"(?i)\b(?:package (?:was |is )?(?:built|published|uploaded)|"
+    r"docker image (?:was |is )?(?:built|pushed)|(?:tag|release) (?:was |is )?created|"
+    r"(?:package|docker) build (?:completed|happened|performed|succeeded)|"
+    r"upload (?:completed|happened|performed|succeeded)|"
+    r"actual release (?:performed|happened|occurred)|"
+    r"package publication (?:completed|occurred)|"
+    r"(?:application|app|docs) (?:was |is )?(?:deployed|hosted)|"
+    r"docs (?:site )?(?:was |is )?(?:deployed|hosted)|"
+    r"docs hosting (?:is )?(?:live|enabled|complete)|"
+    r"(?:production|pilot|release|deployment) (?:is )?approved|"
+    r"(?:production|pilot|release|deployment) approval (?:granted|complete)|"
+    r"approved for (?:production|pilot|release|deployment)|production[- ]ready|"
+    r"procore (?:endorsement|endorsed|partner|certified|officially supported))\b"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -503,6 +530,42 @@ def _safe_value(value: str) -> bool:
 
 def audit_text(path: Path, text: str) -> list[SafetyIssue]:
     issues: list[SafetyIssue] = []
+    if any(
+        marker in path.as_posix()
+        for marker in (
+            "versioned-release-handoff",
+            "versioned_release_handoff",
+            "release-notes-draft",
+            "release_notes_draft",
+            "release-scope-summary",
+            "release_scope_summary",
+            "maintainer-release-decision-checklist",
+            "maintainer_release_decision_checklist",
+            "post-release-checklist",
+            "post_release_checklist",
+        )
+    ):
+        excluded = any(part in path.parts for part in ("tests", "services", "schemas"))
+        lines = text.splitlines()
+        for index, line in enumerate(lines):
+            context = " ".join(lines[max(0, index - 2) : index + 1])
+            qualified = SETUP_SAFETY_QUALIFIER.search(context) or re.search(
+                r"(?i)\b(?:none|absent|not added|not present|excluded|outside)\b", context
+            )
+            if (
+                VERSIONED_RELEASE_PRIVATE_MATERIAL.search(line)
+                and not excluded
+                and not _safe_value(line)
+            ):
+                issues.append(
+                    SafetyIssue(path, "versioned release handoff contains private material")
+                )
+                break
+            if VERSIONED_RELEASE_UNSAFE_CLAIM.search(line) and not excluded and not qualified:
+                issues.append(
+                    SafetyIssue(path, "versioned release handoff implies live release or approval")
+                )
+                break
     if any(
         marker in path.as_posix()
         for marker in ("release-candidate", "release_candidate", "rc-checklist", "rc-readiness")
@@ -1202,6 +1265,29 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
             continue
         if path.name.endswith((".smoke.json", ".smoke.log")):
             issues.append(SafetyIssue(path, "tracked sandbox smoke output"))
+            continue
+        if any(
+            part
+            in {
+                "versioned-release-handoff-output",
+                "versioned-release-output",
+                "release-handoff-output",
+                "release-notes-draft-output",
+                "post-release-checklist-output",
+            }
+            for part in path.parts
+        ) or path.name.endswith(
+            (
+                ".versioned-release-handoff-report.json",
+                ".versioned-release-handoff-report.md",
+                ".release-notes-draft.md",
+                ".release-scope-summary.md",
+                ".maintainer-release-decision-checklist.md",
+                ".post-release-checklist.md",
+                ".release-evidence-matrix.csv",
+            )
+        ):
+            issues.append(SafetyIssue(path, "tracked generated versioned release handoff output"))
             continue
         if any(
             part

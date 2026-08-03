@@ -1,5 +1,13 @@
 # Final public repository readiness
 
+## J8 relationship
+
+J8 supplies an offline handoff for prepared `0.1.0` metadata. It does not mean the version was
+released or approved. No package/Docker build, publish, upload, tag, release, docs deployment,
+application deployment, external call, or workflow change occurs. Maintainer authorization and
+private security/legal/infrastructure review remain required; production, Pilot, hosted, release,
+and deployment approval is not granted.
+
 ## J7 relationship
 
 Final public readiness is an input to J7, not release approval. J7 may report that the public repo is

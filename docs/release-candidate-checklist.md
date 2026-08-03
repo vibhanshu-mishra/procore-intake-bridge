@@ -1,5 +1,10 @@
 # Release Candidate Checklist
 
+J8 consumes this checklist as evidence only. Prepared `0.1.0` is release metadata, not a release;
+J8 performs no build, publish, upload, tag, release, docs deployment, application deployment, or
+workflow change. A maintainer must authorize any later release, and no production, Pilot, hosted,
+legal, privacy, security, release, or deployment approval is implied.
+
 Prepared target: `0.1.0` release-candidate metadata; not released.
 
 - [ ] J6 canonical version source, package metadata, changelog, and release boundary agree.

@@ -141,6 +141,11 @@ nav:
   - Public Safety and Release:
       - Safety Model: safety-model.md
       - Public Usability Audit: public-usability-audit.md
+      - Versioned Release Handoff: versioned-release-handoff.md
+      - Release Notes Draft: release-notes-draft.md
+      - Release Scope Summary: release-scope-summary.md
+      - Maintainer Release Decision Checklist: maintainer-release-decision-checklist.md
+      - Post-Release Checklist: post-release-checklist.md
       - Version Preparation Review: version-prep-review.md
       - Package Metadata Summary: package-metadata-summary.md
       - Version Source Map: version-source-map.md

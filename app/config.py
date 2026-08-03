@@ -1621,6 +1621,92 @@ class Settings(BaseSettings):
         le=400,
         validation_alias="PROCORE_INTAKE_RELEASE_CANDIDATE_MAX_FINDINGS",
     )
+    versioned_release_handoff_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_VERSIONED_RELEASE_HANDOFF_ENABLED",
+    )
+    versioned_release_handoff_output_root: Path = Field(
+        default=Path("./versioned-release-handoff-output"),
+        validation_alias="PROCORE_INTAKE_VERSIONED_RELEASE_HANDOFF_OUTPUT_ROOT",
+    )
+    versioned_release_handoff_target_version: str = Field(
+        default="0.1.0",
+        validation_alias="PROCORE_INTAKE_VERSIONED_RELEASE_HANDOFF_TARGET_VERSION",
+    )
+    versioned_release_handoff_require_rc_review: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_VERSIONED_RELEASE_HANDOFF_REQUIRE_RC_REVIEW",
+    )
+    versioned_release_handoff_require_release_notes_draft: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_VERSIONED_RELEASE_HANDOFF_REQUIRE_RELEASE_NOTES_DRAFT",
+    )
+    versioned_release_handoff_require_included_scope: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_VERSIONED_RELEASE_HANDOFF_REQUIRE_INCLUDED_SCOPE",
+    )
+    versioned_release_handoff_require_known_limitations: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_VERSIONED_RELEASE_HANDOFF_REQUIRE_KNOWN_LIMITATIONS",
+    )
+    versioned_release_handoff_require_maintainer_decision: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_VERSIONED_RELEASE_HANDOFF_REQUIRE_MAINTAINER_DECISION",
+    )
+    versioned_release_handoff_require_no_build: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_VERSIONED_RELEASE_HANDOFF_REQUIRE_NO_BUILD",
+    )
+    versioned_release_handoff_require_no_publish: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_VERSIONED_RELEASE_HANDOFF_REQUIRE_NO_PUBLISH",
+    )
+    versioned_release_handoff_require_no_tag: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_VERSIONED_RELEASE_HANDOFF_REQUIRE_NO_TAG",
+    )
+    versioned_release_handoff_require_no_release: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_VERSIONED_RELEASE_HANDOFF_REQUIRE_NO_RELEASE",
+    )
+    versioned_release_handoff_require_no_deploy: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_VERSIONED_RELEASE_HANDOFF_REQUIRE_NO_DEPLOY",
+    )
+    versioned_release_handoff_require_no_workflow_changes: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_VERSIONED_RELEASE_HANDOFF_REQUIRE_NO_WORKFLOW_CHANGES",
+    )
+    versioned_release_handoff_allow_real_identities: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_VERSIONED_RELEASE_HANDOFF_ALLOW_REAL_IDENTITIES",
+    )
+    versioned_release_handoff_allow_real_domains: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_VERSIONED_RELEASE_HANDOFF_ALLOW_REAL_DOMAINS",
+    )
+    versioned_release_handoff_allow_real_urls: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_VERSIONED_RELEASE_HANDOFF_ALLOW_REAL_URLS",
+    )
+    versioned_release_handoff_allow_report_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_VERSIONED_RELEASE_HANDOFF_ALLOW_REPORT_CONTENTS",
+    )
+    versioned_release_handoff_allow_private_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_VERSIONED_RELEASE_HANDOFF_ALLOW_PRIVATE_PATHS",
+    )
+    versioned_release_handoff_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_VERSIONED_RELEASE_HANDOFF_FAIL_CLOSED",
+    )
+    versioned_release_handoff_max_findings: int = Field(
+        default=400,
+        ge=1,
+        le=400,
+        validation_alias="PROCORE_INTAKE_VERSIONED_RELEASE_HANDOFF_MAX_FINDINGS",
+    )
     intake_review_workspace_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_ENABLED",

@@ -1,5 +1,13 @@
 # Release readiness
 
+## J8 relationship
+
+J8 is a versioned `0.1.0` release handoff only. The target is prepared release metadata, not a
+release. J8 adds review documents and placeholder examples but performs no package/Docker build,
+publish, upload, tag, release, docs deployment, application deployment, external call, or workflow
+change. Maintainer authorization and private security/legal/infrastructure review remain required;
+no production, Pilot, hosted, release, or deployment approval is granted.
+
 ## J7 relationship
 
 J7 consumes this readiness guidance as one checklist input; it does not replace its decision model

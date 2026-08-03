@@ -1,5 +1,14 @@
 # Documentation navigation map
 
+## J8 release handoff path
+
+For the prepared `0.1.0` target, read [Versioned Release Handoff](versioned-release-handoff.md),
+[Release Notes Draft](release-notes-draft.md), [Release Scope Summary](release-scope-summary.md),
+[Maintainer Release Decision Checklist](maintainer-release-decision-checklist.md), and
+[Post-Release Checklist](post-release-checklist.md). These are offline handoff aids only: no
+build, publish, upload, tag, release, docs deployment, application deployment, or workflow change
+occurs, and maintainer authorization remains required.
+
 Phase J7 release-candidate review path:
 
 1. [Release-candidate review](release-candidate-review.md)

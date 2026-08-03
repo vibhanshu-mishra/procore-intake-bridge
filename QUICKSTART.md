@@ -1,5 +1,11 @@
 # Quickstart: start with Demo Mode
 
+J8 provides a [versioned `0.1.0` release handoff](docs/versioned-release-handoff.md) for
+maintainers. It is prepared metadata, not a release: no package/Docker build, publish, upload,
+tag, release, docs deployment, application deployment, or workflow change occurs. Run the J8
+review commands only after normal local checks; maintainer authorization and private
+security/legal/infrastructure review remain required.
+
 J7 offers `make release-candidate-review` as a non-writing checklist for prepared `0.1.0` metadata.
 It does not create or approve a release candidate. No package/Docker build, publish, tag, release,
 deployment, workflow automation, or approval occurs; maintainer review remains later.

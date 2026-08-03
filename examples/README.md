@@ -1,5 +1,11 @@
 # Examples
 
+Phase J8 placeholder-only versioned release handoff examples are in
+[`versioned-release-handoff/`](versioned-release-handoff/README.md). They model a possible
+`0.1.0` release-notes draft, included-scope summary, maintainer decision checklist, post-release
+checklist, and evidence matrix. They contain no private values or approval claims and perform no
+build, publish, upload, tag, release, deployment, external call, or workflow change.
+
 Phase J7 placeholder-only checklist examples are in
 [`release-candidate-review/`](release-candidate-review/README.md). They model domains, gates, gaps,
 and command-plan structure without builds, publication, tags, releases, deployments, workflow

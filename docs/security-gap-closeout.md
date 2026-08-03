@@ -1,5 +1,13 @@
 # Security Gap Closeout
 
+## J8 relationship
+
+J8 carries this offline security guidance into the `0.1.0` release handoff; it does not close
+private gaps or grant approval. No build, publish, upload, tag, release, docs deployment,
+application deployment, external call, or workflow change occurs. Private security, legal,
+privacy, and infrastructure review remains required before hosted or live use, and no production,
+Pilot, release, or deployment approval is granted.
+
 J7 carries I9 private gaps forward rather than treating public checklist success as security or
 release approval. Private security, legal, infrastructure, privacy, and operational review remains
 required before any release or deployment.

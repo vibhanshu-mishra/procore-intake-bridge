@@ -1,5 +1,12 @@
 # Release Candidate Review
 
+## J8 relationship
+
+J8 packages this review as an offline handoff for a future human decision. It does not convert
+prepared `0.1.0` metadata into a release. No package/Docker build, publish, upload, tag, release,
+docs deployment, application deployment, external call, or workflow change occurs, and maintainer
+authorization is still required.
+
 Phase J7 is an offline release-candidate checklist for the prepared `0.1.0` target. The version is
 metadata, not a released version. J7 may establish that the public repository is ready for later
 maintainer review as a release candidate; it cannot approve or create a release.

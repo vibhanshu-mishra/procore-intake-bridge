@@ -1,5 +1,12 @@
 # Version Preparation Review
 
+## J8 relationship
+
+J8 consumes this prepared metadata as a handoff input. `0.1.0` remains prepared release metadata,
+not a released version. J8 performs no package/Docker build, publish, upload, tag, release, docs
+deployment, application deployment, external call, or workflow change; maintainer authorization
+and private review remain required.
+
 J7 consumes J6 as the canonical version/package-preparation input. J7 does not create another
 version owner: `0.1.0` remains prepared metadata, and the release-candidate checklist only evaluates
 whether later maintainer review can begin. No build, publish, tag, release, deploy, workflow, or

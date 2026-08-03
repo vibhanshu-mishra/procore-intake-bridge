@@ -1,5 +1,13 @@
 # Procore Intake Bridge
 
+Phase J8 adds a public, offline [versioned `0.1.0` release handoff](docs/versioned-release-handoff.md),
+[release notes draft](docs/release-notes-draft.md), [scope summary](docs/release-scope-summary.md),
+[maintainer decision checklist](docs/maintainer-release-decision-checklist.md), and
+[safe post-release checklist](docs/post-release-checklist.md). `0.1.0` is prepared as release
+metadata only; it is not released by J8. No package/Docker build, publish, upload, tag, release,
+docs deployment, application deployment, workflow change, or approval occurs. Maintainer
+authorization and private security/legal/infrastructure review remain required.
+
 Phase J7 adds an offline [release-candidate review](docs/release-candidate-review.md),
 [checklist](docs/release-candidate-checklist.md), [gap register](docs/release-candidate-gap-register.md),
 and [safe command plan](docs/release-candidate-command-plan.md) for prepared `0.1.0` metadata. It is

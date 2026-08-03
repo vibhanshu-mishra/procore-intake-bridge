@@ -130,6 +130,11 @@ REQUIRED_NAV_DOCS = {
     "release-candidate-checklist.md",
     "release-candidate-gap-register.md",
     "release-candidate-command-plan.md",
+    "versioned-release-handoff.md",
+    "release-notes-draft.md",
+    "release-scope-summary.md",
+    "maintainer-release-decision-checklist.md",
+    "post-release-checklist.md",
     "release-readiness.md",
     "release-checklist.md",
     "release-notes-template.md",
@@ -200,6 +205,18 @@ def check_docs_site(root: Path) -> list[Finding]:
     nav_docs = set(NAV_DOC.findall(config))
     add(REQUIRED_GROUPS <= groups, "required nav groups", "one or more nav groups are missing")
     add(REQUIRED_NAV_DOCS <= nav_docs, "required nav docs", "one or more required docs are absent")
+    j8_nav_docs = {
+        "versioned-release-handoff.md",
+        "release-notes-draft.md",
+        "release-scope-summary.md",
+        "maintainer-release-decision-checklist.md",
+        "post-release-checklist.md",
+    }
+    add(
+        j8_nav_docs <= nav_docs,
+        "J8 docs navigation",
+        "versioned release handoff docs are not in the local nav",
+    )
 
     missing = sorted(name for name in nav_docs if not (root / "docs" / name).is_file())
     add(not missing, "nav targets", "one or more nav targets do not exist")
@@ -209,6 +226,38 @@ def check_docs_site(root: Path) -> list[Finding]:
         "forbidden config found",
     )
     add(not UNSAFE_TEXT.search(config), "config public safety", "unsafe config value found")
+
+    j8_docs = [root / "docs" / name for name in (
+        "versioned-release-handoff.md",
+        "release-notes-draft.md",
+        "release-scope-summary.md",
+        "maintainer-release-decision-checklist.md",
+        "post-release-checklist.md",
+    )]
+    j8_text = "\n".join(_read(path).casefold() for path in j8_docs if path.is_file())
+    add(
+        all(path.is_file() for path in j8_docs),
+        "J8 docs present",
+        "versioned release handoff docs are missing",
+    )
+    add(
+        all(
+            phrase in j8_text
+            for phrase in (
+                "0.1.0",
+                "no package build",
+                "no publish",
+                "no upload",
+                "no tag",
+                "no release",
+                "no deployment",
+                "maintainer authorization",
+                "not granted",
+            )
+        ),
+        "J8 public safety guidance",
+        "J8 docs must disclaim live operations and approval",
+    )
 
     links = {
         "README docs-site link": (root / "README.md", "docs/docs-site.md"),

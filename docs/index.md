@@ -1,5 +1,14 @@
 # Documentation
 
+## J8 versioned 0.1.0 release handoff
+
+Use the [versioned release handoff](versioned-release-handoff.md), [release notes draft](release-notes-draft.md),
+[scope summary](release-scope-summary.md), [maintainer decision checklist](maintainer-release-decision-checklist.md),
+and [post-release checklist](post-release-checklist.md) for an offline, public-safe handoff.
+`0.1.0` is prepared release metadata, not a release. J8 performs no build, publish, upload, tag,
+release, documentation deployment, application deployment, external call, or workflow change;
+maintainer authorization and private review remain required.
+
 Phase J7 aggregates existing public checks in the [release-candidate review](release-candidate-review.md),
 [checklist](release-candidate-checklist.md), [gap register](release-candidate-gap-register.md), and
 [command plan](release-candidate-command-plan.md). Prepared `0.1.0` remains metadata, not a release.

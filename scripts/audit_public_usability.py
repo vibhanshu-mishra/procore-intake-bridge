@@ -126,6 +126,11 @@ REQUIRED_DOCS = {
     "docs/release-candidate-checklist.md",
     "docs/release-candidate-gap-register.md",
     "docs/release-candidate-command-plan.md",
+    "docs/versioned-release-handoff.md",
+    "docs/release-notes-draft.md",
+    "docs/release-scope-summary.md",
+    "docs/maintainer-release-decision-checklist.md",
+    "docs/post-release-checklist.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -243,6 +248,12 @@ REQUIRED_SCRIPTS = {
     "scripts/print_release_candidate_gap_register.py",
     "scripts/print_release_candidate_command_plan.py",
     "scripts/generate_release_candidate_artifacts.py",
+    "scripts/run_versioned_release_handoff.py",
+    "scripts/print_release_notes_draft.py",
+    "scripts/print_release_scope_summary.py",
+    "scripts/print_maintainer_release_decision_checklist.py",
+    "scripts/print_post_release_checklist.py",
+    "scripts/generate_versioned_release_handoff_artifacts.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -425,6 +436,12 @@ REQUIRED_EXAMPLES = {
     "examples/release-candidate-review/example_release_candidate_gap_register.md",
     "examples/release-candidate-review/example_release_candidate_command_plan.md",
     "examples/release-candidate-review/example_release_candidate_matrix.csv",
+    "examples/versioned-release-handoff/README.md",
+    "examples/versioned-release-handoff/example_release_notes_draft.md",
+    "examples/versioned-release-handoff/example_release_scope_summary.md",
+    "examples/versioned-release-handoff/example_maintainer_release_decision_checklist.md",
+    "examples/versioned-release-handoff/example_post_release_checklist.md",
+    "examples/versioned-release-handoff/example_release_evidence_matrix.csv",
 }
 REQUIRED_TARGETS = {
     "review-workspace-summary",
@@ -594,8 +611,26 @@ REQUIRED_TARGETS = {
     "final-readiness-checklist",
     "public-handoff-summary",
     "final-readiness-artifact-check",
+    "versioned-release-handoff",
+    "release-notes-draft",
+    "release-scope-summary",
+    "maintainer-release-decision-checklist",
+    "post-release-checklist",
+    "versioned-release-artifact-check",
 }
 IGNORED_OUTPUTS = {
+    "versioned-release-handoff-output/",
+    "versioned-release-output/",
+    "release-handoff-output/",
+    "release-notes-draft-output/",
+    "post-release-checklist-output/",
+    "*.versioned-release-handoff-report.json",
+    "*.versioned-release-handoff-report.md",
+    "*.release-notes-draft.md",
+    "*.maintainer-release-decision-checklist.md",
+    "*.post-release-checklist.md",
+    "*.release-evidence-matrix.csv",
+    "*.release-scope-summary.md",
     "release-candidate-output/",
     "release-candidate-review-output/",
     "rc-checklist-output/",
@@ -977,6 +1012,11 @@ GENERATED_PARTS = {
     "rc-checklist-output",
     "rc-readiness-output",
     "candidate-release-output",
+    "versioned-release-handoff-output",
+    "versioned-release-output",
+    "release-handoff-output",
+    "release-notes-draft-output",
+    "post-release-checklist-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak",
@@ -1952,6 +1992,43 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 "does not mean a pilot is approved",
             )
         ),
+        "J8 release handoff is versioned 0.1.0 metadata only": all(
+            phrase in docs
+            for phrase in (
+                "versioned 0.1.0 release handoff",
+                "prepared metadata",
+                "not released",
+                "maintainer authorization",
+            )
+        ),
+        "J8 disclaims build publish upload tag release and deploy": all(
+            phrase in docs
+            for phrase in (
+                "no package build",
+                "no publish",
+                "no upload",
+                "no tag",
+                "no release",
+                "no deployment",
+            )
+        ),
+        "J8 disclaims production pilot release and deployment approval": all(
+            phrase in docs
+            for phrase in (
+                "not granted",
+                "production approval",
+                "pilot approval",
+                "release approval",
+                "deployment approval",
+            )
+        ),
+        "J8 Makefile has no live release targets": not re.search(
+            r"(?m)^(?:build-package|docker-build|package-build|publish|tag|release|deploy)\s*:",
+            makefile,
+        ),
+        "J8 artifact generation is excluded from quality": (
+            "versioned-release-artifact-check" not in quality_headers
+        ),
     }
     for name, passed in guidance_checks.items():
         add("PASS" if passed else "FAIL", name, "documented" if passed else "guidance is missing")
@@ -2071,6 +2148,9 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 ".release-candidate-gap-register.md",
                 ".release-candidate-command-plan.md",
                 ".release-candidate-matrix.csv",
+                ".versioned-release-handoff-report.json",
+                ".versioned-release-handoff-report.md",
+                ".release-evidence-matrix.csv",
             )
         ):
             add(

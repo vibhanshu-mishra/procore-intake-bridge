@@ -1,5 +1,10 @@
 # Package Metadata Summary
 
+J8 uses this summary as a local handoff input only. `0.1.0` is prepared metadata, not a released
+package. No package/Docker build, publish, upload, tag, release, docs deployment, application
+deployment, external call, or workflow change occurs; maintainer authorization and private review
+remain required.
+
 J7 treats this summary as one package-metadata gate and does not turn it into a publication plan.
 Prepared `0.1.0` remains unreleased metadata; no package/Docker build, registry call, publish, tag,
 release, deployment, workflow change, or approval occurs.

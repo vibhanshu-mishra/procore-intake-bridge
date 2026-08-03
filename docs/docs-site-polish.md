@@ -1,5 +1,13 @@
 # Documentation Site Polish
 
+## J8 relationship
+
+J8 links the versioned release handoff into this local handbook. The target `0.1.0` is prepared
+metadata only. No docs build, docs publication, docs deployment, package/Docker build, publish,
+upload, tag, release, application deployment, external call, or workflow change occurs. A
+maintainer must authorize any later release; documentation polish grants no hosting, production,
+Pilot, release, or deployment approval.
+
 J7 consumes the J5 local navigation audit as one release-candidate gate. It does not publish or
 deploy documentation, add a workflow, or imply that prepared `0.1.0` has been released or approved.
 

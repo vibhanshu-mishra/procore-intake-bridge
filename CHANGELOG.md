@@ -1,5 +1,15 @@
 # Changelog
 
+## Phase J8 — versioned 0.1.0 release handoff
+
+- Added offline release handoff documentation, a release notes draft, included-scope and known-
+  limitations guidance, maintainer decision checklist, post-release checklist, evidence-matrix
+  shape, and placeholder-only examples.
+- `0.1.0` is prepared as release metadata only. J8 performs no package/Docker build, publish,
+  upload, tag, release, docs deployment, application deployment, external call, or workflow change.
+- Maintainer authorization remains required; no production, Pilot, hosted, release, deployment,
+  legal, privacy, security, publication, or Procore approval is granted.
+
 ## Phase J7 — prepared 0.1.0 release-candidate checklist
 
 - Added an offline release-candidate review, checklist, gap register, command plan, and

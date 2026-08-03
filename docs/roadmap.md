@@ -1,5 +1,13 @@
 # Roadmap
 
+## J8 versioned 0.1.0 release handoff — completed
+
+J8 adds a public, offline handoff layer for prepared `0.1.0` metadata: release notes draft,
+included-scope and known-limitations summary, maintainer decision checklist, evidence matrix,
+and safe post-release checklist. It does not perform a package/Docker build, publish, upload, tag,
+release, docs deployment, application deployment, external call, or workflow change. Actual
+release work and maintainer authorization remain future private actions.
+
 ## J7 release-candidate checklist
 
 J7 completes a public, offline checklist for later maintainer review of prepared `0.1.0` metadata.
