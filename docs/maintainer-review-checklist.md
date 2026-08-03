@@ -18,7 +18,7 @@ is not granted. Maintainer review is still required and private review remains r
 
 ## Release handoff review
 
-- [ ] Read [versioned release handoff](versioned-release-handoff.md), [release notes draft](release-notes-draft.md), and [release-candidate review](release-candidate-review.md).
+- [ ] Read [versioned release handoff](versioned-release-handoff.md), [release notes for v0.1.0](release-notes-v0.1.0.md), and [release-candidate review](release-candidate-review.md).
 - [ ] Verify included scope, known limitations, license, dependency posture, and package metadata.
 - [ ] Confirm the handoff says no package/Docker build, publish/upload, tag, release, docs deploy,
       application deploy, or workflow change occurred.

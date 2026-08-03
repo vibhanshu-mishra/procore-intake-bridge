@@ -127,7 +127,7 @@ REQUIRED_DOCS = {
     "docs/release-candidate-gap-register.md",
     "docs/release-candidate-command-plan.md",
     "docs/versioned-release-handoff.md",
-    "docs/release-notes-draft.md",
+    "docs/release-notes-v0.1.0.md",
     "docs/release-scope-summary.md",
     "docs/maintainer-release-decision-checklist.md",
     "docs/post-release-checklist.md",

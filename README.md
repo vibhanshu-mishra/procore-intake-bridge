@@ -214,7 +214,7 @@ and [project status](docs/project-status.md).
 
 ## Project status
 
-- Source metadata is prepared for `0.1.0`; no release tag is implied.
+- Current source version: `0.1.0`. Published versions are listed in GitHub Releases.
 - Demo Mode is available locally with deterministic synthetic data.
 - Product dashboard, review, triage, lifecycle, attachment-metadata, and local export UX are implemented locally.
 - Live Sandbox reads are manually gated and separately reviewed.

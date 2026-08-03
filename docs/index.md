@@ -1,35 +1,15 @@
 # Documentation
 
-## J10 post-release planning
+## Current source release
 
-J10 is planning-only material for a possible future handoff. “Post-release” means after a future
-human-approved `0.1.0` release; no release happened in J10. Read the [post-release roadmap](post-release-roadmap.md),
+Current source version: `0.1.0`. Published versions are listed in GitHub Releases.
+Read the [release notes for v0.1.0](release-notes-v0.1.0.md) for the public source-release summary.
+No PyPI publication or hosted deployment is implied; private Sandbox, Pilot, and Hosted use remain
+separately gated and reviewed.
+
+For maintained limitations and future work, read the [post-release roadmap](post-release-roadmap.md),
 [known-limitations register](known-limitations-register.md), [future-work backlog](future-work-backlog.md),
 [private-review backlog](private-review-backlog.md), and [pre-tag reminder checklist](pre-tag-reminder-checklist.md).
-J10 performs no release, build, publish, upload, tag, deploy, issue filing, ticket creation, or
-approval. Maintainer review and private review remain required.
-Placeholder shapes are collected in the [post-release roadmap examples](../examples/post-release-roadmap/README.md).
-
-## J8 versioned 0.1.0 release handoff
-
-Use the [versioned release handoff](versioned-release-handoff.md), [release notes draft](release-notes-draft.md),
-[scope summary](release-scope-summary.md), [maintainer decision checklist](maintainer-release-decision-checklist.md),
-and [post-release checklist](post-release-checklist.md) for an offline, public-safe handoff.
-`0.1.0` is prepared release metadata, not a release. J8 performs no build, publish, upload, tag,
-release, documentation deployment, application deployment, external call, or workflow change;
-maintainer authorization and private review remain required.
-
-Phase J7 aggregates existing public checks in the [release-candidate review](release-candidate-review.md),
-[checklist](release-candidate-checklist.md), [gap register](release-candidate-gap-register.md), and
-[command plan](release-candidate-command-plan.md). Prepared `0.1.0` remains metadata, not a release.
-J7 is checklist only, with later maintainer review and no build, publish, tag, release, deployment,
-workflow automation, or approval.
-
-Phase J6 documents the prepared `0.1.0` target through the
-[version preparation review](version-prep-review.md), [package metadata summary](package-metadata-summary.md),
-[version source map](version-source-map.md), and [release boundary checklist](release-boundary-checklist.md).
-This is release-candidate metadata, not a release. No build, publish, tag, release, deployment,
-workflow automation, external call, or approval is included.
 
 ## Start here
 

@@ -131,7 +131,7 @@ REQUIRED_NAV_DOCS = {
     "release-candidate-gap-register.md",
     "release-candidate-command-plan.md",
     "versioned-release-handoff.md",
-    "release-notes-draft.md",
+    "release-notes-v0.1.0.md",
     "release-scope-summary.md",
     "maintainer-release-decision-checklist.md",
     "post-release-checklist.md",
@@ -237,7 +237,7 @@ def check_docs_site(root: Path) -> list[Finding]:
     add(REQUIRED_NAV_DOCS <= nav_docs, "required nav docs", "one or more required docs are absent")
     j8_nav_docs = {
         "versioned-release-handoff.md",
-        "release-notes-draft.md",
+        "release-notes-v0.1.0.md",
         "release-scope-summary.md",
         "maintainer-release-decision-checklist.md",
         "post-release-checklist.md",
@@ -283,7 +283,7 @@ def check_docs_site(root: Path) -> list[Finding]:
 
     j8_docs = [root / "docs" / name for name in (
         "versioned-release-handoff.md",
-        "release-notes-draft.md",
+        "release-notes-v0.1.0.md",
         "release-scope-summary.md",
         "maintainer-release-decision-checklist.md",
         "post-release-checklist.md",

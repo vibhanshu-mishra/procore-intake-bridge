@@ -1,22 +1,11 @@
 # Documentation navigation map
 
-## J10 planning path
+## Current source release path
 
-For planning after a future human-approved `0.1.0` release, read [post-release roadmap](post-release-roadmap.md),
-[known-limitations register](known-limitations-register.md), [future-work backlog](future-work-backlog.md),
-[private-review backlog](private-review-backlog.md), and [pre-tag reminder checklist](pre-tag-reminder-checklist.md).
-“Post-release” means after that future approval; no release happened in J10. J10 performs no release,
-build, publish, upload, tag, deploy, issue filing, ticket creation, or approval. Maintainer and private
-review remain required.
-
-## J8 release handoff path
-
-For the prepared `0.1.0` target, read [Versioned Release Handoff](versioned-release-handoff.md),
-[Release Notes Draft](release-notes-draft.md), [Release Scope Summary](release-scope-summary.md),
-[Maintainer Release Decision Checklist](maintainer-release-decision-checklist.md), and
-[Post-Release Checklist](post-release-checklist.md). These are offline handoff aids only: no
-build, publish, upload, tag, release, docs deployment, application deployment, or workflow change
-occurs, and maintainer authorization remains required.
+Current source version: `0.1.0`. Start with the [release notes for v0.1.0](release-notes-v0.1.0.md),
+then use the [project status](project-status.md), [release readiness](release-readiness.md), and
+[maintainer handoff](maintainer-handoff.md) pages for current-facing review context. Published
+versions are listed in GitHub Releases; no PyPI publication or hosted deployment is implied.
 
 Phase J7 release-candidate review path:
 

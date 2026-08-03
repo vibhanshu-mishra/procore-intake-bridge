@@ -32,7 +32,7 @@ No actual release happened in J8.
 ## Recommended review order
 
 1. Run the non-writing J8 commands in the [command reference](command-reference.md).
-2. Read the [release notes draft](release-notes-draft.md) and [scope summary](release-scope-summary.md).
+2. Read the [release notes for v0.1.0](release-notes-v0.1.0.md) and [scope summary](release-scope-summary.md).
 3. Work through the [maintainer release decision checklist](maintainer-release-decision-checklist.md).
 4. Record evidence references without copying private reports into this repository.
 5. If a maintainer later authorizes a release, use the [post-release checklist](post-release-checklist.md)

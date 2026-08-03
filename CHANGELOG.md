@@ -1,42 +1,33 @@
 # Changelog
 
-## Phase J10 — post-release planning pack
+## Unreleased
 
-- Added public planning-only docs for a post-release roadmap, known-limitations register,
-  future-work backlog, private-review backlog, and pre-tag reminder checklist, plus placeholder
-  examples under `examples/post-release-roadmap/`.
-- “Post-release” means after a future human-approved `0.1.0` release; no release happened in J10.
-- J10 performs no release, build, publish, upload, tag, deploy, issue filing, ticket creation, or
-  approval. Maintainer review and private security, legal, privacy, infrastructure, and ownership
-  review remain required.
+Future changes will be listed here.
 
-## Phase J8 — versioned 0.1.0 release handoff
+## [0.1.0] - 2026-08-03
 
-- Added offline release handoff documentation, a release notes draft, included-scope and known-
-  limitations guidance, maintainer decision checklist, post-release checklist, evidence-matrix
-  shape, and placeholder-only examples.
-- `0.1.0` is prepared as release metadata only. J8 performs no package/Docker build, publish,
-  upload, tag, release, docs deployment, application deployment, external call, or workflow change.
-- Maintainer authorization remains required; no production, Pilot, hosted, release, deployment,
-  legal, privacy, security, publication, or Procore approval is granted.
+First public source release of Procore Intake Bridge.
 
-## Phase J7 — prepared 0.1.0 release-candidate checklist
+- Local-first, read-only intake workspace for Procore RFIs, Submittals, lifecycle review, triage,
+  attachment metadata, and sanitized local summaries.
+- Safe Demo Mode with deterministic synthetic data in local SQLite and no Procore credentials.
+- Product Dashboard, Intake Review Workspace, local lifecycle status/history, and Operator Triage
+  Queue surfaces for local review.
+- Metadata-only attachment manifests and local JSON, Markdown, and CSV export commands.
+- Polling and webhook event-queue foundations, DMSA connection profiles, and the PyProcore read
+  boundary for separately reviewed private use.
+- Local onboarding packet previews, API/OpenAPI documentation, diagnostics, readiness, safety,
+  and maintainer-review tooling.
+- Public documentation for usage modes, architecture, security boundaries, known limitations, and
+  future work.
 
-- Added an offline release-candidate review, checklist, gap register, command plan, and
-  placeholder-only examples that aggregate existing public readiness inputs.
-- `0.1.0` remains prepared metadata, not a released version; the checklist may support later
-  maintainer review but cannot create or approve a release candidate.
-- J7 performs no package/Docker build, publish, tag, release, deployment, external call, or workflow
-  change and grants no production, Pilot, release, deployment, publication, or Procore approval.
+The source release makes no claim of PyPI publication, hosted deployment, production readiness,
+compliance, security certification, or Procore approval.
 
-## Prepared target 0.1.0 — Phase J6
+## Historical release-preparation notes
 
-- Prepared release-candidate metadata, a package summary, version source map, release boundary
-  checklist, and placeholder-only examples for later maintainer review.
-- The `0.1.0` target is prepared/unreleased metadata. J6 performs no package or Docker build,
-  publish, upload, tag, release, deployment, registry/GitHub call, or workflow change.
-- No production, Pilot, release, deployment, publication, certification, or Procore approval is
-  granted; release-candidate review remains a later maintainer action.
+Earlier J7 release-candidate checks and maintainer handoff material remain part of the repository's
+historical review record; they do not change the current source version.
 
 ## Phase J5
 
@@ -105,7 +96,7 @@
 
 - Added Phase I4 offline Data Retention and Redaction Policy schemas, checks, maps, examples, documentation, audits, and sanitized temporary artifacts.
 
-## Unreleased
+## Historical unreleased work (C1–B5)
 
 - Phase I3 adds an offline webhook replay/signature hardening review, public-safe artifacts,
   fixture matrix, documentation, audits, and regression coverage without live replay or
@@ -174,7 +165,7 @@
 - Added Phase C4 Three-Mode Quickstart and Doctor for safe local demo, sandbox readiness, and
   private-pilot preparation.
 
-## Unreleased
+## Historical unreleased work (A1–B5)
 
 - C3: placeholder-only private pilot approval packets, launch/rollback conditions, limitation and
   risk templates, local safety checking, and ignored sanitized artifacts. No real approval,

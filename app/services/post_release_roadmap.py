@@ -60,7 +60,7 @@ REPOSITORY_FILES = (
     "mkdocs.yml",
     "app/version.py",
     "docs/versioned-release-handoff.md",
-    "docs/release-notes-draft.md",
+    "docs/release-notes-v0.1.0.md",
     "docs/release-scope-summary.md",
     "docs/maintainer-handoff.md",
     "docs/maintainer-review-checklist.md",

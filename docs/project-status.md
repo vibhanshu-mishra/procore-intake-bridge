@@ -1,33 +1,20 @@
 # Project status
 
-## Phase J10: post-release planning only
+## Current source status
 
-J10 adds a roadmap, limitation register, future-work backlog, private-review backlog, and pre-tag
-reminder for a possible future handoff. “Post-release” means after a future human-approved `0.1.0`
-release; no release happened in J10. It performs no release, build, publish, upload, tag, deploy,
-issue filing, ticket creation, or approval. Maintainer review and private review remain required.
+Current source version: `0.1.0`. Published versions are listed in GitHub Releases.
+Demo Mode is available locally with deterministic synthetic data; the Product Dashboard, Intake
+Review Workspace, lifecycle, triage, attachment-metadata, and local export surfaces are available
+for local evaluation.
 
-## J8 — completed as offline versioned release handoff
+Private Sandbox, Pilot, and Hosted use remain separately gated and reviewed. No PyPI publication,
+hosted deployment, production readiness, compliance, security certification, or Procore approval is
+implied by the source version.
 
-J8 documents a human handoff for prepared target `0.1.0`: release notes, included scope, known
-limitations, maintainer decision, evidence, and conditional post-release guidance. `0.1.0` is
-prepared release metadata, not a released version. J8 performs no package/Docker build, publish,
-upload, tag, release, docs deployment, application deployment, external call, or workflow change.
-Maintainer authorization and private security/legal/infrastructure review remain required; no
-production, Pilot, hosted, release, or deployment approval is granted.
+Read the [release notes for v0.1.0](release-notes-v0.1.0.md), [known limitations](known-limitations-register.md),
+and [roadmap](roadmap.md) for current-facing context.
 
-## Phase J7: release-candidate checklist
-
-J7 aggregates 15 public release-candidate domains around prepared `0.1.0` metadata. It can report
-readiness for later maintainer review while preserving private security/release gaps. It is checklist
-only: no package/Docker build, publish, tag, release, deployment, workflow change, or approval occurs.
-
-## Phase J6: package metadata and version preparation
-
-J6 records `0.1.0` as a prepared target for later release-candidate review. The canonical version
-source and package metadata are checked for consistency, while changelog/readiness pages remain
-descriptive consumers. No package/Docker build, publish, tag, release, deployment, workflow change,
-GitHub/registry call, or approval occurs.
+## Historical development notes
 
 ## Phase J5: hosted documentation-site polish
 

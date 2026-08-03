@@ -147,7 +147,7 @@ nav:
       - Safety Model: safety-model.md
       - Public Usability Audit: public-usability-audit.md
       - Versioned Release Handoff: versioned-release-handoff.md
-      - Release Notes Draft: release-notes-draft.md
+      - Release Notes v0.1.0: release-notes-v0.1.0.md
       - Release Scope Summary: release-scope-summary.md
       - Maintainer Release Decision Checklist: maintainer-release-decision-checklist.md
       - Post-Release Checklist: post-release-checklist.md

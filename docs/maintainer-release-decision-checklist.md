@@ -7,7 +7,7 @@ not an approval record. Keep completed evidence and private sign-off outside the
 
 - [ ] Confirm the target is `0.1.0` prepared metadata and the canonical version sources agree.
 - [ ] Review the [release-candidate review](release-candidate-review.md) and J7 checklist.
-- [ ] Read the [release notes draft](release-notes-draft.md) and [scope summary](release-scope-summary.md).
+- [ ] Read the [release notes for v0.1.0](release-notes-v0.1.0.md) and [scope summary](release-scope-summary.md).
 - [ ] Run `make quality`, `make safety-check`, `make docs-site-check`, and the J8 review commands.
 - [ ] Inspect the staged file list and confirm generated output remains ignored.
 - [ ] Confirm examples contain placeholders only and no private values.
