@@ -1,5 +1,14 @@
 # Documentation navigation map
 
+## J10 planning path
+
+For planning after a future human-approved `0.1.0` release, read [post-release roadmap](post-release-roadmap.md),
+[known-limitations register](known-limitations-register.md), [future-work backlog](future-work-backlog.md),
+[private-review backlog](private-review-backlog.md), and [pre-tag reminder checklist](pre-tag-reminder-checklist.md).
+“Post-release” means after that future approval; no release happened in J10. J10 performs no release,
+build, publish, upload, tag, deploy, issue filing, ticket creation, or approval. Maintainer and private
+review remain required.
+
 ## J8 release handoff path
 
 For the prepared `0.1.0` target, read [Versioned Release Handoff](versioned-release-handoff.md),

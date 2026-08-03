@@ -1,5 +1,12 @@
 # Project status
 
+## Phase J10: post-release planning only
+
+J10 adds a roadmap, limitation register, future-work backlog, private-review backlog, and pre-tag
+reminder for a possible future handoff. “Post-release” means after a future human-approved `0.1.0`
+release; no release happened in J10. It performs no release, build, publish, upload, tag, deploy,
+issue filing, ticket creation, or approval. Maintainer review and private review remain required.
+
 ## J8 — completed as offline versioned release handoff
 
 J8 documents a human handoff for prepared target `0.1.0`: release notes, included scope, known

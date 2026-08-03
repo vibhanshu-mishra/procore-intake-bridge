@@ -13,6 +13,7 @@ PYTHON ?= .venv/bin/python
 .PHONY: release-candidate-review release-candidate-checklist release-candidate-gap-register release-candidate-command-plan release-candidate-artifact-check
 .PHONY: versioned-release-handoff release-notes-draft release-scope-summary maintainer-release-decision-checklist post-release-checklist versioned-release-artifact-check
 .PHONY: maintainer-handoff maintainer-quickstart maintainer-review-checklist maintainer-command-plan maintainer-decision-log-template maintainer-handoff-artifact-check
+.PHONY: post-release-roadmap known-limitations-register future-work-backlog private-review-backlog pre-tag-reminder-checklist post-release-roadmap-artifact-check
 
 .PHONY: security-threat-model security-boundary-map security-review-checklist security-threat-model-artifact-check auth-boundary-audit auth-boundary-map permission-boundary-checklist auth-boundary-artifact-check webhook-security-review webhook-signature-boundary webhook-replay-checklist webhook-security-artifact-check data-policy-review data-retention-map redaction-boundary-map data-handling-checklist data-policy-artifact-check infra-security-review secret-boundary-map storage-boundary-map database-boundary-map infra-security-checklist infra-security-artifact-check supply-chain-review dependency-boundary-map package-surface-map supply-chain-checklist supply-chain-artifact-check incident-response-review incident-runbook audit-log-boundary-map forensics-evidence-checklist incident-response-artifact-check demo-product-tour demo-product-check demo-evaluation-checklist demo-product-artifact-check product-dashboard-overview product-dashboard-check review-workspace-summary review-workspace-check intake-lifecycle-summary intake-lifecycle-check operator-triage-summary operator-triage-check attachment-review-summary attachment-review-check operator-export-check operator-export-summary operator-export-artifact-check
 
@@ -102,6 +103,11 @@ help:
 	@echo "  make maintainer-review-checklist Print maintainer decisions and boundaries"
 	@echo "  make maintainer-command-plan Print the ordered local command plan"
 	@echo "  make maintainer-decision-log-template Print the decision log template"
+	@echo "  make post-release-roadmap Review future work and known limitations"
+	@echo "  make known-limitations-register Print the explicit limitations register"
+	@echo "  make future-work-backlog Print the post-release planning backlog"
+	@echo "  make private-review-backlog Print private review dependencies"
+	@echo "  make pre-tag-reminder-checklist Print final pre-tag reminders"
 	@echo "  make product-dashboard-overview Sanitized local product cockpit summary"
 	@echo "  make product-dashboard-check Validate the read-only product cockpit"
 	@echo "  make review-workspace-summary Read-only local intake summary"
@@ -462,6 +468,18 @@ maintainer-decision-log-template:
 	$(PYTHON) scripts/print_maintainer_decision_log_template.py
 maintainer-handoff-artifact-check:
 	$(PYTHON) scripts/generate_maintainer_handoff_artifacts.py --temporary
+post-release-roadmap:
+	$(PYTHON) scripts/run_post_release_roadmap.py
+known-limitations-register:
+	$(PYTHON) scripts/print_known_limitations_register.py
+future-work-backlog:
+	$(PYTHON) scripts/print_future_work_backlog.py
+private-review-backlog:
+	$(PYTHON) scripts/print_private_review_backlog.py
+pre-tag-reminder-checklist:
+	$(PYTHON) scripts/print_pre_tag_reminder_checklist.py
+post-release-roadmap-artifact-check:
+	$(PYTHON) scripts/generate_post_release_roadmap_artifacts.py --temporary
 
 demo-product-tour:
 	$(PYTHON) scripts/print_demo_product_tour.py
@@ -858,4 +876,5 @@ quality: version-prep-review package-metadata-summary version-source-map release
 quality: release-candidate-review release-candidate-checklist release-candidate-gap-register release-candidate-command-plan
 quality: versioned-release-handoff release-notes-draft release-scope-summary maintainer-release-decision-checklist post-release-checklist
 quality: maintainer-handoff maintainer-quickstart maintainer-review-checklist maintainer-command-plan maintainer-decision-log-template
+quality: post-release-roadmap known-limitations-register future-work-backlog private-review-backlog pre-tag-reminder-checklist
 	$(PYTHON) scripts/validate_private_workspace.py examples/private-workspace/example_workspace_manifest.json --strict

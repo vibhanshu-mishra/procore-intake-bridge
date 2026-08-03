@@ -1,5 +1,25 @@
 # Command reference
 
+## J10 post-release planning
+
+J10 adds read-only print targets for planning. “Post-release” means after a future human-approved
+`0.1.0` release; no release happened. These targets perform no release, build, publish, upload,
+tag, deploy, issue filing, ticket creation, or approval.
+
+| Command | Purpose | Writes? |
+| --- | --- | --- |
+| `make post-release-roadmap` | Print the candidate roadmap. | No |
+| `make known-limitations-register` | Print known public limitations. | No |
+| `make future-work-backlog` | Print uncommitted future-work candidates. | No |
+| `make private-review-backlog` | Print private-review placeholders. | No |
+| `make pre-tag-reminder-checklist` | Print the future manual reminder. | No |
+| `make post-release-roadmap-artifact-check` | Validate disposable placeholder artifacts. | Temporary only |
+
+Use the [post-release roadmap](post-release-roadmap.md), [known-limitations register](known-limitations-register.md),
+[future-work backlog](future-work-backlog.md), [private-review backlog](private-review-backlog.md),
+and [pre-tag reminder checklist](pre-tag-reminder-checklist.md) as planning material. Maintainer
+review and private review remain required; output is not approval or certification.
+
 ## Phase J8 versioned 0.1.0 release handoff
 
 | Command | Purpose | Writes? |

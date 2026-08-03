@@ -1,5 +1,17 @@
 # Examples
 
+J10 placeholder-only planning examples are in [`post-release-roadmap/`](post-release-roadmap/).
+“Post-release” means after a future human-approved `0.1.0` release; no release happened in J10.
+The examples perform no release, build, publish, upload, tag, deploy, issue filing, ticket
+creation, or approval. Maintainer review and private review remain required.
+
+See the [roadmap example](post-release-roadmap/example_post_release_roadmap.md),
+[limitations register](post-release-roadmap/example_known_limitations_register.md),
+[future-work backlog](post-release-roadmap/example_future_work_backlog.md),
+[private-review backlog](post-release-roadmap/example_private_review_backlog.md),
+[pre-tag reminder](post-release-roadmap/example_pre_tag_reminder_checklist.md), and
+[roadmap matrix](post-release-roadmap/example_post_release_roadmap_matrix.csv).
+
 Phase J8 placeholder-only versioned release handoff examples are in
 [`versioned-release-handoff/`](versioned-release-handoff/README.md). They model a possible
 `0.1.0` release-notes draft, included-scope summary, maintainer decision checklist, post-release

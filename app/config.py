@@ -1782,6 +1782,97 @@ class Settings(BaseSettings):
         le=400,
         validation_alias="PROCORE_INTAKE_MAINTAINER_HANDOFF_MAX_FINDINGS",
     )
+    # Phase J10: offline post-release roadmap and known-limitations review.
+    post_release_roadmap_enabled: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_POST_RELEASE_ROADMAP_ENABLED",
+    )
+    post_release_roadmap_output_root: Path = Field(
+        default=Path("./post-release-roadmap-output"),
+        validation_alias="PROCORE_INTAKE_POST_RELEASE_ROADMAP_OUTPUT_ROOT",
+    )
+    post_release_roadmap_target_version: str = Field(
+        default="0.1.0",
+        validation_alias="PROCORE_INTAKE_POST_RELEASE_ROADMAP_TARGET_VERSION",
+    )
+    post_release_roadmap_require_known_limitations: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_POST_RELEASE_ROADMAP_REQUIRE_KNOWN_LIMITATIONS",
+    )
+    post_release_roadmap_require_private_review_backlog: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_POST_RELEASE_ROADMAP_REQUIRE_PRIVATE_REVIEW_BACKLOG",
+    )
+    post_release_roadmap_require_productionization_backlog: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_POST_RELEASE_ROADMAP_REQUIRE_PRODUCTIONIZATION_BACKLOG",
+    )
+    post_release_roadmap_require_hosted_pilot_backlog: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_POST_RELEASE_ROADMAP_REQUIRE_HOSTED_PILOT_BACKLOG",
+    )
+    post_release_roadmap_require_security_future_work: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_POST_RELEASE_ROADMAP_REQUIRE_SECURITY_FUTURE_WORK",
+    )
+    post_release_roadmap_require_product_backlog: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_POST_RELEASE_ROADMAP_REQUIRE_PRODUCT_BACKLOG",
+    )
+    post_release_roadmap_require_pre_tag_reminder: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_POST_RELEASE_ROADMAP_REQUIRE_PRE_TAG_REMINDER",
+    )
+    post_release_roadmap_require_no_release_actions: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_POST_RELEASE_ROADMAP_REQUIRE_NO_RELEASE_ACTIONS",
+    )
+    post_release_roadmap_require_no_build: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_POST_RELEASE_ROADMAP_REQUIRE_NO_BUILD",
+    )
+    post_release_roadmap_require_no_publish: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_POST_RELEASE_ROADMAP_REQUIRE_NO_PUBLISH",
+    )
+    post_release_roadmap_require_no_tag: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_POST_RELEASE_ROADMAP_REQUIRE_NO_TAG",
+    )
+    post_release_roadmap_require_no_deploy: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_POST_RELEASE_ROADMAP_REQUIRE_NO_DEPLOY",
+    )
+    post_release_roadmap_allow_real_identities: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_POST_RELEASE_ROADMAP_ALLOW_REAL_IDENTITIES",
+    )
+    post_release_roadmap_allow_real_domains: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_POST_RELEASE_ROADMAP_ALLOW_REAL_DOMAINS",
+    )
+    post_release_roadmap_allow_real_urls: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_POST_RELEASE_ROADMAP_ALLOW_REAL_URLS",
+    )
+    post_release_roadmap_allow_report_contents: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_POST_RELEASE_ROADMAP_ALLOW_REPORT_CONTENTS",
+    )
+    post_release_roadmap_allow_private_paths: bool = Field(
+        default=False,
+        validation_alias="PROCORE_INTAKE_POST_RELEASE_ROADMAP_ALLOW_PRIVATE_PATHS",
+    )
+    post_release_roadmap_fail_closed: bool = Field(
+        default=True,
+        validation_alias="PROCORE_INTAKE_POST_RELEASE_ROADMAP_FAIL_CLOSED",
+    )
+    post_release_roadmap_max_findings: int = Field(
+        default=400,
+        ge=1,
+        le=400,
+        validation_alias="PROCORE_INTAKE_POST_RELEASE_ROADMAP_MAX_FINDINGS",
+    )
     intake_review_workspace_enabled: bool = Field(
         default=True,
         validation_alias="PROCORE_INTAKE_REVIEW_WORKSPACE_ENABLED",

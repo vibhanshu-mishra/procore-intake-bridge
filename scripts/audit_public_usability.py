@@ -137,6 +137,12 @@ REQUIRED_DOCS = {
     "docs/maintainer-review-checklist.md",
     "docs/maintainer-command-plan.md",
     "docs/maintainer-decision-log-template.md",
+    # J10: post-release roadmap and private-review planning guidance.
+    "docs/post-release-roadmap.md",
+    "docs/known-limitations-register.md",
+    "docs/future-work-backlog.md",
+    "docs/private-review-backlog.md",
+    "docs/pre-tag-reminder-checklist.md",
     "docs/storage-providers.md",
     "docs/database-providers.md",
     "docs/deployment-recipes.md",
@@ -266,6 +272,12 @@ REQUIRED_SCRIPTS = {
     "scripts/print_maintainer_command_plan.py",
     "scripts/print_maintainer_decision_log_template.py",
     "scripts/generate_maintainer_handoff_artifacts.py",
+    "scripts/run_post_release_roadmap.py",
+    "scripts/generate_post_release_roadmap_artifacts.py",
+    "scripts/print_known_limitations_register.py",
+    "scripts/print_future_work_backlog.py",
+    "scripts/print_private_review_backlog.py",
+    "scripts/print_pre_tag_reminder_checklist.py",
     "scripts/doctor.py",
     "scripts/setup_demo_mode.py",
     "scripts/print_usage_modes.py",
@@ -460,6 +472,12 @@ REQUIRED_EXAMPLES = {
     "examples/maintainer-handoff/example_maintainer_command_plan.md",
     "examples/maintainer-handoff/example_maintainer_decision_log_template.md",
     "examples/maintainer-handoff/example_maintainer_handoff_matrix.csv",
+    "examples/post-release-roadmap/README.md",
+    "examples/post-release-roadmap/example_known_limitations_register.md",
+    "examples/post-release-roadmap/example_future_work_backlog.md",
+    "examples/post-release-roadmap/example_private_review_backlog.md",
+    "examples/post-release-roadmap/example_pre_tag_reminder_checklist.md",
+    "examples/post-release-roadmap/example_post_release_roadmap_matrix.csv",
 }
 REQUIRED_TARGETS = {
     "review-workspace-summary",
@@ -641,6 +659,12 @@ REQUIRED_TARGETS = {
     "maintainer-release-decision-checklist",
     "post-release-checklist",
     "versioned-release-artifact-check",
+    "post-release-roadmap",
+    "known-limitations-register",
+    "future-work-backlog",
+    "private-review-backlog",
+    "pre-tag-reminder-checklist",
+    "post-release-roadmap-artifact-check",
 }
 IGNORED_OUTPUTS = {
     "versioned-release-handoff-output/",
@@ -818,6 +842,18 @@ IGNORED_OUTPUTS = {
     "*.maintainer-command-plan.md",
     "*.maintainer-decision-log-template.md",
     "*.maintainer-handoff-matrix.csv",
+    "post-release-roadmap-output/",
+    "post-release-output/",
+    "known-limitations-output/",
+    "future-work-output/",
+    "roadmap-review-output/",
+    "*.post-release-roadmap-report.json",
+    "*.post-release-roadmap-report.md",
+    "*.known-limitations-register.md",
+    "*.future-work-backlog.md",
+    "*.private-review-backlog.md",
+    "*.pre-tag-reminder-checklist.md",
+    "*.post-release-roadmap-matrix.csv",
     "*.public-repo-checklist.md",
     "*.final-audit-summary.md",
     "*.webhook-ingress-plan.md",
@@ -1051,6 +1087,13 @@ GENERATED_PARTS = {
     "release-handoff-output",
     "release-notes-draft-output",
     "post-release-checklist-output",
+    "post-release-roadmap-output",
+    "post-release-output",
+    "known-limitations-output",
+    "future-work-output",
+    "roadmap-review-output",
+    "private-review-output",
+    "pre-tag-reminder-output",
 }
 UNSAFE_SUFFIXES = {
     ".bak",
@@ -1171,6 +1214,16 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 "docs/maintainer-handoff.md",
                 "docs/maintainer-quickstart.md",
                 "docs/maintainer-review-checklist.md",
+            )
+        ),
+        "README J10 roadmap links": all(
+            link in readme
+            for link in (
+                "docs/post-release-roadmap.md",
+                "docs/known-limitations-register.md",
+                "docs/future-work-backlog.md",
+                "docs/private-review-backlog.md",
+                "docs/pre-tag-reminder-checklist.md",
             )
         ),
     }
@@ -1982,12 +2035,32 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 "docs/maintainer-handoff.md",
             )
         ),
+        "QUICKSTART J10 roadmap links": all(
+            link in quickstart
+            for link in (
+                "docs/post-release-roadmap.md",
+                "docs/known-limitations-register.md",
+                "docs/future-work-backlog.md",
+                "docs/private-review-backlog.md",
+                "docs/pre-tag-reminder-checklist.md",
+            )
+        ),
         "docs index docs-site link": ("docs-site.md" in _read(root, "docs/index.md").casefold()),
         "docs index J9 handoff link": all(
             link in _read(root, "docs/index.md").casefold()
             for link in (
                 "maintainer-handoff.md",
                 "maintainer-quickstart.md",
+            )
+        ),
+        "docs index J10 roadmap links": all(
+            link in _read(root, "docs/index.md").casefold()
+            for link in (
+                "post-release-roadmap.md",
+                "known-limitations-register.md",
+                "future-work-backlog.md",
+                "private-review-backlog.md",
+                "pre-tag-reminder-checklist.md",
             )
         ),
         "command reference J9 handoff commands": all(
@@ -2177,6 +2250,70 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
         "J9 artifact generation is excluded from quality": (
             "maintainer-handoff-artifact-check" not in quality_headers
         ),
+        # J10 is a planning/readiness layer only.  Keep the roadmap and each
+        # focused view explicit so future work cannot be mistaken for a
+        # completed release, issue/ticket action, or approval.
+        "J10 roadmap is offline and non-operational": all(
+            phrase in _read(root, "docs/post-release-roadmap.md").casefold()
+            for phrase in (
+                "future work",
+                "known limitations",
+                "offline",
+                "no release",
+                "no build",
+                "no publish",
+                "no tag",
+                "no deployment",
+                "no issue",
+                "no ticket",
+                "maintainer",
+            )
+        ),
+        "J10 roadmap preserves private review and approval boundaries": all(
+            phrase in "\n".join(
+                _read(root, name).casefold()
+                for name in (
+                    "docs/post-release-roadmap.md",
+                    "docs/known-limitations-register.md",
+                    "docs/future-work-backlog.md",
+                    "docs/private-review-backlog.md",
+                    "docs/pre-tag-reminder-checklist.md",
+                )
+            )
+            for phrase in (
+                "private review",
+                "outside git",
+                "not approval",
+                "not certification",
+                "no procore",
+            )
+        ),
+        "J10 focused views are discoverable from the command reference": all(
+            command in _read(root, "docs/command-reference.md").casefold()
+            for command in (
+                "make post-release-roadmap",
+                "make known-limitations-register",
+                "make future-work-backlog",
+                "make private-review-backlog",
+                "make pre-tag-reminder-checklist",
+                "make post-release-roadmap-artifact-check",
+            )
+        ),
+        "J10 pre-tag reminders remain manually gated": all(
+            phrase in _read(root, "docs/pre-tag-reminder-checklist.md").casefold()
+            for phrase in (
+                "before any tag",
+                "no tag",
+                "no release",
+                "no build",
+                "no publish",
+                "no deployment",
+                "human",
+            )
+        ),
+        "J10 artifact generation is excluded from quality": (
+            "post-release-roadmap-artifact-check" not in quality_headers
+        ),
     }
     for name, passed in guidance_checks.items():
         add("PASS" if passed else "FAIL", name, "documented" if passed else "guidance is missing")
@@ -2306,6 +2443,13 @@ def audit_repository(root: Path, tracked_files: list[str] | None = None) -> list
                 ".maintainer-decision-log-template.md",
                 ".maintainer-handoff-matrix.csv",
                 ".release-evidence-matrix.csv",
+                ".post-release-roadmap-report.json",
+                ".post-release-roadmap-report.md",
+                ".known-limitations-register.md",
+                ".future-work-backlog.md",
+                ".private-review-backlog.md",
+                ".pre-tag-reminder-checklist.md",
+                ".post-release-roadmap-matrix.csv",
             )
         ):
             add(

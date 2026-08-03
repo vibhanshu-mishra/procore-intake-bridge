@@ -1,5 +1,15 @@
 # Changelog
 
+## Phase J10 — post-release planning pack
+
+- Added public planning-only docs for a post-release roadmap, known-limitations register,
+  future-work backlog, private-review backlog, and pre-tag reminder checklist, plus placeholder
+  examples under `examples/post-release-roadmap/`.
+- “Post-release” means after a future human-approved `0.1.0` release; no release happened in J10.
+- J10 performs no release, build, publish, upload, tag, deploy, issue filing, ticket creation, or
+  approval. Maintainer review and private security, legal, privacy, infrastructure, and ownership
+  review remain required.
+
 ## Phase J8 — versioned 0.1.0 release handoff
 
 - Added offline release handoff documentation, a release notes draft, included-scope and known-

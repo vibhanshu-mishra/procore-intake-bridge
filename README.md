@@ -1,5 +1,15 @@
 # Procore Intake Bridge
 
+Phase J10 adds a public, planning-only [post-release roadmap](docs/post-release-roadmap.md),
+[known-limitations register](docs/known-limitations-register.md), [future-work backlog](docs/future-work-backlog.md),
+[private-review backlog](docs/private-review-backlog.md), and [pre-tag reminder](docs/pre-tag-reminder-checklist.md).
+“Post-release” means after a future human-approved `0.1.0` release; no release happened in J10.
+J10 performs no release, build, publish, upload, tag, deploy, issue filing, ticket creation, or
+approval. Maintainer review and private review remain required.
+The review-only targets are `make post-release-roadmap`, `make known-limitations-register`,
+`make future-work-backlog`, `make private-review-backlog`, and `make pre-tag-reminder-checklist`;
+the artifact check is temporary-only.
+
 Phase J8 adds a public, offline [versioned `0.1.0` release handoff](docs/versioned-release-handoff.md),
 [release notes draft](docs/release-notes-draft.md), [scope summary](docs/release-scope-summary.md),
 [maintainer decision checklist](docs/maintainer-release-decision-checklist.md), and

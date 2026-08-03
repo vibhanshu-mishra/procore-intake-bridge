@@ -1,5 +1,13 @@
 # Security Gap Closeout
 
+## J10 relationship
+
+J10 carries these limitations into planning-only follow-up. “Post-release” means after a future
+human-approved `0.1.0` release; no release happened. J10 performs no release, build, publish,
+upload, tag, deploy, issue filing, ticket creation, or approval. Private security, legal, privacy,
+infrastructure, and maintainer review remain required; see the [private-review backlog](private-review-backlog.md)
+and [known-limitations register](known-limitations-register.md).
+
 ## J9 relationship
 
 J9 links this offline security guidance into the maintainer handoff without closing private gaps

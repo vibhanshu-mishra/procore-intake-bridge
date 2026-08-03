@@ -197,6 +197,13 @@ PRIVATE_PATH_PARTS = {
     "release-handoff-output",
     "release-notes-draft-output",
     "post-release-checklist-output",
+    "post-release-roadmap-output",
+    "post-release-output",
+    "known-limitations-output",
+    "future-work-output",
+    "roadmap-review-output",
+    "private-review-output",
+    "pre-tag-reminder-output",
 }
 
 
@@ -535,6 +542,35 @@ MAINTAINER_HANDOFF_PRIVATE_RECORD = re.compile(
     r"project[_ -]?id|company[_ -]?id|real[_ -]?domain)"
     r"\s*[:=]\s*[\"']?(?!placeholder\b|fake\b|none\b|false\b)[^\"'\s]+"
 )
+# J10 is a future-work planning layer.  Issue/ticket references, private review
+# records, and completed release claims must never appear in public roadmap
+# material, even when the prose is copied into an example or generated report.
+POST_RELEASE_ROADMAP_PRIVATE_MATERIAL = re.compile(
+    r"(?i)(?:issue[_ -]?(?:id|key|url)|ticket[_ -]?(?:id|key|url)|"
+    r"github[_ -]?issue|jira[_ -]?key|linear[_ -]?issue|"
+    r"private[_ -]?review[_ -]?(?:ref(?:erence)?|record)|"
+    r"approval[_ -]?(?:record|ticket)|customer[_ -]?id|project[_ -]?id|"
+    r"company[_ -]?id|real[_ -]?domain)"
+    r"\s*[:=]\s*[\"']?(?!placeholder\b|fake\b|none\b|false\b|tbd\b)[^\"'\s]+"
+)
+POST_RELEASE_ROADMAP_UNSAFE_CLAIM = re.compile(
+    r"(?i)\b(?:post[- ]release (?:action|work|step|operation) "
+    r"(?:was |has been |is )?(?:completed|performed|executed|done)|"
+    r"(?:issue(?:[/ -]ticket)?|ticket)(?:\s+[#A-Z0-9_-]+)? "
+    r"(?:was |has been |is )?(?:created|opened|filed|closed|resolved)|"
+    r"(?:tag|release|package build|publish|upload|deployment|deploy) "
+    r"(?:was |has been |is )?(?:created|completed|performed|executed|done|"
+    r"published|deployed|happened|occurred|succeeded)|"
+    r"(?:package|version) (?:was |has been |is )?published|"
+    r"package publication (?:completed|occurred|performed)|"
+    r"(?:application|app|docs) (?:was |has been |is )?(?:deployed|hosted)|"
+    r"(?:production|pilot|release|deployment) (?:(?:is|was|has been) )?approved|"
+    r"(?:production|pilot|release|deployment) approval (?:granted|complete|recorded)|"
+    r"approved for (?:production|pilot|release|deployment)|"
+    r"(?:production|pilot|release|deployment)[- ]ready|"
+    r"(?:security|compliance|privacy|legal) (?:is )?certified|"
+    r"(?:gdpr|ccpa|hipaa) compliant)\b"
+)
 
 
 def _safe_value(value: str) -> bool:
@@ -633,6 +669,60 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
             if not host.endswith((".local", ".invalid")) and not excluded:
                 issues.append(
                     SafetyIssue(path, "maintainer handoff contains a non-placeholder URL")
+                )
+    if any(
+        marker in path.as_posix()
+        for marker in (
+            "post-release-roadmap",
+            "post_release_roadmap",
+            "known-limitations-register",
+            "known_limitations_register",
+            "future-work-backlog",
+            "future_work_backlog",
+            "private-review-backlog",
+            "private_review_backlog",
+            "pre-tag-reminder-checklist",
+            "pre_tag_reminder_checklist",
+        )
+    ):
+        excluded = any(part in path.parts for part in ("tests", "services", "schemas"))
+        lines = text.splitlines()
+        for line in lines:
+            qualified = SETUP_SAFETY_QUALIFIER.search(line) or re.search(
+                r"(?i)\b(?:none|absent|not added|not present|excluded|outside|"
+                r"future|later|planned|placeholder|tbd)\b",
+                line,
+            )
+            if (
+                POST_RELEASE_ROADMAP_PRIVATE_MATERIAL.search(line)
+                and not excluded
+                and not _safe_value(line)
+            ):
+                issues.append(
+                    SafetyIssue(
+                        path,
+                        "post-release roadmap contains private issue or review material",
+                    )
+                )
+                break
+            if (
+                POST_RELEASE_ROADMAP_UNSAFE_CLAIM.search(line)
+                and not excluded
+                and not qualified
+            ):
+                issues.append(
+                    SafetyIssue(path, "post-release roadmap implies completed work or approval")
+                )
+                break
+        if ABSOLUTE_LOCAL_PATH.search(text) and not excluded:
+            issues.append(SafetyIssue(path, "post-release roadmap contains an absolute local path"))
+        if CUSTOMER_EMAIL.search(text) and not excluded:
+            issues.append(SafetyIssue(path, "post-release roadmap contains an email address"))
+        for match in CUSTOMER_URL.finditer(text):
+            host = match.group(1).casefold()
+            if not host.endswith((".local", ".invalid")) and not excluded:
+                issues.append(
+                    SafetyIssue(path, "post-release roadmap contains a non-placeholder URL")
                 )
     if any(
         marker in path.as_posix()
@@ -1300,6 +1390,51 @@ def audit_text(path: Path, text: str) -> list[SafetyIssue]:
                 issues.append(
                     SafetyIssue(path, "maintainer handoff example contains a reviewer identity")
                 )
+    if "examples/post-release-roadmap" in path.as_posix():
+        if CUSTOMER_EMAIL.search(text):
+            issues.append(
+                SafetyIssue(path, "post-release roadmap example contains an email address")
+            )
+        for match in CUSTOMER_URL.finditer(text):
+            host = match.group(1).casefold()
+            if not host.endswith((".local", ".invalid")):
+                issues.append(
+                    SafetyIssue(path, "post-release roadmap example contains a non-placeholder URL")
+                )
+        if GENERIC_SIGNED_URL.search(text):
+            issues.append(
+                SafetyIssue(path, "post-release roadmap example contains a signed URL")
+            )
+        if ABSOLUTE_LOCAL_PATH.search(text):
+            issues.append(
+                SafetyIssue(path, "post-release roadmap example contains an absolute local path")
+            )
+        if RAW_PRIVATE_CONTENT.search(text):
+            issues.append(
+                SafetyIssue(path, "post-release roadmap example contains raw private content")
+            )
+        for line in text.splitlines():
+            qualified = SETUP_SAFETY_QUALIFIER.search(line) or re.search(
+                r"(?i)\b(?:none|absent|not added|not present|excluded|outside|"
+                r"future|later|planned|placeholder|tbd)\b",
+                line,
+            )
+            if POST_RELEASE_ROADMAP_PRIVATE_MATERIAL.search(line) and not _safe_value(line):
+                issues.append(
+                    SafetyIssue(
+                        path,
+                        "post-release roadmap example contains private issue or review material",
+                    )
+                )
+                break
+            if POST_RELEASE_ROADMAP_UNSAFE_CLAIM.search(line) and not qualified:
+                issues.append(
+                    SafetyIssue(
+                        path,
+                        "post-release roadmap example implies completed work or approval",
+                    )
+                )
+                break
     if (
         "examples/private-evidence" in path.as_posix()
         or "examples/evidence-review" in path.as_posix()
@@ -1370,6 +1505,13 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
                 "release-handoff-output",
                 "release-notes-draft-output",
                 "post-release-checklist-output",
+                "post-release-roadmap-output",
+                "post-release-output",
+                "known-limitations-output",
+                "future-work-output",
+                "roadmap-review-output",
+                "private-review-output",
+                "pre-tag-reminder-output",
             }
             for part in path.parts
         ) or path.name.endswith(
@@ -1388,6 +1530,13 @@ def audit_paths(paths: list[Path]) -> list[SafetyIssue]:
                 ".maintainer-release-decision-checklist.md",
                 ".post-release-checklist.md",
                 ".release-evidence-matrix.csv",
+                ".post-release-roadmap-report.json",
+                ".post-release-roadmap-report.md",
+                ".known-limitations-register.md",
+                ".future-work-backlog.md",
+                ".private-review-backlog.md",
+                ".pre-tag-reminder-checklist.md",
+                ".post-release-roadmap-matrix.csv",
             )
         ):
             issues.append(SafetyIssue(path, "tracked generated versioned release handoff output"))

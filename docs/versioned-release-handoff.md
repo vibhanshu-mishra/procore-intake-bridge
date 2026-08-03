@@ -1,5 +1,13 @@
 # Versioned 0.1.0 Release Handoff (J8)
 
+## J10 relationship
+
+J10 links a planning-only [post-release roadmap](post-release-roadmap.md), [known-limitations register](known-limitations-register.md),
+[future-work backlog](future-work-backlog.md), [private-review backlog](private-review-backlog.md), and
+[pre-tag reminder](pre-tag-reminder-checklist.md). “Post-release” means after a future human-approved
+`0.1.0` release; no release happened. J10 performs no release, build, publish, upload, tag, deploy,
+issue filing, ticket creation, or approval. Maintainer and private review remain required.
+
 ## J9 relationship
 
 J9 supplies a concise public maintainer handoff around this J8 material. It does not change the

@@ -1,5 +1,11 @@
 # Public Maintainer Handoff Pack (J9)
 
+## J10 relationship
+
+J10 is a planning-only follow-up to this handoff. “Post-release” means after a future human-approved
+`0.1.0` release; no release happened. It adds no release, build, publish, upload, tag, deploy, issue
+filing, ticket creation, or approval. Maintainer review and private review remain required.
+
 J9 is a concise, public-safe handoff layer for a human maintainer. It explains the repository,
 the prepared `0.1.0` metadata, the safest local review path, and the decisions that remain outside
 the repository. It is a handoff/checklist/docs layer only.

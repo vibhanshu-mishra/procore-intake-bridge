@@ -146,6 +146,11 @@ REQUIRED_NAV_DOCS = {
     "safety-model.md",
     "project-status.md",
     "roadmap.md",
+    "post-release-roadmap.md",
+    "known-limitations-register.md",
+    "future-work-backlog.md",
+    "private-review-backlog.md",
+    "pre-tag-reminder-checklist.md",
 }
 FORBIDDEN_CONFIG = re.compile(
     r"(?im)^\s*(?:site_url|google_analytics|analytics|extra_javascript|remote_branch|"
@@ -163,6 +168,26 @@ UNSAFE_TEXT = re.compile(
 )
 NAV_DOC = re.compile(r"(?m)^\s+-\s+[^:\n]+:\s+([a-zA-Z0-9_./-]+\.md)\s*$")
 NAV_GROUP = re.compile(r"(?m)^\s{2}-\s+([^:\n]+):\s*$")
+J10_UNSAFE_CLAIM = re.compile(
+    r"(?i)\b(?:issue(?:[/ -]ticket)?|ticket)(?:\s+[#A-Z0-9_-]+)? "
+    r"(?:was |has been |is )?(?:created|opened|filed|closed|resolved)|"
+    r"\b(?:tag|release|package build|publish|upload|deployment|deploy) "
+    r"(?:was |has been |is )?(?:created|completed|performed|executed|done|"
+    r"published|deployed|happened|occurred|succeeded)|"
+    r"\b(?:package|version) (?:was |has been |is )?published|"
+    r"\bpackage publication (?:completed|occurred|performed)|"
+    r"\b(?:application|app|docs) (?:was |has been |is )?(?:deployed|hosted)|"
+    r"\b(?:production|pilot|release|deployment) (?:(?:is|was|has been) )?approved|"
+    r"\b(?:production|pilot|release|deployment) approval (?:granted|complete|recorded)|"
+    r"\bapproved for (?:production|pilot|release|deployment)|"
+    r"\b(?:production|pilot|release|deployment)[- ]ready|"
+    r"\b(?:security|compliance|privacy|legal) (?:is )?certified|"
+    r"\b(?:gdpr|ccpa|hipaa) compliant\b"
+)
+J10_NEGATION = re.compile(
+    r"(?i)\b(?:no|not|never|without|does not|do not|is not|isn't|out of scope|"
+    r"future|later|planned|placeholder|tbd)\b"
+)
 
 
 @dataclass(frozen=True)
@@ -234,6 +259,18 @@ def check_docs_site(root: Path) -> list[Finding]:
         "J9 docs navigation",
         "maintainer handoff docs are not in the local nav",
     )
+    j10_nav_docs = {
+        "post-release-roadmap.md",
+        "known-limitations-register.md",
+        "future-work-backlog.md",
+        "private-review-backlog.md",
+        "pre-tag-reminder-checklist.md",
+    }
+    add(
+        j10_nav_docs <= nav_docs,
+        "J10 docs navigation",
+        "post-release roadmap docs are not in the local nav",
+    )
 
     missing = sorted(name for name in nav_docs if not (root / "docs" / name).is_file())
     add(not missing, "nav targets", "one or more nav targets do not exist")
@@ -303,6 +340,48 @@ def check_docs_site(root: Path) -> list[Finding]:
         "J9 public safety guidance",
         "J9 docs must disclaim live operations and approval",
     )
+    j10_docs = [root / "docs" / name for name in sorted(j10_nav_docs)]
+    j10_text = "\n".join(_read(path).casefold() for path in j10_docs if path.is_file())
+    add(
+        all(path.is_file() for path in j10_docs),
+        "J10 docs present",
+        "post-release roadmap docs are missing",
+    )
+    add(
+        all(
+            phrase in j10_text
+            for phrase in (
+                "future work",
+                "known limitations",
+                "offline",
+                "no release",
+                "no build",
+                "no publish",
+                "no tag",
+                "no deployment",
+                "no issue",
+                "no ticket",
+                "private review",
+                "not approval",
+            )
+        ),
+        "J10 public safety guidance",
+        "J10 docs must keep roadmap planning offline and non-operational",
+    )
+    j10_claim = False
+    for path in j10_docs:
+        lines = _read(path).splitlines()
+        for line in lines:
+            if J10_UNSAFE_CLAIM.search(line) and not J10_NEGATION.search(line):
+                j10_claim = True
+                break
+        if j10_claim:
+            break
+    add(
+        not j10_claim,
+        "J10 no issue, ticket, release, or approval claims",
+        "unqualified live claim found",
+    )
 
     links = {
         "README docs-site link": (root / "README.md", "docs/docs-site.md"),
@@ -317,7 +396,19 @@ def check_docs_site(root: Path) -> list[Finding]:
         name
         for name in tracked
         if Path(name).parts[:1] in {("site",), ("docs-site-output",), ("mkdocs-site-output",)}
-        or name.endswith((".docs-site-report.json", ".docs-site-report.md"))
+        or name.endswith(
+            (
+                ".docs-site-report.json",
+                ".docs-site-report.md",
+                ".post-release-roadmap-report.json",
+                ".post-release-roadmap-report.md",
+                ".known-limitations-register.md",
+                ".future-work-backlog.md",
+                ".private-review-backlog.md",
+                ".pre-tag-reminder-checklist.md",
+                ".post-release-roadmap-matrix.csv",
+            )
+        )
     ]
     add(not generated, "generated site output", "generated site output is tracked")
 

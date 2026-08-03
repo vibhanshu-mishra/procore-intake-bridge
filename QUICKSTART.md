@@ -1,5 +1,14 @@
 # Quickstart: start with Demo Mode
 
+J10 is a planning-only follow-up pack. Read the [post-release roadmap](docs/post-release-roadmap.md),
+[known-limitations register](docs/known-limitations-register.md), [future-work backlog](docs/future-work-backlog.md),
+[private-review backlog](docs/private-review-backlog.md), and [pre-tag reminder](docs/pre-tag-reminder-checklist.md)
+only as inputs to a future human decision. “Post-release” means after a future human-approved
+`0.1.0` release; no release happened. J10 performs no release, build, publish, upload, tag, deploy,
+issue filing, ticket creation, or approval. Maintainer and private review remain required.
+For local, non-writing output, run `make post-release-roadmap` and the focused targets documented
+in the [command reference](docs/command-reference.md); artifact generation is temporary-only.
+
 J8 provides a [versioned `0.1.0` release handoff](docs/versioned-release-handoff.md) for
 maintainers. It is prepared metadata, not a release: no package/Docker build, publish, upload,
 tag, release, docs deployment, application deployment, or workflow change occurs. Run the J8

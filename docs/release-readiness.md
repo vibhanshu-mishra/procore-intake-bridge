@@ -1,5 +1,13 @@
 # Release readiness
 
+## J10 relationship
+
+J10 is planning-only follow-up guidance. “Post-release” means after a future human-approved
+`0.1.0` release; no release happened. J10 performs no release, build, publish, upload, tag, deploy,
+issue filing, ticket creation, or approval. Maintainer review and private review remain required.
+Use the [pre-tag reminder checklist](pre-tag-reminder-checklist.md) and [private-review backlog](private-review-backlog.md)
+as inputs, not as a release gate or authorization.
+
 ## J9 relationship
 
 J9 provides a concise maintainer handoff on top of this offline readiness guidance. It does not

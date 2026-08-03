@@ -1,5 +1,14 @@
 # Roadmap
 
+## J10 — post-release planning only
+
+J10 records candidate follow-up work without committing to a schedule. “Post-release” means after
+a future human-approved `0.1.0` release; no release happened in J10. See the [post-release roadmap](post-release-roadmap.md),
+[known-limitations register](known-limitations-register.md), [future-work backlog](future-work-backlog.md),
+[private-review backlog](private-review-backlog.md), and [pre-tag reminder](pre-tag-reminder-checklist.md).
+J10 performs no release, build, publish, upload, tag, deploy, issue filing, ticket creation, or
+approval. Maintainer review and private review remain required.
+
 ## J8 versioned 0.1.0 release handoff — completed
 
 J8 adds a public, offline handoff layer for prepared `0.1.0` metadata: release notes draft,

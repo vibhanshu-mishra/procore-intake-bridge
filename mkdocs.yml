@@ -164,3 +164,8 @@ nav:
       - Release Notes Template: release-notes-template.md
       - Project Status: project-status.md
       - Roadmap: roadmap.md
+      - Post-release Roadmap: post-release-roadmap.md
+      - Known Limitations Register: known-limitations-register.md
+      - Future Work Backlog: future-work-backlog.md
+      - Private Review Backlog: private-review-backlog.md
+      - Pre-tag Reminder Checklist: pre-tag-reminder-checklist.md

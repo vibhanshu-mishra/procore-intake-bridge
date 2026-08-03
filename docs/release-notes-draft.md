@@ -1,5 +1,11 @@
 # Release Notes Draft — 0.1.0
 
+## J10 relationship
+
+J10 treats these notes as input to planning only. “Post-release” means after a future human-approved
+`0.1.0` release; no release happened. J10 performs no release, build, publish, upload, tag, deploy,
+issue filing, ticket creation, or approval. Maintainer review and private review remain required.
+
 ## J9 relationship
 
 This draft is linked by the public maintainer handoff and remains editorial material only. No

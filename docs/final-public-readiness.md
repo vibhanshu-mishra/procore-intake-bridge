@@ -1,5 +1,12 @@
 # Final public repository readiness
 
+## J10 relationship
+
+J10 adds planning-only post-release documents. “Post-release” means after a future human-approved
+`0.1.0` release; no release happened. It performs no release, build, publish, upload, tag, deploy,
+issue filing, ticket creation, or approval. Maintainer review and private review remain required;
+the [known-limitations register](known-limitations-register.md) remains a review input.
+
 ## J9 relationship
 
 J9 turns the public readiness inputs into a short maintainer handoff and decision path. It is
