@@ -4,10 +4,10 @@
 <p>Read-only local sorting view. Priority values only order this queue.</p>
 <p><a href="/review/attachments">Inspect attachment manifest metadata</a></p>
 <div class="grid">
-  <div class="card">Status<strong>{{ summary.status.value }}</strong></div>
-  <div class="card">Local records<strong>{{ summary.total_records }}</strong></div>
+  <div class="card"><span class="metric-label">Status</span><span class="metric-value">{{ summary.status.value | replace("_", " ") | title }}</span></div>
+  <div class="card"><span class="metric-label">Local records</span><span class="metric-value">{{ summary.total_records }}</span></div>
   {% for bucket in summary.buckets %}
-  <div class="card">{{ bucket.bucket.value | replace("_", " ") | title }}<strong>{{ bucket.count }}</strong></div>
+  <div class="card"><span class="metric-label">{{ bucket.bucket.value | replace("_", " ") | title }}</span><span class="metric-value">{{ bucket.count }}</span></div>
   {% endfor %}
 </div>
 {% if queue.items %}

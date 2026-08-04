@@ -90,6 +90,8 @@ class IntakeLifecycleSummary(BaseModel):
     total_states: int = 0
     counts_by_status: dict[IntakeLifecycleStatus, int] = Field(default_factory=dict)
     total_events: int = 0
+    normalized_status_count: int = 0
+    unknown_status_count: int = 0
     message: str
     local_only: bool = True
     procore_calls_made: bool = False

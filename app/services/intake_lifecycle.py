@@ -34,6 +34,19 @@ class IntakeLifecycleBlockedError(IntakeLifecycleError):
     pass
 
 
+# H4 defines the canonical local lifecycle vocabulary.  The Demo seed that
+# predates that vocabulary used ``blocked`` and ``completed``; keep the
+# explicit mappings here so old local rows can be read and repaired without
+# expanding the public enum.
+LEGACY_LIFECYCLE_STATUS_MAP = {
+    "blocked": IntakeLifecycleStatus.NEEDS_FOLLOW_UP,
+    "completed": IntakeLifecycleStatus.REVIEWED,
+}
+LEGACY_LIFECYCLE_REASON_CODE_MAP = {
+    "j2_demo_fixture": IntakeLifecycleReasonCode.DEMO_PLACEHOLDER_REASON,
+}
+
+
 ALLOWED_TRANSITIONS = {
     IntakeLifecycleStatus.NEW: {
         IntakeLifecycleStatus.IN_REVIEW,
@@ -75,6 +88,93 @@ PRIVATE_PATH = re.compile(r"(?i)(?:/Users/|/home/|/private/|[A-Z]:\\|private-wor
 SECRET = re.compile(
     r"(?i)(?:bearer\s+\S+|(?:token|password|secret|client_secret)\s*[:=]\s*\S+)"
 )
+
+
+def _raw_lifecycle_value(value: Any) -> str:
+    raw = getattr(value, "value", value)
+    return str(raw or "").strip().casefold()
+
+
+def normalize_lifecycle_status(value: Any) -> tuple[IntakeLifecycleStatus, str | None]:
+    """Return a safe canonical status and a non-sensitive normalization code.
+
+    ``legacy_status_normalized`` identifies one of the documented legacy
+    labels.  ``unknown_status_needs_review`` is a fail-safe representation for
+    an unexpected stored value; the raw value is never returned.
+    """
+
+    raw = _raw_lifecycle_value(value)
+    try:
+        return IntakeLifecycleStatus(raw), None
+    except ValueError:
+        mapped = LEGACY_LIFECYCLE_STATUS_MAP.get(raw)
+        if mapped is not None:
+            return mapped, "legacy_status_normalized"
+        return IntakeLifecycleStatus.NEEDS_FOLLOW_UP, "unknown_status_needs_review"
+
+
+def normalize_lifecycle_reason_code(value: Any) -> IntakeLifecycleReasonCode | None:
+    """Return a canonical reason code without exposing unknown stored text."""
+
+    raw = _raw_lifecycle_value(value)
+    if not raw:
+        return None
+    try:
+        return IntakeLifecycleReasonCode(raw)
+    except ValueError:
+        return LEGACY_LIFECYCLE_REASON_CODE_MAP.get(
+            raw, IntakeLifecycleReasonCode.DEMO_PLACEHOLDER_REASON
+        )
+
+
+def normalize_legacy_lifecycle_data(
+    session: Session, intake_record_ids: list[int] | None = None
+) -> int:
+    """Repair known legacy lifecycle labels in-place and return changed rows.
+
+    This is deliberately allow-listed: only the documented Demo-era labels
+    are changed.  Unknown values remain available for safe read-time
+    needs-review handling and are never printed.
+    """
+
+    if not _tables_available(session):
+        return 0
+    state_query = select(IntakeReviewState)
+    event_query = select(IntakeReviewLifecycleEvent)
+    if intake_record_ids is not None:
+        state_query = state_query.where(
+            IntakeReviewState.intake_record_id.in_(intake_record_ids)
+        )
+        event_query = event_query.where(
+            IntakeReviewLifecycleEvent.intake_record_id.in_(intake_record_ids)
+        )
+    changed = 0
+    for state in session.scalars(state_query):
+        raw_status = _raw_lifecycle_value(state.status)
+        mapped_status = LEGACY_LIFECYCLE_STATUS_MAP.get(raw_status)
+        if mapped_status is not None and state.status != mapped_status.value:
+            state.status = mapped_status.value
+            changed += 1
+        raw_reason = _raw_lifecycle_value(state.current_reason_code)
+        mapped_reason = LEGACY_LIFECYCLE_REASON_CODE_MAP.get(raw_reason)
+        if mapped_reason is not None and state.current_reason_code != mapped_reason.value:
+            state.current_reason_code = mapped_reason.value
+            changed += 1
+    for event in session.scalars(event_query):
+        for attribute in ("from_status", "to_status"):
+            raw_status = _raw_lifecycle_value(getattr(event, attribute))
+            mapped_status = LEGACY_LIFECYCLE_STATUS_MAP.get(raw_status)
+            if mapped_status is not None and getattr(event, attribute) != mapped_status.value:
+                setattr(event, attribute, mapped_status.value)
+                changed += 1
+        raw_reason = _raw_lifecycle_value(event.reason_code)
+        mapped_reason = LEGACY_LIFECYCLE_REASON_CODE_MAP.get(raw_reason)
+        if mapped_reason is not None and event.reason_code != mapped_reason.value:
+            event.reason_code = mapped_reason.value
+            changed += 1
+    if changed:
+        session.flush()
+    return changed
 
 
 def sanitize_lifecycle_value(value: Any) -> str:
@@ -127,15 +227,16 @@ def _ensure_enabled(settings: Settings) -> None:
 
 
 def _state_view(state: IntakeReviewState) -> IntakeLifecycleStateView:
+    status, _ = normalize_lifecycle_status(state.status)
     return IntakeLifecycleStateView(
         intake_record_id=state.intake_record_id,
-        status=IntakeLifecycleStatus(state.status),
-        current_reason_code=(
-            IntakeLifecycleReasonCode(state.current_reason_code)
-            if state.current_reason_code
+        status=status,
+        current_reason_code=normalize_lifecycle_reason_code(state.current_reason_code),
+        current_reason_summary_sanitized=(
+            sanitize_lifecycle_value(state.current_reason_summary_sanitized)
+            if state.current_reason_summary_sanitized
             else None
         ),
-        current_reason_summary_sanitized=state.current_reason_summary_sanitized,
         actor_hash=state.actor_hash,
         actor_label_masked=state.actor_label_masked,
         event_count=state.event_count,
@@ -145,16 +246,23 @@ def _state_view(state: IntakeReviewState) -> IntakeLifecycleStateView:
 
 
 def _event_item(event: IntakeReviewLifecycleEvent) -> IntakeLifecycleEventItem:
+    from_status, _ = normalize_lifecycle_status(event.from_status)
+    to_status, _ = normalize_lifecycle_status(event.to_status)
     return IntakeLifecycleEventItem(
         event_id=event.id,
-        from_status=IntakeLifecycleStatus(event.from_status),
-        to_status=IntakeLifecycleStatus(event.to_status),
-        reason_code=IntakeLifecycleReasonCode(event.reason_code),
-        reason_summary_sanitized=event.reason_summary_sanitized,
+        from_status=from_status,
+        to_status=to_status,
+        reason_code=(
+            normalize_lifecycle_reason_code(event.reason_code)
+            or IntakeLifecycleReasonCode.DEMO_PLACEHOLDER_REASON
+        ),
+        reason_summary_sanitized=sanitize_lifecycle_value(
+            event.reason_summary_sanitized
+        ),
         actor_hash=event.actor_hash,
         actor_label_masked=event.actor_label_masked,
         request_id_hash=event.request_id_hash,
-        source=event.source,
+        source=sanitize_lifecycle_value(event.source),
         created_at=event.created_at,
     )
 
@@ -179,6 +287,11 @@ def get_or_create_lifecycle_state(
         )
         session.add(state)
         session.flush()
+    else:
+        normalized_status, _ = normalize_lifecycle_status(state.status)
+        if state.status != normalized_status.value:
+            state.status = normalized_status.value
+        normalize_legacy_lifecycle_data(session, [intake_record_id])
     return state
 
 
@@ -336,14 +449,43 @@ def build_lifecycle_summary(
         return IntakeLifecycleSummary(
             enabled=True, message="Lifecycle tables are not initialized; no local state read."
         )
-    counts = {
-        IntakeLifecycleStatus(status): count
-        for status, count in session.execute(
-            select(IntakeReviewState.status, func.count()).group_by(
-                IntakeReviewState.status
-            )
+    counts: dict[IntakeLifecycleStatus, int] = {}
+    normalized_status_count = 0
+    unknown_status_count = 0
+    for raw_status, count in session.execute(
+        select(IntakeReviewState.status, func.count()).group_by(
+            IntakeReviewState.status
         )
-    }
+    ):
+        status, normalization = normalize_lifecycle_status(raw_status)
+        counts[status] = counts.get(status, 0) + count
+        if normalization is not None:
+            normalized_status_count += count
+            if normalization == "unknown_status_needs_review":
+                unknown_status_count += count
+    findings = []
+    if normalized_status_count:
+        findings.append(
+            {
+                "code": "legacy_status_normalized",
+                "message": (
+                    "Legacy local lifecycle labels were normalized to current canonical "
+                    "labels for safe reporting."
+                ),
+                "severity": "warning",
+            }
+        )
+    if unknown_status_count:
+        findings.append(
+            {
+                "code": "unknown_status_needs_review",
+                "message": (
+                    "An unsupported local lifecycle value was represented as needs_follow_up "
+                    "for safe reporting; review the source row before migration."
+                ),
+                "severity": "warning",
+            }
+        )
     summary = IntakeLifecycleSummary(
         enabled=True,
         total_states=sum(counts.values()),
@@ -352,7 +494,10 @@ def build_lifecycle_summary(
             select(func.count()).select_from(IntakeReviewLifecycleEvent)
         )
         or 0,
+        normalized_status_count=normalized_status_count,
+        unknown_status_count=unknown_status_count,
         message="Sanitized local lifecycle state is available.",
+        findings=findings,
     )
     validate_lifecycle_response_safe(summary)
     return summary

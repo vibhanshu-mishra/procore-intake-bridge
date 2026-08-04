@@ -1,13 +1,32 @@
 from datetime import UTC, datetime
 
 from sqlalchemy import DateTime, ForeignKey, Integer, String, UniqueConstraint
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column, relationship, validates
 
 from app.database import Base
+from app.schemas.intake_lifecycle import IntakeLifecycleReasonCode, IntakeLifecycleStatus
 
 
 def utcnow() -> datetime:
     return datetime.now(UTC)
+
+
+def _enum_value(value):
+    return getattr(value, "value", value)
+
+
+def _canonical_status(value) -> str:
+    try:
+        return IntakeLifecycleStatus(_enum_value(value)).value
+    except (TypeError, ValueError) as exc:
+        raise ValueError("Unsupported local lifecycle status.") from exc
+
+
+def _canonical_reason_code(value) -> str:
+    try:
+        return IntakeLifecycleReasonCode(_enum_value(value)).value
+    except (TypeError, ValueError) as exc:
+        raise ValueError("Unsupported local lifecycle reason code.") from exc
 
 
 class IntakeReviewState(Base):
@@ -33,6 +52,14 @@ class IntakeReviewState(Base):
 
     intake_record = relationship("IntakeRecord")
 
+    @validates("status")
+    def validate_status(self, _key, value) -> str:
+        return _canonical_status(value)
+
+    @validates("current_reason_code")
+    def validate_current_reason_code(self, _key, value) -> str | None:
+        return _canonical_reason_code(value) if value is not None else None
+
 
 class IntakeReviewLifecycleEvent(Base):
     __tablename__ = "intake_review_lifecycle_events"
@@ -56,3 +83,11 @@ class IntakeReviewLifecycleEvent(Base):
     )
 
     intake_record = relationship("IntakeRecord")
+
+    @validates("from_status", "to_status")
+    def validate_status(self, _key, value) -> str:
+        return _canonical_status(value)
+
+    @validates("reason_code")
+    def validate_reason_code(self, _key, value) -> str:
+        return _canonical_reason_code(value)

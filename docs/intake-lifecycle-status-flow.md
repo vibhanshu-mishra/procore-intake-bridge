@@ -21,6 +21,15 @@ API. Every accepted transition:
 Reason codes are fixed and summaries are bounded. Free-text notes are disabled by default.
 Lifecycle tables contain internal intake-record IDs only—never Procore source IDs or payloads.
 
+## Legacy local data repair
+
+The canonical lifecycle values are `new`, `in_review`, `reviewed`, `needs_follow_up`, and
+`ignored`. Earlier deterministic Demo rows used `blocked` and `completed`; migration
+`0003_normalize_intake_lifecycle_statuses` maps those labels to `needs_follow_up` and
+`reviewed`, and maps the old Demo reason marker to `demo_placeholder_reason`. Read paths also
+represent an un-migrated known value safely while the migration is pending. Unexpected values
+are shown only as a generic needs-review finding; raw stored text is never exposed.
+
 ## Safety and operations
 
 The lifecycle service reads no attachment contents and exposes no raw payload, source URL, signed
@@ -32,8 +41,9 @@ make intake-lifecycle-check
 ```
 
 The reversible `0002_intake_lifecycle` migration creates one current-state table and one event
-history table. Sandbox and Pilot configuration remains private and gated. H5 may add an operator
-triage queue later; H4 adds no queue, assignment, message, or notification integration.
+history table; `0003_normalize_intake_lifecycle_statuses` repairs the allow-listed legacy labels.
+Sandbox and Pilot configuration remains private and gated. H5 may add an operator triage queue
+later; H4 adds no queue, assignment, message, or notification integration.
 ## H5 triage projection
 
 The [Operator Triage Queue](operator-triage-queue.md) reads H4 state without lazily creating or

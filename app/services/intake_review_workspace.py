@@ -33,6 +33,7 @@ from app.schemas.intake_review_workspace import (
 from app.services.intake_lifecycle import (
     get_lifecycle_state,
     list_lifecycle_history,
+    normalize_lifecycle_status,
 )
 
 
@@ -271,7 +272,7 @@ def _item(record: IntakeRecord, session: Session, settings: Settings):
             )
         )
         if existing_state is not None:
-            lifecycle_status = IntakeLifecycleStatus(existing_state.status)
+            lifecycle_status, _ = normalize_lifecycle_status(existing_state.status)
     return IntakeReviewRecordListItem(
         record_id=record.id,
         tool=classify_intake_review_tool(record.source_type),

@@ -38,6 +38,8 @@ from app.schemas.demo_data_experience import (
     DemoSeedAction,
     DemoSeedReport,
 )
+from app.schemas.intake_lifecycle import IntakeLifecycleReasonCode, IntakeLifecycleStatus
+from app.services.intake_lifecycle import normalize_legacy_lifecycle_data
 
 
 class DemoDataExperienceError(ValueError):
@@ -288,9 +290,17 @@ def seed_demo_data(session_or_engine: Session | Engine, settings: Settings) -> D
                 "pending",
                 date(2026, 1, 12),
                 1,
-                "blocked",
+                IntakeLifecycleStatus.NEEDS_FOLLOW_UP.value,
             ),
-            ("submittal", "004", "Review lighting schedule", "closed", None, 0, "completed"),
+            (
+                "submittal",
+                "004",
+                "Review lighting schedule",
+                "closed",
+                None,
+                0,
+                IntakeLifecycleStatus.REVIEWED.value,
+            ),
         )
         seeded_records: list[IntakeRecord] = []
         for source, suffix, title, status, due, attachments, review_status in records:
@@ -327,7 +337,7 @@ def seed_demo_data(session_or_engine: Session | Engine, settings: Settings) -> D
                 {
                     "intake_record_id": record.id,
                     "status": review_status,
-                    "current_reason_code": f"{DEMO_MARKER}FIXTURE",
+                    "current_reason_code": IntakeLifecycleReasonCode.DEMO_PLACEHOLDER_REASON.value,
                     "current_reason_summary_sanitized": "Fake local review state.",
                     "actor_label_masked": f"{DEMO_MARKER}ACTOR",
                     "event_count": 1 if review_status != "new" else 0,
@@ -345,8 +355,12 @@ def seed_demo_data(session_or_engine: Session | Engine, settings: Settings) -> D
                 {
                     "intake_record_id": record.id,
                     "from_status": "new",
-                    "to_status": ("in_review", "blocked", "completed")[index - 1],
-                    "reason_code": f"{DEMO_MARKER}FIXTURE",
+                    "to_status": (
+                        IntakeLifecycleStatus.IN_REVIEW.value,
+                        IntakeLifecycleStatus.NEEDS_FOLLOW_UP.value,
+                        IntakeLifecycleStatus.REVIEWED.value,
+                    )[index - 1],
+                    "reason_code": IntakeLifecycleReasonCode.DEMO_PLACEHOLDER_REASON.value,
                     "reason_summary_sanitized": "Fake local lifecycle event.",
                     "actor_label_masked": f"{DEMO_MARKER}ACTOR",
                     "source": f"{DEMO_MARKER}FIXTURE_{index}",
@@ -354,6 +368,9 @@ def seed_demo_data(session_or_engine: Session | Engine, settings: Settings) -> D
                 },
             )
             created += event_created
+        normalize_legacy_lifecycle_data(
+            session, [record.id for record in seeded_records]
+        )
         for index, record in enumerate(seeded_records[:3], start=1):
             attachment_id = f"{DEMO_MARKER}ATTACHMENT_{index}"
             _, attachment_created = _get_or_create(

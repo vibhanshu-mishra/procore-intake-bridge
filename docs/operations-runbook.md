@@ -7,9 +7,9 @@ never raw payloads, private paths, source URLs, or attachment contents.
 
 Lifecycle operations use the guarded local workspace form/API and append an event in the same
 transaction as the state update. Run `make intake-lifecycle-check` for non-writing validation and
-`make intake-lifecycle-summary` for sanitized counts. Apply migration `0002_intake_lifecycle`
-through the existing migration process. A local status is not a Procore status, approval,
-compliance decision, or communication.
+`make intake-lifecycle-summary` for sanitized counts. Apply `0002_intake_lifecycle` and then
+`0003_normalize_intake_lifecycle_statuses` through the existing migration process. A local status
+is not a Procore status, approval, compliance decision, or communication.
 
 Run offline `make cloud-storage-check` before selecting a cloud provider. List, delete, and
 overwrite are separate default-off gates; G2 has no presigned URLs. Readiness is not production

@@ -184,6 +184,13 @@ def build_product_dashboard_cards(
             )
         )
     if settings.product_dashboard_include_lifecycle:
+        lifecycle_metrics = {
+            str(k.value): v for k, v in lifecycle.counts_by_status.items()
+        }
+        if lifecycle.normalized_status_count:
+            lifecycle_metrics["legacy_statuses_normalized"] = lifecycle.normalized_status_count
+        if lifecycle.unknown_status_count:
+            lifecycle_metrics["unknown_statuses_needing_review"] = lifecycle.unknown_status_count
         cards.append(
             _card(
                 "lifecycle",
@@ -195,7 +202,7 @@ def build_product_dashboard_cards(
                 else ProductDashboardCardStatus.DISABLED,
                 lifecycle.message,
                 count=lifecycle.total_states,
-                metrics={str(k.value): v for k, v in lifecycle.counts_by_status.items()},
+                metrics=lifecycle_metrics,
                 links=[
                     ProductDashboardLink(
                         label="Lifecycle view",

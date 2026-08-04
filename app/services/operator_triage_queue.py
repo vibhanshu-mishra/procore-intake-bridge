@@ -24,6 +24,7 @@ from app.schemas.operator_triage_queue import (
     OperatorTriageSort,
     OperatorTriageStatus,
 )
+from app.services.intake_lifecycle import normalize_lifecycle_status
 from app.services.intake_review_workspace import (
     build_intake_review_attachment_summary,
     build_intake_review_source_context,
@@ -90,7 +91,7 @@ def compute_triage_signals(
     source_context,
     settings: Settings,
 ) -> list[OperatorTriageSignal]:
-    status = IntakeLifecycleStatus(
+    status, _ = normalize_lifecycle_status(
         lifecycle_state.status if lifecycle_state else IntakeLifecycleStatus.NEW
     )
     signals: list[OperatorTriageSignal] = []
@@ -217,7 +218,7 @@ def _build_items(session: Session, settings: Settings) -> list[OperatorTriageQue
     items = []
     for record in session.scalars(select(IntakeRecord).order_by(IntakeRecord.id)):
         state = states.get(record.id)
-        lifecycle_status = IntakeLifecycleStatus(
+        lifecycle_status, _ = normalize_lifecycle_status(
             state.status if state else IntakeLifecycleStatus.NEW
         )
         attachments = build_intake_review_attachment_summary(record, session, settings)

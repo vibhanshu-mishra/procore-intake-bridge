@@ -53,14 +53,65 @@ def test_upgrade_and_downgrade_use_temporary_sqlite_only(tmp_path):
         with engine.connect() as connection:
             assert (
                 connection.execute(text("SELECT version_num FROM alembic_version")).scalar()
-                == "0002_intake_lifecycle"
+                == "0003_normalize_intake_lifecycle_statuses"
             )
     finally:
         engine.dispose()
+
     command.downgrade(config, "base")
     engine = create_engine(sqlite_url(database))
     try:
         assert set(inspect(engine).get_table_names()) <= {"alembic_version"}
+    finally:
+        engine.dispose()
+
+
+def test_legacy_lifecycle_migration_normalizes_allowlisted_values(tmp_path):
+    database = tmp_path / "legacy-lifecycle.sqlite"
+    configured = settings()
+    config = get_alembic_config(configured, sqlite_url(database))
+    command.upgrade(config, "0002_intake_lifecycle")
+    engine = create_engine(sqlite_url(database))
+    try:
+        with engine.begin() as connection:
+            connection.execute(
+                text(
+                    "INSERT INTO intake_review_states "
+                    "(intake_record_id, status, current_reason_code, event_count, "
+                    "created_at, updated_at) "
+                    "VALUES (1, 'blocked', 'J2_DEMO_FIXTURE', 1, '2026-01-01', '2026-01-01')"
+                )
+            )
+            connection.execute(
+                text(
+                    "INSERT INTO intake_review_lifecycle_events "
+                    "(intake_record_id, from_status, to_status, reason_code, "
+                    "reason_summary_sanitized, source, created_at) "
+                    "VALUES (1, 'new', 'completed', 'J2_DEMO_FIXTURE', "
+                    "'Synthetic local transition', 'fixture', '2026-01-01')"
+                )
+            )
+    finally:
+        engine.dispose()
+
+    command.upgrade(config, "head")
+    engine = create_engine(sqlite_url(database))
+    try:
+        with engine.connect() as connection:
+            state = connection.execute(
+                text(
+                    "SELECT status, current_reason_code "
+                    "FROM intake_review_states"
+                )
+            ).one()
+            event = connection.execute(
+                text(
+                    "SELECT from_status, to_status, reason_code "
+                    "FROM intake_review_lifecycle_events"
+                )
+            ).one()
+        assert tuple(state) == ("needs_follow_up", "demo_placeholder_reason")
+        assert tuple(event) == ("new", "reviewed", "demo_placeholder_reason")
     finally:
         engine.dispose()
 
@@ -70,7 +121,7 @@ def test_status_detects_pending_without_creating_database(tmp_path):
     report = build_migration_status_report(
         settings(), database_url_override=sqlite_url(database)
     )
-    assert report.head_revision == "0002_intake_lifecycle"
+    assert report.head_revision == "0003_normalize_intake_lifecycle_statuses"
     assert report.current_revision is None
     assert report.pending_migration_detected is True
     assert report.database_url_summary == "sqlite local file"
@@ -84,7 +135,7 @@ def test_status_detects_head_and_schema_matches_metadata(tmp_path):
     report = build_migration_status_report(
         configured, database_url_override=sqlite_url(database)
     )
-    assert get_head_revision(configured) == "0002_intake_lifecycle"
+    assert get_head_revision(configured) == "0003_normalize_intake_lifecycle_statuses"
     assert report.current_revision == report.head_revision
     assert report.is_at_head is True
     assert compare_metadata_to_migrated_schema(sqlite_url(database), configured) == []
@@ -115,7 +166,7 @@ def test_migration_route_is_read_only_and_sanitized(client):
     response = client.get("/deployment/migrations")
     assert response.status_code == 200
     payload = response.json()
-    assert payload["head_revision"] == "0002_intake_lifecycle"
+    assert payload["head_revision"] == "0003_normalize_intake_lifecycle_statuses"
     assert "password" not in response.text.casefold()
     assert "sqlite://" not in response.text
 
