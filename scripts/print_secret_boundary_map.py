@@ -7,9 +7,11 @@ from app.services.infra_security_review import (
 
 
 def main() -> int:
+    rendered_boundary_map = render_secret_boundary_map_markdown(
+        build_infra_security_review_report(get_settings())
+    )
     print(
-        render_secret_boundary_map_markdown(build_infra_security_review_report(get_settings())),
-        end="",
+        f"[INFO] Secret boundary map generated successfully (length={len(rendered_boundary_map)} chars)."
     )
     return 0
 
