@@ -292,7 +292,11 @@ def render_platform_env_template(profile, report) -> str:
         "SECRET_PROVIDER_REF": profile.secret_provider_placeholder,
         "STORAGE_PROVIDER_REF": profile.storage_provider_placeholder,
     }
-    lines.extend(f"- `{key}={value}`" for key, value in pairs.items())
+    redacted_keys = {"ADMIN_TOKEN_REF", "WEBHOOK_SECRET_REF", "SECRET_PROVIDER_REF"}
+    lines.extend(
+        f"- `{key}={'***REDACTED***' if key in redacted_keys else value}`"
+        for key, value in pairs.items()
+    )
     return "\n".join(lines) + "\n"
 
 
