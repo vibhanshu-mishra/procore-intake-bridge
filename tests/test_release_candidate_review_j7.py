@@ -3,6 +3,12 @@ from subprocess import run
 from tempfile import TemporaryDirectory
 
 import pytest
+
+from app.config import Settings
+from app.schemas.release_candidate_review import (
+    ReleaseCandidateDomain,
+    ReleaseCandidateGateStatus,
+)
 from app.services.release_candidate_review import (
     ARTIFACT_FILES,
     ReleaseCandidateReviewBlockedError,
@@ -16,12 +22,6 @@ from app.services.release_candidate_review import (
     render_release_candidate_matrix_csv,
     validate_release_candidate_report_safe,
     write_release_candidate_artifacts,
-)
-
-from app.config import Settings
-from app.schemas.release_candidate_review import (
-    ReleaseCandidateDomain,
-    ReleaseCandidateGateStatus,
 )
 from scripts.audit_public_safety import audit_paths, audit_text
 from scripts.audit_routes_read_only import application_routes, audit_routes

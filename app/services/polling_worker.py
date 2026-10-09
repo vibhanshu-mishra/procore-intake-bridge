@@ -121,12 +121,17 @@ def run_sync_profile_once(
     lock_owner: str | None = None,
 ) -> SyncProfileRunResult:
     resolved_settings = settings or get_settings()
-    run_started_at = now or datetime.now(UTC)
+    run_started_at = _as_utc(now) if now is not None else datetime.now(UTC)
     sync_profile = session.get(SyncProfile, sync_profile_id)
     if sync_profile is None:
         raise LookupError("Sync profile not found.")
     effective_mode = mode or sync_profile.mode
-    planned_watermark = sync_profile.last_watermark_at or (
+    persisted_watermark = (
+        _as_utc(sync_profile.last_watermark_at)
+        if sync_profile.last_watermark_at is not None
+        else None
+    )
+    planned_watermark = persisted_watermark or (
         run_started_at - timedelta(days=resolved_settings.max_sync_lookback_days)
     )
 
@@ -230,7 +235,7 @@ def run_due_profiles_once(
     settings: Settings | None = None,
 ) -> PollingRunSummary:
     resolved_settings = settings or get_settings()
-    run_at = now or datetime.now(UTC)
+    run_at = _as_utc(now) if now is not None else datetime.now(UTC)
     due_profiles = find_due_sync_profiles(session, run_at)
     results = []
     for profile in due_profiles:
@@ -285,6 +290,13 @@ def _has_active_lock(
     if locked_at.tzinfo is None:
         locked_at = locked_at.replace(tzinfo=UTC)
     return locked_at > now - timedelta(minutes=settings.sync_lock_timeout_minutes)
+
+
+def _as_utc(value: datetime) -> datetime:
+    """Normalize injected or database-returned timestamps to aware UTC."""
+    if value.tzinfo is None:
+        return value.replace(tzinfo=UTC)
+    return value.astimezone(UTC)
 
 
 def _sanitize_error_code(value: str) -> str:

@@ -1,6 +1,19 @@
+from datetime import UTC, datetime
+
 from sqlalchemy import func, select
 
 from app.models.intake_records import IntakeRecord
+from app.services import polling_worker
+
+FIXTURE_RUN_NOW = datetime(2026, 7, 28, 12, 0, tzinfo=UTC)
+
+
+class _FrozenPollingDateTime(datetime):
+    @classmethod
+    def now(cls, tz=None):
+        if tz is None:
+            return FIXTURE_RUN_NOW.replace(tzinfo=None)
+        return FIXTURE_RUN_NOW.astimezone(tz)
 
 
 def test_profile_dry_run_does_not_write(client, db_session, sync_profile):
@@ -12,13 +25,26 @@ def test_profile_dry_run_does_not_write(client, db_session, sync_profile):
     assert sync_profile.last_watermark_at is None
 
 
-def test_profile_run_once_writes_fixture_records(client, db_session, sync_profile):
+def test_profile_run_once_writes_fixture_records(
+    client, db_session, sync_profile, monkeypatch
+):
+    monkeypatch.setattr(polling_worker, "datetime", _FrozenPollingDateTime)
+
     response = client.post(f"/sync-profiles/{sync_profile.id}/run-once")
     assert response.status_code == 200
     assert response.json()["status"] == "succeeded"
+    assert response.json()["record_count"] == 2
     assert db_session.scalar(select(func.count()).select_from(IntakeRecord)) == 2
     db_session.refresh(sync_profile)
-    assert sync_profile.last_watermark_at is not None
+    watermark = sync_profile.last_watermark_at
+    assert watermark is not None
+    assert watermark.replace(tzinfo=UTC) == FIXTURE_RUN_NOW
+
+    repeated = client.post(f"/sync-profiles/{sync_profile.id}/run-once")
+    assert repeated.status_code == 200
+    assert repeated.json()["status"] == "succeeded"
+    assert repeated.json()["record_count"] == 0
+    assert db_session.scalar(select(func.count()).select_from(IntakeRecord)) == 2
 
 
 def test_disabled_profile_requires_force(client, sync_profile):

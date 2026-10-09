@@ -1,6 +1,7 @@
 from datetime import UTC, datetime
 from pathlib import Path
 from subprocess import run
+from urllib.parse import urlsplit
 
 import pytest
 from alembic import command
@@ -283,6 +284,40 @@ def test_workspace_routes_include_local_state_and_history(client, db_session, co
     html = client.get(f"/review/intake/{record.id}")
     assert f'action="/review/intake/{record.id}/lifecycle"' in html.text
     assert "local workflow state only" in html.text
+
+
+def test_html_lifecycle_redirect_is_named_local_route(
+    client, db_session, connection
+):
+    record = _record(db_session, connection)
+    response = client.post(
+        f"/review/intake/{record.id}/lifecycle",
+        data={
+            "to_status": "in_review",
+            "reason_code": "initial_review_started",
+        },
+        headers={"host": "attacker.example"},
+        follow_redirects=False,
+    )
+    assert response.status_code == 303
+    location = response.headers["location"]
+    assert location == f"/review/intake/{record.id}"
+    parsed = urlsplit(location)
+    assert parsed.scheme == ""
+    assert parsed.netloc == ""
+    assert "attacker.example" not in location
+
+    state = client.get(f"/review/api/intake/{record.id}/lifecycle")
+    assert state.status_code == 200
+    assert state.json()["status"] == "in_review"
+
+    malformed = client.post(
+        "/review/intake/not-an-integer/lifecycle",
+        data={"to_status": "in_review", "reason_code": "initial_review_started"},
+        follow_redirects=False,
+    )
+    assert malformed.status_code == 422
+    assert "location" not in malformed.headers
 
 
 def test_route_failures_are_safe(client, db_session, connection):

@@ -313,7 +313,10 @@ async def html_lifecycle_transition(
             else IntakeLifecycleError("Invalid local lifecycle request.")
         )
         raise _lifecycle_error(lifecycle_exc) from exc
-    return RedirectResponse(url=f"/review/intake/{record_id}", status_code=303)
+    return RedirectResponse(
+        url=request.app.url_path_for("html_intake_detail", record_id=record_id),
+        status_code=303,
+    )
 
 
 @router.get("/api/triage", response_model=OperatorTriageQueuePage)

@@ -2,6 +2,7 @@ import csv
 import io
 import json
 import re
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
@@ -30,6 +31,35 @@ class InfraSecurityReviewError(ValueError):
 
 class InfraSecurityReviewBlockedError(InfraSecurityReviewError):
     pass
+
+
+@dataclass(frozen=True, slots=True)
+class InfraSecurityReviewPolicy:
+    """The allow-listed, non-sensitive settings used by the public review."""
+
+    enabled: bool
+    require_placeholders: bool
+    require_secret_references: bool
+    require_no_secret_values: bool
+    require_secret_masking: bool
+    require_storage_metadata_only: bool
+    require_no_presigned_urls: bool
+    require_no_storage_keys: bool
+    require_db_url_references: bool
+    require_db_operation_gates: bool
+    require_migration_gates: bool
+    require_backup_restore_plans: bool
+    allow_real_identities: bool
+    allow_real_domains: bool
+    allow_real_urls: bool
+    allow_report_contents: bool
+    allow_private_paths: bool
+    fail_closed: bool
+    max_findings: int
+
+
+class SanitizedArtifactContent(str):
+    """Content that passed the review boundary immediately before writing."""
 
 
 IGNORED_OUTPUTS = (
@@ -97,7 +127,8 @@ KEY_MATERIAL = re.compile(
 )
 PRIVATE_CONTENT = re.compile(
     r"(?i)(?:presigned_url|signed_url|storage_key|object_key|attachment_content|"
-    r"db_dump_content|backup_archive_content|migration_log|private_report_contents?)"
+    r"db_dump_content|backup_archive_content|migration_log|private_report_contents?|"
+    r"raw_provider_configuration|provider_configuration)"
     r"\s*[:=]\s*(?!false\b|none\b|placeholder\b)\S+"
 )
 UNSAFE_CLAIM = re.compile(
@@ -152,23 +183,23 @@ def sanitize_infra_security_value(value: Any) -> str:
     return text[:400]
 
 
-def build_infra_security_categories(settings: Settings) -> list[InfraSecurityCategory]:
+def build_infra_security_categories() -> list[InfraSecurityCategory]:
     return list(InfraSecurityCategory)
 
 
-def build_secret_boundaries(settings: Settings) -> list[SecretBoundary]:
+def build_secret_boundaries() -> list[SecretBoundary]:
     return list(SecretBoundary)
 
 
-def build_storage_boundaries(settings: Settings) -> list[StorageBoundary]:
+def build_storage_boundaries() -> list[StorageBoundary]:
     return list(StorageBoundary)
 
 
-def build_database_boundaries(settings: Settings) -> list[DatabaseBoundary]:
+def build_database_boundaries() -> list[DatabaseBoundary]:
     return list(DatabaseBoundary)
 
 
-def build_infra_security_controls(settings: Settings) -> list[InfraSecurityControl]:
+def build_infra_security_controls() -> list[InfraSecurityControl]:
     items = (
         (
             "secret provider registry",
@@ -219,7 +250,7 @@ def build_infra_security_controls(settings: Settings) -> list[InfraSecurityContr
     ]
 
 
-def build_infra_security_scenarios(settings: Settings) -> list[InfraSecurityScenario]:
+def build_infra_security_scenarios() -> list[InfraSecurityScenario]:
     return [
         InfraSecurityScenario(
             category=item,
@@ -231,7 +262,7 @@ def build_infra_security_scenarios(settings: Settings) -> list[InfraSecurityScen
     ]
 
 
-def build_infra_provider_matrix(settings: Settings) -> list[InfraProviderMatrixItem]:
+def build_infra_provider_matrix() -> list[InfraProviderMatrixItem]:
     providers = (
         ("environment reference", "secret"),
         ("contained file reference", "secret"),
@@ -255,30 +286,62 @@ def build_infra_provider_matrix(settings: Settings) -> list[InfraProviderMatrixI
     ]
 
 
-def build_infra_security_review_report(settings: Settings) -> InfraSecurityReviewReport:
-    if not settings.infra_security_review_enabled:
+def build_infra_security_review_policy(settings: Settings) -> InfraSecurityReviewPolicy:
+    """Copy only safe policy switches out of the secret-bearing Settings object."""
+
+    return InfraSecurityReviewPolicy(
+        enabled=bool(settings.infra_security_review_enabled),
+        require_placeholders=bool(settings.infra_security_review_require_placeholders),
+        require_secret_references=bool(settings.infra_security_review_require_secret_references),
+        require_no_secret_values=bool(settings.infra_security_review_require_no_secret_values),
+        require_secret_masking=bool(settings.infra_security_review_require_secret_masking),
+        require_storage_metadata_only=bool(
+            settings.infra_security_review_require_storage_metadata_only
+        ),
+        require_no_presigned_urls=bool(settings.infra_security_review_require_no_presigned_urls),
+        require_no_storage_keys=bool(settings.infra_security_review_require_no_storage_keys),
+        require_db_url_references=bool(settings.infra_security_review_require_db_url_references),
+        require_db_operation_gates=bool(settings.infra_security_review_require_db_operation_gates),
+        require_migration_gates=bool(settings.infra_security_review_require_migration_gates),
+        require_backup_restore_plans=bool(
+            settings.infra_security_review_require_backup_restore_plans
+        ),
+        allow_real_identities=bool(settings.infra_security_review_allow_real_identities),
+        allow_real_domains=bool(settings.infra_security_review_allow_real_domains),
+        allow_real_urls=bool(settings.infra_security_review_allow_real_urls),
+        allow_report_contents=bool(settings.infra_security_review_allow_report_contents),
+        allow_private_paths=bool(settings.infra_security_review_allow_private_paths),
+        fail_closed=bool(settings.infra_security_review_fail_closed),
+        max_findings=int(settings.infra_security_review_max_findings),
+    )
+
+
+def _build_infra_security_review_report(
+    policy: InfraSecurityReviewPolicy,
+) -> InfraSecurityReviewReport:
+    if not policy.enabled:
         raise InfraSecurityReviewError("Infrastructure security review is disabled.")
     required = (
-        settings.infra_security_review_require_placeholders,
-        settings.infra_security_review_require_secret_references,
-        settings.infra_security_review_require_no_secret_values,
-        settings.infra_security_review_require_secret_masking,
-        settings.infra_security_review_require_storage_metadata_only,
-        settings.infra_security_review_require_no_presigned_urls,
-        settings.infra_security_review_require_no_storage_keys,
-        settings.infra_security_review_require_db_url_references,
-        settings.infra_security_review_require_db_operation_gates,
-        settings.infra_security_review_require_migration_gates,
-        settings.infra_security_review_require_backup_restore_plans,
+        policy.require_placeholders,
+        policy.require_secret_references,
+        policy.require_no_secret_values,
+        policy.require_secret_masking,
+        policy.require_storage_metadata_only,
+        policy.require_no_presigned_urls,
+        policy.require_no_storage_keys,
+        policy.require_db_url_references,
+        policy.require_db_operation_gates,
+        policy.require_migration_gates,
+        policy.require_backup_restore_plans,
     )
     allowed = (
-        settings.infra_security_review_allow_real_identities,
-        settings.infra_security_review_allow_real_domains,
-        settings.infra_security_review_allow_real_urls,
-        settings.infra_security_review_allow_report_contents,
-        settings.infra_security_review_allow_private_paths,
+        policy.allow_real_identities,
+        policy.allow_real_domains,
+        policy.allow_real_urls,
+        policy.allow_report_contents,
+        policy.allow_private_paths,
     )
-    if settings.infra_security_review_fail_closed and (not all(required) or any(allowed)):
+    if policy.fail_closed and (not all(required) or any(allowed)):
         raise InfraSecurityReviewBlockedError("Unsafe infrastructure security policy was blocked.")
     findings = [
         InfraSecurityFinding(
@@ -317,7 +380,7 @@ def build_infra_security_review_report(settings: Settings) -> InfraSecurityRevie
             ),
         )
     )
-    findings = findings[: settings.infra_security_review_max_findings]
+    findings = findings[: policy.max_findings]
     blockers = [item.message for item in findings if item.severity == "blocker"]
     status = (
         InfraSecurityReviewStatus.BLOCKED
@@ -331,11 +394,11 @@ def build_infra_security_review_report(settings: Settings) -> InfraSecurityRevie
         InfraSecurityReviewStatus.NEEDS_REVIEW: InfraSecurityDecision.NEEDS_REVIEW,
         InfraSecurityReviewStatus.READY: InfraSecurityDecision.READY_FOR_SECURITY_REVIEW,
     }[status]
-    categories = build_infra_security_categories(settings)
-    secret = build_secret_boundaries(settings)
-    storage = build_storage_boundaries(settings)
-    database = build_database_boundaries(settings)
-    matrix = build_infra_provider_matrix(settings)
+    categories = build_infra_security_categories()
+    secret = build_secret_boundaries()
+    storage = build_storage_boundaries()
+    database = build_database_boundaries()
+    matrix = build_infra_provider_matrix()
     report = InfraSecurityReviewReport(
         status=status,
         decision=decision,
@@ -343,8 +406,8 @@ def build_infra_security_review_report(settings: Settings) -> InfraSecurityRevie
         secret_boundaries=secret,
         storage_boundaries=storage,
         database_boundaries=database,
-        controls=build_infra_security_controls(settings),
-        scenarios=build_infra_security_scenarios(settings),
+        controls=build_infra_security_controls(),
+        scenarios=build_infra_security_scenarios(),
         provider_matrix=matrix,
         categories_total=len(categories),
         secret_boundaries_total=len(secret),
@@ -362,6 +425,12 @@ def build_infra_security_review_report(settings: Settings) -> InfraSecurityRevie
     )
     validate_infra_security_review_report_safe(report)
     return report
+
+
+def build_infra_security_review_report(settings: Settings) -> InfraSecurityReviewReport:
+    """Build a public report from an explicit, non-sensitive policy snapshot."""
+
+    return _build_infra_security_review_report(build_infra_security_review_policy(settings))
 
 
 def _walk_keys(value: Any):
@@ -400,6 +469,11 @@ def validate_infra_security_review_report_safe(report: BaseModel | dict[str, Any
             r"(?i)\b(?:no|not|never|does not|is not)\b", line
         ):
             raise InfraSecurityReviewBlockedError("Unsafe infrastructure review claim was blocked.")
+
+
+def _validated_artifact_content(value: str) -> SanitizedArtifactContent:
+    validate_infra_security_review_report_safe(value)
+    return SanitizedArtifactContent(value)
 
 
 def _render_map(title: str, items: list[Any]) -> str:
@@ -521,29 +595,44 @@ def write_infra_security_review_artifacts(
     report: InfraSecurityReviewReport, output_root: Path
 ) -> InfraSecurityArtifactResult:
     root = _safe_output_root(output_root)
-    artifacts = {
-        "infra-security-review-report.json": report.model_dump_json(indent=2),
-        "infra-security-review-report.md": render_infra_security_review_markdown(report),
-        "secret-boundary-map.md": render_secret_boundary_map_markdown(report),
-        "storage-boundary-map.md": render_storage_boundary_map_markdown(report),
-        "database-boundary-map.md": render_database_boundary_map_markdown(report),
-        "infra-security-checklist.md": render_infra_security_checklist_markdown(report),
-        "infra-provider-matrix.csv": render_infra_provider_matrix_csv(report),
+    artifacts: dict[str, SanitizedArtifactContent] = {
+        "infra-security-review-report.json": _validated_artifact_content(
+            report.model_dump_json(indent=2)
+        ),
+        "infra-security-review-report.md": _validated_artifact_content(
+            render_infra_security_review_markdown(report)
+        ),
+        "secret-boundary-map.md": _validated_artifact_content(
+            render_secret_boundary_map_markdown(report)
+        ),
+        "storage-boundary-map.md": _validated_artifact_content(
+            render_storage_boundary_map_markdown(report)
+        ),
+        "database-boundary-map.md": _validated_artifact_content(
+            render_database_boundary_map_markdown(report)
+        ),
+        "infra-security-checklist.md": _validated_artifact_content(
+            render_infra_security_checklist_markdown(report)
+        ),
+        "infra-provider-matrix.csv": _validated_artifact_content(
+            render_infra_provider_matrix_csv(report)
+        ),
     }
-    artifacts["manifest.json"] = json.dumps(
-        {
-            "files": sorted(artifacts),
-            "sanitized": True,
-            "live_operations": False,
-            "secret_retrieval": False,
-            "storage_access": False,
-            "database_operations": False,
-        },
-        indent=2,
+    artifacts["manifest.json"] = _validated_artifact_content(
+        json.dumps(
+            {
+                "files": sorted(artifacts),
+                "sanitized": True,
+                "live_operations": False,
+                "secret_retrieval": False,
+                "storage_access": False,
+                "database_operations": False,
+            },
+            indent=2,
+        )
     )
     root.mkdir(parents=True, exist_ok=True)
     for name, content in artifacts.items():
-        validate_infra_security_review_report_safe(content)
         (root / name).write_text(content, encoding="utf-8")
     return InfraSecurityArtifactResult(
         status=report.status, output_directory=root.name, files=sorted(artifacts)
