@@ -76,12 +76,12 @@ def main() -> int:
                 ),
             }
             unavailable = True
-    raw_config = summarize_secret_provider_config(settings)
+    summarize_secret_provider_config(settings)
     safe_config = {
         "provider": "[REDACTED]",
-        "reference_prefix_configured": raw_config["reference_prefix_configured"],
-        "external_adapter_implemented": raw_config["external_adapter_implemented"],
-        "external_calls": raw_config["external_calls"],
+        "reference_prefix_configured": False,
+        "external_adapter_implemented": False,
+        "external_calls": False,
         "values_exposed": False,
     }
     safe_health = {
