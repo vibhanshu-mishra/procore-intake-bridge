@@ -76,9 +76,21 @@ def main() -> int:
                 ),
             }
             unavailable = True
+    raw_config = summarize_secret_provider_config(settings)
+    safe_config = {
+        "provider": "[REDACTED]",
+        "reference_prefix_configured": raw_config["reference_prefix_configured"],
+        "external_adapter_implemented": raw_config["external_adapter_implemented"],
+        "external_calls": raw_config["external_calls"],
+        "values_exposed": False,
+    }
+    safe_health = {
+        **health_payload,
+        "provider": "[REDACTED]",
+    }
     output = {
-        "config": summarize_secret_provider_config(settings),
-        "health": health_payload,
+        "config": safe_config,
+        "health": safe_health,
         "required_refs": [item.model_dump() for item in inventory],
         "values_exposed": False,
     }
