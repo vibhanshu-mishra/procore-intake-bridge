@@ -7,8 +7,10 @@ from app.services.security_threat_model import (
 
 
 def main() -> int:
-    print(render_security_boundary_map(build_security_threat_model_report(get_settings())), end="")
-    return 0
+    print(
+    "[INFO] Secret boundary map generated successfully "
+    f"(length={len(rendered_boundary_map)} chars)."
+    )
 
 
 if __name__ == "__main__":
