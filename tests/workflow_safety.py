@@ -1,4 +1,4 @@
-"""Test-only checks for executable release and deployment workflow operations."""
+"""Test-only checks for pinned Actions and unsafe workflow operations."""
 
 from __future__ import annotations
 
@@ -87,6 +87,9 @@ _DOCKER_PUSH_ACTION = re.compile(
     r"^\s*uses:\s*docker/build-push-action(?:@|\s|$)", re.IGNORECASE
 )
 _PUSH_TRUE = re.compile(r"^\s*push:\s*true\s*(?:#.*)?$", re.IGNORECASE | re.MULTILINE)
+_USES_LINE = re.compile(r"^\s*(?:-\s*)?uses:\s*(?P<value>.*?)\s*$", re.IGNORECASE)
+_GITHUB_ACTION_PATH = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+(?:/[^@\s]+)?$")
+_COMMIT_SHA = re.compile(r"^[0-9a-fA-F]{40}$")
 
 
 def workflow_automation_findings(text: str) -> list[str]:
@@ -108,16 +111,42 @@ def workflow_automation_findings(text: str) -> list[str]:
 
 
 def workflow_directory_findings(workflow_dir: Path) -> list[str]:
-    """Inspect workflow files while allowing repositories without a workflow directory."""
+    """Inspect workflow files for unsafe operations and mutable action references."""
 
     if not workflow_dir.is_dir():
         return []
-    return [
-        finding
-        for path in sorted(workflow_dir.iterdir())
-        if path.is_file()
-        for finding in workflow_automation_findings(path.read_text())
-    ]
+    findings: list[str] = []
+    for path in sorted(workflow_dir.iterdir()):
+        if not path.is_file():
+            continue
+        text = path.read_text()
+        findings.extend(workflow_automation_findings(text))
+        findings.extend(workflow_action_pin_findings(text))
+    return findings
+
+
+def workflow_action_pin_findings(text: str) -> list[str]:
+    """Return findings for external GitHub Actions that do not use a full commit SHA."""
+
+    findings: list[str] = []
+    for line in text.splitlines():
+        match = _USES_LINE.match(line)
+        if match is None:
+            continue
+        reference = _without_yaml_comment(match.group("value")).strip()
+        if len(reference) >= 2 and reference[0] == reference[-1] and reference[0] in "\"'":
+            reference = reference[1:-1].strip()
+        if not reference or reference.startswith(("./", "docker://")):
+            continue
+
+        action, separator, ref = reference.rpartition("@")
+        if not separator or not _GITHUB_ACTION_PATH.fullmatch(action):
+            findings.append(f"invalid or unpinned external GitHub Action: {reference}")
+        elif not _COMMIT_SHA.fullmatch(ref):
+            findings.append(
+                f"external GitHub Action is not pinned to a full commit SHA: {reference}"
+            )
+    return findings
 
 
 def _workflow_commands(text: str) -> list[str]:
@@ -152,3 +181,16 @@ def _command_segments(command: str) -> list[str]:
         for segment in re.split(r"(?:&&|\|\||;)", command)
         if segment.strip() and not segment.strip().startswith("echo ")
     ]
+
+
+def _without_yaml_comment(value: str) -> str:
+    quote: str | None = None
+    for index, character in enumerate(value):
+        if quote is not None:
+            if character == quote:
+                quote = None
+        elif character in "\"'":
+            quote = character
+        elif character == "#" and (index == 0 or value[index - 1].isspace()):
+            return value[:index].rstrip()
+    return value

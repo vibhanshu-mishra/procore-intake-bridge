@@ -16,12 +16,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
 
       - name: Scan changed code
-        uses: openqodex/openqodex@v0
+        uses: openqodex/openqodex@2f2fa9e48c1f62a6123997eb14111140d8e22a74 # v0
         with:
           review: off
           upload-sarif: 'false'
