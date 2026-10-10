@@ -2,9 +2,8 @@ import argparse
 import tempfile
 from pathlib import Path
 
-from app.services.api_docs_review import build_api_docs_report, write_api_docs_artifacts
-
 from app.config import get_settings
+from app.services.api_docs_review import build_api_docs_report, write_api_docs_artifacts
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--output-root", type=Path)

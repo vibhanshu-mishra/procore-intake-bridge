@@ -26,6 +26,10 @@ from app.services.release_candidate_review import (
 from scripts.audit_public_safety import audit_paths, audit_text
 from scripts.audit_routes_read_only import application_routes, audit_routes
 from scripts.check_docs_site import check_docs_site
+from tests.workflow_safety import (
+    workflow_automation_findings,
+    workflow_directory_findings,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -246,11 +250,34 @@ def test_public_safety_blocks_outputs_tokens_signing_and_release_claims(tmp_path
     assert audit_paths([generated])
 
 
+def test_workflow_policy_allows_descriptive_release_wording():
+    workflow = """
+    name: Release readiness review
+    # Publishing remains a manual maintainer decision.
+    steps:
+      - name: Explain release boundary
+        run: echo "No release or publish operation occurs here."
+    """
+    assert workflow_automation_findings(workflow) == []
+
+
+@pytest.mark.parametrize(
+    "workflow",
+    (
+        "run: python -m twine upload dist/*",
+        "run: gh release create v0.1.0",
+        "run: git tag v0.1.0 && git push origin v0.1.0",
+        "run: kubectl apply -f deployment.yaml",
+        "uses: softprops/action-gh-release@v2",
+        "uses: docker/build-push-action@v6\nwith:\n  push: true",
+    ),
+)
+def test_workflow_policy_rejects_executable_release_publish_or_deploy(workflow):
+    assert workflow_automation_findings(workflow)
+
+
 def test_routes_and_workflows_remain_unchanged():
     assert len(application_routes()) == 81
     assert audit_routes() == []
     workflow_dir = ROOT / ".github/workflows"
-    assert not workflow_dir.is_dir() or not any(
-        "publish" in path.read_text().casefold() or "release" in path.read_text().casefold()
-        for path in workflow_dir.iterdir()
-    )
+    assert workflow_directory_findings(workflow_dir) == []

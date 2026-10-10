@@ -2,12 +2,11 @@ import argparse
 import tempfile
 from pathlib import Path
 
+from app.config import get_settings
 from app.services.security_gap_closeout import (
     build_security_gap_closeout_report,
     write_security_gap_closeout_artifacts,
 )
-
-from app.config import get_settings
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--output-root", type=Path)

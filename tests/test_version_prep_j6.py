@@ -25,6 +25,7 @@ from app.services.version_prep import (
 from scripts.audit_public_safety import audit_paths, audit_text
 from scripts.audit_routes_read_only import application_routes, audit_routes
 from scripts.check_docs_site import check_docs_site
+from tests.workflow_safety import workflow_directory_findings
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -245,7 +246,4 @@ def test_routes_and_workflows_remain_unchanged():
     assert len(application_routes()) == 81
     assert audit_routes() == []
     workflow_dir = ROOT / ".github/workflows"
-    assert not workflow_dir.is_dir() or not any(
-        "publish" in path.read_text().casefold() or "release" in path.read_text().casefold()
-        for path in workflow_dir.iterdir()
-    )
+    assert workflow_directory_findings(workflow_dir) == []

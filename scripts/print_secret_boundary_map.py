@@ -11,7 +11,8 @@ def main() -> int:
         build_infra_security_review_report(get_settings())
     )
     print(
-        f"[INFO] Secret boundary map generated successfully (length={len(rendered_boundary_map)} chars)."
+        "[INFO] Secret boundary map generated successfully "
+        f"(length={len(rendered_boundary_map)} chars)."
     )
     return 0
 

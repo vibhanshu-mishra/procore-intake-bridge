@@ -1,9 +1,8 @@
+from app.config import get_settings
 from app.services.api_docs_review import (
     build_api_docs_report,
     render_api_usage_examples_markdown,
 )
-
-from app.config import get_settings
 
 if __name__ == "__main__":
     report = build_api_docs_report(get_settings())

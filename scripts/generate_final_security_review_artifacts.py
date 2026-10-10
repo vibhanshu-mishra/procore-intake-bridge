@@ -2,12 +2,11 @@ import argparse
 import tempfile
 from pathlib import Path
 
+from app.config import get_settings
 from app.services.final_security_review import (
     build_final_security_review_report,
     write_final_security_review_artifacts,
 )
-
-from app.config import get_settings
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--output-root", type=Path)
