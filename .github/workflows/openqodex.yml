@@ -21,7 +21,7 @@ jobs:
           fetch-depth: 0
 
       - name: Scan changed code
-        uses: openqodex/openqodex@9c4d516a15954ba3ed648fe1177038c92fb8f884 # v0
+        uses: openqodex/openqodex@736fd1484a05ead753375f52232bcf9e70f84246 # v0
         with:
           review: off
           upload-sarif: 'false'
